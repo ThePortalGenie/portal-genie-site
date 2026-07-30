@@ -22,6 +22,10 @@ export const homepage = {
       label: buttons.seePlatform,
       href: links.platform,
     },
+    illustration: {
+      src: "/images/illustrations/hero-customer-experience.png",
+      alt: "A conceptual illustration representing secure digital customer experiences, communication, documents and payments for Xero businesses.",
+    },
   },
   trustBar: {
     items: [
