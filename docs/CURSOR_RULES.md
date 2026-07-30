@@ -192,3 +192,26 @@ A task is complete only when:
 - The code matches the Project Brief.
 - The implementation follows the Design System.
 - The solution is production-ready.
+
+
+#10 Brand Messaging
+
+The Portal Genie complements Xero.
+
+Never position The Portal Genie as replacing Xero or fixing shortcomings in Xero.
+
+Preferred language:
+
+- Built for Xero businesses
+- Works alongside Xero
+- Complements Xero
+- Extends the value of Xero
+- Extends the customer experience
+
+Avoid language such as:
+
+- Replaces Xero
+- Fixes Xero
+- Xero can't...
+- Xero businesses struggle because...
+- Most Xero businesses still...
