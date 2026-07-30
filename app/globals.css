@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  --portal-navy: #112136;
+  --portal-blue: #0077BE;
+  --portal-teal: #00BEB9;
+  --background: #FAFBFB;
+  --surface: #ffffff;
+  --muted: #B7BCC2;
+}
+
+@theme inline {
+  --color-portal-navy: var(--portal-navy);
+  --color-portal-blue: var(--portal-blue);
+  --color-portal-teal: var(--portal-teal);
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+
+  --font-sans: var(--font-inter);
+
+  --max-width-content: 75rem;
+  --max-width-prose: 47.5rem;
+
+  --radius-button: 0.75rem;
+  --radius-card: 1.25rem;
+  --radius-badge: 9999px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--portal-navy);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:focus-visible {
+  outline: 2px solid var(--portal-blue);
+  outline-offset: 2px;
+}
