@@ -3,6 +3,7 @@ import Link from "next/link";
 import { links } from "@/config/links";
 import { site } from "@/config/site";
 import { headerActions } from "@/content/navigation";
+import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Container } from "@/components/ui/Container";
 import { MobileMenuButton } from "./MobileMenuButton";
 import { NavLinks } from "./NavLinks";
@@ -41,12 +42,9 @@ export function Header() {
             >
               {headerActions.login.label}
             </Link>
-            <Link
-              href={headerActions.bookDemo.href}
-              className="inline-flex h-10 items-center justify-center rounded-button bg-portal-blue px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-portal-blue/90 sm:px-6"
-            >
+            <ButtonLink href={headerActions.bookDemo.href}>
               {headerActions.bookDemo.label}
-            </Link>
+            </ButtonLink>
             <MobileMenuButton />
           </div>
         </div>

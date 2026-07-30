@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { site } from "@/config/site";
 
 export interface BrowserFrameProps {
   children: ReactNode;
@@ -28,7 +29,7 @@ export function BrowserFrame({
         {showAddressBar ? (
           <div className="mx-auto flex h-7 w-full max-w-sm items-center rounded-button border border-muted/20 bg-surface px-3">
             <span className="truncate text-xs text-muted">
-              {title ?? "app.portalgenie.com"}
+              {title ?? site.appHost}
             </span>
           </div>
         ) : (

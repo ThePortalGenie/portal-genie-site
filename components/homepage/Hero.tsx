@@ -1,31 +1,12 @@
-import Link from "next/link";
-import { hero } from "@/content/homepage";
+import { Check } from "lucide-react";
+import { homepage } from "@/content/homepage";
 import { Container } from "@/components/ui/Container";
+import { ButtonLink } from "@/components/ui/ButtonLink";
 import { HeroIllustration } from "./HeroIllustration";
 
-function CheckIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      aria-hidden="true"
-      className="shrink-0 text-portal-teal"
-    >
-      <path
-        d="M3.5 8.5L6.5 11.5L12.5 4.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 export function Hero() {
+  const { hero } = homepage;
+
   return (
     <section className="bg-background pt-8 pb-[72px] md:pt-12 md:pb-24 lg:pt-16 lg:pb-[120px]">
       <Container>
@@ -51,25 +32,31 @@ export function Hero() {
                   key={statement}
                   className="flex items-center gap-2.5 text-sm text-portal-navy/70"
                 >
-                  <CheckIcon />
+                  <Check
+                    className="size-4 shrink-0 text-portal-teal"
+                    strokeWidth={2}
+                    aria-hidden="true"
+                  />
                   <span>{statement}</span>
                 </li>
               ))}
             </ul>
 
             <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
-              <Link
+              <ButtonLink
                 href={hero.primaryCta.href}
-                className="inline-flex h-11 w-full items-center justify-center rounded-button bg-portal-blue px-6 text-sm font-medium text-white transition-colors duration-200 hover:bg-portal-blue/90 sm:w-auto"
+                variant="primary"
+                className="w-full sm:w-auto"
               >
                 {hero.primaryCta.label}
-              </Link>
-              <Link
+              </ButtonLink>
+              <ButtonLink
                 href={hero.secondaryCta.href}
-                className="inline-flex h-11 w-full items-center justify-center rounded-button border border-muted/40 bg-surface px-6 text-sm font-medium text-portal-navy transition-colors duration-200 hover:border-muted/70 hover:bg-background sm:w-auto"
+                variant="secondary"
+                className="w-full sm:w-auto"
               >
                 {hero.secondaryCta.label}
-              </Link>
+              </ButtonLink>
             </div>
           </div>
 

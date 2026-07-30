@@ -38,7 +38,7 @@ export const homepage = {
   valueExtension: {
     headline: "Extend the value of Xero for your customers.",
     description:
-      "Today's customers expect fast, secure and convenient digital experiences. The Portal Genie complements Xero by providing a modern customer experience layer that brings together communication, documents, payments and self-service—all while your team continues working in Xero.",
+      "Today's customers expect fast, secure and convenient digital experiences. The Portal Genie complements Xero by providing a modern customer experience layer that brings together communication, documents, payments and self-service.",
     cards: [
       {
         title: "Connected customer experience",
@@ -237,5 +237,3 @@ export const homepage = {
     ],
   },
 } as const;
-
-export const hero = homepage.hero;

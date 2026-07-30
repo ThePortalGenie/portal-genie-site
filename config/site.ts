@@ -11,4 +11,5 @@ export const site = {
     width: 1306,
     height: 662,
   },
+  appHost: "app.theportalgenie.com",
 } as const;

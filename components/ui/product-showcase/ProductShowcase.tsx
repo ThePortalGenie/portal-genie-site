@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { site } from "@/config/site";
 import { BrowserFrame } from "./BrowserFrame";
 import { FeatureCallout, type FeatureCalloutProps } from "./FeatureCallout";
 
@@ -42,7 +43,7 @@ export function ProductShowcase({
   );
 
   const visual = showBrowserFrame ? (
-    <BrowserFrame title="app.portalgenie.com">{imageContent}</BrowserFrame>
+    <BrowserFrame title={site.appHost}>{imageContent}</BrowserFrame>
   ) : (
     <div className="overflow-hidden rounded-[24px] border border-muted/25 bg-surface shadow-[0_12px_40px_-12px_rgba(17,33,54,0.12)]">
       {imageContent}
