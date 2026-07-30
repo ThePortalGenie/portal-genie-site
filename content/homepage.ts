@@ -156,6 +156,86 @@ export const homepage = {
       },
     ],
   },
+  features: {
+    eyebrow: "Capabilities",
+    headline: "Everything you need to deliver an exceptional customer experience.",
+    description:
+      "Portal Genie extends Xero with customer-facing tools that improve communication, simplify administration and create a professional digital experience for every customer.",
+    cards: [
+      {
+        title: "Customer Portal",
+        description:
+          "Provide every customer with one secure destination for invoices, documents, payments and communication.",
+        icon: "layout-dashboard",
+        highlights: [
+          "Secure customer login",
+          "Mobile-friendly portal",
+          "Account statements",
+          "Quotes & credit notes",
+        ],
+      },
+      {
+        title: "Document Management",
+        description:
+          "Share, organise and manage business documents without relying on email attachments.",
+        icon: "folder-open",
+        highlights: [
+          "Secure uploads",
+          "Custom folders",
+          "Visibility controls",
+          "Bulk document uploads",
+        ],
+      },
+      {
+        title: "Online Payments",
+        description:
+          "Help customers pay invoices faster using integrated online payment capabilities.",
+        icon: "credit-card",
+        highlights: [
+          "Pay invoices online",
+          "Outstanding balances",
+          "Payment history",
+          "Invoice actions",
+        ],
+      },
+      {
+        title: "Branding & Customisation",
+        description:
+          "Create a customer experience that reflects your own brand rather than generic accounting software.",
+        icon: "palette",
+        highlights: [
+          "White labelling",
+          "Custom domains",
+          "Logos & colours",
+          "Promotional billboards",
+        ],
+      },
+      {
+        title: "Communication",
+        description:
+          "Keep customers informed with secure communication and automated notifications.",
+        icon: "messages-square",
+        highlights: [
+          "Secure messaging",
+          "Welcome messages",
+          "Email notifications",
+          "Scheduled emails",
+        ],
+      },
+      {
+        title: "Administration & Automation",
+        description:
+          "Reduce manual administration through automation and better customer management.",
+        icon: "workflow",
+        highlights: [
+          "Reporting dashboard",
+          "User management",
+          "Workflow reminders",
+          "Client profiles",
+        ],
+      },
+    ],
+  },
 } as const;
 
 export const hero = homepage.hero;
