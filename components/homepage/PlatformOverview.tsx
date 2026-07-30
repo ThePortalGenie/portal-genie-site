@@ -41,6 +41,7 @@ export function PlatformOverview() {
             description={description}
             image={showcase.image}
             alt={showcase.alt}
+            aspectRatio={showcase.aspectRatio}
             layout="center"
             showBrowserFrame
             showCopy={false}

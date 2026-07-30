@@ -10,6 +10,7 @@ export interface ProductShowcaseProps {
   layout?: "left" | "right" | "center";
   showBrowserFrame?: boolean;
   showCopy?: boolean;
+  aspectRatio?: string;
   featureCallouts?: FeatureCalloutProps[];
 }
 
@@ -21,14 +22,19 @@ export function ProductShowcase({
   layout = "left",
   showBrowserFrame = true,
   showCopy = true,
+  aspectRatio = "16/10",
   featureCallouts = [],
 }: ProductShowcaseProps) {
   const imageContent = (
-    <div className="relative aspect-[16/10] w-full max-h-[280px] overflow-hidden bg-background sm:max-h-none">
+    <div
+      className="relative w-full max-h-[280px] overflow-hidden bg-background sm:max-h-none"
+      style={{ aspectRatio }}
+    >
       <Image
         src={image}
         alt={alt}
         fill
+        quality={90}
         className="object-contain object-top"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 896px, 896px"
       />

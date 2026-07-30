@@ -61,8 +61,9 @@ export const homepage = {
     description:
       "The Portal Genie brings together the capabilities Xero businesses need to serve customers. Secure access to documents, communication, payments and self-service, while your team continues working in Xero.",
     showcase: {
-      image: "/images/product/dashboard-overview.png",
-      alt: "Portal Genie dashboard showing customer activity, document management and business insights.",
+      image: "/images/product/marketing/platform-overview-dashboard.png",
+      alt: "Portal Genie dashboard showing customer activity, analytics, document management and customer engagement.",
+      aspectRatio: "3/2",
     },
     pillars: [
       {
@@ -100,6 +101,54 @@ export const homepage = {
         description:
           "Empower customers to find answers, access information and complete tasks on their own, around the clock.",
         icon: "user-check",
+      },
+    ],
+  },
+  customerExperience: {
+    headline: "Give every customer a secure, branded destination.",
+    description:
+      "Today's customers expect more than emailed invoices and disconnected conversations. Portal Genie provides every customer with one secure, branded destination where they can view invoices, access documents, communicate with your business, make payments and manage their relationship—all while your team continues working in Xero.",
+    showcase: {
+      image: "/images/product/marketing/customer-portal.png",
+      alt: "Portal Genie client portal allowing customers to view invoices, access documents, make payments and securely communicate with a business.",
+      aspectRatio: "3/2",
+    },
+    features: [
+      { title: "Secure Client Portal", icon: "shield-check" },
+      { title: "Online Payments", icon: "credit-card" },
+      { title: "Document Access", icon: "file-text" },
+      { title: "Secure Messaging", icon: "message-square" },
+      { title: "Self-Service Experience", icon: "user-check" },
+    ],
+  },
+  beyondTransaction: {
+    headline: "Beyond the Transaction",
+    description:
+      "Every invoice, document, payment and conversation is an opportunity to strengthen your customer relationship. Portal Genie brings these interactions together into one connected experience, helping businesses deliver faster service, clearer communication and a more professional customer journey.",
+    steps: [
+      {
+        title: "Invoice",
+        description:
+          "Create and present invoices through a secure customer portal.",
+        icon: "receipt",
+      },
+      {
+        title: "Payments",
+        description:
+          "Allow customers to pay quickly using integrated online payments.",
+        icon: "credit-card",
+      },
+      {
+        title: "Documents",
+        description:
+          "Share files securely instead of relying on email attachments.",
+        icon: "file-text",
+      },
+      {
+        title: "Communication",
+        description:
+          "Keep conversations connected to the customer record.",
+        icon: "message-square",
       },
     ],
   },
