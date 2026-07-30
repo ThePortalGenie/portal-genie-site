@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { links } from "@/config/links";
+import { site } from "@/config/site";
+import { headerActions } from "@/content/navigation";
 import { Container } from "@/components/ui/Container";
 import { MobileMenuButton } from "./MobileMenuButton";
 import { NavLinks } from "./NavLinks";
-
-const LOGIN_URL = "#";
-const BOOK_DEMO_URL = "/contact";
 
 export function Header() {
   return (
@@ -13,15 +13,15 @@ export function Header() {
       <Container>
         <div className="flex h-[72px] items-center justify-between gap-6 lg:h-20 lg:gap-8">
           <Link
-            href="/"
+            href={links.home}
             className="flex shrink-0 items-center pr-4 lg:pr-10"
-            aria-label="Portal Genie home"
+            aria-label={site.logo.ariaLabel}
           >
             <Image
-              src="/images/logos/portal-genie-logo.png"
-              alt="Portal Genie"
-              width={1306}
-              height={662}
+              src={site.logo.src}
+              alt={site.logo.alt}
+              width={site.logo.width}
+              height={site.logo.height}
               className="h-auto max-h-[54px] w-auto"
               priority
             />
@@ -36,16 +36,16 @@ export function Header() {
 
           <div className="flex items-center gap-4 sm:gap-5">
             <Link
-              href={LOGIN_URL}
+              href={headerActions.login.href}
               className="text-sm font-medium text-portal-navy transition-colors duration-200 hover:text-portal-blue"
             >
-              Login
+              {headerActions.login.label}
             </Link>
             <Link
-              href={BOOK_DEMO_URL}
+              href={headerActions.bookDemo.href}
               className="inline-flex h-10 items-center justify-center rounded-button bg-portal-blue px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-portal-blue/90 sm:px-6"
             >
-              Book a Demo
+              {headerActions.bookDemo.label}
             </Link>
             <MobileMenuButton />
           </div>

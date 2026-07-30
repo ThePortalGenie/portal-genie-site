@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Header } from "@/components/navigation/Header";
+import { site } from "@/config/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -10,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Portal Genie",
-  description: "The Customer Experience Layer for Xero businesses.",
+  title: site.title,
+  description: site.description,
 };
 
 export default function RootLayout({

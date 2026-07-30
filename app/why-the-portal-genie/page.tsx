@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { links } from "@/config/links";
+import { buttons } from "@/content/buttons";
 import { Container } from "@/components/ui/Container";
 
 export default function WhyThePortalGeniePage() {
@@ -14,10 +16,10 @@ export default function WhyThePortalGeniePage() {
             Genie website.
           </p>
           <Link
-            href="/contact"
+            href={links.bookDemo}
             className="mt-10 inline-flex h-10 items-center justify-center rounded-button bg-portal-blue px-5 text-sm font-medium text-white transition-colors duration-200 hover:bg-portal-blue/90 sm:px-6"
           >
-            Book a Demo
+            {buttons.bookDemo}
           </Link>
         </div>
       </Container>

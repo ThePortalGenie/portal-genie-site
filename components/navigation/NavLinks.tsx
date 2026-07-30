@@ -1,12 +1,5 @@
 import Link from "next/link";
-
-export const mainNavItems = [
-  { label: "Why The Portal Genie", href: "/why-the-portal-genie" },
-  { label: "The Platform", href: "/platform" },
-  { label: "Features", href: "/features" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "Resources", href: "/resources" },
-] as const;
+import { mainNavItems } from "@/content/navigation";
 
 export function NavLinks() {
   return (

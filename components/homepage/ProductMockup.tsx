@@ -58,7 +58,7 @@ export function ProductMockup() {
 
           {/* Content cards */}
           <div className="grid flex-1 grid-cols-1 gap-3 sm:grid-cols-2">
-            <div className="rounded-button border border-muted/20 bg-background p-4">
+            <div className="rounded-button border border-portal-blue/25 bg-surface p-4 ring-1 ring-portal-blue/10">
               <div className="mb-4 h-2.5 w-24 rounded bg-portal-navy/20" />
               <div className="space-y-2.5">
                 <div className="h-2 w-full rounded bg-muted/30" />
