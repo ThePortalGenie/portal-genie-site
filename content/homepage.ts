@@ -60,6 +60,10 @@ export const homepage = {
     headline: "One platform for the complete customer experience.",
     description:
       "The Portal Genie brings together the capabilities Xero businesses need to serve customers. Secure access to documents, communication, payments and self-service, while your team continues working in Xero.",
+    showcase: {
+      image: "/images/product/dashboard-overview.png",
+      alt: "Portal Genie dashboard showing customer activity, document management and business insights.",
+    },
     pillars: [
       {
         title: "Secure Customer Portal",

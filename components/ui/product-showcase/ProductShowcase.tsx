@@ -9,6 +9,7 @@ export interface ProductShowcaseProps {
   alt: string;
   layout?: "left" | "right" | "center";
   showBrowserFrame?: boolean;
+  showCopy?: boolean;
   featureCallouts?: FeatureCalloutProps[];
 }
 
@@ -19,16 +20,17 @@ export function ProductShowcase({
   alt,
   layout = "left",
   showBrowserFrame = true,
+  showCopy = true,
   featureCallouts = [],
 }: ProductShowcaseProps) {
   const imageContent = (
-    <div className="relative aspect-[16/10] w-full overflow-hidden bg-background">
+    <div className="relative aspect-[16/10] w-full max-h-[280px] overflow-hidden bg-background sm:max-h-none">
       <Image
         src={image}
         alt={alt}
         fill
-        className="object-cover object-top"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+        className="object-contain object-top"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 896px, 896px"
       />
     </div>
   );
@@ -83,6 +85,15 @@ export function ProductShowcase({
   );
 
   if (layout === "center") {
+    if (!showCopy) {
+      return (
+        <div className="w-full">
+          {visualBlock}
+          {callouts ? <div className="mt-4 md:hidden">{callouts}</div> : null}
+        </div>
+      );
+    }
+
     return (
       <article className="w-full">
         {copy}

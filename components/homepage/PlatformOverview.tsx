@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { homepage } from "@/content/homepage";
 import { Container } from "@/components/ui/Container";
-import { ProductMockup } from "./ProductMockup";
+import { ProductShowcase } from "@/components/ui/product-showcase";
 
 const iconMap: Record<string, LucideIcon> = {
   "shield-check": ShieldCheck,
@@ -21,7 +21,7 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export function PlatformOverview() {
-  const { headline, description, pillars } = homepage.platformOverview;
+  const { headline, description, showcase, pillars } = homepage.platformOverview;
 
   return (
     <section className="bg-surface py-[72px] md:py-24 lg:py-[120px]">
@@ -35,8 +35,16 @@ export function PlatformOverview() {
           </p>
         </div>
 
-        <div className="mx-auto mt-12 max-w-4xl lg:mt-16">
-          <ProductMockup />
+        <div className="mx-auto mt-12 max-w-5xl lg:mt-16">
+          <ProductShowcase
+            title={headline}
+            description={description}
+            image={showcase.image}
+            alt={showcase.alt}
+            layout="center"
+            showBrowserFrame
+            showCopy={false}
+          />
         </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-8">
