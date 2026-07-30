@@ -56,6 +56,49 @@ export const homepage = {
       },
     ],
   },
+  platformOverview: {
+    headline: "One platform for the complete customer experience.",
+    description:
+      "The Portal Genie brings together the capabilities Xero businesses need to serve customers. Secure access to documents, communication, payments and self-service, while your team continues working in Xero.",
+    pillars: [
+      {
+        title: "Secure Customer Portal",
+        description:
+          "Give every customer a branded, secure destination to access their account and stay connected with your business.",
+        icon: "shield-check",
+      },
+      {
+        title: "Document Management",
+        description:
+          "Share and collect documents in one place, so customers always know where to find what they need.",
+        icon: "file-text",
+      },
+      {
+        title: "Secure Messaging",
+        description:
+          "Keep customer conversations organised and secure, without relying on scattered email threads.",
+        icon: "message-square",
+      },
+      {
+        title: "Online Payments",
+        description:
+          "Make it simple for customers to view and pay invoices, supporting smoother payment completion.",
+        icon: "credit-card",
+      },
+      {
+        title: "Digital Forms & Workflows",
+        description:
+          "Guide customers through requests and approvals with clear digital workflows that save everyone time.",
+        icon: "clipboard-list",
+      },
+      {
+        title: "Customer Self-Service",
+        description:
+          "Empower customers to find answers, access information and complete tasks on their own, around the clock.",
+        icon: "user-check",
+      },
+    ],
+  },
 } as const;
 
 export const hero = homepage.hero;
