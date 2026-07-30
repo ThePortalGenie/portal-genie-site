@@ -15,8 +15,8 @@ Global header navigation (desktop and mobile):
 | Label | Route | Notes |
 |-------|-------|-------|
 | Logo | `/` | Returns to homepage |
-| Why Portal Genie | `/why-portal-genie` | Category and problem/solution |
-| Platform | `/platform` | Product overview and how it works |
+| Why The Portal Genie | `/why-portal-genie` | Category and problem/solution |
+| The Platform | `/platform` | Product overview and how it works |
 | Features | `/features` | Capabilities linked to customer outcomes |
 | Pricing | `/pricing` | Plans and value |
 | Resources | `/resources` | Content hub |
@@ -37,8 +37,8 @@ Global header navigation (desktop and mobile):
 | Page | Route | Status |
 |------|-------|--------|
 | Home | `/` | Planned |
-| Why Portal Genie | `/why-portal-genie` | Planned |
-| Platform | `/platform` | Planned |
+| Why The Portal Genie | `/why-portal-genie` | Planned |
+| The Platform | `/platform` | Planned |
 | Features | `/features` | Placeholder route exists |
 | Pricing | `/pricing` | Placeholder route exists |
 | Resources | `/resources` | Placeholder route exists |
@@ -71,7 +71,7 @@ See How It Works
 
 ---
 
-### Why Portal Genie
+### Why The Portal Genie
 
 **Primary purpose**  
 Explain the missing customer experience for Xero businesses and establish the Customer Experience Layer category.
@@ -102,7 +102,7 @@ Explore the Platform
 
 ---
 
-### Platform
+### The Platform
 
 **Primary purpose**  
 Show how Portal Genie works in practice — real product, real workflows, real customer interactions.
@@ -221,7 +221,7 @@ Portal Genie helps Xero businesses deliver a better customer experience. Learn h
 Book a Demo
 
 **Secondary CTA**  
-Browse Why Portal Genie
+Browse Why The Portal Genie
 
 ---
 
@@ -311,8 +311,8 @@ Footer columns and links:
 
 **Product**
 
-- Why Portal Genie
-- Platform
+- Why The Portal Genie
+- The Platform
 - Features
 - Pricing
 
@@ -360,12 +360,12 @@ Understand quickly whether Portal Genie solves a real customer experience proble
 **Typical path**
 
 1. Home → Hero and problem sections
-2. Why Portal Genie → category and outcomes
-3. Platform → product proof
+2. Why The Portal Genie → category and outcomes
+3. The Platform → product proof
 4. Book a Demo
 
 **Key pages**  
-Home, Why Portal Genie, Platform, Pricing
+Home, Why The Portal Genie, The Platform, Pricing
 
 ---
 
@@ -378,11 +378,11 @@ Evaluate whether Portal Genie helps clients serve their customers better with le
 
 1. Home or Resources → educational content
 2. Features → outcome-led capabilities
-3. Platform → workflows and customer-facing experience
+3. The Platform → workflows and customer-facing experience
 4. Book a Demo or Contact
 
 **Key pages**  
-Resources, Features, Platform, Contact
+Resources, Features, The Platform, Contact
 
 ---
 
@@ -395,12 +395,12 @@ Assess day-to-day impact: less repeated document sending, fewer support requests
 
 1. Home → problem and platform overview
 2. Features → specific outcomes (invoices, statements, documents, payments)
-3. Platform → screenshots and workflows
+3. The Platform → screenshots and workflows
 4. Pricing → value conversation
 5. Book a Demo
 
 **Key pages**  
-Home, Features, Platform, Pricing
+Home, Features, The Platform, Pricing
 
 ---
 
@@ -423,6 +423,9 @@ Marketing pages should not obstruct this journey. Login must remain visible in h
 ---
 
 ## 7. Content principles
+
+**Brand naming**  
+The official product and platform name is **The Portal Genie**. Use "Portal Genie" only where it reads naturally within body copy. Navigation labels follow the official naming convention.
 
 **Lead with outcomes**  
 Communicate what the business and its customers gain before listing capabilities. Every feature should answer: how does this improve the customer's experience?

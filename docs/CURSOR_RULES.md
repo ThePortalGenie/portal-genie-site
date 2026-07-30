@@ -59,6 +59,10 @@ Build the project incrementally.
 
 # 3. Product Positioning
 
+The official product and platform name is **The Portal Genie**.
+
+Use "Portal Genie" only where it reads naturally within body copy.
+
 Portal Genie is:
 
 > **The Customer Experience Layer for Xero businesses.**

@@ -9,7 +9,7 @@
 
 # Vision
 
-Create the definitive website for Portal Genie.
+Create the definitive website for The Portal Genie.
 
 
 ## The Customer Experience Layer for Xero Businesses.
@@ -224,6 +224,24 @@ Portal Genie helps businesses:
 - Save valuable staff time
 
 The website should always communicate outcomes before features.
+
+---
+
+## Brand Naming
+
+Official product name:
+
+**The Portal Genie**
+
+Short form:
+
+**Portal Genie**
+
+Use "The Portal Genie" when referring to the product or platform by its full name.
+
+Use "Portal Genie" only where it reads naturally within body copy.
+
+Do not invent alternative product names or abbreviations.
 
 ---
 
@@ -469,9 +487,9 @@ Support.
 
 Home
 
-Why Portal Genie
+Why The Portal Genie
 
-Platform
+The Platform
 
 Features
 
