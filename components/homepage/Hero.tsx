@@ -1,17 +1,28 @@
+import Image from "next/image";
 import { Check } from "lucide-react";
 import { homepage } from "@/content/homepage";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/ButtonLink";
-import { HeroVisual } from "./HeroVisual";
+import { HeroIllustration } from "@/components/homepage/HeroIllustration";
 
 export function Hero() {
   const { hero } = homepage;
+  const { xeroConnectedBadge } = hero;
 
   return (
-    <section className="bg-background pt-8 pb-[72px] md:pt-12 md:pb-24 lg:pt-16 lg:pb-[120px]">
+    <section className="relative overflow-hidden bg-background pt-8 pb-[72px] md:pt-12 md:pb-24 lg:pt-16 lg:pb-[120px]">
       <Container>
-        <div className="grid items-start gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16 xl:gap-20">
-          <div className="max-w-xl">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+          <div className="relative z-10 max-w-xl">
+            <Image
+              src={xeroConnectedBadge.src}
+              alt={xeroConnectedBadge.alt}
+              width={xeroConnectedBadge.width}
+              height={xeroConnectedBadge.height}
+              priority
+              className="mb-5 h-auto w-[120px] sm:w-[140px] lg:w-[160px]"
+            />
+
             <p className="text-sm font-medium tracking-wide text-portal-blue">
               {hero.eyebrow}
             </p>
@@ -60,10 +71,8 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="flex w-full justify-center lg:justify-end">
-            <div className="w-full max-w-[760px]">
-              <HeroVisual />
-            </div>
+          <div className="flex w-full justify-center lg:min-h-[480px]">
+            <HeroIllustration />
           </div>
         </div>
       </Container>

@@ -49,3 +49,18 @@ body {
   outline: 2px solid var(--portal-blue);
   outline-offset: 2px;
 }
+
+/* Hero wave — positioning driven by CSS vars from heroIllustrationLayout.ts */
+.hero-wave-wrapper {
+  @media (min-width: 64rem) {
+    position: absolute;
+    top: calc(var(--hero-wave-top) * 1%);
+    left: calc(50vw - var(--hero-wave-offset-lg));
+    width: var(--hero-wave-width-lg);
+  }
+
+  @media (min-width: 80rem) {
+    left: calc(50vw - var(--hero-wave-offset-xl));
+    width: var(--hero-wave-width-xl);
+  }
+}

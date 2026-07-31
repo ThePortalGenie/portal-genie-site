@@ -173,9 +173,7 @@ Customer Experience uses `items-center` for copy/visual balance.
 
 | Asset | Path | Loading |
 |-------|------|---------|
-| Hero laptop (dashboard) | `/images/product/marketing/platform-overview-dashboard.png` | `priority` |
-| Hero tablet (customer portal) | `/images/product/marketing/customer-portal.png` | lazy (default) |
-| Hero phone (mobile portal) | `/images/product/marketing/mobile-portal.jpg` | lazy (default) |
+| Hero illustration | `/images/product/marketing/hero-connected-experience.png` | eager (`priority`) |
 | Platform dashboard | `/images/product/marketing/platform-overview-dashboard.png` | lazy (default) |
 | Customer portal | `/images/product/marketing/customer-portal.png` | lazy (default) |
 
@@ -185,42 +183,38 @@ Customer Experience uses `items-center` for copy/visual balance.
 - Set explicit `width`/`height` or `fill` with `aspectRatio`
 - Use `object-contain` for product screenshots
 - Quality: `90` for marketing assets
-- Alt text lives in `content/homepage.ts`
+- Alt text (or decorative marking) lives in `content/homepage.ts`
 
-Product screenshots use `ProductShowcase` with `BrowserFrame`. The hero device stack uses its own compact frames (see below) rather than `BrowserFrame`.
+Product screenshots use `ProductShowcase` with `BrowserFrame`. The hero illustration is the one exception — see below.
 
 ---
 
-# Signature Hero Visual (`components/homepage/HeroVisual.tsx`)
+# Signature Hero Visual (`components/homepage/HeroIllustration.tsx`)
 
-The hero's visual identity is a **product showcase**, not a generic illustration: one dominant dashboard, floating in open space, with a slow-drifting ribbon system as Portal Genie's signature backdrop. The core principle is *one focal point — everything else supports it*. Reusable pieces live in `components/ui/hero/`:
+The hero's visual identity is a single branded illustration (`hero-connected-experience.png`), not a product screenshot or an abstract composition — real dashboards, tablets and phones are showcased further down the homepage (Platform Overview, Customer Experience). It is deliberately **unframed**: no card, browser frame, device mockup or coloured background. The source artwork has a transparent background (see below) so the wave reads as if it emerges from the page rather than sitting in a picture frame.
 
-| Component | Responsibility |
-|-----------|----------------|
-| `GlowLayer` | Soft radial lighting (blue/teal/white blooms) — no flat backgrounds, no linear gradients |
-| `AnimatedWave` | One flowing translucent ribbon (transform-only loop, heavy blur) — Portal Genie's signature motif |
-| `DeviceStack` | Laptop (dominant, ~84% width, `rotateX(4deg)` perspective), tablet (lower-right, `rotate(6deg)`, ~55% of laptop), phone (lower-left, `rotate(-8deg)`, ~35% of laptop, overlapping); each has a subtle idle float only — rotation is fixed, not animated |
-| `ConnectorLines` | Short, low-opacity SVG stubs (not long sweeping curves) that trace once via `pathLength` on scroll into view |
-| `FloatingBadge` | Compact (~48px tall) glass "capability node" — icon + one line of text, deliberately secondary |
+On large screens the wave is deliberately **integrated** rather than sat beside the copy: it reaches left, underneath the text column, so it feels like one continuous composition ("headline → wave → CTAs") instead of a `Text | Image` split. It's mirrored horizontally (`-scale-x-100`) so the artwork's thin, quiet "entry" point sits near the headline and its brighter, thicker body sweeps down and out to the right past the CTAs, guiding the eye down the page rather than sideways across it.
 
-**Layering (back to front)**
+| Property | Value |
+|----------|-------|
+| Width (mobile/tablet, `<lg`) | Static, in-flow: ~90% width stacked beneath the copy on mobile, scales fluidly up to `sm:max-w-[560px]`. No overlap with the copy — matches the current mobile/small-tablet behaviour exactly. |
+| Width (`lg`, 1024–1279px) | `position: absolute`, fixed `650px`, reduced overlap/bleed compared to `xl` — a deliberately calmer "tablet" treatment |
+| Width (`xl`, 1280px+) | `position: absolute`, fixed `1100px`, allowed to overlap further behind the text column and bleed past the viewport edge on common laptop/desktop widths |
+| Horizontal position (`lg`/`xl`) | Driven by `centerOffsetPx` in `heroIllustrationLayout.ts` → `left: calc(50vw - Npx)` via CSS custom properties (`.hero-wave-wrapper` in `globals.css`). **Not** a plain `vw` value — the copy column stops growing at `max-w-content` (1200px), so plain `vw` caused the wave to drift further into the text on ultrawide screens. Current offsets: `lg: 140px`, `xl: 290px`. Lower the offset to shift the wave right; raise it to shift left. |
+| Vertical position (desktop) | `topPercent` in `heroIllustrationLayout.ts` (currently `6%`), anchored by `top` only (no vertical centring) so the mirrored wave's sweep — entry near the headline, thick body near the CTAs — has room to play out down the section |
+| Layering | The text column (`relative z-10`) sits in a higher stacking context than the illustration (`z-index: auto`), so the wave always renders *behind* Background → Wave → Headline/copy/CTAs, regardless of DOM order. The illustration wrapper is `pointer-events-none`, so it never intercepts clicks even where it overlaps interactive content. |
+| Overflow | The `<section>` carries `relative overflow-hidden` so any bleed past the viewport (or past the section's bottom edge, reinforcing "the wave continues toward the sections below") is clipped cleanly — no horizontal scrollbar, just a "continues past the edge" illusion |
+| Depth | A single, extremely low-opacity ambient glow (`bg-portal-blue/5`, `blur-[130px]`, `-inset-[15%]`, `-z-10`) extending beyond the artwork's own box, plus a soft `drop-shadow` on the image itself — both intentionally close to subconscious |
+| Entrance | One-shot fade + rise: opacity `0→1`, `translateY` `24px→0`, 0.8s `easeOut` |
+| Idle motion | Infinite, barely-visible float: `translateY` `0→-4px→0`, 10s `easeInOut`, looping — implemented as a separate nested `motion.div` so it never fights the entrance animation |
+| Accessibility | Purely decorative alongside the headline/copy: rendered with `alt=""` and `aria-hidden="true"`; a human-readable `description` is kept in `content/homepage.ts` for maintainers |
+| Reduced motion | `useReducedMotion()` disables both the idle float and the keyframed entrance (falls back to a plain opacity/position transition) |
 
-1. `GlowLayer` — radial lighting
-2. `AnimatedWave` ribbons — pass *behind* the devices
-3. Laptop — the focal point
-4. Tablet + phone — overlap the laptop's corners
-5. `FloatingBadge` nodes — quiet, placed in the surrounding negative space, never over a device
+**Image quality**
 
-**Conventions**
+The source PNG has a transparent background, produced by removing the artwork's original opaque-white canvas (`scripts/make-hero-transparent.mjs`, "unscreen" technique against the backed-up source in `assets/source-images/`). This makes image quality non-negotiable: at the framework's default optimisation quality (75), lossy WebP/AVIF re-encoding visibly bleeds a faint haze into the alpha channel across the whole canvas, which reads as a soft rectangular box behind the artwork. `next.config.ts` allowlists `qualities: [75, 100]`, and `HeroIllustration` explicitly requests `quality={100}` to avoid this.
 
-- All hero visual components are `"use client"` and the whole composition is `aria-hidden` — decorative only; hero copy remains in a plain server-rendered column
-- Motion respects `useReducedMotion()` from Framer Motion (disables floats/ribbon drift) in addition to the site's `motion-reduce:` Tailwind convention used elsewhere
-- Ribbon durations are intentionally long (45s/65s/90s) so drift reads as ambient, not "animated"
-- Device rotation is a fixed perspective transform, not a looping animation — only a small Y float (3–6px) keeps them feeling alive
-- Ribbon and connector layers are hidden progressively on smaller breakpoints (`hidden sm:flex`, `hidden lg:flex`, `hidden md:block`) rather than unmounted, keeping the mobile composition simple
-- Only `transform`, `opacity` and SVG `pathLength` are animated — no animated layout properties
-- Leave generous negative space around the composition; do not fill every corner
-- Copy (badge labels) and image sources live in `content/homepage.ts` under `homepage.hero.visual`
+Copy/asset path lives in `content/homepage.ts` under `homepage.hero.illustration`.
 
 ---
 

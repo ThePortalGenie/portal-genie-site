@@ -3,6 +3,12 @@ import { buttons } from "@/content/buttons";
 
 export const homepage = {
   hero: {
+    xeroConnectedBadge: {
+      src: "/images/logos/xero-connected-app-badge.png",
+      alt: "Xero Connected App",
+      width: 1920,
+      height: 1080,
+    },
     eyebrow: "Built for Xero businesses",
     headline: "The Customer Experience Layer for Xero businesses.",
     supportingCopy: [
@@ -22,25 +28,13 @@ export const homepage = {
       label: buttons.seePlatform,
       href: links.platform,
     },
-    visual: {
-      laptop: {
-        src: "/images/product/marketing/platform-overview-dashboard.png",
-        alt: "Portal Genie dashboard shown on a laptop, displaying customer activity and account analytics.",
-      },
-      tablet: {
-        src: "/images/product/marketing/customer-portal.png",
-        alt: "Portal Genie customer portal shown on a tablet, displaying invoices and secure messaging.",
-      },
-      phone: {
-        src: "/images/product/marketing/mobile-portal.jpg",
-        alt: "Portal Genie customer portal shown on a mobile phone.",
-      },
-      badges: [
-        { icon: "shield-check", label: "Secure Documents" },
-        { icon: "credit-card", label: "Online Payments" },
-        { icon: "message-square", label: "Customer Communication" },
-        { icon: "link-2", label: "Xero Connected" },
-      ],
+    illustration: {
+      src: "/images/product/marketing/hero-connected-experience.png",
+      // Purely decorative alongside the headline/copy, so it's rendered
+      // with an empty alt and hidden from assistive tech. Kept here as a
+      // human-readable description for maintainers and future OG/meta use.
+      description:
+        "A conceptual illustration representing Portal Genie connecting businesses and customers through secure documents, payments and communication.",
     },
   },
   trustBar: {
