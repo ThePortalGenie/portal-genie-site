@@ -7,6 +7,7 @@ export const mainNavItems = [
   { label: "Features", href: links.features },
   { label: "Pricing", href: links.pricing },
   { label: "Resources", href: links.resources },
+  { label: "Customer Success", href: links.customerSuccess },
 ] as const;
 
 export const headerActions = {

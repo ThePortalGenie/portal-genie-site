@@ -24,15 +24,17 @@ export function StatisticCard({
       variant="background"
       reveal={reveal}
       revealDelay={revealDelay}
-      className="text-center"
+      className="flex h-full flex-col text-center"
     >
-      {stars ? (
-        <StarRating className="text-xl tracking-wider" />
-      ) : icon === "badge-check" ? (
-        <div className="mx-auto mb-3 inline-flex size-10 items-center justify-center rounded-button bg-portal-blue/10 text-portal-blue">
-          <BadgeCheck className="size-5" strokeWidth={2} aria-hidden="true" />
-        </div>
-      ) : null}
+      <div className="mb-3 flex h-10 items-center justify-center">
+        {stars ? (
+          <StarRating className="text-xl tracking-wider" />
+        ) : icon === "badge-check" ? (
+          <div className="inline-flex size-10 items-center justify-center rounded-button bg-portal-blue/10 text-portal-blue">
+            <BadgeCheck className="size-5" strokeWidth={2} aria-hidden="true" />
+          </div>
+        ) : null}
+      </div>
       <p className="text-3xl font-semibold tracking-tight text-portal-navy sm:text-4xl">
         {value}
       </p>

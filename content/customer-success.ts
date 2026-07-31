@@ -42,10 +42,7 @@ export const customerSuccessPage = {
         label: "Average Rating",
       },
       {
-        value: "7",
-        label: "Verified Reviews",
-      },
-      {
+        stars: 5,
         value: "100%",
         label: "Five-Star Reviews",
       },

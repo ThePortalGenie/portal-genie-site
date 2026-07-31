@@ -12,10 +12,10 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-muted/15 bg-surface/95 backdrop-blur-sm supports-[backdrop-filter]:bg-surface/80">
       <Container>
-        <div className="flex h-[72px] items-center justify-between gap-6 lg:h-20 lg:gap-8">
+        <div className="flex h-[72px] items-center gap-4 lg:h-20 lg:gap-6">
           <Link
             href={links.home}
-            className="flex shrink-0 items-center pr-4 lg:pr-10"
+            className="flex shrink-0 items-center"
             aria-label={site.logo.ariaLabel}
           >
             <Image
@@ -29,16 +29,16 @@ export function Header() {
           </Link>
 
           <nav
-            className="hidden lg:block"
+            className="hidden min-w-0 flex-1 justify-center lg:flex"
             aria-label="Main navigation"
           >
             <NavLinks />
           </nav>
 
-          <div className="flex items-center gap-4 sm:gap-5">
+          <div className="ml-auto flex shrink-0 items-center gap-5 lg:ml-0">
             <Link
               href={headerActions.login.href}
-              className="text-sm font-medium text-portal-navy transition-colors duration-200 hover:text-portal-blue"
+              className="inline-flex h-11 items-center text-sm font-medium leading-none text-portal-navy transition-colors duration-200 hover:text-portal-blue"
             >
               {headerActions.login.label}
             </Link>
