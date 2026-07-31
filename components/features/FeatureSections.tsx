@@ -11,7 +11,7 @@ export function FeatureSections() {
           title={section.title}
           description={section.description}
           benefits={section.benefits}
-          placeholderLabel={section.placeholderLabel}
+          screenshot={section.screenshot}
           imagePosition={index % 2 === 0 ? "right" : "left"}
           background={index % 2 === 0 ? "surface" : "background"}
         />

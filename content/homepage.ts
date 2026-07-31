@@ -13,7 +13,7 @@ export const homepage = {
     headline: "The Customer Experience Layer for Xero businesses.",
     supportingCopy: [
       "Transform how your customers interact with your business without changing the way your team works in Xero.",
-      "Deliver a modern self-service experience with secure documents, communication, payments and automation—all in one place.",
+      "Deliver a modern self-service experience with secure documents, communication, payments and automation - all in one place.",
     ],
     valueStatements: [
       "Built for Xero businesses",
@@ -141,15 +141,15 @@ export const homepage = {
       "Every invoice, document, payment and conversation is an opportunity to strengthen your customer relationship. Portal Genie brings these interactions together into one connected experience, helping businesses deliver faster service, clearer communication and a more professional customer journey.",
     steps: [
       {
-        title: "Invoice",
+        title: "Invoices, Statements, Quotes & Credit Notes",
         description:
-          "Create and present invoices through a secure customer portal.",
-        icon: "receipt",
+          "Provide access to invoices, statements, quotes and credit notes through a secure customer portal.",
+        icon: "file-text",
       },
       {
         title: "Payments",
         description:
-          "Allow customers to pay quickly using integrated online payments.",
+          "Allow customers to pay multiple invoices at once using integrated online payments.",
         icon: "credit-card",
       },
       {
@@ -161,7 +161,7 @@ export const homepage = {
       {
         title: "Communication",
         description:
-          "Keep conversations connected to the customer record.",
+          "Use client notes to keep conversations connected to the customer record.",
         icon: "message-square",
       },
     ],
@@ -170,7 +170,7 @@ export const homepage = {
     eyebrow: "Capabilities",
     headline: "Everything you need to deliver an exceptional customer experience.",
     description:
-      "Portal Genie extends Xero with customer-facing tools that improve communication, simplify administration and create a professional digital experience for every customer.",
+      "The Portal Genie extends Xero with customer-facing tools that improve communication, simplify administration and create a professional digital experience for every customer.",
     cards: [
       {
         title: "Customer Portal",

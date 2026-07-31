@@ -16,6 +16,9 @@ export const heroIllustrationLayout = {
   /** Vertical anchor as a percentage of the hero section */
   topPercent: 6,
 
+  /** Fixed upward shift (px) applied at `lg+` — lowers `top` without transforms */
+  topAdjustPx: -40,
+
   centerOffsetPx: {
     /** 1024px – 1279px */
     lg: 140,
@@ -37,10 +40,12 @@ export const heroIllustrationLayout = {
 } as const;
 
 export function heroIllustrationLayoutVars(): CSSProperties {
-  const { topPercent, centerOffsetPx, widthPx } = heroIllustrationLayout;
+  const { topPercent, topAdjustPx, centerOffsetPx, widthPx } =
+    heroIllustrationLayout;
 
   return {
     "--hero-wave-top": topPercent,
+    "--hero-wave-top-adjust": `${topAdjustPx}px`,
     "--hero-wave-offset-lg": `${centerOffsetPx.lg}px`,
     "--hero-wave-offset-xl": `${centerOffsetPx.xl}px`,
     "--hero-wave-width-lg": `${widthPx.lg}px`,

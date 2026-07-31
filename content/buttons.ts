@@ -4,4 +4,5 @@ export const buttons = {
   seePlatform: "See the Platform",
   learnMore: "Learn More",
   contactSales: "Contact Sales",
+  startFree: "Start Free",
 } as const;

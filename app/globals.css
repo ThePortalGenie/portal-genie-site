@@ -54,7 +54,7 @@ body {
 .hero-wave-wrapper {
   @media (min-width: 64rem) {
     position: absolute;
-    top: calc(var(--hero-wave-top) * 1%);
+    top: calc(var(--hero-wave-top) * 1% + var(--hero-wave-top-adjust));
     left: calc(50vw - var(--hero-wave-offset-lg));
     width: var(--hero-wave-width-lg);
   }

@@ -5,14 +5,18 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { BrowserFrame } from "@/components/ui/product-showcase/BrowserFrame";
 import { ScrollReveal } from "@/components/features/ScrollReveal";
-import { ScreenshotPlaceholder } from "@/components/features/ScreenshotPlaceholder";
+import { FeatureScreenshot } from "@/components/features/FeatureScreenshot";
 
 type FeatureSectionProps = {
   id: string;
   title: string;
   description: string;
   benefits: readonly string[];
-  placeholderLabel: string;
+  screenshot: {
+    src: string;
+    alt: string;
+    aspectRatio: string;
+  };
   imagePosition: "left" | "right";
   background?: "background" | "surface";
 };
@@ -22,7 +26,7 @@ export function FeatureSection({
   title,
   description,
   benefits,
-  placeholderLabel,
+  screenshot,
   imagePosition,
   background = "background",
 }: FeatureSectionProps) {
@@ -62,7 +66,11 @@ export function FeatureSection({
             }
           >
             <BrowserFrame>
-              <ScreenshotPlaceholder label={placeholderLabel} />
+              <FeatureScreenshot
+                src={screenshot.src}
+                alt={screenshot.alt}
+                aspectRatio={screenshot.aspectRatio}
+              />
             </BrowserFrame>
           </div>
         </div>

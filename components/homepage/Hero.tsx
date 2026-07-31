@@ -10,7 +10,7 @@ export function Hero() {
   const { xeroConnectedBadge } = hero;
 
   return (
-    <section className="relative overflow-hidden bg-background pt-8 pb-[72px] md:pt-12 md:pb-24 lg:pt-16 lg:pb-[120px]">
+    <section className="relative overflow-hidden bg-background pt-0 pb-[72px] md:pt-4 md:pb-24 lg:pt-6 lg:pb-[120px]">
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           <div className="relative z-10 max-w-xl">
@@ -20,7 +20,7 @@ export function Hero() {
               width={xeroConnectedBadge.width}
               height={xeroConnectedBadge.height}
               priority
-              className="mb-5 h-auto w-[120px] sm:w-[140px] lg:w-[160px]"
+              className="mb-5 h-auto w-[105px] sm:w-[122px] lg:w-[140px]"
             />
 
             <p className="text-sm font-medium tracking-wide text-portal-blue">
@@ -53,7 +53,7 @@ export function Hero() {
               ))}
             </ul>
 
-            <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
+            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center">
               <ButtonLink
                 href={hero.primaryCta.href}
                 variant="primary"

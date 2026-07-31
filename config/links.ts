@@ -6,7 +6,8 @@ export const links = {
   pricing: "/pricing",
   resources: "/resources",
   contact: "/contact",
-  bookDemo: "https://naggingpanda.zohobookings.com/ThePortalGenieSales",
+  bookDemo: "/book-a-demo",
   login: "https://app.theportalgenie.com/app/login",
+  startFree: "https://app.theportalgenie.com/app/signup",
   support: "/contact",
 } as const;
