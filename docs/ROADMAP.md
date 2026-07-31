@@ -9,6 +9,7 @@
 - [x] Beyond the Transaction
 - [x] Features
 - [x] Design System Audit
+- [x] Signature Hero Visual
 
 ## Phase 2 – Core Pages
 - [ ] Features

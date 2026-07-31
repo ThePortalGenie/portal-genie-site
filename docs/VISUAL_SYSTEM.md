@@ -173,7 +173,9 @@ Customer Experience uses `items-center` for copy/visual balance.
 
 | Asset | Path | Loading |
 |-------|------|---------|
-| Hero illustration | `/images/illustrations/hero-customer-experience.png` | `priority` |
+| Hero laptop (dashboard) | `/images/product/marketing/platform-overview-dashboard.png` | `priority` |
+| Hero tablet (customer portal) | `/images/product/marketing/customer-portal.png` | lazy (default) |
+| Hero phone (mobile portal) | `/images/product/marketing/mobile-portal.jpg` | lazy (default) |
 | Platform dashboard | `/images/product/marketing/platform-overview-dashboard.png` | lazy (default) |
 | Customer portal | `/images/product/marketing/customer-portal.png` | lazy (default) |
 
@@ -185,7 +187,40 @@ Customer Experience uses `items-center` for copy/visual balance.
 - Quality: `90` for marketing assets
 - Alt text lives in `content/homepage.ts`
 
-Product screenshots use `ProductShowcase` with `BrowserFrame`. Hero illustration renders without a frame.
+Product screenshots use `ProductShowcase` with `BrowserFrame`. The hero device stack uses its own compact frames (see below) rather than `BrowserFrame`.
+
+---
+
+# Signature Hero Visual (`components/homepage/HeroVisual.tsx`)
+
+The hero's visual identity is a **product showcase**, not a generic illustration: one dominant dashboard, floating in open space, with a slow-drifting ribbon system as Portal Genie's signature backdrop. The core principle is *one focal point — everything else supports it*. Reusable pieces live in `components/ui/hero/`:
+
+| Component | Responsibility |
+|-----------|----------------|
+| `GlowLayer` | Soft radial lighting (blue/teal/white blooms) — no flat backgrounds, no linear gradients |
+| `AnimatedWave` | One flowing translucent ribbon (transform-only loop, heavy blur) — Portal Genie's signature motif |
+| `DeviceStack` | Laptop (dominant, ~84% width, `rotateX(4deg)` perspective), tablet (lower-right, `rotate(6deg)`, ~55% of laptop), phone (lower-left, `rotate(-8deg)`, ~35% of laptop, overlapping); each has a subtle idle float only — rotation is fixed, not animated |
+| `ConnectorLines` | Short, low-opacity SVG stubs (not long sweeping curves) that trace once via `pathLength` on scroll into view |
+| `FloatingBadge` | Compact (~48px tall) glass "capability node" — icon + one line of text, deliberately secondary |
+
+**Layering (back to front)**
+
+1. `GlowLayer` — radial lighting
+2. `AnimatedWave` ribbons — pass *behind* the devices
+3. Laptop — the focal point
+4. Tablet + phone — overlap the laptop's corners
+5. `FloatingBadge` nodes — quiet, placed in the surrounding negative space, never over a device
+
+**Conventions**
+
+- All hero visual components are `"use client"` and the whole composition is `aria-hidden` — decorative only; hero copy remains in a plain server-rendered column
+- Motion respects `useReducedMotion()` from Framer Motion (disables floats/ribbon drift) in addition to the site's `motion-reduce:` Tailwind convention used elsewhere
+- Ribbon durations are intentionally long (45s/65s/90s) so drift reads as ambient, not "animated"
+- Device rotation is a fixed perspective transform, not a looping animation — only a small Y float (3–6px) keeps them feeling alive
+- Ribbon and connector layers are hidden progressively on smaller breakpoints (`hidden sm:flex`, `hidden lg:flex`, `hidden md:block`) rather than unmounted, keeping the mobile composition simple
+- Only `transform`, `opacity` and SVG `pathLength` are animated — no animated layout properties
+- Leave generous negative space around the composition; do not fill every corner
+- Copy (badge labels) and image sources live in `content/homepage.ts` under `homepage.hero.visual`
 
 ---
 

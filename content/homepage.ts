@@ -22,9 +22,25 @@ export const homepage = {
       label: buttons.seePlatform,
       href: links.platform,
     },
-    illustration: {
-      src: "/images/illustrations/hero-customer-experience.png",
-      alt: "A conceptual illustration representing secure digital customer experiences, communication, documents and payments for Xero businesses.",
+    visual: {
+      laptop: {
+        src: "/images/product/marketing/platform-overview-dashboard.png",
+        alt: "Portal Genie dashboard shown on a laptop, displaying customer activity and account analytics.",
+      },
+      tablet: {
+        src: "/images/product/marketing/customer-portal.png",
+        alt: "Portal Genie customer portal shown on a tablet, displaying invoices and secure messaging.",
+      },
+      phone: {
+        src: "/images/product/marketing/mobile-portal.jpg",
+        alt: "Portal Genie customer portal shown on a mobile phone.",
+      },
+      badges: [
+        { icon: "shield-check", label: "Secure Documents" },
+        { icon: "credit-card", label: "Online Payments" },
+        { icon: "message-square", label: "Customer Communication" },
+        { icon: "link-2", label: "Xero Connected" },
+      ],
     },
   },
   trustBar: {

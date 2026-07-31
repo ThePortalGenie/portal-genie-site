@@ -2,7 +2,7 @@ import { Check } from "lucide-react";
 import { homepage } from "@/content/homepage";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/ButtonLink";
-import { HeroIllustration } from "./HeroIllustration";
+import { HeroVisual } from "./HeroVisual";
 
 export function Hero() {
   const { hero } = homepage;
@@ -10,7 +10,7 @@ export function Hero() {
   return (
     <section className="bg-background pt-8 pb-[72px] md:pt-12 md:pb-24 lg:pt-16 lg:pb-[120px]">
       <Container>
-        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-20 xl:gap-28">
+        <div className="grid items-start gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16 xl:gap-20">
           <div className="max-w-xl">
             <p className="text-sm font-medium tracking-wide text-portal-blue">
               {hero.eyebrow}
@@ -60,9 +60,9 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="flex w-full justify-center lg:justify-end lg:pt-9">
-            <div className="w-full max-w-[650px]">
-              <HeroIllustration />
+          <div className="flex w-full justify-center lg:justify-end">
+            <div className="w-full max-w-[760px]">
+              <HeroVisual />
             </div>
           </div>
         </div>
