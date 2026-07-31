@@ -5,6 +5,7 @@ export const links = {
   features: "/features",
   pricing: "/pricing",
   resources: "/resources",
+  customerSuccess: "/customer-success",
   contact: "/contact",
   bookDemo: "/book-a-demo",
   login: "https://app.theportalgenie.com/app/login",

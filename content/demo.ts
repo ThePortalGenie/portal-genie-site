@@ -8,13 +8,13 @@ export const demoPage = {
     openGraph: {
       title: "Book a Portal Genie Demo — Customer Experience for Xero Businesses",
       description:
-        "Schedule a tailored demonstration of Portal Genie and discover how it extends Xero with secure portals, branded communication and streamlined workflows.",
+        "Schedule a tailored demonstration of The Portal Genie and discover how it extends Xero with secure portals, branded communication and streamlined workflows.",
     },
   },
   hero: {
-    headline: "See Portal Genie in Action",
+    headline: "See The Portal Genie in Action",
     description:
-      "Book a personalised demonstration and discover how Portal Genie helps Xero businesses deliver a better customer experience through secure portals, branded communication and streamlined workflows.",
+      "Book a personalised demonstration and discover how The Portal Genie helps Xero businesses deliver a better customer experience through secure portals, branded communication and streamlined workflows.",
     primaryCta: {
       label: "Scroll to Booking",
       href: "#booking",

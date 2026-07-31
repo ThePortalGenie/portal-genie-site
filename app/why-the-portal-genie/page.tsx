@@ -1,28 +1,33 @@
-import Link from "next/link";
-import { links } from "@/config/links";
-import { buttons } from "@/content/buttons";
-import { Container } from "@/components/ui/Container";
+import type { Metadata } from "next";
+import { WhyHero } from "@/components/why/WhyHero";
+import { WhyChallenge } from "@/components/why/WhyChallenge";
+import { WhyBuilt } from "@/components/why/WhyBuilt";
+import { WhyXero } from "@/components/why/WhyXero";
+import { WhyPhilosophy } from "@/components/why/WhyPhilosophy";
+import { WhyLookingForward } from "@/components/why/WhyLookingForward";
+import { WhyCta } from "@/components/why/WhyCta";
+import { whyPage } from "@/content/why";
+import { site } from "@/config/site";
+
+export const metadata: Metadata = {
+  title: `${whyPage.metadata.title} | ${site.title}`,
+  description: whyPage.metadata.description,
+  openGraph: {
+    title: whyPage.metadata.openGraph.title,
+    description: whyPage.metadata.openGraph.description,
+  },
+};
 
 export default function WhyThePortalGeniePage() {
   return (
-    <main className="py-[72px] md:py-24 lg:py-[120px]">
-      <Container>
-        <div className="max-w-prose">
-          <h1 className="text-3xl font-semibold text-portal-navy md:text-4xl">
-            Why The Portal Genie
-          </h1>
-          <p className="mt-6 text-lg leading-relaxed text-portal-navy/80">
-            This page is currently being developed as part of the new Portal
-            Genie website.
-          </p>
-          <Link
-            href={links.bookDemo}
-            className="mt-10 inline-flex h-10 items-center justify-center rounded-button bg-portal-blue px-5 text-sm font-medium text-white transition-colors duration-200 hover:bg-portal-blue/90 sm:px-6"
-          >
-            {buttons.bookDemo}
-          </Link>
-        </div>
-      </Container>
+    <main>
+      <WhyHero />
+      <WhyChallenge />
+      <WhyBuilt />
+      <WhyXero />
+      <WhyPhilosophy />
+      <WhyLookingForward />
+      <WhyCta />
     </main>
   );
 }
