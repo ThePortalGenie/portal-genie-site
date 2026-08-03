@@ -37,4 +37,14 @@ export const placeholderPages = {
       href: links.contact,
     },
   },
+  startFree: {
+    title: "Start Free",
+    subtitle: "Coming Soon",
+    description:
+      "Self-service signup is currently being prepared. In the meantime, book a demo and we’ll walk you through The Portal Genie.",
+    primaryCta: {
+      label: "Book a Demo",
+      href: links.bookDemo,
+    },
+  },
 } as const;

@@ -15,6 +15,10 @@ export const headerActions = {
     label: buttons.login,
     href: links.login,
   },
+  startFree: {
+    label: buttons.startFree,
+    href: links.startFree,
+  },
   bookDemo: {
     label: buttons.bookDemo,
     href: links.bookDemo,

@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/Container";
 
 type PlaceholderPageProps = {
   title: string;
+  subtitle?: string;
   description: string;
   primaryCta?: {
     label: string;
@@ -12,6 +13,7 @@ type PlaceholderPageProps = {
 
 export function PlaceholderPage({
   title,
+  subtitle,
   description,
   primaryCta,
 }: PlaceholderPageProps) {
@@ -22,6 +24,11 @@ export function PlaceholderPage({
           <h1 className="text-3xl font-semibold tracking-tight text-portal-navy md:text-4xl">
             {title}
           </h1>
+          {subtitle ? (
+            <p className="mt-3 text-sm font-medium tracking-wide text-portal-blue">
+              {subtitle}
+            </p>
+          ) : null}
           <p className="mt-6 text-base leading-relaxed text-portal-navy/75 sm:text-lg">
             {description}
           </p>

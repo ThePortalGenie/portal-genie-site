@@ -5,13 +5,13 @@ import { site } from "@/config/site";
 import { headerActions } from "@/content/navigation";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Container } from "@/components/ui/Container";
-import { MobileMenuButton } from "./MobileMenuButton";
+import { MobileMenu } from "./MobileMenu";
 import { NavLinks } from "./NavLinks";
 
 export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-muted/15 bg-surface/95 backdrop-blur-sm supports-[backdrop-filter]:bg-surface/80">
-      <Container>
+      <Container className="relative">
         <div className="flex h-[72px] items-center gap-4 lg:h-20 lg:gap-6">
           <Link
             href={links.home}
@@ -42,10 +42,20 @@ export function Header() {
             >
               {headerActions.login.label}
             </Link>
-            <ButtonLink href={headerActions.bookDemo.href}>
-              {headerActions.bookDemo.label}
-            </ButtonLink>
-            <MobileMenuButton />
+
+            <div className="hidden items-center gap-3 lg:flex">
+              <ButtonLink
+                href={headerActions.startFree.href}
+                variant="secondary"
+              >
+                {headerActions.startFree.label}
+              </ButtonLink>
+              <ButtonLink href={headerActions.bookDemo.href}>
+                {headerActions.bookDemo.label}
+              </ButtonLink>
+            </div>
+
+            <MobileMenu />
           </div>
         </div>
       </Container>
