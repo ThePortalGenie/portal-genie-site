@@ -17,5 +17,13 @@ export const links = {
   login: "https://app.theportalgenie.com/app/login",
   startFree:
     "https://app.theportalgenie.com/register?registerPage=true&packageId=STANDARD_CUSTOMER_PORTAL",
+  /**
+   * Package-specific registration URLs for paid trials.
+   * Replace with confirmed packageId query params when available.
+   * Do not invent package IDs.
+   */
+  premiumStartFree: "https://app.theportalgenie.com/app/register?registerPage=true&packageId=PRO_CUSTOMER_PORTAL",
+  advancedStartFree:
+    "https://app.theportalgenie.com/app/register?registerPage=true&packageId=ADVANCED_CUSTOMER_PORTAL",
   support: "/contact",
 } as const;

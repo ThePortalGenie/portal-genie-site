@@ -5,4 +5,5 @@ export const buttons = {
   learnMore: "Learn More",
   contactSales: "Contact Sales",
   startFree: "Start Free",
+  start30DaysFree: "Start 30 Days Free",
 } as const;

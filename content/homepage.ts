@@ -3,23 +3,47 @@ import { buttons } from "@/content/buttons";
 
 export const homepage = {
   hero: {
-    xeroConnectedBadge: {
-      src: "/images/logos/xero-connected-app-badge.png",
-      alt: "Xero Connected App",
-      width: 1920,
-      height: 1080,
-    },
-    eyebrow: "Built for Xero businesses",
-    headline: "The Customer Experience Layer for  businesses.",
+    eyebrow: "Works with the accounting software you already use",
+    headline: "The Customer Experience Layer for businesses.",
     supportingCopy: [
-      "Transform how your customers interact with your business without changing the way your team works in Xero.",
+      "Transform how your customers interact with your business without changing the way your team works in your accounting software.",
       "Deliver a modern self-service experience with secure documents, communication, payments and automation - all in one place.",
     ],
     valueStatements: [
-      "Built for Xero businesses",
-      "Works alongside Xero",
+      "Connects with Xero, QuickBooks and Sage Business Cloud",
+      "Works alongside your existing accounting software",
       "No disruption to existing workflows",
     ],
+    /**
+     * Integration branding for the hero.
+     * Xero is primary. QuickBooks / Sage logos are not yet in the repo —
+     * place approved assets at:
+     *   public/images/logos/integrations/quickbooks.png
+     *   public/images/logos/integrations/sage-business-cloud.png
+     * then set `src` on those entries (leave null until then).
+     */
+    integrations: {
+      primary: {
+        name: "Xero",
+        src: "/images/logos/xero-connected-app-badge.png",
+        alt: "Xero Connected App",
+        width: 1920,
+        height: 1080,
+      },
+      secondaryLabel: "Also integrates with",
+      secondary: [
+        {
+          name: "QuickBooks",
+          src: null as string | null,
+          alt: "QuickBooks",
+        },
+        {
+          name: "Sage Business Cloud",
+          src: null as string | null,
+          alt: "Sage Business Cloud",
+        },
+      ],
+    },
     primaryCta: {
       label: buttons.bookDemo,
       href: links.bookDemo,
