@@ -49,8 +49,8 @@ export const homepage = {
       href: links.bookDemo,
     },
     secondaryCta: {
-      label: buttons.seePlatform,
-      href: links.platform,
+      label: buttons.startFree,
+      href: links.startFree,
     },
     illustration: {
       src: "/images/product/marketing/hero-connected-experience.png",
