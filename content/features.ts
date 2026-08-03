@@ -17,6 +17,19 @@ const marketingScreenshots = {
     alt: "Portal Genie dashboard showing customer activity, analytics, document management and customer engagement.",
     aspectRatio: "3/2",
   },
+  customerCommunication: {
+    src: "/images/features/customer-communication-note-history.png",
+    alt: "Portal Genie customer communication and note history",
+    aspectRatio: "3/2",
+    framed: false,
+  },
+  documentManagement: {
+    src: "/images/product/marketing/document-management-admin-client-portal.png",
+    alt: "The Portal Genie document management showing the Admin Portal and Client Portal side by side",
+    aspectRatio: "3/2",
+    framed: false,
+    emphasis: "visual",
+  },
 } as const;
 
 export const featuresPage = {
@@ -70,13 +83,15 @@ export const featuresPage = {
       id: "document-management",
       title: "Document Management",
       description:
-        "Simplify document sharing with a secure, centralised library that gives customers instant access while reducing manual administration for your team.",
+        "Simplify document sharing with one secure, centralised portal where customers can access what they need, whenever they need it.",
       benefits: [
-        "Share invoices, statements and documents securely from one place",
+        "Share invoices, statements, quotes and credit notes synced in realtime with your accounting software",
         "Customers can access and retrieve documents whenever they need them",
+        "Upload other documents to your customer portal for them to view and download",
+        "Your customers can upload documents to your portal for you to receive and review",
         "Eliminate email attachments and keep document history organised",
       ],
-      screenshot: marketingScreenshots.customerPortal,
+      screenshot: marketingScreenshots.documentManagement,
     },
     {
       id: "customer-communication",
@@ -88,7 +103,7 @@ export const featuresPage = {
         "Clear communication history across your team",
         "Fewer missed messages and duplicate threads",
       ],
-      screenshot: marketingScreenshots.customerPortal,
+      screenshot: marketingScreenshots.customerCommunication,
     },
     {
       id: "branding-personalisation",

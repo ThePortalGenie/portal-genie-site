@@ -2,12 +2,15 @@
 
 import { useEffect, useId, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { headerActions, mainNavItems } from "@/content/navigation";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { mobileNavItemClasses } from "@/components/navigation/navStyles";
 
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
   const panelId = useId();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!open) return;
@@ -78,17 +81,22 @@ export function MobileMenu() {
         >
           <nav aria-label="Mobile navigation" className="px-6 py-6 md:px-8">
             <ul className="flex flex-col gap-1">
-              {mainNavItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="block rounded-button px-3 py-3 text-sm font-medium text-portal-navy transition-colors duration-200 hover:bg-background hover:text-portal-blue"
-                    onClick={() => setOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {mainNavItems.map((item) => {
+                const isActive = pathname === item.href;
+
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className={mobileNavItemClasses(isActive)}
+                      aria-current={isActive ? "page" : undefined}
+                      onClick={() => setOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
 
             <div className="mt-6 flex flex-col gap-3 border-t border-muted/15 pt-6">

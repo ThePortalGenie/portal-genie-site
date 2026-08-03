@@ -1,13 +1,15 @@
 import { featuresPage } from "@/content/features";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Container } from "@/components/ui/Container";
+import { GenieFlow } from "@/components/visuals/GenieFlow";
 
 export function FeaturesHero() {
   const { hero } = featuresPage;
 
   return (
-    <section className="bg-background pt-8 pb-[72px] md:pt-12 md:pb-24 lg:pt-16 lg:pb-[120px]">
-      <Container>
+    <section className="relative overflow-hidden bg-background pt-8 pb-[72px] md:pt-12 md:pb-24 lg:pt-16 lg:pb-[120px]">
+      <GenieFlow variant="horizontal" />
+      <Container className="relative z-10">
         <div className="max-w-3xl">
           <h1 className="text-4xl font-semibold leading-tight tracking-tight text-portal-navy sm:text-[2.75rem] sm:leading-tight lg:text-5xl">
             {hero.headline}

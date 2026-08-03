@@ -16,6 +16,6 @@ export const links = {
   bookDemo: "/book-a-demo",
   login: "https://app.theportalgenie.com/app/login",
   startFree:
-    "https://app.theportalgenie.com/app/register?registerPage=true&packageId=STANDARD_CUSTOMER_PORTAL",
+    "https://app.theportalgenie.com/register?registerPage=true&packageId=STANDARD_CUSTOMER_PORTAL",
   support: "/contact",
 } as const;
