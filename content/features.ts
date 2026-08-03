@@ -23,6 +23,13 @@ const marketingScreenshots = {
     aspectRatio: "3/2",
     framed: false,
   },
+  documentManagement: {
+    src: "/images/product/marketing/document-management-admin-client-portal.png",
+    alt: "The Portal Genie document management showing the Admin Portal and Client Portal side by side",
+    aspectRatio: "3/2",
+    framed: false,
+    emphasis: "visual",
+  },
 } as const;
 
 export const featuresPage = {
@@ -84,7 +91,7 @@ export const featuresPage = {
         "Your customers can upload documents to your portal for you to receive and review",
         "Eliminate email attachments and keep document history organised",
       ],
-      screenshot: marketingScreenshots.customerPortal,
+      screenshot: marketingScreenshots.documentManagement,
     },
     {
       id: "customer-communication",

@@ -1,19 +1,30 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { mainNavItems } from "@/content/navigation";
+import { navItemClasses } from "@/components/navigation/navStyles";
 
 export function NavLinks() {
+  const pathname = usePathname();
+
   return (
     <ul className="flex items-center gap-6 xl:gap-7">
-      {mainNavItems.map((item) => (
-        <li key={item.href} className="shrink-0">
-          <Link
-            href={item.href}
-            className="inline-flex items-center whitespace-nowrap border-b border-transparent pb-0.5 text-sm font-medium leading-none text-portal-navy transition-[color,border-color] duration-200 hover:border-portal-blue hover:text-portal-blue"
-          >
-            {item.label}
-          </Link>
-        </li>
-      ))}
+      {mainNavItems.map((item) => {
+        const isActive = pathname === item.href;
+
+        return (
+          <li key={item.href} className="shrink-0">
+            <Link
+              href={item.href}
+              className={navItemClasses(isActive)}
+              aria-current={isActive ? "page" : undefined}
+            >
+              {item.label}
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   );
 }
