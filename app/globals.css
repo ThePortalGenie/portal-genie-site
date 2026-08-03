@@ -64,3 +64,165 @@ body {
     width: var(--hero-wave-width-xl);
   }
 }
+
+/*
+ * Genie Flow — reusable decorative motif.
+ * Hidden on small screens; clipped by parent overflow-hidden.
+ */
+.genie-flow {
+  display: none;
+  z-index: 0;
+}
+
+@media (min-width: 64rem) {
+  .genie-flow {
+    display: block;
+  }
+}
+
+.genie-flow__media {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+}
+
+.genie-flow__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+
+/* Soft ambient — light presence on the right */
+.genie-flow--soft .genie-flow__media {
+  top: -18%;
+  right: -22%;
+  width: min(42rem, 52vw);
+  opacity: 0.26;
+  transform: scaleX(-1) rotate(10deg);
+  transform-origin: center;
+  -webkit-mask-image: radial-gradient(
+    ellipse 65% 55% at 45% 40%,
+    #000 15%,
+    transparent 72%
+  );
+  mask-image: radial-gradient(
+    ellipse 65% 55% at 45% 40%,
+    #000 15%,
+    transparent 72%
+  );
+}
+
+/* Sweep entering from the right, drifting left */
+.genie-flow--sweep-right .genie-flow__media {
+  top: -8%;
+  right: -18%;
+  width: min(50rem, 62vw);
+  opacity: 0.3;
+  transform: scaleX(-1) rotate(-8deg);
+  transform-origin: right center;
+  -webkit-mask-image: linear-gradient(
+    100deg,
+    transparent 0%,
+    #000 28%,
+    #000 62%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    100deg,
+    transparent 0%,
+    #000 28%,
+    #000 62%,
+    transparent 100%
+  );
+}
+
+/* Sweep entering from the left, drifting right */
+.genie-flow--sweep-left .genie-flow__media {
+  top: 5%;
+  left: -28%;
+  width: min(48rem, 58vw);
+  opacity: 0.28;
+  transform: rotate(14deg);
+  transform-origin: left center;
+  -webkit-mask-image: linear-gradient(
+    80deg,
+    transparent 0%,
+    #000 30%,
+    #000 68%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    80deg,
+    transparent 0%,
+    #000 30%,
+    #000 68%,
+    transparent 100%
+  );
+}
+
+/* Broad horizontal ribbon behind intro content */
+.genie-flow--horizontal .genie-flow__media {
+  top: 12%;
+  left: 18%;
+  width: min(56rem, 70vw);
+  opacity: 0.22;
+  transform: scaleX(-1) rotate(-4deg) scaleY(0.85);
+  transform-origin: center;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 20%,
+    #000 75%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 20%,
+    #000 75%,
+    transparent 100%
+  );
+}
+
+/* Upward / diagonal lift */
+.genie-flow--vertical .genie-flow__media {
+  top: -5%;
+  right: -12%;
+  width: min(44rem, 55vw);
+  opacity: 0.27;
+  transform: scaleX(-1) rotate(-28deg) scale(1.05);
+  transform-origin: bottom right;
+  -webkit-mask-image: radial-gradient(
+    ellipse 55% 70% at 60% 55%,
+    #000 10%,
+    transparent 70%
+  );
+  mask-image: radial-gradient(
+    ellipse 55% 70% at 60% 55%,
+    #000 10%,
+    transparent 70%
+  );
+}
+
+/* Corner accent — guides attention without covering content */
+.genie-flow--corner .genie-flow__media {
+  top: auto;
+  bottom: -35%;
+  right: -10%;
+  width: min(40rem, 48vw);
+  opacity: 0.3;
+  transform: scaleX(-1) rotate(22deg);
+  transform-origin: bottom right;
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 60% at 70% 70%,
+    #000 5%,
+    transparent 68%
+  );
+  mask-image: radial-gradient(
+    ellipse 70% 60% at 70% 70%,
+    #000 5%,
+    transparent 68%
+  );
+}
+

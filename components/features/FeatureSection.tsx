@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Check } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -16,6 +17,7 @@ type FeatureSectionProps = {
     src: string;
     alt: string;
     aspectRatio: string;
+    framed?: boolean;
   };
   imagePosition: "left" | "right";
   background?: "background" | "surface";
@@ -31,6 +33,7 @@ export function FeatureSection({
   background = "background",
 }: FeatureSectionProps) {
   const isImageRight = imagePosition === "right";
+  const showBrowserFrame = screenshot.framed !== false;
 
   return (
     <Section id={id} background={background} className="scroll-mt-[8.5rem] lg:scroll-mt-36">
@@ -65,13 +68,27 @@ export function FeatureSection({
               isImageRight ? "order-1 lg:order-2" : "order-1 lg:order-1"
             }
           >
-            <BrowserFrame>
-              <FeatureScreenshot
-                src={screenshot.src}
-                alt={screenshot.alt}
-                aspectRatio={screenshot.aspectRatio}
-              />
-            </BrowserFrame>
+            {showBrowserFrame ? (
+              <BrowserFrame>
+                <FeatureScreenshot
+                  src={screenshot.src}
+                  alt={screenshot.alt}
+                  aspectRatio={screenshot.aspectRatio}
+                />
+              </BrowserFrame>
+            ) : (
+              <div className="w-full overflow-hidden">
+                <Image
+                  src={screenshot.src}
+                  alt={screenshot.alt}
+                  width={1536}
+                  height={1024}
+                  quality={90}
+                  className="h-auto w-full max-w-full object-contain"
+                  sizes="(max-width: 1023px) 100vw, 50vw"
+                />
+              </div>
+            )}
           </div>
         </div>
       </ScrollReveal>

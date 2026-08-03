@@ -2,11 +2,13 @@ import Link from "next/link";
 import { links } from "@/config/links";
 import { buttons } from "@/content/buttons";
 import { Container } from "@/components/ui/Container";
+import { GenieFlow } from "@/components/visuals/GenieFlow";
 
 export default function PlatformPage() {
   return (
-    <main className="py-[72px] md:py-24 lg:py-[120px]">
-      <Container>
+    <main className="relative overflow-hidden py-[72px] md:py-24 lg:py-[120px]">
+      <GenieFlow variant="soft" />
+      <Container className="relative z-10">
         <div className="max-w-prose">
           <h1 className="text-3xl font-semibold text-portal-navy md:text-4xl">
             The Platform
