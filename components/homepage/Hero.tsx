@@ -10,9 +10,9 @@ export function Hero() {
   const { xeroConnectedBadge } = hero;
 
   return (
-    <section className="relative overflow-hidden bg-background pt-0 pb-[72px] md:pt-4 md:pb-24 lg:pt-6 lg:pb-[120px]">
+    <section className="relative overflow-hidden bg-background pt-0 pb-12 md:pt-4 md:pb-24 lg:pt-6 lg:pb-[120px]">
       <Container>
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+        <div className="grid items-center lg:grid-cols-2 lg:gap-16 xl:gap-20">
           <div className="relative z-10 max-w-xl">
             <Image
               src={xeroConnectedBadge.src}
@@ -27,24 +27,24 @@ export function Hero() {
               {hero.eyebrow}
             </p>
 
-            <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight text-portal-navy sm:text-[2.75rem] sm:leading-tight lg:text-5xl">
+            <h1 className="mt-4 text-balance text-4xl font-semibold leading-tight tracking-tight text-portal-navy sm:text-[2.75rem] sm:leading-tight lg:text-5xl">
               {hero.headline}
             </h1>
 
-            <div className="mt-6 space-y-4 text-base leading-relaxed text-portal-navy/75 sm:text-lg">
+            <div className="mt-6 space-y-4 text-base leading-7 text-portal-navy/75 sm:text-lg lg:leading-relaxed">
               {hero.supportingCopy.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
 
-            <ul className="mt-8 flex flex-col gap-2.5 sm:gap-2">
+            <ul className="mt-8 flex flex-col gap-3 sm:gap-2.5">
               {hero.valueStatements.map((statement) => (
                 <li
                   key={statement}
-                  className="flex items-center gap-2.5 text-sm text-portal-navy/70"
+                  className="flex items-start gap-2.5 text-sm leading-snug text-portal-navy/70 sm:items-center"
                 >
                   <Check
-                    className="size-4 shrink-0 text-portal-teal"
+                    className="mt-0.5 size-4 shrink-0 text-portal-teal sm:mt-0"
                     strokeWidth={2}
                     aria-hidden="true"
                   />
@@ -53,7 +53,7 @@ export function Hero() {
               ))}
             </ul>
 
-            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <ButtonLink
                 href={hero.primaryCta.href}
                 variant="primary"
@@ -71,7 +71,7 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="flex w-full justify-center lg:min-h-[480px]">
+          <div className="hidden lg:flex lg:min-h-[480px] lg:w-full lg:justify-center">
             <HeroIllustration />
           </div>
         </div>

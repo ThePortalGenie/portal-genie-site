@@ -10,7 +10,7 @@ export const homepage = {
       height: 1080,
     },
     eyebrow: "Built for Xero businesses",
-    headline: "The Customer Experience Layer for Xero businesses.",
+    headline: "The Customer Experience Layer for  businesses.",
     supportingCopy: [
       "Transform how your customers interact with your business without changing the way your team works in Xero.",
       "Deliver a modern self-service experience with secure documents, communication, payments and automation - all in one place.",
@@ -73,7 +73,7 @@ export const homepage = {
   platformOverview: {
     headline: "One platform for the complete customer experience.",
     description:
-      "The Portal Genie brings together the capabilities Xero businesses need to serve customers. Secure access to documents, communication, payments and self-service, while your team continues working in Xero.",
+      "The Portal Genie brings together the capabilities businesses need to serve customers. Secure access to documents, communication, payments and self-service.",
     showcase: {
       image: "/images/product/marketing/platform-overview-dashboard.png",
       alt: "Portal Genie dashboard showing customer activity, analytics, document management and customer engagement.",
@@ -113,7 +113,7 @@ export const homepage = {
       {
         title: "Customer Self-Service",
         description:
-          "Empower customers to find answers, access information and complete tasks on their own, around the clock.",
+          "Provide customers with on-demand access to invoices, documents, and account services. Eliminate resend requests, and improve the customer experience with self-service.",
         icon: "user-check",
       },
     ],
@@ -121,7 +121,7 @@ export const homepage = {
   customerExperience: {
     headline: "Give every customer a secure, branded destination.",
     description:
-      "Today's customers expect more than emailed invoices and disconnected conversations. Portal Genie provides every customer with one secure, branded destination where they can view invoices, access documents, communicate with your business, make payments and manage their relationship—all while your team continues working in Xero.",
+      "Today's customers expect more than emailed invoices and disconnected conversations. The Portal Genie provides every customer with one secure, branded destination where they can view invoices, access documents, communicate with your business, make payments and manage their relationship.",
     showcase: {
       image: "/images/product/marketing/customer-portal.png",
       alt: "Portal Genie client portal allowing customers to view invoices, access documents, make payments and securely communicate with a business.",
@@ -138,7 +138,7 @@ export const homepage = {
   beyondTransaction: {
     headline: "Beyond the Transaction",
     description:
-      "Every invoice, document, payment and conversation is an opportunity to strengthen your customer relationship. Portal Genie brings these interactions together into one connected experience, helping businesses deliver faster service, clearer communication and a more professional customer journey.",
+      "Every invoice, document, payment and conversation is an opportunity to strengthen your customer relationship. The Portal Genie brings these interactions together into one connected experience, helping businesses deliver faster service, clearer communication and a more professional customer journey.",
     steps: [
       {
         title: "Invoices, Statements, Quotes & Credit Notes",
@@ -170,7 +170,7 @@ export const homepage = {
     eyebrow: "Capabilities",
     headline: "Everything you need to deliver an exceptional customer experience.",
     description:
-      "The Portal Genie extends Xero with customer-facing tools that improve communication, simplify administration and create a professional digital experience for every customer.",
+      "The Portal Genie extends your business with customer-facing tools that improve communication, simplify administration and create a professional digital experience for every customer.",
     cards: [
       {
         title: "Customer Portal",

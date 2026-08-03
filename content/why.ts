@@ -16,7 +16,7 @@ export const whyPage = {
   hero: {
     headline: "Why The Portal Genie",
     description:
-      "Great accounting software manages finances. Great customer experiences require something more. The Portal Genie exists to help Xero businesses deliver the modern, connected service their customers expect — without changing the way their team works.",
+      "Great accounting software manages finances. Great customer experiences require something more. The Portal Genie exists to help businesses deliver the modern, connected service their customers expect - without changing the way their team works.",
     primaryCta: {
       label: buttons.bookDemo,
       href: links.bookDemo,
@@ -30,7 +30,7 @@ export const whyPage = {
     eyebrow: "The challenge",
     headline: "Customer experience hasn't kept pace with expectations.",
     description:
-      "Every business works hard to deliver great products and services, but the customer experience surrounding documents, communication, payments and self-service is often fragmented and inconsistent. The Portal Genie brings those interactions together into one connected experience, while integrating seamlessly with platforms like Xero",
+      "Every business works hard to deliver great products and services, but the customer experience surrounding documents, communication, payments and self-service is often fragmented and inconsistent. The Portal Genie brings those interactions together into one connected experience, while integrating seamlessly with Xero, QuicBooks and Sage One",
     points: [
       {
         title: "Fragmented communication",

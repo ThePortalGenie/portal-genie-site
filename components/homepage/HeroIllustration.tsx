@@ -84,7 +84,7 @@ export function HeroIllustration() {
 
     <motion.div
 
-      className="hero-wave-wrapper pointer-events-none relative mx-auto w-[90%] sm:w-full sm:max-w-[560px] lg:mx-0 lg:max-w-none"
+      className="hero-wave-wrapper pointer-events-none relative lg:mx-0 lg:max-w-none"
 
       style={heroIllustrationLayoutVars()}
 

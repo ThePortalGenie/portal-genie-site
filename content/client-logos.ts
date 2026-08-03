@@ -4,9 +4,68 @@ export interface ClientLogo {
   alt: string;
 }
 
+export type TrustedByVariant = "default" | "compact" | "hero";
+
+export type TrustedByPlacement = {
+  id: string;
+  title: string;
+  subtitle: string;
+  variant: TrustedByVariant;
+  background: "background" | "surface";
+};
+
 export const trustedByContent = {
   title: "Trusted by",
+  customersInHeading: "Customers in",
 } as const;
+
+export interface CustomerCountry {
+  name: string;
+  flag: string;
+}
+
+export const customerCountries: CustomerCountry[] = [
+  { flag: "🇿🇦", name: "South Africa" },
+  { flag: "🇬🇧", name: "United Kingdom" },
+  { flag: "🇺🇸", name: "United States" },
+  { flag: "🇦🇺", name: "Australia" },
+  { flag: "🇨🇦", name: "Canada" },
+  { flag: "🇮🇪", name: "Ireland" },
+];
+
+export const trustedByPlacements = {
+  homepage: {
+    id: "homepage-trusted-by",
+    title: "Trusted by businesses using The Portal Genie",
+    subtitle: "Trusted by businesses around the world.",
+    variant: "hero",
+    background: "background",
+  },
+  features: {
+    id: "features-trusted-by",
+    title: "Built for businesses that care about customer experience",
+    subtitle:
+      "From accounting firms to professional services businesses, organisations trust The Portal Genie to deliver a connected customer experience.",
+    variant: "default",
+    background: "surface",
+  },
+  pricing: {
+    id: "pricing-trusted-by",
+    title: "Trusted before you subscribe",
+    subtitle:
+      "Join businesses already improving their customer experience with The Portal Genie.",
+    variant: "default",
+    background: "background",
+  },
+  customerSuccess: {
+    id: "customer-success-trusted-by",
+    title: "Trusted by businesses across South Africa",
+    subtitle:
+      "Real businesses. Real customer experiences. Verified through the Xero App Store.",
+    variant: "default",
+    background: "background",
+  },
+} as const satisfies Record<string, TrustedByPlacement>;
 
 export const clientLogos: ClientLogo[] = [
   {
@@ -62,7 +121,7 @@ export const clientLogos: ClientLogo[] = [
   {
     name: "Legalese",
     image: "/images/logos/Legalese Logo Icon.png",
-    alt: "Legalese icon",
+    alt: "Legalese",
   },
   {
     name: "Moore",

@@ -4,7 +4,9 @@ import { PricingValueIntro } from "@/components/pricing/PricingValueIntro";
 import { PricingTableSection } from "@/components/pricing/PricingTableSection";
 import { PricingFaq } from "@/components/pricing/PricingFaq";
 import { PricingCta } from "@/components/pricing/PricingCta";
+import { TrustedByLogos } from "@/components/shared/TrustedByLogos";
 import { pricingPage } from "@/content/pricing";
+import { trustedByPlacements } from "@/content/client-logos";
 import { site } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -21,6 +23,7 @@ export default function PricingPage() {
     <main>
       <PricingHero />
       <PricingValueIntro />
+      <TrustedByLogos {...trustedByPlacements.pricing} />
       <PricingTableSection />
       <PricingFaq />
       <PricingCta />

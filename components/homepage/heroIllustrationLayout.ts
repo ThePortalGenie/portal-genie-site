@@ -36,7 +36,7 @@ export const heroIllustrationLayout = {
     maxWidthPx: 560,
   },
 
-  imageSizes: "(max-width: 1023px) 90vw, (max-width: 1279px) 650px, 1100px",
+  imageSizes: "(min-width: 1280px) 1100px, 650px",
 } as const;
 
 export function heroIllustrationLayoutVars(): CSSProperties {
