@@ -15,6 +15,7 @@ export const links = {
   youtube: "/youtube",
   bookDemo: "/book-a-demo",
   login: "https://app.theportalgenie.com/app/login",
-  startFree: "/start-free",
+  startFree:
+    "https://app.theportalgenie.com/app/register?registerPage=true&packageId=STANDARD_CUSTOMER_PORTAL",
   support: "/contact",
 } as const;
