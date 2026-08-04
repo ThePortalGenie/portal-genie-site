@@ -7,15 +7,9 @@ export type PlanId = "freemium" | "premium" | "advanced";
 
 export type PlanPrices = Record<CurrencyCode, number | null>;
 
-export type CardFeatureDisplay = {
-  label: string;
-  /** When set, render as label … value on the pricing card */
-  value?: string;
-};
-
 export type ValuePlanCell = {
+  /** Structured value for the comparison table (`null` → —) */
   compare: string | null;
-  card: CardFeatureDisplay | null;
 };
 
 export type PricingFeatureDefinition =
@@ -39,8 +33,11 @@ export type PricingPlan = {
   id: PlanId;
   name: string;
   description: string;
-  /** Feature ids shown on this plan’s card (order preserved) */
-  cardFeatureIds: string[];
+  /**
+   * Customer-facing feature lines for this plan’s pricing card.
+   * Kept separate from comparison-table values so card wording can differ.
+   */
+  cardFeatures: string[];
   prices: PlanPrices;
   cta: {
     label: string;
@@ -61,8 +58,8 @@ export const pricingCurrencies: {
 ];
 
 /**
- * Single source of truth for pricing features.
- * Edit values here — cards and the comparison table both derive from this.
+ * Comparison-table features (structured values / booleans).
+ * Plan card copy lives on each plan’s `cardFeatures` array and may differ.
  */
 export const pricingFeatures: PricingFeatureDefinition[] = [
   {
@@ -70,18 +67,9 @@ export const pricingFeatures: PricingFeatureDefinition[] = [
     name: "Visits per month",
     kind: "value",
     values: {
-      freemium: {
-        compare: "100",
-        card: { label: "100 visits per month" },
-      },
-      premium: {
-        compare: "Unlimited",
-        card: { label: "Unlimited visits per month" },
-      },
-      advanced: {
-        compare: "Unlimited",
-        card: { label: "Unlimited visits per month" },
-      },
+      freemium: { compare: "100" },
+      premium: { compare: "Unlimited" },
+      advanced: { compare: "Unlimited" },
     },
   },
   {
@@ -149,18 +137,9 @@ export const pricingFeatures: PricingFeatureDefinition[] = [
     name: "Users",
     kind: "value",
     values: {
-      freemium: {
-        compare: "3",
-        card: { label: "Users", value: "3" },
-      },
-      premium: {
-        compare: "Unlimited",
-        card: { label: "Users", value: "Unlimited" },
-      },
-      advanced: {
-        compare: "Unlimited",
-        card: { label: "Users", value: "Unlimited" },
-      },
+      freemium: { compare: "3" },
+      premium: { compare: "Unlimited" },
+      advanced: { compare: "Unlimited" },
     },
   },
   {
@@ -204,15 +183,9 @@ export const pricingFeatures: PricingFeatureDefinition[] = [
     name: "Customer Folders",
     kind: "value",
     values: {
-      freemium: { compare: null, card: null },
-      premium: {
-        compare: "2",
-        card: { label: "Customer Folders", value: "2" },
-      },
-      advanced: {
-        compare: "6",
-        card: { label: "Customer Folders", value: "6" },
-      },
+      freemium: { compare: null },
+      premium: { compare: "2" },
+      advanced: { compare: "6" },
     },
   },
   {
@@ -250,15 +223,9 @@ export const pricingFeatures: PricingFeatureDefinition[] = [
     name: "Included Storage",
     kind: "value",
     values: {
-      freemium: { compare: null, card: null },
-      premium: {
-        compare: "2GB",
-        card: { label: "Included Storage", value: "2GB" },
-      },
-      advanced: {
-        compare: "10GB",
-        card: { label: "Included Storage", value: "10GB" },
-      },
+      freemium: { compare: null },
+      premium: { compare: "2GB" },
+      advanced: { compare: "10GB" },
     },
   },
   {
@@ -313,19 +280,19 @@ export const pricingPlans: PricingPlan[] = [
       label: buttons.startFree,
       href: links.startFree,
     },
-    cardFeatureIds: [
-      "visits",
-      "view-forward-download",
-      "core-folders",
-      "accounting-integrations",
-      "multi-currency",
-      "responsive-portal",
-      "secure-login-link",
-      "welcome-message",
-      "custom-logo-colours",
-      "notes-reminders",
-      "reporting-dashboard",
-      "users",
+    cardFeatures: [
+      "Up to 100 Portal Visits Per Month",
+      "View, Forward & Download Documents",
+      "Folders for Invoice, Statement, Quote & Credit Note",
+      "Works with Xero, QuickBooks, Sage",
+      "Multi currency enabled",
+      "Client Portal Optimized for Desktop & Mobile",
+      "Secure Client Login Link",
+      "Client Welcome Message",
+      "Custom Logo and Colour Schemes",
+      "Notes and Internal Reminders",
+      "Reporting Dashboard",
+      "3 Users",
     ],
   },
   {
@@ -343,22 +310,22 @@ export const pricingPlans: PricingPlan[] = [
       label: buttons.start30DaysFree,
       href: links.premiumStartFree,
     },
-    cardFeatureIds: [
-      "visits",
-      "branded-domain",
-      "custom-email-domain",
-      "remove-branding",
-      "dual-logo",
-      "custom-billboard",
-      "bulk-uploads",
-      "customer-folders",
-      "custom-statuses",
-      "folder-visibility",
-      "pay-button",
-      "users",
-      "new-doc-notifications",
-      "second-password",
-      "included-storage",
+    cardFeatures: [
+      "Unlimited Portal Visits",
+      "Branded Portal Domain",
+      "Custom E-mail Domain for Notifications",
+      "Remove Portal Genie Branding",
+      "Dual Logo",
+      "Custom Billboard Display",
+      "Bulk Document Uploads (Admin)",
+      "2 x Custom Document Folders",
+      "4 Custom Document Statuses",
+      "Folder Visibility Control",
+      "Pay Button Integration",
+      "Unlimited Users",
+      "Client New Document Notifications",
+      "Second layer Password Protection",
+      "1GB Storage Included",
     ],
   },
   {
@@ -375,15 +342,15 @@ export const pricingPlans: PricingPlan[] = [
       label: buttons.start30DaysFree,
       href: links.advancedStartFree,
     },
-    cardFeatureIds: [
-      "visits",
-      "client-uploads",
-      "two-way-notes",
-      "scheduled-emails",
-      "client-profile-toggle",
-      "email-in-documents",
-      "customer-folders",
-      "included-storage",
+    cardFeatures: [
+      "Unlimited Portal Visits",
+      "Client Document Uploads",
+      "2 Way Notes",
+      "Scheduled E-mails",
+      "Client profile toggle",
+      "E-mail in Documents",
+      "4 x Additional Custom Folders",
+      "10 Gigs Storage Included",
     ],
   },
 ];
@@ -465,44 +432,9 @@ export const pricingPage = {
   },
 } as const;
 
-const featureById = Object.fromEntries(
-  pricingFeatures.map((feature) => [feature.id, feature]),
-) as Record<string, PricingFeatureDefinition>;
-
-export type PlanCardFeatureRow = {
-  id: string;
-  label: string;
-  value?: string;
-};
-
 /** Features shown on a plan card, in defined order. */
-export function getPlanCardFeatures(planId: PlanId): PlanCardFeatureRow[] {
-  const plan = pricingPlans.find((item) => item.id === planId);
-  if (!plan) return [];
-
-  const rows: PlanCardFeatureRow[] = [];
-
-  for (const featureId of plan.cardFeatureIds) {
-    const feature = featureById[featureId];
-    if (!feature) continue;
-
-    if (feature.kind === "value") {
-      const cell = feature.values[planId];
-      if (!cell.card) continue;
-      rows.push({
-        id: feature.id,
-        label: cell.card.label,
-        value: cell.card.value,
-      });
-      continue;
-    }
-
-    if (feature.values[planId]) {
-      rows.push({ id: feature.id, label: feature.name });
-    }
-  }
-
-  return rows;
+export function getPlanCardFeatures(planId: PlanId): string[] {
+  return pricingPlans.find((item) => item.id === planId)?.cardFeatures ?? [];
 }
 
 /** Ordered features for the comparison table. */

@@ -61,7 +61,7 @@ export function PricingCard({ plan, currency }: PricingCardProps) {
       <ul className="mt-6 flex flex-1 flex-col gap-2.5 border-t border-muted/15 pt-6">
         {features.map((feature) => (
           <li
-            key={feature.id}
+            key={feature}
             className="flex items-start gap-2.5 text-sm leading-snug text-portal-navy/75"
           >
             <Check
@@ -69,16 +69,7 @@ export function PricingCard({ plan, currency }: PricingCardProps) {
               strokeWidth={2}
               aria-hidden="true"
             />
-            {feature.value ? (
-              <span className="flex min-w-0 flex-1 items-baseline justify-between gap-3">
-                <span>{feature.label}</span>
-                <span className="shrink-0 font-medium text-portal-navy">
-                  {feature.value}
-                </span>
-              </span>
-            ) : (
-              <span>{feature.label}</span>
-            )}
+            <span>{feature}</span>
           </li>
         ))}
       </ul>

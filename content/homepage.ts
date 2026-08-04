@@ -50,7 +50,7 @@ export const homepage = {
     },
     secondaryCta: {
       label: buttons.startFree,
-      href: links.startFree,
+      href: links.pricing,
     },
     illustration: {
       src: "/images/product/marketing/hero-connected-experience.png",
