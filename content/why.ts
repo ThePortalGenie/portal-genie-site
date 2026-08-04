@@ -5,12 +5,12 @@ export const whyPage = {
   metadata: {
     title: "Why The Portal Genie",
     description:
-      "Discover why The Portal Genie exists — the customer experience layer built to complement Xero and help businesses deliver a modern, connected and professional service.",
+      "Discover why The Portal Genie exists — the customer experience layer built to work alongside Xero, QuickBooks and Sage Business Cloud and help businesses deliver a modern, connected and professional service.",
     openGraph: {
       title:
-        "Why The Portal Genie — The Customer Experience Layer for Xero Businesses",
+        "Why The Portal Genie — The Customer Experience Layer for Your Business",
       description:
-        "Great accounting software manages finances. Great customer experiences require something more. Learn why Portal Genie was built to extend Xero and modernise client interactions.",
+        "Great accounting software manages finances. Great customer experiences require something more. Learn why Portal Genie was built to extend your accounting software and modernise client interactions.",
     },
   },
   hero: {
@@ -63,31 +63,26 @@ export const whyPage = {
     eyebrow: "Our purpose",
     headline: "Why we built The Portal Genie",
     paragraphs: [
-      "We saw a gap that accounting software wasn't designed to fill. Xero excels at managing finances, workflows and compliance. What it doesn't provide is a dedicated customer experience layer — a secure, branded environment where clients can interact with your business on their terms.",
-      "The Portal Genie was built to fill that gap. Not as another accounting platform, but as the missing layer that sits alongside Xero — giving your customers a modern portal for documents, communication, payments and self-service, while your team continues working in the tools they already know.",
-      "Our focus has always been the customer experience: making it simpler for clients to engage with your business, and easier for your team to deliver a service that feels connected, professional and worth recommending.",
+      "We saw a gap that accounting software wasn't designed to fill. Xero, QuickBooks and Sage Business Cloud are powerful tools for managing the financial side of a business, but the customer experience often sits outside those core workflows.",
+      "What's missing is a dedicated customer experience layer — a secure, branded environment where customers can interact with your business on their terms.",
+      "The Portal Genie was built to fill that gap. Not as another accounting platform, but as the layer that sits alongside the accounting software you already use — giving your customers a modern portal for documents, communication, payments and self-service while your team continues working with familiar tools and workflows.",
+      "Our focus has always been the customer experience: making it simpler for customers to engage with your business, and easier for your team to deliver a service that feels connected, professional and worth recommending.",
     ],
   },
   builtAlongsideXero: {
-    eyebrow: "Built for Xero businesses",
-    headline: "Built alongside Xero, not instead of it",
+    eyebrow: "Works with your accounting software",
+    headline: "Built alongside your accounting software, not instead of it",
     description:
-      "The Portal Genie is a Xero Connected App designed to extend what Xero already does well — not replace it.",
+      "The Portal Genie works with Xero, QuickBooks and Sage Business Cloud, extending the accounting software you already use rather than replacing it.",
     paragraphs: [
-      "Your team keeps working in Xero. Your customers gain a secure, branded portal that complements those workflows — accessing documents, sending messages, making payments and completing everyday tasks in one connected experience.",
-      "Portal Genie integrates with your existing Xero setup, so the transition is additive rather than disruptive. You modernise how customers interact with your business without rethinking how your team manages accounts.",
+      "Your team keeps working with familiar accounting tools and workflows. Your customers gain a secure, branded portal that complements those workflows — accessing documents, sending messages, making payments and completing everyday tasks in one connected experience.",
+      "The Portal Genie connects the customer experience to your existing accounting setup, so the transition is additive rather than disruptive. You can modernise how customers interact with your business without rethinking how your team manages accounts.",
     ],
     highlights: [
-      "Extends Xero with a dedicated customer experience layer",
-      "Complements existing workflows — no platform replacement",
-      "Gives customers a branded, secure portal alongside your Xero practice",
+      "Adds a dedicated customer experience layer to your accounting software",
+      "Complements existing workflows — no accounting platform replacement",
+      "Gives customers a branded, secure portal connected to your business",
     ],
-    xeroConnectedBadge: {
-      src: "/images/logos/xero-connected-app-badge.png",
-      alt: "Xero Connected App",
-      width: 1920,
-      height: 1080,
-    },
   },
   philosophy: {
     headline: "Our philosophy",
@@ -130,12 +125,12 @@ export const whyPage = {
     eyebrow: "Looking forward",
     headline: "Helping businesses meet rising expectations",
     paragraphs: [
-      "The way customers interact with professional services is changing. They expect the same clarity, speed and convenience they experience elsewhere — and accounting firms that deliver it will stand apart.",
-      "Our vision is to help every Xero business create a customer experience that matches the quality of their work. The Portal Genie will continue evolving as a layer that complements Xero — connecting firms and clients through secure, modern and professionally branded interactions.",
+      "The way customers interact with professional services is changing. They expect the same clarity, speed and convenience they experience elsewhere — and businesses that deliver it will stand apart.",
+      "Our vision is to help businesses create a customer experience that matches the quality of their work. The Portal Genie will continue evolving as a customer experience layer that works alongside Xero, QuickBooks and Sage Business Cloud — connecting businesses and their customers through secure, modern and professionally branded interactions.",
     ],
   },
   finalCta: {
-    headline: "See how Portal Genie complements your Xero practice",
+    headline: "See how The Portal Genie works with your business",
     description:
       "Book a demo to explore the platform, or view pricing to find a plan that fits your business.",
     primaryCta: {

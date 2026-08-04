@@ -3,13 +3,17 @@
 import Image from "next/image";
 import { Check } from "lucide-react";
 import { whyPage } from "@/content/why";
+import { accountingIntegrations } from "@/content/integrations";
 import { ScrollReveal } from "@/components/features/ScrollReveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Container } from "@/components/ui/Container";
 
+/** Shared logo height — equal visual weight; Xero is wider by aspect ratio. */
+const LOGO_HEIGHT = "h-11 w-auto object-contain sm:h-12 md:h-14";
+
 export function WhyXero() {
   const { builtAlongsideXero } = whyPage;
-  const { xeroConnectedBadge } = builtAlongsideXero;
+  const [xero, ...secondary] = accountingIntegrations.logos;
 
   return (
     <section className="border-y border-muted/15 bg-surface py-[72px] md:py-24 lg:py-[120px]">
@@ -54,18 +58,38 @@ export function WhyXero() {
           </div>
 
           <ScrollReveal className="flex justify-center lg:justify-end">
-            <div className="relative flex w-full max-w-sm items-center justify-center rounded-card border border-muted/20 bg-background p-10 sm:p-12 lg:max-w-md">
+            <div className="relative flex w-full max-w-sm items-center justify-center rounded-card border border-muted/20 bg-background p-8 sm:p-10 lg:max-w-md">
               <div
                 className="pointer-events-none absolute inset-0 rounded-card bg-gradient-to-br from-portal-blue/5 via-transparent to-portal-teal/5"
                 aria-hidden="true"
               />
-              <Image
-                src={xeroConnectedBadge.src}
-                alt={xeroConnectedBadge.alt}
-                width={xeroConnectedBadge.width}
-                height={xeroConnectedBadge.height}
-                className="relative h-auto w-[180px] sm:w-[220px]"
-              />
+              <div
+                className="relative flex flex-col items-center gap-5 sm:gap-6"
+                aria-label="Supported accounting integrations"
+              >
+                <Image
+                  src={xero.src}
+                  alt={xero.alt}
+                  width={xero.width}
+                  height={xero.height}
+                  className={LOGO_HEIGHT}
+                  sizes="160px"
+                />
+                <ul className="flex items-center justify-center gap-6 sm:gap-8">
+                  {secondary.map((item) => (
+                    <li key={item.name}>
+                      <Image
+                        src={item.src}
+                        alt={item.alt}
+                        width={item.width}
+                        height={item.height}
+                        className={LOGO_HEIGHT}
+                        sizes="56px"
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </ScrollReveal>
         </div>
