@@ -15,7 +15,7 @@ export function PricingCompareTable() {
   const { compare } = pricingPage;
 
   return (
-    <section className="bg-surface py-16 md:py-20 lg:py-24">
+    <section className="hidden bg-surface md:block md:py-20 lg:py-24">
       <Container>
         <SectionHeader
           title={compare.headline}
