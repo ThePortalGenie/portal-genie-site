@@ -8,18 +8,18 @@ export const customerSuccessPage = {
   metadata: {
     title: "Customer Success",
     description:
-      "Read verified Portal Genie reviews from the Xero App Store. See why businesses value seamless Xero integration, exceptional support and a better customer experience.",
+      "Read verified customer stories and reviews. See why businesses value Portal Genie's customer experience layer, exceptional support and seamless integration with Xero, QuickBooks and Sage Business Cloud.",
     openGraph: {
       title:
-        "Portal Genie Customer Success — Verified Xero App Store Reviews",
+        "Portal Genie Customer Success — Customer Stories & Verified Reviews",
       description:
-        "Authentic customer stories and verified Xero App Store reviews from businesses using Portal Genie to deliver a connected customer experience alongside Xero.",
+        "Authentic customer stories and verified reviews from businesses using Portal Genie to deliver a connected customer experience alongside their accounting software.",
     },
   },
   hero: {
-    headline: "Trusted by businesses using Xero.",
+    headline: "Trusted by businesses delivering better customer experiences.",
     description:
-      "Businesses across multiple industries rely on The Portal Genie to deliver a more connected, professional customer experience. Read what verified customers have to say.",
+      "Businesses across multiple industries rely on The Portal Genie for secure document access, smoother communication and professional self-service portals — working alongside the accounting software they already use.",
     rating: {
       value: "5.0",
       label: "Rating",
@@ -56,7 +56,7 @@ export const customerSuccessPage = {
   testimonials: {
     headline: "Featured customer stories",
     description:
-      "Verified reviews from businesses using Portal Genie alongside Xero.",
+      "Verified reviews from businesses using Portal Genie to deliver a more connected customer experience.",
     items: [
       {
         name: "Justin Myles Fuchs",
@@ -144,6 +144,38 @@ export const customerSuccessPage = {
       },
     ],
   },
+  /** Platform-neutral themes for the Customer Success page (pricing trust bar uses commonThemes above). */
+  customerSuccessThemes: {
+    headline: "What customers consistently say",
+    description:
+      "Themes that appear again and again across verified Xero App Store reviews.",
+    items: [
+      {
+        title: "Exceptional Support",
+        description:
+          "Customers repeatedly praise the responsiveness, knowledge and friendliness of the Portal Genie team.",
+        icon: "headphones",
+      },
+      {
+        title: "Easy to Use",
+        description:
+          "Businesses consistently describe the platform as intuitive and simple for both staff and customers.",
+        icon: "sparkles",
+      },
+      {
+        title: "Works alongside your accounting software",
+        description:
+          "Portal Genie complements your existing accounting workflows without disrupting how your team works.",
+        icon: "puzzle",
+      },
+      {
+        title: "Improves Customer Experience",
+        description:
+          "Businesses report more professional communication, easier document access and better customer interactions.",
+        icon: "heart-handshake",
+      },
+    ],
+  },
   verified: {
     headline: "Verified on the Xero App Store",
     description:
@@ -197,9 +229,9 @@ export const customerSuccessPage = {
     ],
   },
   finalCta: {
-    headline: "Ready to experience The Portal Genie for yourself?",
+    headline: "See how Portal Genie can work for your business",
     description:
-      "Book a demo to see the platform in action, or start free and explore how Portal Genie complements your Xero workflow.",
+      "Book a demo to explore the platform, or start free and see how Portal Genie works alongside Xero, QuickBooks and Sage Business Cloud to give your customers a more connected experience.",
     primaryCta: {
       label: buttons.bookDemo,
       href: links.bookDemo,

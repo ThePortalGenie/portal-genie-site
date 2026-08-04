@@ -2,6 +2,7 @@ import { customerSuccessPage } from "@/content/customer-success";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Container } from "@/components/ui/Container";
 import { RatingSummary } from "@/components/customer-success/RatingSummary";
+import { AccountingIntegrationLogos } from "@/components/shared/AccountingIntegrationLogos";
 import { GenieFlow } from "@/components/visuals/GenieFlow";
 
 export function CustomerSuccessHero() {
@@ -19,6 +20,8 @@ export function CustomerSuccessHero() {
           <p className="mt-6 text-base leading-relaxed text-portal-navy/75 sm:text-lg">
             {hero.description}
           </p>
+
+          <AccountingIntegrationLogos className="mt-6" />
 
           <div className="mt-8">
             <RatingSummary

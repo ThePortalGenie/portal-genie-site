@@ -22,15 +22,15 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export function CommonThemes() {
-  const { commonThemes } = customerSuccessPage;
+  const { customerSuccessThemes } = customerSuccessPage;
   const { ref, isVisible } = useScrollReveal(0.1);
 
   return (
     <Section background="surface">
       <ScrollReveal>
         <SectionHeader
-          title={commonThemes.headline}
-          description={commonThemes.description}
+          title={customerSuccessThemes.headline}
+          description={customerSuccessThemes.description}
           align="left"
           className="max-w-xl"
         />
@@ -40,7 +40,7 @@ export function CommonThemes() {
         ref={ref}
         className="mt-12 grid gap-6 sm:grid-cols-2 lg:gap-8"
       >
-        {commonThemes.items.map((item, index) => {
+        {customerSuccessThemes.items.map((item, index) => {
           const Icon = iconMap[item.icon];
 
           return (
