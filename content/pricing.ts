@@ -3,7 +3,7 @@ import { buttons } from "@/content/buttons";
 
 export type CurrencyCode = "ZAR" | "USD" | "GBP" | "EUR";
 
-export type PlanId = "freemium" | "premium" | "advanced";
+export type PlanId = "premium" | "advanced";
 
 export type PlanPrices = Record<CurrencyCode, number | null>;
 
@@ -18,7 +18,6 @@ export type PricingFeatureDefinition =
       name: string;
       kind: "boolean";
       description?: string;
-      /** Whether each plan includes this feature */
       values: Record<PlanId, boolean>;
     }
   | {
@@ -33,12 +32,13 @@ export type PricingPlan = {
   id: PlanId;
   name: string;
   description: string;
-  /**
-   * Customer-facing feature lines for this plan’s pricing card.
-   * Kept separate from comparison-table values so card wording can differ.
-   */
+  /** Customer-facing feature lines for the plan card */
   cardFeatures: string[];
+  /** Included users (same across all currencies) */
+  includedUsers: number;
   prices: PlanPrices;
+  /** Per-user price for additional users, by currency */
+  extraUserPrices: PlanPrices;
   cta: {
     label: string;
     href: string;
@@ -57,206 +57,175 @@ export const pricingCurrencies: {
   { code: "EUR", label: "EUR", symbol: "€" },
 ];
 
+/** Premium plan card features — exact wording and order */
+export const premiumCardFeatures = [
+  "Customise your client portal",
+  "Automatically integrates invoices, statements, quotes & credit notes from your accounting software",
+  "Give clients the ability to pay invoices from your portal",
+  "Upload documents for your clients to access",
+  "Add your own logo & brand colours",
+  "Display space for whatever you want your client to see",
+  "Create internal notes & reminders for you and your team",
+  "Label documents with your own document statuses",
+  'Portals have a small "Brought to you by The Portal Genie" logo',
+] as const;
+
+/** Advanced plan card features — additional capabilities only */
+export const advancedCardFeatures = [
+  "Use your own portal web address",
+  "Send emails from your own domain",
+  "Schedule email campaigns",
+  "Email documents directly into the portal",
+  "Your clients can create and respond to document notes",
+  "Let clients upload documents for you to receive",
+  "Remove The Portal Genie branding",
+] as const;
+
 /**
- * Comparison-table features (structured values / booleans).
- * Plan card copy lives on each plan’s `cardFeatures` array and may differ.
+ * Comparison-table rows: Premium + Advanced only.
+ * Premium capabilities are included in both plans unless marked advanced-only.
  */
 export const pricingFeatures: PricingFeatureDefinition[] = [
   {
-    id: "visits",
-    name: "Visits per month",
-    kind: "value",
-    values: {
-      freemium: { compare: "100" },
-      premium: { compare: "Unlimited" },
-      advanced: { compare: "Unlimited" },
-    },
+    id: "customise-client-portal",
+    name: "Customise your client portal",
+    kind: "boolean",
+    values: { premium: true, advanced: true },
   },
   {
-    id: "view-forward-download",
-    name: "View, Forward & Download Documents",
+    id: "accounting-integration",
+    name: "Automatically integrates invoices, statements, quotes & credit notes from your accounting software",
     kind: "boolean",
-    values: { freemium: true, premium: true, advanced: true },
+    values: { premium: true, advanced: true },
   },
   {
-    id: "core-folders",
-    name: "Folders for Invoice, Statement, Quote & Credit Note",
+    id: "pay-invoices",
+    name: "Give clients the ability to pay invoices from your portal",
     kind: "boolean",
-    values: { freemium: true, premium: true, advanced: true },
+    values: { premium: true, advanced: true },
   },
   {
-    id: "accounting-integrations",
-    name: "Works with Xero, QuickBooks, Sage",
+    id: "upload-documents",
+    name: "Upload documents for your clients to access",
     kind: "boolean",
-    values: { freemium: true, premium: true, advanced: true },
+    values: { premium: true, advanced: true },
   },
   {
-    id: "multi-currency",
-    name: "Multi currency enabled",
+    id: "logo-brand-colours",
+    name: "Add your own logo & brand colours",
     kind: "boolean",
-    values: { freemium: true, premium: true, advanced: true },
+    values: { premium: true, advanced: true },
   },
   {
-    id: "responsive-portal",
-    name: "Client Portal Optimized for Desktop & Mobile",
+    id: "display-space",
+    name: "Display space for whatever you want your client to see",
     kind: "boolean",
-    values: { freemium: true, premium: true, advanced: true },
+    values: { premium: true, advanced: true },
   },
   {
-    id: "secure-login-link",
-    name: "Secure Client Login Link",
+    id: "internal-notes",
+    name: "Create internal notes & reminders for you and your team",
     kind: "boolean",
-    values: { freemium: true, premium: true, advanced: true },
+    values: { premium: true, advanced: true },
   },
   {
-    id: "welcome-message",
-    name: "Client Welcome Message",
+    id: "document-statuses",
+    name: "Label documents with your own document statuses",
     kind: "boolean",
-    values: { freemium: true, premium: true, advanced: true },
+    values: { premium: true, advanced: true },
   },
   {
-    id: "custom-logo-colours",
-    name: "Custom Logo and Colour Schemes",
+    id: "portal-genie-logo",
+    name: 'Portals have a small "Brought to you by The Portal Genie" logo',
     kind: "boolean",
-    values: { freemium: true, premium: true, advanced: true },
-  },
-  {
-    id: "notes-reminders",
-    name: "Notes and Internal Reminders",
-    kind: "boolean",
-    values: { freemium: true, premium: true, advanced: true },
-  },
-  {
-    id: "reporting-dashboard",
-    name: "Reporting Dashboard",
-    kind: "boolean",
-    values: { freemium: true, premium: true, advanced: true },
+    values: { premium: true, advanced: false },
   },
   {
     id: "users",
-    name: "Users",
+    name: "Users Included",
     kind: "value",
     values: {
-      freemium: { compare: "3" },
-      premium: { compare: "Unlimited" },
-      advanced: { compare: "Unlimited" },
-    },
-  },
-  {
-    id: "branded-domain",
-    name: "Branded Portal Domain",
-    kind: "boolean",
-    values: { freemium: false, premium: true, advanced: true },
-  },
-  {
-    id: "custom-email-domain",
-    name: "Custom E-mail Domain for Notifications",
-    kind: "boolean",
-    values: { freemium: false, premium: true, advanced: true },
-  },
-  {
-    id: "remove-branding",
-    name: "Remove Portal Genie Branding",
-    kind: "boolean",
-    values: { freemium: false, premium: true, advanced: true },
-  },
-  {
-    id: "dual-logo",
-    name: "Dual Logo",
-    kind: "boolean",
-    values: { freemium: false, premium: true, advanced: true },
-  },
-  {
-    id: "custom-billboard",
-    name: "Custom Billboard Display",
-    kind: "boolean",
-    values: { freemium: false, premium: true, advanced: true },
-  },
-  {
-    id: "bulk-uploads",
-    name: "Bulk Document Uploads (Admin)",
-    kind: "boolean",
-    values: { freemium: false, premium: true, advanced: true },
-  },
-  {
-    id: "customer-folders",
-    name: "Customer Folders",
-    kind: "value",
-    values: {
-      freemium: { compare: null },
       premium: { compare: "2" },
-      advanced: { compare: "6" },
+      advanced: { compare: "2" },
     },
-  },
-  {
-    id: "custom-statuses",
-    name: "Custom Document Statuses",
-    kind: "boolean",
-    values: { freemium: false, premium: true, advanced: true },
-  },
-  {
-    id: "folder-visibility",
-    name: "Folder Visibility Control",
-    kind: "boolean",
-    values: { freemium: false, premium: true, advanced: true },
-  },
-  {
-    id: "pay-button",
-    name: "Pay Button Integration",
-    kind: "boolean",
-    values: { freemium: false, premium: true, advanced: true },
-  },
-  {
-    id: "new-doc-notifications",
-    name: "Client New Document Notifications",
-    kind: "boolean",
-    values: { freemium: false, premium: true, advanced: true },
-  },
-  {
-    id: "second-password",
-    name: "Second layer Password Protection",
-    kind: "boolean",
-    values: { freemium: false, premium: true, advanced: true },
   },
   {
     id: "included-storage",
     name: "Included Storage",
     kind: "value",
     values: {
-      freemium: { compare: null },
-      premium: { compare: "2GB" },
-      advanced: { compare: "10GB" },
+      premium: { compare: "2 GB" },
+      advanced: { compare: "10 GB" },
     },
   },
   {
+    id: "included-emails",
+    name: "Included Emails",
+    kind: "value",
+    values: {
+      premium: { compare: "500" },
+      advanced: { compare: "2,000" },
+    },
+  },
+  {
+    id: "email-into-portal",
+    name: "Email documents directly into the portal",
+    kind: "boolean",
+    values: { premium: false, advanced: true },
+  },
+  {
+    id: "schedule-campaigns",
+    name: "Schedule email campaigns",
+    kind: "boolean",
+    values: { premium: false, advanced: true },
+  },
+  {
+    id: "group-clients-email-campaigns",
+    name: "Group Clients for Email Campaigns",
+    kind: "boolean",
+    values: { premium: false, advanced: true },
+  },
+  {
+    id: "reply-to-emails",
+    name: "Reply to Emails",
+    kind: "boolean",
+    values: { premium: false, advanced: true },
+  },
+  {
+    id: "extra-password-protection",
+    name: "Add Extra Password Protection to Your Portal",
+    kind: "boolean",
+    values: { premium: false, advanced: true },
+  },
+  {
+    id: "email-domain",
+    name: "Send emails from your own domain",
+    kind: "boolean",
+    values: { premium: false, advanced: true },
+  },
+  {
+    id: "portal-web-address",
+    name: "Use your own portal web address",
+    kind: "boolean",
+    values: { premium: false, advanced: true },
+  },
+  {
+    id: "document-notes",
+    name: "Your clients can create and respond to document notes",
+    kind: "boolean",
+    values: { premium: false, advanced: true },
+  },
+  {
     id: "client-uploads",
-    name: "Client Document Uploads",
+    name: "Let clients upload documents for you to receive",
     kind: "boolean",
-    values: { freemium: false, premium: false, advanced: true },
+    values: { premium: false, advanced: true },
   },
   {
-    id: "two-way-notes",
-    name: "2 Way Notes",
+    id: "remove-branding",
+    name: "Remove The Portal Genie branding",
     kind: "boolean",
-    values: { freemium: false, premium: false, advanced: true },
-  },
-  {
-    id: "scheduled-emails",
-    name: "Scheduled E-mails",
-    kind: "boolean",
-    values: { freemium: false, premium: false, advanced: true },
-  },
-  {
-    id: "client-profile-toggle",
-    name: "Client Profile Toggle",
-    kind: "boolean",
-    values: { freemium: false, premium: false, advanced: true },
-  },
-  {
-    id: "email-in-documents",
-    name: "E-mail in Documents",
-    kind: "boolean",
-    values: { freemium: false, premium: false, advanced: true },
+    values: { premium: false, advanced: true },
   },
 ];
 
@@ -267,91 +236,51 @@ export const pricingFeatures: PricingFeatureDefinition[] = [
  */
 export const pricingPlans: PricingPlan[] = [
   {
-    id: "freemium",
-    name: "Freemium",
-    description: "A great starting point",
-    prices: {
-      ZAR: 0,
-      USD: 0,
-      GBP: 0,
-      EUR: 0,
-    },
-    cta: {
-      label: buttons.startFree,
-      href: links.startFree,
-    },
-    cardFeatures: [
-      "Up to 100 Portal Visits Per Month",
-      "View, Forward & Download Documents",
-      "Folders for Invoice, Statement, Quote & Credit Note",
-      "Works with Xero, QuickBooks, Sage",
-      "Multi currency enabled",
-      "Client Portal Optimized for Desktop & Mobile",
-      "Secure Client Login Link",
-      "Client Welcome Message",
-      "Custom Logo and Colour Schemes",
-      "Notes and Internal Reminders",
-      "Reporting Dashboard",
-      "3 Users",
-    ],
-  },
-  {
     id: "premium",
     name: "Premium",
-    description: "Everything in Freemium plus:",
+    description: "The complete core Portal Genie experience.",
     featured: true,
+    includedUsers: 2,
     prices: {
       ZAR: 249,
-      USD: 12,
-      GBP: 10,
-      EUR: 11,
+      USD: 20,
+      GBP: 15,
+      EUR: 18,
+    },
+    extraUserPrices: {
+      ZAR: 249,
+      USD: 20,
+      GBP: 15,
+      EUR: 18,
     },
     cta: {
       label: buttons.start30DaysFree,
       href: links.premiumStartFree,
     },
-    cardFeatures: [
-      "Unlimited Portal Visits",
-      "Branded Portal Domain",
-      "Custom E-mail Domain for Notifications",
-      "Remove Portal Genie Branding",
-      "Dual Logo",
-      "Custom Billboard Display",
-      "Bulk Document Uploads (Admin)",
-      "2 x Custom Document Folders",
-      "4 Custom Document Statuses",
-      "Folder Visibility Control",
-      "Pay Button Integration",
-      "Unlimited Users",
-      "Client New Document Notifications",
-      "Second layer Password Protection",
-      "1GB Storage Included",
-    ],
+    cardFeatures: [...premiumCardFeatures],
   },
   {
     id: "advanced",
     name: "Advanced",
-    description: "Everything in Premium plus:",
+    description: "Everything in Premium, plus:",
+    includedUsers: 2,
     prices: {
       ZAR: 299,
-      USD: 15,
-      GBP: 12,
-      EUR: 14,
+      USD: 30,
+      GBP: 22,
+      EUR: 26,
+    },
+    extraUserPrices: {
+      ZAR: 299,
+      USD: 30,
+      GBP: 22,
+      EUR: 26,
     },
     cta: {
       label: buttons.start30DaysFree,
       href: links.advancedStartFree,
     },
-    cardFeatures: [
-      "Unlimited Portal Visits",
-      "Client Document Uploads",
-      "2 Way Notes",
-      "Scheduled E-mails",
-      "Client profile toggle",
-      "E-mail in Documents",
-      "4 x Additional Custom Folders",
-      "10 Gigs Storage Included",
-    ],
+    cardFeatures: [...advancedCardFeatures],
   },
 ];
 
@@ -359,16 +288,16 @@ export const pricingPage = {
   metadata: {
     title: "Pricing",
     description:
-      "Simple pricing for Portal Genie. Start free and choose the Freemium, Premium or Advanced plan that fits your business.",
+      "Simple pricing for Portal Genie. Choose Premium or Advanced and start with a 30-day free trial — with currency options for ZAR, USD, GBP and EUR.",
     openGraph: {
       title: "Portal Genie Pricing",
       description:
-        "Explore Portal Genie pricing — Freemium, Premium and Advanced plans with currency options for ZAR, USD, GBP and EUR.",
+        "Explore Portal Genie pricing — Premium and Advanced plans with currency options for ZAR, USD, GBP and EUR.",
     },
   },
   hero: {
     headline: "Simple pricing that grows with your business.",
-    description: "Start free and choose the plan that fits your business.",
+    description: "Choose the Premium or Advanced plan that fits your business.",
   },
   currency: {
     default: "ZAR" as CurrencyCode,
@@ -379,8 +308,7 @@ export const pricingPage = {
   },
   compare: {
     headline: "Compare plans",
-    description:
-      "See everything included across Freemium, Premium and Advanced.",
+    description: "See everything included across Premium and Advanced.",
   },
   faq: {
     headline: "Frequently asked questions",
@@ -391,19 +319,19 @@ export const pricingPage = {
           "No. Portal Genie is the customer experience layer for businesses using accounting software like Xero. Your team continues working in their accounting system while customers get a secure, branded portal for documents, communication, payments and self-service.",
       },
       {
-        question: "Is there a free plan?",
+        question: "Is there a free trial?",
         answer:
-          "Yes. Freemium lets you get started at no cost, with Premium and Advanced available when you need more capacity and branding control.",
+          "Yes. Premium and Advanced both include a 30-day free trial so you can explore the platform before subscribing.",
       },
       {
         question: "Can I change plans later?",
         answer:
-          "Yes. You can move between plans as your business needs change. Compare the plans above to see what is included at each tier.",
+          "Yes. You can move between Premium and Advanced as your business needs change. Compare the plans above to see what is included at each tier.",
       },
       {
         question: "Can I use my own branding?",
         answer:
-          "Yes. Freemium includes custom logo and colour schemes. Premium and Advanced unlock branded domains, dual logos, billboards and the option to remove Portal Genie branding.",
+          "Yes. Premium includes your own logo, brand colours and a customised client portal. Advanced adds your own portal web address, email domain and the option to remove Portal Genie branding.",
       },
       {
         question: "Is Portal Genie secure?",
@@ -413,17 +341,17 @@ export const pricingPage = {
       {
         question: "How quickly can I get started?",
         answer:
-          "You can create an account and begin setting up your customer portal immediately. Choose Freemium to start free, or Premium / Advanced for a 30-day free trial.",
+          "You can start a 30-day free trial on Premium or Advanced and begin setting up your customer portal immediately.",
       },
     ],
   },
   finalCta: {
     headline: "Ready to create a better customer experience?",
     description:
-      "Start free or book a demo to see how Portal Genie helps your business deliver a more connected customer experience.",
+      "Book a demo to explore the platform, or start a 30-day free trial with Premium or Advanced.",
     primaryCta: {
-      label: buttons.startFree,
-      href: links.startFree,
+      label: buttons.start30DaysFree,
+      href: links.premiumStartFree,
     },
     secondaryCta: {
       label: buttons.bookDemo,
@@ -448,12 +376,12 @@ export const pricingPromotion = {
   targetId: "plans",
 } as const;
 
-/** Features shown on a plan card, in defined order. */
+/** Features shown on a plan card */
 export function getPlanCardFeatures(planId: PlanId): string[] {
-  return pricingPlans.find((item) => item.id === planId)?.cardFeatures ?? [];
+  return pricingPlans.find((plan) => plan.id === planId)?.cardFeatures ?? [];
 }
 
-/** Ordered features for the comparison table. */
+/** Ordered features for the comparison table */
 export function getComparisonFeatures(): PricingFeatureDefinition[] {
   return pricingFeatures;
 }
@@ -467,6 +395,45 @@ export function getFeatureCompareValue(
   }
 
   return { kind: "boolean", included: feature.values[planId] };
+}
+
+export function formatCurrencyAmount(
+  amount: number | null,
+  currency: CurrencyCode,
+): string | null {
+  if (amount === null) {
+    return null;
+  }
+
+  const symbol =
+    pricingCurrencies.find((item) => item.code === currency)?.symbol ?? "";
+
+  return `${symbol}${amount}`;
+}
+
+export function getPlanUserAllowanceCopy(
+  plan: PricingPlan,
+  currency: CurrencyCode,
+): {
+  includedUsers: string;
+  additionalUsers: string | null;
+} {
+  const includedUsers =
+    plan.includedUsers === 1
+      ? "Includes 1 user"
+      : `Includes ${plan.includedUsers} users`;
+
+  const extraUserAmount = formatCurrencyAmount(
+    plan.extraUserPrices[currency],
+    currency,
+  );
+
+  return {
+    includedUsers,
+    additionalUsers: extraUserAmount
+      ? `Additional users: ${extraUserAmount} / user / month`
+      : null,
+  };
 }
 
 export function formatPlanPrice(
@@ -493,7 +460,7 @@ export function formatPlanPrice(
   }
 
   return {
-    primary: `${symbol}${amount}`,
+    primary: formatCurrencyAmount(amount, currency) ?? pricingPage.currency.priceUnavailable,
     period: pricingPage.currency.billingPeriod,
     unavailable: false,
   };

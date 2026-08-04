@@ -25,10 +25,15 @@ export function PricingCompareTable() {
         />
 
         <div className="mt-10 overflow-x-auto rounded-card border border-muted/20 bg-background">
-          <table className="w-full min-w-[40rem] border-collapse text-left text-sm">
+          <table className="w-full min-w-[36rem] table-fixed border-collapse text-left text-sm">
             <caption className="sr-only">
-              Feature comparison across Freemium, Premium and Advanced plans
+              Feature comparison across Premium and Advanced plans
             </caption>
+            <colgroup>
+              <col className="w-[50%]" />
+              <col className="w-[25%]" />
+              <col className="w-[25%]" />
+            </colgroup>
             <thead>
               <tr className="border-b border-muted/20 bg-surface">
                 <th
@@ -58,7 +63,7 @@ export function PricingCompareTable() {
                 >
                   <th
                     scope="row"
-                    className="sticky left-0 z-10 bg-inherit px-4 py-3.5 text-left text-sm font-medium text-portal-navy/80 sm:px-6"
+                    className="sticky left-0 z-10 bg-inherit px-4 py-3.5 text-left text-sm font-normal leading-snug text-portal-navy/80 sm:px-6"
                   >
                     {feature.name}
                   </th>

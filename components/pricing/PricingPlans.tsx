@@ -46,7 +46,7 @@ export function PricingPlans() {
           aria-label="Plan options"
           className="mt-4 scroll-mt-[88px] md:mt-7 md:scroll-mt-28"
         >
-          <div className="grid gap-5 md:grid-cols-2 md:gap-6 xl:grid-cols-3 xl:gap-6">
+          <div className="mx-auto grid max-w-5xl gap-5 md:grid-cols-2 md:gap-8 lg:max-w-6xl">
             {pricingPlans.map((plan) => (
               <PricingCard key={plan.id} plan={plan} currency={currency} />
             ))}

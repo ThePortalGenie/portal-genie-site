@@ -3,6 +3,7 @@ import { ButtonLink } from "@/components/ui/ButtonLink";
 import {
   formatPlanPrice,
   getPlanCardFeatures,
+  getPlanUserAllowanceCopy,
   pricingPage,
   type CurrencyCode,
   type PricingPlan,
@@ -16,19 +17,20 @@ type PricingCardProps = {
 export function PricingCard({ plan, currency }: PricingCardProps) {
   const features = getPlanCardFeatures(plan.id);
   const price = formatPlanPrice(plan.prices[currency], currency);
+  const userAllowance = getPlanUserAllowanceCopy(plan, currency);
 
   return (
     <article className="flex h-full flex-col rounded-card border border-portal-blue/35 bg-surface p-6 shadow-[0_16px_40px_-16px_rgba(0,119,190,0.28)] ring-1 ring-portal-blue/15 lg:p-7">
-      <div className="min-h-[5.5rem]">
+      <div>
         <h3 className="text-xl font-semibold tracking-tight text-portal-navy">
           {plan.name}
         </h3>
-        <p className="mt-2 text-sm leading-relaxed text-portal-navy/70">
+        <p className="mt-1.5 text-sm leading-snug text-portal-navy/70">
           {plan.description}
         </p>
       </div>
 
-      <div className="mt-5 min-h-[4.75rem] border-t border-muted/15 pt-5">
+      <div className="mt-4">
         <p
           className={[
             "font-semibold tracking-tight text-portal-navy",
@@ -38,27 +40,39 @@ export function PricingCard({ plan, currency }: PricingCardProps) {
           {price.primary}
         </p>
         {price.period ? (
-          <p className="mt-1 text-sm text-portal-navy/60">{price.period}</p>
-        ) : (
-          <p className="mt-1 text-sm text-transparent select-none" aria-hidden="true">
-            &nbsp;
-          </p>
-        )}
+          <p className="mt-0.5 text-sm text-portal-navy/60">{price.period}</p>
+        ) : null}
       </div>
 
-      <div className="mt-5">
+      <div className="mt-3">
+        <p className="flex items-center gap-2 text-sm font-medium text-portal-navy">
+          <Check
+            className="size-4 shrink-0 text-portal-teal"
+            strokeWidth={2.5}
+            aria-hidden="true"
+          />
+          <span>{userAllowance.includedUsers}</span>
+        </p>
+        {userAllowance.additionalUsers ? (
+          <p className="mt-1.5 pl-6 text-xs leading-snug text-portal-navy/55">
+            {userAllowance.additionalUsers}
+          </p>
+        ) : null}
+      </div>
+
+      <div className="mt-4">
         <ButtonLink href={plan.cta.href} variant="primary" className="w-full">
           {plan.cta.label}
         </ButtonLink>
       </div>
 
       {pricingPage.currency.pricesIncludeVat ? (
-        <p className="mt-3 text-center text-xs text-portal-navy/50">
+        <p className="mt-2 text-center text-xs text-portal-navy/50">
           {pricingPage.currency.vatNote}
         </p>
       ) : null}
 
-      <ul className="mt-6 flex flex-1 flex-col gap-2.5 border-t border-muted/15 pt-6">
+      <ul className="mt-4 flex flex-1 flex-col gap-2 border-t border-muted/15 pt-4">
         {features.map((feature) => (
           <li
             key={feature}
@@ -69,7 +83,7 @@ export function PricingCard({ plan, currency }: PricingCardProps) {
               strokeWidth={2}
               aria-hidden="true"
             />
-            <span>{feature}</span>
+            <span className="min-w-0 flex-1">{feature}</span>
           </li>
         ))}
       </ul>
