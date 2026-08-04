@@ -4,6 +4,7 @@ import { SatisfactionOverview } from "@/components/customer-success/Satisfaction
 import { FeaturedTestimonials } from "@/components/customer-success/FeaturedTestimonials";
 import { CommonThemes } from "@/components/customer-success/CommonThemes";
 import { VerifiedXeroSection } from "@/components/customer-success/VerifiedXeroSection";
+import { IndustriesServed } from "@/components/customer-success/IndustriesServed";
 import { CustomerSuccessCta } from "@/components/customer-success/CustomerSuccessCta";
 import { customerSuccessPage } from "@/content/customer-success";
 import { site } from "@/config/site";
@@ -25,6 +26,7 @@ export default function CustomerSuccessPage() {
       <FeaturedTestimonials />
       <CommonThemes />
       <VerifiedXeroSection />
+      <IndustriesServed />
       <CustomerSuccessCta />
     </main>
   );
