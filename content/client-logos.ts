@@ -4,14 +4,15 @@ export interface ClientLogo {
   alt: string;
 }
 
-export type TrustedByVariant = "default" | "compact" | "hero";
+export type TrustedByVariant = "default" | "compact" | "hero" | "strip";
 
 export type TrustedByPlacement = {
   id: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   variant: TrustedByVariant;
   background: "background" | "surface";
+  showCountries?: boolean;
 };
 
 export const trustedByContent = {
@@ -37,9 +38,9 @@ export const trustedByPlacements = {
   homepage: {
     id: "homepage-trusted-by",
     title: "Trusted by businesses using The Portal Genie",
-    subtitle: "Trusted by businesses around the world.",
-    variant: "hero",
+    variant: "strip",
     background: "background",
+    showCountries: false,
   },
   features: {
     id: "features-trusted-by",

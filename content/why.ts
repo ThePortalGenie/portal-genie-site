@@ -30,7 +30,7 @@ export const whyPage = {
     eyebrow: "The challenge",
     headline: "Customer experience hasn't kept pace with expectations.",
     description:
-      "Every business works hard to deliver great products and services, but the customer experience surrounding documents, communication, payments and self-service is often fragmented and inconsistent. The Portal Genie brings those interactions together into one connected experience, while integrating seamlessly with Xero, QuicBooks and Sage One",
+      "Every business works hard to deliver great products and services, but the customer experience surrounding documents, communication, payments and self-service is often fragmented and inconsistent. The Portal Genie brings those interactions together into one connected experience, while integrating seamlessly with Xero, QuickBooks and Sage Business Cloud.",
     points: [
       {
         title: "Fragmented communication",

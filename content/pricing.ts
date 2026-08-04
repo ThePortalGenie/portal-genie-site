@@ -432,6 +432,22 @@ export const pricingPage = {
   },
 } as const;
 
+/**
+ * Limited-time pricing notice on the Pricing page.
+ * Set `enabled` to false to hide the banner with no leftover spacing.
+ */
+export const pricingPromotion = {
+  enabled: true,
+  label: "Limited-time pricing",
+  heading: "Lock in today's pricing",
+  description:
+    "Our current pricing is available for a limited time. Sign up now and lock in your plan at today's price for your business.",
+  mobileDescription: "Sign up now to secure today's plan pricing.",
+  ctaLabel: "Choose Your Plan",
+  /** Stable hash target for the plan cards section */
+  targetId: "plans",
+} as const;
+
 /** Features shown on a plan card, in defined order. */
 export function getPlanCardFeatures(planId: PlanId): string[] {
   return pricingPlans.find((item) => item.id === planId)?.cardFeatures ?? [];

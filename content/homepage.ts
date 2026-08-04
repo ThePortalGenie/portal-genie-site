@@ -1,5 +1,6 @@
 import { links } from "@/config/links";
 import { buttons } from "@/content/buttons";
+import { accountingIntegrations } from "@/content/integrations";
 
 export const homepage = {
   hero: {
@@ -14,36 +15,8 @@ export const homepage = {
       "Works alongside your existing accounting software",
       "No disruption to existing workflows",
     ],
-    /**
-     * Integration branding for the hero.
-     * Xero is primary. QuickBooks / Sage logos are not yet in the repo —
-     * place approved assets at:
-     *   public/images/logos/integrations/quickbooks.png
-     *   public/images/logos/integrations/sage-business-cloud.png
-     * then set `src` on those entries (leave null until then).
-     */
-    integrations: {
-      primary: {
-        name: "Xero",
-        src: "/images/logos/xero-connected-app-badge.png",
-        alt: "Xero Connected App",
-        width: 1920,
-        height: 1080,
-      },
-      secondaryLabel: "Also integrates with",
-      secondary: [
-        {
-          name: "QuickBooks",
-          src: null as string | null,
-          alt: "QuickBooks",
-        },
-        {
-          name: "Sage Business Cloud",
-          src: null as string | null,
-          alt: "Sage Business Cloud",
-        },
-      ],
-    },
+    /** Equal-size Xero / QuickBooks / Sage row — see content/integrations.ts */
+    integrations: accountingIntegrations,
     primaryCta: {
       label: buttons.bookDemo,
       href: links.bookDemo,
@@ -63,16 +36,16 @@ export const homepage = {
   },
   trustBar: {
     items: [
-      "Built for Xero businesses",
-      "Works alongside Xero",
+      "Built for modern accounting businesses",
+      "Works with Xero, QuickBooks and Sage",
       "No disruption to existing workflows",
       "Secure cloud platform",
     ],
   },
   valueExtension: {
-    headline: "Extend the value of Xero for your customers.",
+    headline: "Extend the value of your accounting software for your customers.",
     description:
-      "Today's customers expect fast, secure and convenient digital experiences. The Portal Genie complements Xero by providing a modern customer experience layer that brings together communication, documents, payments and self-service.",
+      "Today's customers expect fast, secure and convenient digital experiences. The Portal Genie works alongside your accounting software to provide a modern customer experience layer that brings together communication, documents, payments and self-service.",
     cards: [
       {
         title: "Connected customer experience",
@@ -87,9 +60,9 @@ export const homepage = {
         icon: "clock",
       },
       {
-        title: "Works alongside Xero",
+        title: "Works alongside your accounting software",
         description:
-          "The Portal Genie extends the customer experience while allowing your team to continue working in Xero using familiar workflows.",
+          "The Portal Genie extends the customer experience while allowing your team to continue working with the accounting software and workflows they already know.",
         icon: "puzzle",
       },
     ],

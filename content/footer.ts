@@ -3,7 +3,7 @@ import { links } from "@/config/links";
 export const footerContent = {
   brand: {
     description:
-      "The Portal Genie helps businesses deliver a modern customer experience through secure portals, branded communication and seamless integration with platforms like Xero.",
+      "The Portal Genie helps businesses deliver a modern customer experience through secure portals, branded communication and seamless integration with Xero, QuickBooks and Sage Business Cloud.",
     xeroStatement: "Built for businesses using Xero",
   },
   columns: {

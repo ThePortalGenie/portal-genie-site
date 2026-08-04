@@ -1,61 +1,25 @@
-import Image from "next/image";
 import { Check } from "lucide-react";
 import { homepage } from "@/content/homepage";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { HeroIllustration } from "@/components/homepage/HeroIllustration";
+import { AccountingIntegrationLogos } from "@/components/shared/AccountingIntegrationLogos";
 
 export function Hero() {
   const { hero } = homepage;
-  const { integrations } = hero;
-  const secondaryNames = integrations.secondary.map((item) => item.name);
-  const secondaryWithLogos = integrations.secondary.filter(
-    (item): item is typeof item & { src: string } => Boolean(item.src),
-  );
 
   return (
     <section className="relative overflow-hidden bg-background pt-0 pb-12 md:pt-4 md:pb-24 lg:pt-6 lg:pb-[120px]">
       <Container>
         <div className="grid items-center lg:grid-cols-2 lg:gap-16 xl:gap-20">
           <div className="relative z-10 mx-auto w-full max-w-xl text-center md:mx-0 md:text-left">
-            <div className="mb-5 flex flex-col items-center md:items-start">
-              <Image
-                src={integrations.primary.src}
-                alt={integrations.primary.alt}
-                width={integrations.primary.width}
-                height={integrations.primary.height}
-                priority
-                className="h-auto w-[105px] sm:w-[122px] lg:w-[140px]"
-              />
-
-              <p className="mt-3 max-w-sm text-xs leading-snug text-portal-navy/55 sm:text-sm md:max-w-none">
-                <span className="font-medium text-portal-navy/65">
-                  {integrations.secondaryLabel}
-                </span>{" "}
-                {secondaryNames.join(" and ")}
-              </p>
-
-              {secondaryWithLogos.length > 0 ? (
-                <div className="mt-2.5 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 md:justify-start">
-                  {secondaryWithLogos.map((item) => (
-                    <Image
-                      key={item.name}
-                      src={item.src}
-                      alt={item.alt}
-                      width={120}
-                      height={40}
-                      className="h-6 w-auto object-contain opacity-80 sm:h-7"
-                    />
-                  ))}
-                </div>
-              ) : null}
-            </div>
+            <AccountingIntegrationLogos className="mb-7 md:mb-8" />
 
             <p className="text-sm font-medium tracking-wide text-portal-blue">
               {hero.eyebrow}
             </p>
 
-            <h1 className="mt-4 text-balance text-4xl font-semibold leading-tight tracking-tight text-portal-navy sm:text-[2.75rem] sm:leading-tight lg:text-5xl">
+            <h1 className="mt-6 text-balance text-4xl font-semibold leading-tight tracking-tight text-portal-navy sm:text-[2.75rem] sm:leading-tight md:mt-7 lg:text-5xl">
               {hero.headline}
             </h1>
 
