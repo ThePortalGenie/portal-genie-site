@@ -27,7 +27,7 @@ export function XeroconHeader() {
             />
           </Link>
 
-          <p className="text-right text-xs text-portal-navy/55 sm:text-sm">
+          <p className="hidden text-right text-xs text-portal-navy/55 sm:block sm:text-sm">
             <span className="hidden sm:inline">{header.loginPrompt} </span>
             <Link
               href={header.loginHref}

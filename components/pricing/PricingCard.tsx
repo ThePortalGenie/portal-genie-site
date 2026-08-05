@@ -19,9 +19,11 @@ const featureRowBackground = (index: number) =>
   index % 2 === 0 ? "bg-background" : "bg-surface";
 
 export function PricingCard({ plan, currency }: PricingCardProps) {
-  const features = getPlanCardFeatures(plan.id);
+  const features = [
+    ...getPlanCardFeatures(plan.id),
+    ...getPlanCapacityLines(plan.id),
+  ];
   const price = formatPlanPrice(getPlanBasePrice(plan, currency), currency);
-  const capacityLines = getPlanCapacityLines(plan.id);
 
   return (
     <article className="flex h-full flex-col rounded-card border border-portal-blue/35 bg-surface p-5 shadow-[0_16px_40px_-16px_rgba(0,119,190,0.28)] ring-1 ring-portal-blue/15 sm:p-6 lg:p-7">
@@ -54,7 +56,7 @@ export function PricingCard({ plan, currency }: PricingCardProps) {
         </ButtonLink>
       </div>
 
-      {pricingPage.currency.pricesIncludeVat ? (
+      {currency === "ZAR" ? (
         <p className="mt-2 text-center text-xs text-portal-navy/50">
           {pricingPage.currency.vatNote}
         </p>
@@ -78,29 +80,6 @@ export function PricingCard({ plan, currency }: PricingCardProps) {
           </li>
         ))}
       </ul>
-
-      {capacityLines.length > 0 ? (
-        <div className="-mx-1 mt-3 border-t border-muted/15 pt-3 text-left">
-          <p className="px-3 text-center text-[11px] font-semibold uppercase tracking-[0.08em] text-portal-blue md:text-left">
-            Includes
-          </p>
-          <ul className="mt-2 flex flex-col gap-2 px-3">
-            {capacityLines.map((line) => (
-              <li
-                key={line}
-                className="flex items-start gap-2.5 text-sm leading-snug text-portal-navy/80"
-              >
-                <Check
-                  className="mt-0.5 size-4 shrink-0 text-portal-teal"
-                  strokeWidth={2.5}
-                  aria-hidden="true"
-                />
-                <span className="min-w-0">{line}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
     </article>
   );
 }

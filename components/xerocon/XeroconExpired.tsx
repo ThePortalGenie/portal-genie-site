@@ -30,7 +30,7 @@ export function XeroconExpired() {
             </Link>
             <Link
               href={header.loginHref}
-              className="text-sm font-medium text-portal-navy transition-colors duration-200 hover:text-portal-blue"
+              className="hidden text-sm font-medium text-portal-navy transition-colors duration-200 hover:text-portal-blue sm:inline"
             >
               {header.loginLabel}
             </Link>

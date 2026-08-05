@@ -55,14 +55,14 @@ export function PricingStorageEmailAllowances({
       aria-labelledby="pricing-extras-heading"
     >
       <div className="overflow-hidden rounded-[1.5rem] border border-portal-blue/20 bg-surface shadow-[0_16px_40px_-16px_rgba(0,119,190,0.12)] ring-1 ring-portal-blue/10">
-        <div className="border-b border-muted/10 px-5 py-5 sm:px-6 sm:py-6">
+        <div className="border-b border-muted/10 px-4 py-3.5 sm:px-5 sm:py-4">
           <h2
             id="pricing-extras-heading"
-            className="text-lg font-semibold tracking-tight text-portal-navy md:text-xl"
+            className="text-base font-semibold tracking-tight text-portal-navy md:text-lg"
           >
             {pricingExtras.title}
           </h2>
-          <p className="mt-1 text-sm leading-snug text-portal-navy/65">
+          <p className="mt-0.5 text-sm leading-snug text-portal-navy/65">
             {pricingExtras.description}
           </p>
         </div>
@@ -80,13 +80,13 @@ export function PricingStorageEmailAllowances({
             <tr className="border-b border-muted/10 bg-portal-blue/[0.06]">
               <th
                 scope="col"
-                className="px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-portal-blue sm:px-6"
+                className="px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-portal-blue sm:px-5"
               >
                 {pricingExtras.extraColumnLabel}
               </th>
               <th
                 scope="col"
-                className="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.08em] text-portal-blue sm:px-6"
+                className="px-4 py-2 text-left text-[11px] font-semibold uppercase tracking-[0.08em] text-portal-blue sm:px-5"
               >
                 {pricingExtras.priceColumnLabel}
               </th>
@@ -103,28 +103,28 @@ export function PricingStorageEmailAllowances({
                 >
                   <th
                     scope="row"
-                    className="px-5 py-4 font-normal align-middle sm:px-6 sm:py-5"
+                    className="px-4 py-3 font-normal align-middle sm:px-5"
                   >
-                    <div className="flex items-start gap-3">
-                      <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-portal-blue/[0.08] text-portal-blue">
+                    <div className="flex items-center gap-2.5">
+                      <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-lg bg-portal-blue/[0.08] text-portal-blue">
                         <Icon
-                          className="size-4"
+                          className="size-3.5"
                           strokeWidth={2}
                           aria-hidden="true"
                         />
                       </span>
                       <div className="min-w-0">
-                        <p className="text-base font-semibold text-portal-navy">
+                        <p className="text-sm font-semibold leading-snug text-portal-navy">
                           {row.name}
                         </p>
-                        <p className="mt-0.5 text-sm text-portal-navy/55">
+                        <p className="text-xs leading-snug text-portal-navy/55">
                           {row.description}
                         </p>
                       </div>
                     </div>
                   </th>
-                  <td className="px-5 py-4 text-left align-middle sm:px-6 sm:py-5">
-                    <p className="text-base font-semibold text-portal-navy">
+                  <td className="px-4 py-3 text-left align-middle sm:px-5">
+                    <p className="text-sm font-semibold leading-snug text-portal-navy">
                       {row.price ?? "—"}
                     </p>
                   </td>
@@ -134,7 +134,7 @@ export function PricingStorageEmailAllowances({
           </tbody>
         </table>
 
-        {/* Mobile stacked extras */}
+        {/* Mobile stacked extras — no EXTRA/PRICE column headings */}
         <ul className="md:hidden">
           {rows.map((row) => {
             const Icon = row.icon;
@@ -142,24 +142,24 @@ export function PricingStorageEmailAllowances({
             return (
               <li
                 key={row.id}
-                className="border-b border-muted/10 px-4 py-4 last:border-b-0 sm:px-5"
+                className="border-b border-muted/10 px-4 py-3.5 last:border-b-0"
               >
-                <div className="flex items-start gap-3">
-                  <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-portal-blue/[0.08] text-portal-blue">
+                <div className="flex items-start gap-2.5">
+                  <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-lg bg-portal-blue/[0.08] text-portal-blue">
                     <Icon
-                      className="size-4"
+                      className="size-3.5"
                       strokeWidth={2}
                       aria-hidden="true"
                     />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="text-base font-semibold text-portal-navy">
+                    <p className="text-sm font-semibold leading-snug text-portal-navy">
                       {row.name}
                     </p>
-                    <p className="mt-0.5 text-sm leading-snug text-portal-navy/55">
+                    <p className="text-xs leading-snug text-portal-navy/55">
                       {row.description}
                     </p>
-                    <p className="mt-2.5 text-base font-semibold text-portal-navy">
+                    <p className="mt-1.5 text-sm font-semibold leading-snug text-portal-navy">
                       {row.price ?? "—"}
                     </p>
                   </div>
@@ -169,7 +169,7 @@ export function PricingStorageEmailAllowances({
           })}
         </ul>
 
-        <p className="flex items-start gap-1.5 border-t border-muted/10 px-4 py-3 text-[11px] leading-snug text-portal-navy/40 sm:px-6">
+        <p className="flex items-start gap-1.5 border-t border-muted/10 px-4 py-2 text-[11px] leading-snug text-portal-navy/40 sm:px-5">
           <Info className="mt-0.5 size-3 shrink-0" aria-hidden="true" />
           <span className="min-w-0 break-words">{pricingExtras.infoLine}</span>
         </p>

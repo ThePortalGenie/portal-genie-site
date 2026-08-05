@@ -3,6 +3,8 @@ export const buttons = {
   login: "Login",
   learnMore: "Learn More",
   contactSales: "Contact Sales",
-  startFree: "Start Free",
-  start30DaysFree: "Start 30 Days Free",
+  /** Standard free-trial CTA — use for all public marketing CTAs */
+  startFree: "Start 30-Day Free Trial",
+  /** Alias kept for pricing/plan call sites that previously used this key */
+  start30DaysFree: "Start 30-Day Free Trial",
 } as const;

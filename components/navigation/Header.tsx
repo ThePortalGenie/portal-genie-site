@@ -38,19 +38,23 @@ export function Header() {
           <div className="ml-auto flex shrink-0 items-center gap-5 lg:ml-0">
             <Link
               href={headerActions.login.href}
-              className="inline-flex h-11 items-center text-sm font-medium leading-none text-portal-navy transition-colors duration-200 hover:text-portal-blue"
+              className="hidden h-11 items-center text-sm font-medium leading-none text-portal-navy transition-colors duration-200 hover:text-portal-blue md:inline-flex"
             >
               {headerActions.login.label}
             </Link>
 
-            <div className="hidden items-center gap-3 lg:flex">
+            <div className="hidden items-center gap-2 lg:flex xl:gap-3">
               <ButtonLink
                 href={headerActions.startFree.href}
                 variant="secondary"
+                className="whitespace-nowrap px-3.5 xl:px-6"
               >
                 {headerActions.startFree.label}
               </ButtonLink>
-              <ButtonLink href={headerActions.bookDemo.href}>
+              <ButtonLink
+                href={headerActions.bookDemo.href}
+                className="whitespace-nowrap px-3.5 xl:px-6"
+              >
                 {headerActions.bookDemo.label}
               </ButtonLink>
             </div>
