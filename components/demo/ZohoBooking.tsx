@@ -14,8 +14,7 @@ export function ZohoBooking() {
       <iframe
         src={booking.embedUrl}
         title={IFRAME_TITLE}
-        className="w-full min-w-[280px] border-0"
-        style={{ height: "750px" }}
+        className="h-[520px] w-full min-w-[280px] border-0 sm:h-[640px] md:h-[750px]"
         allowFullScreen
       />
     </div>

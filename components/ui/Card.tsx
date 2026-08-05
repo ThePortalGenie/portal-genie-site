@@ -34,7 +34,7 @@ export function Card({
   return (
     <article
       className={[
-        "rounded-card border border-muted/20 p-6 lg:p-8",
+        "rounded-card border border-muted/20 p-5 sm:p-6 lg:p-8",
         variantClasses[variant],
         interactive &&
           "shadow-[0_8px_24px_-8px_rgba(17,33,54,0.08)] transition-all duration-500 hover:-translate-y-0.5 hover:border-muted/30 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none",

@@ -24,8 +24,8 @@ export function PricingCard({ plan, currency }: PricingCardProps) {
   const capacityLines = getPlanCapacityLines(plan.id);
 
   return (
-    <article className="flex h-full flex-col rounded-card border border-portal-blue/35 bg-surface p-6 shadow-[0_16px_40px_-16px_rgba(0,119,190,0.28)] ring-1 ring-portal-blue/15 lg:p-7">
-      <div>
+    <article className="flex h-full flex-col rounded-card border border-portal-blue/35 bg-surface p-5 shadow-[0_16px_40px_-16px_rgba(0,119,190,0.28)] ring-1 ring-portal-blue/15 sm:p-6 lg:p-7">
+      <div className="text-center md:text-left">
         <h3 className="text-xl font-semibold tracking-tight text-portal-navy">
           {plan.name}
         </h3>
@@ -34,11 +34,11 @@ export function PricingCard({ plan, currency }: PricingCardProps) {
         </p>
       </div>
 
-      <div className="mt-4">
+      <div className="mt-4 text-center md:text-left">
         <p
           className={[
-            "font-semibold tracking-tight text-portal-navy",
-            price.unavailable ? "text-2xl" : "text-4xl sm:text-[2.5rem]",
+            "break-words font-semibold tracking-tight text-portal-navy",
+            price.unavailable ? "text-2xl" : "text-[2rem] sm:text-4xl md:text-[2.5rem]",
           ].join(" ")}
         >
           {price.primary}
@@ -60,7 +60,7 @@ export function PricingCard({ plan, currency }: PricingCardProps) {
         </p>
       ) : null}
 
-      <ul className="-mx-1 mt-4 flex flex-1 flex-col border-t border-muted/15 pt-3">
+      <ul className="-mx-1 mt-4 flex flex-1 flex-col border-t border-muted/15 pt-3 text-left">
         {features.map((feature, index) => (
           <li
             key={feature}
@@ -80,8 +80,8 @@ export function PricingCard({ plan, currency }: PricingCardProps) {
       </ul>
 
       {capacityLines.length > 0 ? (
-        <div className="-mx-1 mt-3 border-t border-muted/15 pt-3">
-          <p className="px-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-portal-blue">
+        <div className="-mx-1 mt-3 border-t border-muted/15 pt-3 text-left">
+          <p className="px-3 text-center text-[11px] font-semibold uppercase tracking-[0.08em] text-portal-blue md:text-left">
             Includes
           </p>
           <ul className="mt-2 flex flex-col gap-2 px-3">
@@ -95,7 +95,7 @@ export function PricingCard({ plan, currency }: PricingCardProps) {
                   strokeWidth={2.5}
                   aria-hidden="true"
                 />
-                <span>{line}</span>
+                <span className="min-w-0">{line}</span>
               </li>
             ))}
           </ul>

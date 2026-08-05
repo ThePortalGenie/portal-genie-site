@@ -14,6 +14,11 @@ export function FeatureSections() {
           screenshot={section.screenshot}
           imagePosition={index % 2 === 0 ? "right" : "left"}
           background={index % 2 === 0 ? "surface" : "background"}
+          className={
+            index === 0
+              ? "!pt-8 md:!pt-14 lg:!pt-16"
+              : undefined
+          }
         />
       ))}
     </>

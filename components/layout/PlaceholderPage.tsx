@@ -16,7 +16,7 @@ export function PlaceholderPage({
   primaryCta,
 }: PlaceholderPageProps) {
   return (
-    <main className="py-[72px] md:py-24 lg:py-[120px]">
+    <main className="py-12 md:py-20 lg:py-[120px]">
       <Container>
         <div className="max-w-prose">
           <h1 className="text-3xl font-semibold tracking-tight text-portal-navy md:text-4xl">

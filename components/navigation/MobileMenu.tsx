@@ -79,8 +79,8 @@ export function MobileMenu() {
           id={panelId}
           className="absolute inset-x-0 top-full border-b border-muted/15 bg-surface shadow-[0_12px_32px_-16px_rgba(17,33,54,0.18)]"
         >
-          <nav aria-label="Mobile navigation" className="px-6 py-6 md:px-8">
-            <ul className="flex flex-col gap-1">
+          <nav aria-label="Mobile navigation" className="px-4 py-5 sm:px-6 sm:py-6 md:px-8">
+            <ul className="flex max-h-[min(70vh,28rem)] flex-col gap-1 overflow-y-auto">
               {getVisibleMainNavItems().map((item) => {
                 const isActive = pathname === item.href;
 

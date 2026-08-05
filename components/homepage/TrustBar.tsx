@@ -6,9 +6,9 @@ export function TrustBar() {
   return (
     <section className="border-y border-muted/15 bg-surface">
       <Container>
-        <ul className="grid gap-6 py-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 lg:py-10">
+        <ul className="grid gap-4 py-7 sm:grid-cols-2 sm:gap-5 sm:py-8 lg:grid-cols-4 lg:gap-8 lg:py-10">
           {homepage.trustBar.items.map((item) => (
-            <li key={item} className="flex items-center gap-3">
+            <li key={item} className="flex items-start gap-3 sm:items-center">
               <Check
                 className="size-4 shrink-0 text-portal-teal"
                 strokeWidth={2}

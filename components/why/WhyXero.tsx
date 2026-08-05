@@ -9,16 +9,16 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Container } from "@/components/ui/Container";
 
 /** Shared logo height — equal visual weight; Xero is wider by aspect ratio. */
-const LOGO_HEIGHT = "h-11 w-auto object-contain sm:h-12 md:h-14";
+const LOGO_HEIGHT = "h-9 w-auto max-w-full object-contain sm:h-12 md:h-14";
 
 export function WhyXero() {
   const { builtAlongsideXero } = whyPage;
   const [xero, ...secondary] = accountingIntegrations.logos;
 
   return (
-    <section className="border-y border-muted/15 bg-surface py-[72px] md:py-24 lg:py-[120px]">
+    <section className="border-y border-muted/15 bg-surface py-12 md:py-20 lg:py-[120px]">
       <Container>
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           <div>
             <ScrollReveal>
               <SectionHeader
@@ -26,7 +26,7 @@ export function WhyXero() {
                 title={builtAlongsideXero.headline}
                 description={builtAlongsideXero.description}
                 align="left"
-                className="max-w-xl"
+                className="mx-auto max-w-xl text-center md:mx-0 md:text-left"
               />
             </ScrollReveal>
 
@@ -58,7 +58,7 @@ export function WhyXero() {
           </div>
 
           <ScrollReveal className="flex justify-center lg:justify-end">
-            <div className="relative flex w-full max-w-sm items-center justify-center rounded-card border border-muted/20 bg-background p-8 sm:p-10 lg:max-w-md">
+            <div className="relative flex w-full max-w-sm items-center justify-center rounded-card border border-muted/20 bg-background p-6 sm:p-10 lg:max-w-md">
               <div
                 className="pointer-events-none absolute inset-0 rounded-card bg-gradient-to-br from-portal-blue/5 via-transparent to-portal-teal/5"
                 aria-hidden="true"

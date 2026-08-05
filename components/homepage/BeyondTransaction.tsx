@@ -28,7 +28,7 @@ export function BeyondTransaction() {
 
   return (
     <Section background="surface">
-      <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+      <div className="grid items-start gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16">
         <SectionHeader
           align="left"
           title={headline}

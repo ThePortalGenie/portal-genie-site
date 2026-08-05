@@ -55,13 +55,13 @@ export function FeatureNavigation() {
 
   return (
     <nav
-      className="sticky top-[72px] z-40 border-b border-muted/15 bg-surface/95 backdrop-blur-sm supports-[backdrop-filter]:bg-surface/80 lg:top-20"
+      className="sticky top-16 z-40 border-b border-muted/15 bg-surface/95 backdrop-blur-sm supports-[backdrop-filter]:bg-surface/80 sm:top-[72px] lg:top-20"
       aria-label="Feature sections"
     >
       <Container>
         <ul
           ref={listRef}
-          className="-mx-6 flex gap-1 overflow-x-auto px-6 py-3 md:mx-0 md:px-0 md:py-4"
+          className="-mx-4 flex gap-1 overflow-x-auto overscroll-x-contain px-4 py-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6 md:mx-0 md:px-0 md:py-2.5 lg:py-3"
         >
           {featuresPage.navigation.map((item) => {
             const isActive = activeId === item.id;

@@ -32,13 +32,13 @@ export function CommonThemes() {
           title={customerSuccessThemes.headline}
           description={customerSuccessThemes.description}
           align="left"
-          className="max-w-xl"
+          className="mx-auto max-w-xl text-center md:mx-0 md:text-left"
         />
       </ScrollReveal>
 
       <div
         ref={ref}
-        className="mt-12 grid gap-6 sm:grid-cols-2 lg:gap-8"
+        className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 md:mt-12 md:gap-6 lg:gap-8"
       >
         {customerSuccessThemes.items.map((item, index) => {
           const Icon = iconMap[item.icon];

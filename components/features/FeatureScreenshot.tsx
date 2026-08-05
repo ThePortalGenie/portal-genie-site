@@ -18,7 +18,7 @@ export function FeatureScreenshot({
 }: FeatureScreenshotProps) {
   return (
     <div
-      className="relative w-full max-h-[280px] overflow-hidden bg-background sm:max-h-none"
+      className="relative w-full max-h-[340px] overflow-hidden bg-background sm:max-h-none"
       style={{ aspectRatio }}
     >
       <Image

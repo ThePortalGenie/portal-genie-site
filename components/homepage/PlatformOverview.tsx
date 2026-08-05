@@ -43,7 +43,7 @@ export function PlatformOverview() {
         />
       </div>
 
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-8">
+      <div className="mt-8 grid gap-5 sm:mt-10 sm:grid-cols-2 md:mt-12 md:gap-6 lg:mt-16 lg:grid-cols-3 lg:gap-8">
         {pillars.map((pillar) => {
           const Icon = iconMap[pillar.icon];
 

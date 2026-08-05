@@ -15,7 +15,7 @@ export function ResourcesNewsletter() {
   }
 
   return (
-    <section className="border-y border-muted/15 bg-surface py-[72px] md:py-24 lg:py-[120px]">
+    <section className="border-y border-muted/15 bg-surface py-12 md:py-20 lg:py-[120px]">
       <Container>
         <ScrollReveal>
           <div className="mx-auto max-w-xl text-center">

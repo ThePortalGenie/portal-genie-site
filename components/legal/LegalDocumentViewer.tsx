@@ -19,27 +19,28 @@ export function LegalDocumentViewer({
 }: LegalDocumentViewerProps) {
   return (
     <>
-      <section className="bg-background pt-8 pb-12 md:pt-12 md:pb-16 lg:pt-16 lg:pb-20">
+      <section className="bg-background pt-6 pb-8 md:pt-12 md:pb-16 lg:pt-16 lg:pb-20">
         <Container>
-          <div className="max-w-3xl">
-            <h1 className="text-4xl font-semibold leading-tight tracking-tight text-portal-navy sm:text-[2.75rem] sm:leading-tight lg:text-5xl">
+          <div className="mx-auto max-w-3xl text-center md:mx-0 md:text-left">
+            <h1 className="text-[1.875rem] font-semibold leading-[1.15] tracking-tight text-portal-navy sm:text-[2.75rem] sm:leading-tight lg:text-5xl">
               {title}
             </h1>
-            <p className="mt-6 text-base leading-relaxed text-portal-navy/75 sm:text-lg">
+            <p className="mt-4 text-base leading-relaxed text-portal-navy/75 sm:mt-6 sm:text-lg">
               {description}
             </p>
           </div>
         </Container>
       </section>
 
-      <section className="bg-background pb-[72px] md:pb-24 lg:pb-[120px]">
+      <section className="bg-background pb-12 md:pb-24 lg:pb-[120px]">
         <Container>
-          <div className="mb-6 flex justify-end">
+          <div className="mb-5 flex justify-center md:mb-6 md:justify-end">
             <ButtonLink
               href={pdfPath}
               variant="secondary"
               target="_blank"
               rel="noopener noreferrer"
+              className="w-full sm:w-auto"
             >
               {downloadLabel}
             </ButtonLink>
@@ -49,7 +50,7 @@ export function LegalDocumentViewer({
             <iframe
               src={pdfPath}
               title={`${title} document`}
-              className="h-[700px] w-full md:h-[900px] lg:h-[1000px]"
+              className="h-[480px] w-full sm:h-[640px] md:h-[900px] lg:h-[1000px]"
             />
           </div>
 

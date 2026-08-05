@@ -12,10 +12,10 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-muted/15 bg-surface/95 backdrop-blur-sm supports-[backdrop-filter]:bg-surface/80">
       <Container className="relative">
-        <div className="flex h-[72px] items-center gap-4 lg:h-20 lg:gap-6">
+        <div className="flex h-[64px] items-center gap-3 sm:h-[72px] sm:gap-4 lg:h-20 lg:gap-6">
           <Link
             href={links.home}
-            className="flex shrink-0 items-center"
+            className="flex min-w-0 shrink items-center"
             aria-label={site.logo.ariaLabel}
           >
             <Image
@@ -23,7 +23,7 @@ export function Header() {
               alt={site.logo.alt}
               width={site.logo.width}
               height={site.logo.height}
-              className="h-auto max-h-[54px] w-auto"
+              className="h-auto max-h-10 w-auto max-w-[140px] object-contain sm:max-h-[54px] sm:max-w-none"
               priority
             />
           </Link>

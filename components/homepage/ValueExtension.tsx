@@ -18,7 +18,7 @@ export function ValueExtension() {
     <Section background="background">
       <SectionHeader title={headline} description={description} />
 
-      <div className="mt-12 grid gap-6 md:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-8">
+      <div className="mt-8 grid gap-5 sm:mt-10 md:mt-12 md:grid-cols-2 md:gap-6 lg:mt-16 lg:grid-cols-3 lg:gap-8">
         {cards.map((card) => {
           const Icon = iconMap[card.icon];
 

@@ -22,6 +22,8 @@ type FeatureSectionProps = {
   };
   imagePosition: "left" | "right";
   background?: "background" | "surface";
+  /** Optional section class overrides (e.g. compact top padding for the first block) */
+  className?: string;
 };
 
 export function FeatureSection({
@@ -32,17 +34,22 @@ export function FeatureSection({
   screenshot,
   imagePosition,
   background = "background",
+  className = "",
 }: FeatureSectionProps) {
   const isImageRight = imagePosition === "right";
   const showBrowserFrame = screenshot.framed !== false;
   const visualEmphasis = screenshot.emphasis === "visual";
 
   const gridClass = visualEmphasis
-    ? "grid items-center gap-10 md:gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 xl:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] xl:gap-14"
-    : "grid items-center gap-12 lg:grid-cols-2 lg:gap-16";
+    ? "grid items-center gap-8 md:gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 xl:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] xl:gap-14"
+    : "grid items-center gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16";
 
   return (
-    <Section id={id} background={background} className="scroll-mt-[8.5rem] lg:scroll-mt-36">
+    <Section
+      id={id}
+      background={background}
+      className={`scroll-mt-[7.5rem] sm:scroll-mt-[8.5rem] lg:scroll-mt-36 ${className}`.trim()}
+    >
       <ScrollReveal>
         <div className={gridClass}>
           <div
@@ -58,7 +65,7 @@ export function FeatureSection({
           >
             <SectionHeader align="left" title={title} description={description} />
 
-            <ul className="mt-8 flex flex-col gap-2.5">
+            <ul className="mt-6 flex flex-col gap-2 sm:mt-8 sm:gap-2.5">
               {benefits.map((benefit) => (
                 <li
                   key={benefit}

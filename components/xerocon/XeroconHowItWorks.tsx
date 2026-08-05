@@ -22,7 +22,7 @@ export function XeroconHowItWorks() {
           </h2>
         </div>
 
-        <ol className="mx-auto mt-8 grid max-w-4xl gap-4 sm:mt-10 sm:grid-cols-3 sm:gap-5">
+        <ol className="mx-auto mt-8 grid max-w-4xl gap-4 sm:mt-10 md:grid-cols-3 md:gap-5">
           {howItWorks.steps.map((step) => (
             <li
               key={step.step}

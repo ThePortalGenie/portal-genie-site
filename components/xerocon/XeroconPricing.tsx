@@ -38,7 +38,7 @@ function PlanCard({ plan }: { plan: XeroconPlan }) {
       <div className="mt-4">
         {price ? (
           <>
-            <p className="text-4xl font-semibold tracking-tight text-portal-navy">
+            <p className="break-words text-[2rem] font-semibold tracking-tight text-portal-navy sm:text-4xl">
               {price}
             </p>
             <p className="mt-0.5 text-sm text-portal-navy/55">{pricing.perMonth}</p>

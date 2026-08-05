@@ -30,25 +30,26 @@ const backgroundClasses = {
 } as const;
 
 const sectionPadding: Record<TrustedByVariant, string> = {
-  default: "py-[72px] md:py-24 lg:py-[120px]",
+  default: "py-12 md:py-20 lg:py-[120px]",
   compact: "py-10 md:py-12 lg:py-14",
   hero: "pt-6 pb-[72px] md:pt-8 md:pb-24 lg:pt-10 lg:pb-[120px]",
   /** Compact homepage trust strip (~300–400px desktop) */
-  strip: "py-14 md:py-16",
+  strip: "py-10 md:py-14 lg:py-16",
 };
 
 const titleClasses: Record<TrustedByVariant, string> = {
-  default: "text-3xl sm:text-4xl",
+  default: "text-[1.75rem] sm:text-3xl md:text-4xl",
   compact: "text-sm uppercase tracking-widest text-portal-navy/60",
-  hero: "text-3xl sm:text-4xl",
-  strip: "text-2xl font-semibold tracking-tight sm:text-[1.75rem] md:text-[2rem] lg:text-[2.125rem]",
+  hero: "text-[1.75rem] sm:text-3xl md:text-4xl",
+  strip:
+    "text-xl font-semibold tracking-tight sm:text-2xl md:text-[2rem] lg:text-[2.125rem]",
 };
 
 const gridSpacing: Record<TrustedByVariant, string> = {
-  default: "mt-12 md:mt-16 lg:mt-20",
+  default: "mt-8 md:mt-16 lg:mt-20",
   compact: "mt-8 md:mt-10",
-  hero: "mt-10 md:mt-12 lg:mt-14",
-  strip: "mt-8 md:mt-9",
+  hero: "mt-8 md:mt-12 lg:mt-14",
+  strip: "mt-6 md:mt-9",
 };
 
 const gridColumns: Record<TrustedByVariant, string> = {

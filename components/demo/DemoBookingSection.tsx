@@ -9,7 +9,7 @@ export function DemoBookingSection() {
   return (
     <section
       id="booking"
-      className="scroll-mt-[5.5rem] bg-background py-[72px] md:py-24 lg:scroll-mt-24 lg:py-[120px]"
+      className="scroll-mt-[5.5rem] bg-background py-12 md:py-20 lg:scroll-mt-24 lg:py-[120px]"
       aria-label="Book a demonstration"
     >
       <Container className="max-w-4xl">

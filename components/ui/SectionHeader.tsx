@@ -24,12 +24,12 @@ export function SectionHeader({
         </p>
       ) : null}
       <h2
-        className={`${eyebrow ? "mt-3" : ""} text-3xl font-semibold tracking-tight text-portal-navy sm:text-4xl`.trim()}
+        className={`${eyebrow ? "mt-3" : ""} text-[1.75rem] font-semibold leading-tight tracking-tight text-portal-navy sm:text-3xl md:text-4xl`.trim()}
       >
         {title}
       </h2>
       {description ? (
-        <p className="mt-6 text-base leading-relaxed text-portal-navy/75 sm:text-lg">
+        <p className="mt-4 text-base leading-relaxed text-portal-navy/75 sm:mt-5 sm:text-lg md:mt-6">
           {description}
         </p>
       ) : null}

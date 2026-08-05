@@ -21,7 +21,7 @@ export function Section({
 }: SectionProps) {
   return (
     <section
-      className={`${backgroundClasses[background]} py-[72px] md:py-24 lg:py-[120px] ${className}`.trim()}
+      className={`${backgroundClasses[background]} py-12 md:py-20 lg:py-[120px] ${className}`.trim()}
       {...props}
     >
       <Container>{children}</Container>

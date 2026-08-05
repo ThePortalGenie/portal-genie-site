@@ -91,7 +91,7 @@ export function IndustriesServed() {
             </p>
             <h2
               id="industries-served-heading"
-              className="mt-3 text-2xl font-semibold tracking-tight text-portal-navy sm:text-3xl lg:text-4xl"
+              className="mt-3 text-xl font-semibold tracking-tight text-portal-navy sm:text-3xl lg:text-4xl"
             >
               {industriesServed.heading.line1}
               <br />

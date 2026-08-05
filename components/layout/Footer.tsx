@@ -18,8 +18,8 @@ export function Footer() {
   return (
     <footer className="mt-auto border-t border-muted/15 bg-background">
       <Container>
-        <div className="py-16 md:py-20 lg:py-24">
-          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-8">
+        <div className="py-12 md:py-20 lg:py-24">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-3 xl:grid-cols-5 xl:gap-8">
             <FooterColumn className="sm:col-span-2 lg:col-span-3 xl:col-span-1">
               <Link
                 href={links.home}

@@ -14,7 +14,7 @@ export function SatisfactionOverview() {
       <Container>
         <div
           ref={ref}
-          className="grid gap-6 py-12 md:grid-cols-3 md:gap-8 lg:py-16"
+          className="grid gap-4 py-10 sm:grid-cols-3 sm:gap-5 md:gap-8 md:py-14 lg:py-16"
         >
           {statistics.items.map((item, index) => (
             <StatisticCard

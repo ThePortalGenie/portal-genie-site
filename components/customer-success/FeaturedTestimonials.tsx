@@ -18,13 +18,13 @@ export function FeaturedTestimonials() {
           title={testimonials.headline}
           description={testimonials.description}
           align="left"
-          className="max-w-xl"
+          className="mx-auto max-w-xl text-center md:mx-0 md:text-left"
         />
       </ScrollReveal>
 
       <div
         ref={ref}
-        className="mt-12 grid gap-6 md:grid-cols-2 lg:gap-8 xl:grid-cols-3"
+        className="mt-8 grid gap-5 sm:mt-10 md:mt-12 md:grid-cols-2 md:gap-6 lg:gap-8 xl:grid-cols-3"
       >
         {testimonials.items.map((item, index) => (
           <TestimonialCard

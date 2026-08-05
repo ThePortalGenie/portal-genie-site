@@ -9,17 +9,17 @@ export function ResourcesCta() {
   const { finalCta } = resourcesPage;
 
   return (
-    <section className="bg-background py-[72px] md:py-24 lg:py-[120px]">
+    <section className="bg-background py-12 md:py-20 lg:py-[120px]">
       <Container>
         <ScrollReveal>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-semibold tracking-tight text-portal-navy sm:text-4xl">
+            <h2 className="text-[1.75rem] font-semibold tracking-tight text-portal-navy sm:text-3xl md:text-4xl">
               {finalCta.headline}
             </h2>
-            <p className="mt-6 text-base leading-relaxed text-portal-navy/75 sm:text-lg">
+            <p className="mt-4 text-base leading-relaxed text-portal-navy/75 sm:mt-6 sm:text-lg">
               {finalCta.description}
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center sm:justify-center">
+            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center sm:justify-center md:mt-10">
               <ButtonLink
                 href={finalCta.primaryCta.href}
                 variant="primary"

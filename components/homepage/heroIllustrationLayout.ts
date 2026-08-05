@@ -14,21 +14,21 @@ import type { CSSProperties } from "react";
  */
 export const heroIllustrationLayout = {
   /** Vertical anchor as a percentage of the hero section */
-  topPercent: 6,
+  topPercent: 2,
 
   /** Fixed upward shift (px) applied at `lg+` — lowers `top` without transforms */
-  topAdjustPx: -40,
+  topAdjustPx: -24,
 
   centerOffsetPx: {
-    /** 1024px – 1279px */
-    lg: 140,
+    /** 1024px – 1279px — lower = more to the right */
+    lg: 100,
     /** 1280px+ */
-    xl: 290,
+    xl: 220,
   },
 
   widthPx: {
-    lg: 650,
-    xl: 1100,
+    lg: 620,
+    xl: 980,
   },
 
   mobile: {
@@ -36,7 +36,7 @@ export const heroIllustrationLayout = {
     maxWidthPx: 560,
   },
 
-  imageSizes: "(min-width: 1280px) 1100px, 650px",
+  imageSizes: "(min-width: 1280px) 980px, 620px",
 } as const;
 
 export function heroIllustrationLayoutVars(): CSSProperties {

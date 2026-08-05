@@ -15,6 +15,38 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 const featureRowBackground = (index: number) =>
   index % 2 === 0 ? "bg-background" : "bg-surface";
 
+function CompareValue({
+  feature,
+  planId,
+}: {
+  feature: PricingFeatureDefinition;
+  planId: (typeof pricingPlans)[number]["id"];
+}) {
+  const cell = getFeatureCompareValue(feature, planId);
+
+  if (cell.kind === "value") {
+    return (
+      <span className="text-sm font-medium text-portal-navy">
+        {cell.text ?? "—"}
+      </span>
+    );
+  }
+
+  if (cell.included) {
+    return (
+      <span className="inline-flex items-center justify-center text-portal-teal">
+        <Check className="size-4" strokeWidth={2.5} aria-label="Included" />
+      </span>
+    );
+  }
+
+  return (
+    <span className="inline-flex items-center justify-center text-muted">
+      <Minus className="size-4" strokeWidth={2} aria-label="Not included" />
+    </span>
+  );
+}
+
 function CompareFeatureRow({
   feature,
   rowIndex,
@@ -32,39 +64,61 @@ function CompareFeatureRow({
       >
         {feature.name}
       </th>
-      {pricingPlans.map((plan) => {
-        const cell = getFeatureCompareValue(feature, plan.id);
-
-        return (
-          <td
-            key={`${plan.id}-${feature.id}`}
-            className="px-4 py-2.5 text-center sm:px-6"
-          >
-            {cell.kind === "value" ? (
-              <span className="text-sm font-medium text-portal-navy">
-                {cell.text ?? "—"}
-              </span>
-            ) : cell.included ? (
-              <span className="inline-flex items-center justify-center text-portal-teal">
-                <Check
-                  className="size-4"
-                  strokeWidth={2.5}
-                  aria-label="Included"
-                />
-              </span>
-            ) : (
-              <span className="inline-flex items-center justify-center text-muted">
-                <Minus
-                  className="size-4"
-                  strokeWidth={2}
-                  aria-label="Not included"
-                />
-              </span>
-            )}
-          </td>
-        );
-      })}
+      {pricingPlans.map((plan) => (
+        <td
+          key={`${plan.id}-${feature.id}`}
+          className="px-4 py-2.5 text-center sm:px-6"
+        >
+          <CompareValue feature={feature} planId={plan.id} />
+        </td>
+      ))}
     </tr>
+  );
+}
+
+function MobileCompare() {
+  const sections = getComparisonFeatureSections();
+
+  return (
+    <div className="mt-8 space-y-6 md:hidden">
+      {sections.map((section) => (
+        <div
+          key={section.id}
+          className="overflow-hidden rounded-card border border-muted/20 bg-surface"
+        >
+          <h3 className="bg-portal-blue/[0.06] px-4 py-2.5 text-sm font-semibold text-portal-blue">
+            {section.title}
+          </h3>
+          <ul>
+            {section.features.map((feature, index) => (
+              <li
+                key={feature.id}
+                className={`border-t border-muted/10 px-4 py-3 first:border-t-0 ${featureRowBackground(index)}`}
+              >
+                <p className="text-sm font-medium leading-snug text-portal-navy">
+                  {feature.name}
+                </p>
+                <dl className="mt-2.5 grid grid-cols-2 gap-2">
+                  {pricingPlans.map((plan) => (
+                    <div
+                      key={`${plan.id}-${feature.id}`}
+                      className="rounded-lg bg-surface/80 px-2.5 py-2 ring-1 ring-muted/15"
+                    >
+                      <dt className="text-[11px] font-semibold uppercase tracking-[0.06em] text-portal-navy/50">
+                        {plan.name}
+                      </dt>
+                      <dd className="mt-1 flex min-h-[1.25rem] items-center">
+                        <CompareValue feature={feature} planId={plan.id} />
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -74,16 +128,18 @@ export function PricingCompareTable() {
   let rowIndex = 0;
 
   return (
-    <section className="hidden bg-surface md:block md:py-20 lg:py-24">
+    <section className="bg-surface py-12 md:py-20 lg:py-24">
       <Container>
         <SectionHeader
           title={compare.headline}
           description={compare.description}
           align="left"
-          className="max-w-2xl"
+          className="mx-auto max-w-2xl text-center md:mx-0 md:text-left"
         />
 
-        <div className="mt-10 overflow-x-auto rounded-card border border-muted/20 bg-surface">
+        <MobileCompare />
+
+        <div className="mt-10 hidden overflow-x-auto rounded-card border border-muted/20 bg-surface md:block">
           <table className="w-full min-w-[36rem] table-fixed border-collapse text-left text-sm">
             <caption className="sr-only">
               Feature comparison across Premium and Advanced plans
