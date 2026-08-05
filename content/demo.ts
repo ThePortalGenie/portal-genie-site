@@ -11,18 +11,12 @@ export const demoPage = {
         "Schedule a tailored demonstration of The Portal Genie and discover how it extends Xero with secure portals, branded communication and streamlined workflows.",
     },
   },
-  hero: {
+  booking: {
+    eyebrow: "Book your demo",
     headline: "See The Portal Genie in Action",
     description:
-      "Book a personalised demonstration and discover how The Portal Genie helps Xero businesses deliver a better customer experience through secure portals, branded communication and streamlined workflows.",
-    primaryCta: {
-      label: "Scroll to Booking",
-      href: "#booking",
-    },
-    secondaryCta: {
-      label: "View Features",
-      href: links.features,
-    },
+      "Book a personalised demo and discover how The Portal Genie can help you deliver a better customer experience through secure portals, branded communication and streamlined workflows.",
+    instruction: "Choose a time that suits you below.",
   },
   highlights: {
     headline: "What you'll see",
@@ -46,11 +40,6 @@ export const demoPage = {
         icon: "message-square",
       },
     ],
-  },
-  booking: {
-    headline: "Choose a time that suits you",
-    description:
-      "Select a slot below to book your demonstration. The calendar opens right here — no need to leave the Portal Genie website.",
   },
   alternativeContact: {
     prompt: "Prefer to contact us directly?",

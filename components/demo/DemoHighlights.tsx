@@ -26,13 +26,13 @@ export function DemoHighlights() {
           <SectionHeader
             title={highlights.headline}
             align="left"
-            className="mx-auto max-w-xl pt-10 text-center md:mx-0 md:pt-16 md:text-left"
+            className="mx-auto max-w-xl pt-10 text-center md:mx-0 md:pt-12 md:text-left"
           />
         </ScrollReveal>
 
         <div
           ref={gridRef}
-          className="mt-8 grid gap-5 pb-10 sm:mt-10 sm:grid-cols-2 sm:gap-6 md:pb-16 lg:grid-cols-3 lg:gap-8"
+          className="mt-8 grid gap-5 pb-10 sm:mt-10 sm:grid-cols-2 sm:gap-6 md:pb-12 lg:grid-cols-3 lg:gap-8"
         >
           {highlights.cards.map((card, index) => {
             const Icon = iconMap[card.icon];

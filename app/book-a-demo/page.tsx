@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { DemoHero } from "@/components/demo/DemoHero";
 import { DemoHighlights } from "@/components/demo/DemoHighlights";
 import { DemoBookingSection } from "@/components/demo/DemoBookingSection";
 import { DemoAlternativeContact } from "@/components/demo/DemoAlternativeContact";
@@ -20,9 +19,8 @@ export const metadata: Metadata = {
 export default function BookADemoPage() {
   return (
     <main>
-      <DemoHero />
-      <DemoHighlights />
       <DemoBookingSection />
+      <DemoHighlights />
       <DemoAlternativeContact />
       <DemoFaq />
       <DemoCta />
