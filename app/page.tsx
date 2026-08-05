@@ -5,14 +5,15 @@ import { Hero } from "@/components/homepage/Hero";
 import { PlatformOverview } from "@/components/homepage/PlatformOverview";
 import { TrustBar } from "@/components/homepage/TrustBar";
 import { ValueExtension } from "@/components/homepage/ValueExtension";
-import { TrustedByLogos } from "@/components/shared/TrustedByLogos";
-import { trustedByPlacements } from "@/content/client-logos";
+// Temporarily hidden on homepage — restore when ready:
+// import { TrustedByLogos } from "@/components/shared/TrustedByLogos";
+// import { trustedByPlacements } from "@/content/client-logos";
 
 export default function Home() {
   return (
     <main>
       <Hero />
-      <TrustedByLogos {...trustedByPlacements.homepage} />
+      {/* <TrustedByLogos {...trustedByPlacements.homepage} /> */}
       <TrustBar />
       <ValueExtension />
       <PlatformOverview />
