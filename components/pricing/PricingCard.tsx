@@ -3,8 +3,8 @@ import { ButtonLink } from "@/components/ui/ButtonLink";
 import {
   formatPlanPrice,
   getPlanBasePrice,
+  getPlanCapacityLines,
   getPlanCardFeatures,
-  getPlanUserAllowanceCopy,
   pricingPage,
   type CurrencyCode,
   type PricingPlan,
@@ -21,7 +21,7 @@ const featureRowBackground = (index: number) =>
 export function PricingCard({ plan, currency }: PricingCardProps) {
   const features = getPlanCardFeatures(plan.id);
   const price = formatPlanPrice(getPlanBasePrice(plan, currency), currency);
-  const userAllowance = getPlanUserAllowanceCopy(plan, currency);
+  const capacityLines = getPlanCapacityLines(plan.id);
 
   return (
     <article className="flex h-full flex-col rounded-card border border-portal-blue/35 bg-surface p-6 shadow-[0_16px_40px_-16px_rgba(0,119,190,0.28)] ring-1 ring-portal-blue/15 lg:p-7">
@@ -45,22 +45,6 @@ export function PricingCard({ plan, currency }: PricingCardProps) {
         </p>
         {price.period ? (
           <p className="mt-0.5 text-sm text-portal-navy/60">{price.period}</p>
-        ) : null}
-      </div>
-
-      <div className="mt-3">
-        <p className="flex items-center gap-2 text-sm font-medium text-portal-navy">
-          <Check
-            className="size-4 shrink-0 text-portal-teal"
-            strokeWidth={2.5}
-            aria-hidden="true"
-          />
-          <span>{userAllowance.includedUsers}</span>
-        </p>
-        {userAllowance.additionalUsers ? (
-          <p className="mt-1.5 pl-6 text-xs leading-snug text-portal-navy/55">
-            {userAllowance.additionalUsers}
-          </p>
         ) : null}
       </div>
 
@@ -94,6 +78,29 @@ export function PricingCard({ plan, currency }: PricingCardProps) {
           </li>
         ))}
       </ul>
+
+      {capacityLines.length > 0 ? (
+        <div className="-mx-1 mt-3 border-t border-muted/15 pt-3">
+          <p className="px-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-portal-blue">
+            Includes
+          </p>
+          <ul className="mt-2 flex flex-col gap-2 px-3">
+            {capacityLines.map((line) => (
+              <li
+                key={line}
+                className="flex items-start gap-2.5 text-sm leading-snug text-portal-navy/80"
+              >
+                <Check
+                  className="mt-0.5 size-4 shrink-0 text-portal-teal"
+                  strokeWidth={2.5}
+                  aria-hidden="true"
+                />
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </article>
   );
 }

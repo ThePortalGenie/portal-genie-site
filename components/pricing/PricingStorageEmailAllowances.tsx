@@ -1,16 +1,12 @@
 "use client";
 
-import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
-import { Check, Cloud, Info, Mail, Plus } from "lucide-react";
+import { Cloud, Info, Mail, UserPlus } from "lucide-react";
 import {
-  formatEmailAllowanceLabel,
-  formatStorageIncludedLabel,
   getAdditionalStorageCopy,
+  getAdditionalUserCopy,
   getEmailBundleAddOnCopy,
-  planAllowances,
-  pricingPlans,
-  storageEmailAllowances,
+  pricingExtras,
   type CurrencyCode,
 } from "@/content/pricing";
 
@@ -18,342 +14,166 @@ type PricingStorageEmailAllowancesProps = {
   currency: CurrencyCode;
 };
 
-type FeatureRow = {
+type ExtraRow = {
   id: string;
-  title: string;
+  name: string;
   description: string;
   icon: LucideIcon;
-  premium: ReactNode;
-  advanced: ReactNode;
-  highlighted?: boolean;
+  price: string | null;
 };
-
-const headerPad = "px-5 py-3 lg:px-6 lg:py-3.5";
-const cellPad = "px-5 py-5 lg:px-6 lg:py-6";
-const addOnPad = "px-5 py-4 lg:px-6";
-
-function FeatureLabel({
-  icon: Icon,
-  title,
-  description,
-}: {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="flex items-start gap-2.5">
-      <span className="mt-0.5 inline-flex size-7 shrink-0 items-center justify-center rounded-lg bg-portal-blue/[0.08] text-portal-blue">
-        <Icon className="size-3.5" strokeWidth={2} aria-hidden="true" />
-      </span>
-      <div className="min-w-0">
-        <p className="text-base font-semibold leading-snug text-portal-navy">
-          {title}
-        </p>
-        <p className="mt-0.5 text-[13px] leading-snug text-portal-navy/45">
-          {description}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function IncludedValue({ children }: { children: string }) {
-  return (
-    <div className="flex items-center gap-2">
-      <Check
-        className="size-4 shrink-0 text-portal-teal"
-        strokeWidth={2.5}
-        aria-hidden="true"
-      />
-      <p className="text-base font-semibold leading-snug text-portal-navy">
-        {children}
-      </p>
-    </div>
-  );
-}
-
-function UnavailableValue({ note }: { note?: string }) {
-  return (
-    <div>
-      <p
-        className="text-base font-medium leading-none text-muted"
-        aria-hidden="true"
-      >
-        —
-      </p>
-      {note ? (
-        <p className="mt-1.5 text-[13px] leading-snug text-portal-navy/45">
-          {note}
-        </p>
-      ) : null}
-      <span className="sr-only">
-        {storageEmailAllowances.premiumNotIncluded}
-        {note ? `. ${note}` : ""}
-      </span>
-    </div>
-  );
-}
-
-function AddOnCell({
-  label,
-  priceLine,
-}: {
-  label: string;
-  priceLine: string;
-}) {
-  return (
-    <div>
-      <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-portal-blue/80">
-        {label}
-      </p>
-      <p className="mt-1 text-base font-semibold leading-snug text-portal-navy">
-        {priceLine}
-      </p>
-    </div>
-  );
-}
-
-function MobileSectionCard({
-  icon: Icon,
-  title,
-  premium,
-  advanced,
-  addOnLabel,
-  addOnPrice,
-}: {
-  icon: LucideIcon;
-  title: string;
-  premium: ReactNode;
-  advanced: ReactNode;
-  addOnLabel: string;
-  addOnPrice: string | null;
-}) {
-  const premiumPlan = pricingPlans.find((plan) => plan.id === "premium");
-  const advancedPlan = pricingPlans.find((plan) => plan.id === "advanced");
-
-  return (
-    <article className="overflow-hidden rounded-[1.25rem] border border-muted/20 bg-surface shadow-[0_12px_32px_-16px_rgba(0,119,190,0.12)] ring-1 ring-portal-blue/8">
-      <div className="px-4 py-4 sm:px-5">
-        <div className="flex items-center gap-2">
-          <span className="inline-flex size-7 shrink-0 items-center justify-center rounded-lg bg-portal-blue/[0.08] text-portal-blue">
-            <Icon className="size-3.5" strokeWidth={2} aria-hidden="true" />
-          </span>
-          <h3 className="text-xs font-semibold uppercase tracking-[0.08em] text-portal-blue">
-            {title}
-          </h3>
-        </div>
-
-        <div className="mt-4 space-y-3.5">
-          <div>
-            <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-portal-navy/40">
-              {premiumPlan?.name}
-            </p>
-            <div className="mt-1">{premium}</div>
-          </div>
-          <div>
-            <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-portal-navy/40">
-              {advancedPlan?.name}
-            </p>
-            <div className="mt-1">{advanced}</div>
-          </div>
-        </div>
-      </div>
-
-      {addOnPrice ? (
-        <div className="border-t border-muted/10 bg-portal-blue/[0.04] px-4 py-3.5 sm:px-5">
-          <div className="flex items-start gap-2">
-            <Plus
-              className="mt-0.5 size-4 shrink-0 text-portal-blue"
-              strokeWidth={2}
-              aria-hidden="true"
-            />
-            <div className="min-w-0 flex-1">
-              <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-portal-blue/80">
-                {addOnLabel}
-              </p>
-              <p className="mt-1 break-words text-base font-semibold leading-snug text-portal-navy">
-                {addOnPrice}
-              </p>
-            </div>
-          </div>
-        </div>
-      ) : null}
-    </article>
-  );
-}
 
 export function PricingStorageEmailAllowances({
   currency,
 }: PricingStorageEmailAllowancesProps) {
-  const premiumAllowances = planAllowances.premium;
-  const advancedAllowances = planAllowances.advanced;
-  const additionalStorage = getAdditionalStorageCopy(currency);
-  const emailBundleAddOn = getEmailBundleAddOnCopy(currency);
-
-  const premiumStorage = formatStorageIncludedLabel(
-    premiumAllowances.storageIncludedGb,
-  );
-  const advancedStorage = formatStorageIncludedLabel(
-    advancedAllowances.storageIncludedGb,
-  );
-  const advancedEmail =
-    advancedAllowances.emailAllowancePerMonth != null
-      ? formatEmailAllowanceLabel(advancedAllowances.emailAllowancePerMonth)
-      : null;
-
-  const rows: FeatureRow[] = [
+  const rows: ExtraRow[] = [
     {
       id: "storage",
-      title: storageEmailAllowances.storageHeading,
-      description: storageEmailAllowances.storageDescription,
+      name: pricingExtras.storage.name,
+      description: pricingExtras.storage.description,
       icon: Cloud,
-      premium: <IncludedValue>{premiumStorage}</IncludedValue>,
-      advanced: <IncludedValue>{advancedStorage}</IncludedValue>,
+      price: getAdditionalStorageCopy(currency),
     },
     {
-      id: "email-campaigns",
-      title: storageEmailAllowances.emailHeading,
-      description: storageEmailAllowances.emailDescription,
+      id: "email",
+      name: pricingExtras.email.name,
+      description: pricingExtras.email.description,
       icon: Mail,
-      premium: (
-        <UnavailableValue note={storageEmailAllowances.premiumEmailNote} />
-      ),
-      advanced: advancedEmail ? (
-        <IncludedValue>{advancedEmail}</IncludedValue>
-      ) : null,
+      price: getEmailBundleAddOnCopy(currency),
     },
     {
-      id: "add-ons",
-      title: storageEmailAllowances.addOnsRowLabel,
-      description: storageEmailAllowances.addOnsDescription,
-      icon: Plus,
-      highlighted: true,
-      premium: additionalStorage ? (
-        <AddOnCell
-          label={storageEmailAllowances.additionalStorageLabel}
-          priceLine={additionalStorage}
-        />
-      ) : null,
-      advanced: emailBundleAddOn ? (
-        <AddOnCell
-          label={storageEmailAllowances.additionalEmailsLabel}
-          priceLine={emailBundleAddOn}
-        />
-      ) : null,
+      id: "users",
+      name: pricingExtras.users.name,
+      description: pricingExtras.users.description,
+      icon: UserPlus,
+      price: getAdditionalUserCopy(currency),
     },
   ];
 
   return (
     <section
       className="mx-auto mt-6 max-w-5xl lg:max-w-6xl"
-      aria-labelledby="storage-email-allowances-heading"
+      aria-labelledby="pricing-extras-heading"
     >
-      <div className="text-left">
-        <h2
-          id="storage-email-allowances-heading"
-          className="text-lg font-semibold tracking-tight text-portal-navy md:text-xl"
-        >
-          {storageEmailAllowances.title}
-        </h2>
-        <p className="mt-1 text-sm leading-snug text-portal-navy/65">
-          {storageEmailAllowances.description}
-        </p>
-      </div>
+      <div className="overflow-hidden rounded-[1.5rem] border border-portal-blue/20 bg-surface shadow-[0_16px_40px_-16px_rgba(0,119,190,0.12)] ring-1 ring-portal-blue/10">
+        <div className="border-b border-muted/10 px-5 py-5 sm:px-6 sm:py-6">
+          <h2
+            id="pricing-extras-heading"
+            className="text-lg font-semibold tracking-tight text-portal-navy md:text-xl"
+          >
+            {pricingExtras.title}
+          </h2>
+          <p className="mt-1 text-sm leading-snug text-portal-navy/65">
+            {pricingExtras.description}
+          </p>
+        </div>
 
-      {/* Desktop / tablet comparison table — unchanged */}
-      <div className="mt-5 hidden overflow-hidden rounded-[1.5rem] border border-muted/20 bg-surface shadow-[0_16px_40px_-16px_rgba(0,119,190,0.12)] ring-1 ring-portal-blue/8 md:block">
-        <table className="w-full table-fixed border-collapse text-left">
+        {/* Desktop / tablet two-column extras table */}
+        <table className="hidden w-full table-fixed border-collapse text-left md:table">
           <caption className="sr-only">
-            Storage and email allowances compared across Premium and Advanced
-            plans
+            Storage, email and user add-on pricing
           </caption>
           <colgroup>
-            <col className="w-[40%]" />
-            <col className="w-[30%]" />
-            <col className="w-[30%]" />
+            <col className="w-[65%]" />
+            <col className="w-[35%]" />
           </colgroup>
           <thead>
-            <tr className="border-b border-muted/10 bg-background/70">
-              <th scope="col" className={`${headerPad} align-middle`}>
-                <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-portal-navy/40">
-                  {storageEmailAllowances.featureColumnLabel}
-                </p>
+            <tr className="border-b border-muted/10 bg-portal-blue/[0.06]">
+              <th
+                scope="col"
+                className="px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-portal-blue sm:px-6"
+              >
+                {pricingExtras.extraColumnLabel}
               </th>
-              {pricingPlans.map((plan) => (
-                <th
-                  key={plan.id}
-                  scope="col"
-                  className={`${headerPad} align-middle`}
-                >
-                  <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-portal-blue/70">
-                    {plan.name}
-                  </p>
-                  <p className="mt-0.5 text-lg font-semibold tracking-tight text-portal-navy">
-                    {plan.name}
-                  </p>
-                </th>
-              ))}
+              <th
+                scope="col"
+                className="px-5 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.08em] text-portal-blue sm:px-6"
+              >
+                {pricingExtras.priceColumnLabel}
+              </th>
             </tr>
           </thead>
           <tbody>
             {rows.map((row) => {
-              const pad = row.highlighted ? addOnPad : cellPad;
+              const Icon = row.icon;
 
               return (
                 <tr
                   key={row.id}
-                  className={[
-                    "border-b border-muted/[0.08] last:border-b-0",
-                    row.highlighted ? "bg-portal-blue/[0.035]" : "bg-surface",
-                  ].join(" ")}
+                  className="border-b border-muted/10 last:border-b-0"
                 >
-                  <th scope="row" className={`${pad} align-middle font-normal`}>
-                    <FeatureLabel
-                      icon={row.icon}
-                      title={row.title}
-                      description={row.description}
-                    />
+                  <th
+                    scope="row"
+                    className="px-5 py-4 font-normal align-middle sm:px-6 sm:py-5"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-portal-blue/[0.08] text-portal-blue">
+                        <Icon
+                          className="size-4"
+                          strokeWidth={2}
+                          aria-hidden="true"
+                        />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-base font-semibold text-portal-navy">
+                          {row.name}
+                        </p>
+                        <p className="mt-0.5 text-sm text-portal-navy/55">
+                          {row.description}
+                        </p>
+                      </div>
+                    </div>
                   </th>
-                  <td className={`${pad} align-middle`}>{row.premium}</td>
-                  <td className={`${pad} align-middle`}>{row.advanced}</td>
+                  <td className="px-5 py-4 text-left align-middle sm:px-6 sm:py-5">
+                    <p className="text-base font-semibold text-portal-navy">
+                      {row.price ?? "—"}
+                    </p>
+                  </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
-      </div>
 
-      {/* Mobile: feature + related add-on grouped in each card */}
-      <div className="mt-4 flex flex-col gap-4 md:hidden">
-        <MobileSectionCard
-          icon={Cloud}
-          title={storageEmailAllowances.storageHeading}
-          premium={<IncludedValue>{premiumStorage}</IncludedValue>}
-          advanced={<IncludedValue>{advancedStorage}</IncludedValue>}
-          addOnLabel={storageEmailAllowances.additionalStorageLabel}
-          addOnPrice={additionalStorage}
-        />
-        <MobileSectionCard
-          icon={Mail}
-          title={storageEmailAllowances.emailHeading}
-          premium={<UnavailableValue />}
-          advanced={
-            advancedEmail ? (
-              <IncludedValue>{advancedEmail}</IncludedValue>
-            ) : null
-          }
-          addOnLabel={storageEmailAllowances.additionalEmailsLabel}
-          addOnPrice={emailBundleAddOn}
-        />
-      </div>
+        {/* Mobile stacked extras */}
+        <ul className="md:hidden">
+          {rows.map((row) => {
+            const Icon = row.icon;
 
-      <p className="mt-2 flex items-start gap-1.5 text-[11px] leading-snug text-portal-navy/40">
-        <Info className="mt-0.5 size-3 shrink-0" aria-hidden="true" />
-        <span className="min-w-0 break-words">
-          {storageEmailAllowances.infoLine}
-        </span>
-      </p>
+            return (
+              <li
+                key={row.id}
+                className="border-b border-muted/10 px-4 py-4 last:border-b-0 sm:px-5"
+              >
+                <div className="flex items-start gap-3">
+                  <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-portal-blue/[0.08] text-portal-blue">
+                    <Icon
+                      className="size-4"
+                      strokeWidth={2}
+                      aria-hidden="true"
+                    />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-base font-semibold text-portal-navy">
+                      {row.name}
+                    </p>
+                    <p className="mt-0.5 text-sm leading-snug text-portal-navy/55">
+                      {row.description}
+                    </p>
+                    <p className="mt-2.5 text-base font-semibold text-portal-navy">
+                      {row.price ?? "—"}
+                    </p>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+
+        <p className="flex items-start gap-1.5 border-t border-muted/10 px-4 py-3 text-[11px] leading-snug text-portal-navy/40 sm:px-6">
+          <Info className="mt-0.5 size-3 shrink-0" aria-hidden="true" />
+          <span className="min-w-0 break-words">{pricingExtras.infoLine}</span>
+        </p>
+      </div>
     </section>
   );
 }

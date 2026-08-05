@@ -292,7 +292,7 @@ export const pricingPlans: PricingPlan[] = [
     name: "Premium",
     description: "The complete core Portal Genie experience.",
     featured: true,
-    includedUsers: 5,
+    includedUsers: 3,
     prices: {
       ZAR: 575,
       USD: 35,
@@ -315,7 +315,7 @@ export const pricingPlans: PricingPlan[] = [
     id: "advanced",
     name: "Advanced",
     description: "Everything in Premium, plus:",
-    includedUsers: 7,
+    includedUsers: 5,
     prices: {
       ZAR: 650,
       USD: 40,
@@ -360,26 +360,51 @@ export const pricingAddOns = {
     ZAR: 5,
     USD: 0.3,
     GBP: 0.25,
-    EUR: 0.25,
+    EUR: 0.3,
   } satisfies PlanPrices,
   emailBundlePrice: {
     ZAR: 35,
     USD: 2,
-    GBP: 2,
+    GBP: 1.5,
     EUR: 2,
   } satisfies PlanPrices,
   emailBundleSize: 1000,
 };
 
+export const pricingExtras = {
+  title: "Storage, Email & User Extras",
+  description: "Add more storage, email credits or users as your business grows.",
+  extraColumnLabel: "Extra",
+  priceColumnLabel: "Price",
+  storage: {
+    name: "Storage",
+    description: "Secure document storage",
+  },
+  email: {
+    name: "Email Campaigns",
+    description: "Scheduled client email campaigns",
+  },
+  users: {
+    name: "Users",
+    description: "Add additional team members",
+  },
+  storagePriceSuffix: "per GB",
+  emailPriceSuffix: (bundleSize: number) =>
+    `per ${bundleSize.toLocaleString("en-US")} emails`,
+  usersPriceSuffix: "per user / month",
+  infoLine:
+    "Add-ons are billed monthly and can be added as your business grows.",
+} as const;
+
+/** @deprecated Prefer pricingExtras — kept for any remaining helper callers */
 export const storageEmailAllowances = {
-  title: "Storage & Email Allowances",
-  description:
-    "Need more capacity? Add storage or email bundles as your business grows.",
+  title: pricingExtras.title,
+  description: pricingExtras.description,
   featureColumnLabel: "Feature",
-  storageHeading: "Storage",
-  storageDescription: "Secure document storage",
-  emailHeading: "Email Campaigns",
-  emailDescription: "Scheduled client email campaigns",
+  storageHeading: pricingExtras.storage.name,
+  storageDescription: pricingExtras.storage.description,
+  emailHeading: pricingExtras.email.name,
+  emailDescription: pricingExtras.email.description,
   addOnsRowLabel: "Add-ons",
   addOnsDescription: "Expand your storage or email capacity",
   additionalStorageLabel: "Additional Storage",
@@ -390,8 +415,7 @@ export const storageEmailAllowances = {
   storageIncludedSuffix: "included",
   emailIncludedSuffix: "emails included per month",
   emailBundleAdditionalSuffix: "additional emails",
-  infoLine:
-    "Additional storage is billed per GB per month. Email bundles contain 1,000 emails and can be added as needed.",
+  infoLine: pricingExtras.infoLine,
 } as const;
 
 export const pricingPage = {
@@ -576,7 +600,7 @@ export function getAdditionalStorageCopy(currency: CurrencyCode): string | null 
     return null;
   }
 
-  return `${amount} ${storageEmailAllowances.additionalStoragePeriod}`;
+  return `${amount} ${pricingExtras.storagePriceSuffix}`;
 }
 
 export function getEmailBundleAddOnCopy(currency: CurrencyCode): string | null {
@@ -591,7 +615,60 @@ export function getEmailBundleAddOnCopy(currency: CurrencyCode): string | null {
     return null;
   }
 
-  return `${bundleSize.toLocaleString("en-US")} ${storageEmailAllowances.emailBundleAdditionalSuffix} — ${price}`;
+  return `${price} ${pricingExtras.emailPriceSuffix(bundleSize)}`;
+}
+
+/** Shared additional-user rate across plans (same within each currency) */
+export function getAdditionalUserPrice(
+  currency: CurrencyCode,
+): number | null {
+  const rates = pricingPlans.map((plan) => plan.extraUserPrices[currency]);
+  const first = rates[0] ?? null;
+
+  if (first === null) {
+    return null;
+  }
+
+  const allMatch = rates.every((rate) => rate === first);
+  return allMatch ? first : first;
+}
+
+export function getAdditionalUserCopy(currency: CurrencyCode): string | null {
+  const amount = formatAddOnCurrencyAmount(
+    getAdditionalUserPrice(currency),
+    currency,
+  );
+
+  if (!amount) {
+    return null;
+  }
+
+  return `${amount} ${pricingExtras.usersPriceSuffix}`;
+}
+
+export function getPlanCapacityLines(planId: PlanId): string[] {
+  const plan = pricingPlans.find((item) => item.id === planId);
+  const allowances = planAllowances[planId];
+
+  if (!plan || !allowances) {
+    return [];
+  }
+
+  const lines: string[] = [
+    `${allowances.storageIncludedGb} GB storage`,
+  ];
+
+  if (allowances.emailAllowancePerMonth != null) {
+    lines.push(
+      `${allowances.emailAllowancePerMonth.toLocaleString("en-US")} emails per month`,
+    );
+  }
+
+  lines.push(
+    plan.includedUsers === 1 ? "1 user" : `${plan.includedUsers} users`,
+  );
+
+  return lines;
 }
 
 export function getPlanBasePrice(
