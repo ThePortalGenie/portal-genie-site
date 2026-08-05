@@ -14,6 +14,8 @@ export const links = {
   termsAndConditions: "/terms-and-conditions",
   youtube: "/youtube",
   bookDemo: "/book-a-demo",
+  /** Permanent campaign URL — encoded in printed QR codes. Do not rename. */
+  xerocon: "/xerocon",
   login: "https://app.theportalgenie.com/app/login",
   startFree:
     "https://app.theportalgenie.com/register?registerPage=true&packageId=STANDARD_CUSTOMER_PORTAL",

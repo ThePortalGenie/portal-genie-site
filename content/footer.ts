@@ -1,5 +1,12 @@
 import { links } from "@/config/links";
 
+export type FooterLink = {
+  label: string;
+  href: string;
+  /** When false, the link is omitted from footer navigation */
+  visible?: boolean;
+};
+
 export const footerContent = {
   brand: {
     description:
@@ -16,16 +23,16 @@ export const footerContent = {
         { label: "Pricing", href: links.pricing },
         { label: "Customer Success", href: links.customerSuccess },
         { label: "Book a Demo", href: links.bookDemo },
-      ],
+      ] satisfies FooterLink[],
     },
     resources: {
       title: "Resources",
       links: [
-        { label: "Resources", href: links.resources },
+        { label: "Resources", href: links.resources, visible: false },
         { label: "Documentation", href: links.documentation },
         { label: "Product Updates", href: links.productUpdates },
         { label: "FAQ", href: links.faq },
-      ],
+      ] satisfies FooterLink[],
     },
     company: {
       title: "Company",
@@ -33,7 +40,7 @@ export const footerContent = {
         { label: "Contact", href: links.contact },
         { label: "Privacy Policy", href: links.privacyPolicy },
         { label: "Terms & Conditions", href: links.termsAndConditions },
-      ],
+      ] satisfies FooterLink[],
     },
     connect: {
       title: "Connect",
@@ -57,3 +64,7 @@ export const footerContent = {
     tagline: "Built with ❤️ for businesses using Xero.",
   },
 } as const;
+
+export function getVisibleFooterLinks(links: FooterLink[]): FooterLink[] {
+  return links.filter((link) => link.visible !== false);
+}

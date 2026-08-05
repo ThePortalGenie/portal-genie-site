@@ -34,10 +34,11 @@ export type PricingPlan = {
   description: string;
   /** Customer-facing feature lines for the plan card */
   cardFeatures: string[];
-  /** Included users (same across all currencies) */
+  /** Users included in the base monthly subscription */
   includedUsers: number;
+  /** Base monthly subscription price, by currency */
   prices: PlanPrices;
-  /** Per-user price for additional users, by currency */
+  /** Price per additional user per month, by currency */
   extraUserPrices: PlanPrices;
   cta: {
     label: string;
@@ -72,13 +73,13 @@ export const premiumCardFeatures = [
 
 /** Advanced plan card features — additional capabilities only */
 export const advancedCardFeatures = [
+  "Remove The Portal Genie branding",
   "Use your own portal web address",
   "Send emails from your own domain",
+  "Let clients upload documents for you to receive",
+  "Your clients can create and respond to document notes",
   "Schedule email campaigns",
   "Email documents directly into the portal",
-  "Your clients can create and respond to document notes",
-  "Let clients upload documents for you to receive",
-  "Remove The Portal Genie branding",
 ] as const;
 
 /**
@@ -145,8 +146,8 @@ export const pricingFeatures: PricingFeatureDefinition[] = [
     name: "Users Included",
     kind: "value",
     values: {
-      premium: { compare: "2" },
-      advanced: { compare: "2" },
+      premium: { compare: "5" },
+      advanced: { compare: "7" },
     },
   },
   {
@@ -163,8 +164,8 @@ export const pricingFeatures: PricingFeatureDefinition[] = [
     name: "Included Emails",
     kind: "value",
     values: {
-      premium: { compare: "500" },
-      advanced: { compare: "2,000" },
+      premium: { compare: "—" },
+      advanced: { compare: "3,000" },
     },
   },
   {
@@ -229,6 +230,57 @@ export const pricingFeatures: PricingFeatureDefinition[] = [
   },
 ];
 
+export type ComparisonFeatureSectionId =
+  | "core-portal-features"
+  | "included-with-your-plan"
+  | "advanced-communication-security";
+
+export type ComparisonFeatureSection = {
+  id: ComparisonFeatureSectionId;
+  title: string;
+  featureIds: string[];
+};
+
+/** Logical groupings for the comparison table — order preserved */
+export const pricingComparisonSections: ComparisonFeatureSection[] = [
+  {
+    id: "core-portal-features",
+    title: "Core Portal Features",
+    featureIds: [
+      "customise-client-portal",
+      "accounting-integration",
+      "pay-invoices",
+      "upload-documents",
+      "logo-brand-colours",
+      "display-space",
+      "internal-notes",
+      "document-statuses",
+      "portal-genie-logo",
+    ],
+  },
+  {
+    id: "included-with-your-plan",
+    title: "Included With Your Plan",
+    featureIds: ["users", "included-storage", "included-emails"],
+  },
+  {
+    id: "advanced-communication-security",
+    title: "Advanced Communication & Security",
+    featureIds: [
+      "email-into-portal",
+      "schedule-campaigns",
+      "group-clients-email-campaigns",
+      "reply-to-emails",
+      "extra-password-protection",
+      "email-domain",
+      "portal-web-address",
+      "document-notes",
+      "client-uploads",
+      "remove-branding",
+    ],
+  },
+];
+
 /**
  * Edit plan prices here.
  * Use `null` for currencies that are not yet confirmed — the UI shows
@@ -240,18 +292,18 @@ export const pricingPlans: PricingPlan[] = [
     name: "Premium",
     description: "The complete core Portal Genie experience.",
     featured: true,
-    includedUsers: 2,
+    includedUsers: 5,
     prices: {
-      ZAR: 249,
-      USD: 20,
-      GBP: 15,
-      EUR: 18,
+      ZAR: 575,
+      USD: 35,
+      GBP: 26,
+      EUR: 30,
     },
     extraUserPrices: {
-      ZAR: 249,
-      USD: 20,
-      GBP: 15,
-      EUR: 18,
+      ZAR: 80,
+      USD: 5,
+      GBP: 4,
+      EUR: 4.5,
     },
     cta: {
       label: buttons.start30DaysFree,
@@ -263,18 +315,18 @@ export const pricingPlans: PricingPlan[] = [
     id: "advanced",
     name: "Advanced",
     description: "Everything in Premium, plus:",
-    includedUsers: 2,
+    includedUsers: 7,
     prices: {
-      ZAR: 299,
-      USD: 30,
-      GBP: 22,
-      EUR: 26,
+      ZAR: 650,
+      USD: 40,
+      GBP: 30,
+      EUR: 35,
     },
     extraUserPrices: {
-      ZAR: 299,
-      USD: 30,
-      GBP: 22,
-      EUR: 26,
+      ZAR: 80,
+      USD: 5,
+      GBP: 4,
+      EUR: 4.5,
     },
     cta: {
       label: buttons.start30DaysFree,
@@ -283,6 +335,64 @@ export const pricingPlans: PricingPlan[] = [
     cardFeatures: [...advancedCardFeatures],
   },
 ];
+
+/** Included storage and email allowances per plan */
+export type PlanAllowances = {
+  storageIncludedGb: number;
+  /** Monthly email allowance; null when email campaigns are not included */
+  emailAllowancePerMonth: number | null;
+};
+
+export const planAllowances: Record<PlanId, PlanAllowances> = {
+  premium: {
+    storageIncludedGb: 2,
+    emailAllowancePerMonth: null,
+  },
+  advanced: {
+    storageIncludedGb: 10,
+    emailAllowancePerMonth: 3000,
+  },
+};
+
+/** Add-on pricing — edit fixed amounts per currency (no live conversion) */
+export const pricingAddOns = {
+  storagePerGb: {
+    ZAR: 5,
+    USD: 0.3,
+    GBP: 0.25,
+    EUR: 0.25,
+  } satisfies PlanPrices,
+  emailBundlePrice: {
+    ZAR: 35,
+    USD: 2,
+    GBP: 2,
+    EUR: 2,
+  } satisfies PlanPrices,
+  emailBundleSize: 1000,
+};
+
+export const storageEmailAllowances = {
+  title: "Storage & Email Allowances",
+  description:
+    "Need more capacity? Add storage or email bundles as your business grows.",
+  featureColumnLabel: "Feature",
+  storageHeading: "Storage",
+  storageDescription: "Secure document storage",
+  emailHeading: "Email Campaigns",
+  emailDescription: "Scheduled client email campaigns",
+  addOnsRowLabel: "Add-ons",
+  addOnsDescription: "Expand your storage or email capacity",
+  additionalStorageLabel: "Additional Storage",
+  additionalEmailsLabel: "Additional Emails",
+  additionalStoragePeriod: "per GB per month",
+  premiumNotIncluded: "Not included",
+  premiumEmailNote: "Available with Advanced",
+  storageIncludedSuffix: "included",
+  emailIncludedSuffix: "emails included per month",
+  emailBundleAdditionalSuffix: "additional emails",
+  infoLine:
+    "Additional storage is billed per GB per month. Email bundles contain 1,000 emails and can be added as needed.",
+} as const;
 
 export const pricingPage = {
   metadata: {
@@ -386,6 +496,24 @@ export function getComparisonFeatures(): PricingFeatureDefinition[] {
   return pricingFeatures;
 }
 
+export function getComparisonFeatureSections(): Array<{
+  id: ComparisonFeatureSectionId;
+  title: string;
+  features: PricingFeatureDefinition[];
+}> {
+  const featureById = new Map(
+    pricingFeatures.map((feature) => [feature.id, feature]),
+  );
+
+  return pricingComparisonSections.map((section) => ({
+    id: section.id,
+    title: section.title,
+    features: section.featureIds
+      .map((id) => featureById.get(id))
+      .filter((feature): feature is PricingFeatureDefinition => feature != null),
+  }));
+}
+
 export function getFeatureCompareValue(
   feature: PricingFeatureDefinition,
   planId: PlanId,
@@ -411,6 +539,68 @@ export function formatCurrencyAmount(
   return `${symbol}${amount}`;
 }
 
+/** Formats add-on prices, preserving decimals where needed (e.g. $0.30, £2.50) */
+export function formatAddOnCurrencyAmount(
+  amount: number | null,
+  currency: CurrencyCode,
+): string | null {
+  if (amount === null) {
+    return null;
+  }
+
+  const symbol =
+    pricingCurrencies.find((item) => item.code === currency)?.symbol ?? "";
+
+  const formatted = Number.isInteger(amount)
+    ? String(amount)
+    : amount.toFixed(2);
+
+  return `${symbol}${formatted}`;
+}
+
+export function formatStorageIncludedLabel(gb: number): string {
+  return `${gb} GB ${storageEmailAllowances.storageIncludedSuffix}`;
+}
+
+export function formatEmailAllowanceLabel(count: number): string {
+  return `${count.toLocaleString("en-US")} ${storageEmailAllowances.emailIncludedSuffix}`;
+}
+
+export function getAdditionalStorageCopy(currency: CurrencyCode): string | null {
+  const amount = formatAddOnCurrencyAmount(
+    pricingAddOns.storagePerGb[currency],
+    currency,
+  );
+
+  if (!amount) {
+    return null;
+  }
+
+  return `${amount} ${storageEmailAllowances.additionalStoragePeriod}`;
+}
+
+export function getEmailBundleAddOnCopy(currency: CurrencyCode): string | null {
+  const price = formatAddOnCurrencyAmount(
+    pricingAddOns.emailBundlePrice[currency],
+    currency,
+  );
+
+  const bundleSize = pricingAddOns.emailBundleSize;
+
+  if (!price || bundleSize == null) {
+    return null;
+  }
+
+  return `${bundleSize.toLocaleString("en-US")} ${storageEmailAllowances.emailBundleAdditionalSuffix} — ${price}`;
+}
+
+export function getPlanBasePrice(
+  plan: PricingPlan,
+  currency: CurrencyCode,
+): number | null {
+  return plan.prices[currency];
+}
+
 export function getPlanUserAllowanceCopy(
   plan: PricingPlan,
   currency: CurrencyCode,
@@ -423,7 +613,7 @@ export function getPlanUserAllowanceCopy(
       ? "Includes 1 user"
       : `Includes ${plan.includedUsers} users`;
 
-  const extraUserAmount = formatCurrencyAmount(
+  const extraUserAmount = formatAddOnCurrencyAmount(
     plan.extraUserPrices[currency],
     currency,
   );
@@ -431,9 +621,37 @@ export function getPlanUserAllowanceCopy(
   return {
     includedUsers,
     additionalUsers: extraUserAmount
-      ? `Additional users: ${extraUserAmount} / user / month`
+      ? `Additional users ${extraUserAmount}/month each`
       : null,
   };
+}
+
+/**
+ * Total monthly price for a given number of users.
+ * Base subscription covers includedUsers; additional users are billed separately.
+ */
+export function getPlanMonthlyTotal(
+  plan: PricingPlan,
+  currency: CurrencyCode,
+  userCount: number,
+): number | null {
+  const basePrice = getPlanBasePrice(plan, currency);
+
+  if (basePrice === null || userCount < 1) {
+    return null;
+  }
+
+  if (userCount <= plan.includedUsers) {
+    return basePrice;
+  }
+
+  const extraUserPrice = plan.extraUserPrices[currency];
+
+  if (extraUserPrice === null) {
+    return null;
+  }
+
+  return basePrice + (userCount - plan.includedUsers) * extraUserPrice;
 }
 
 export function formatPlanPrice(

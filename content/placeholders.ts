@@ -1,22 +1,23 @@
 import { links } from "@/config/links";
+import { buttons } from "@/content/buttons";
 
 export const placeholderPages = {
   documentation: {
     title: "Documentation",
     description:
-      "Product documentation, setup guides and feature walkthroughs are being prepared. In the meantime, explore Resources or book a demo to see Portal Genie in action.",
+      "Product documentation, setup guides and feature walkthroughs are being prepared. In the meantime, book a demo to see Portal Genie in action.",
     primaryCta: {
-      label: "View Resources",
-      href: links.resources,
+      label: buttons.bookDemo,
+      href: links.bookDemo,
     },
   },
   productUpdates: {
     title: "Product Updates",
     description:
-      "Release notes and platform improvements are published on our Resources page. Visit Resources to browse the latest product updates.",
+      "Release notes and platform improvements are being prepared. Contact us to stay up to date with the latest Portal Genie product updates.",
     primaryCta: {
-      label: "See Product Updates",
-      href: `${links.resources}#product-updates`,
+      label: "Contact Us",
+      href: links.contact,
     },
   },
   faq: {

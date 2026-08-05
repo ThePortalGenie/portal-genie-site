@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { links } from "@/config/links";
 import { site } from "@/config/site";
-import { footerContent } from "@/content/footer";
+import { footerContent, getVisibleFooterLinks } from "@/content/footer";
 import { Container } from "@/components/ui/Container";
 import { FooterBottom } from "@/components/layout/FooterBottom";
 import { FooterColumn } from "@/components/layout/FooterColumn";
@@ -44,7 +44,7 @@ export function Footer() {
 
             <FooterColumn title={columns.product.title}>
               <ul className="space-y-3">
-                {columns.product.links.map((link) => (
+                {getVisibleFooterLinks([...columns.product.links]).map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
@@ -59,22 +59,24 @@ export function Footer() {
 
             <FooterColumn title={columns.resources.title}>
               <ul className="space-y-3">
-                {columns.resources.links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-portal-navy/70 transition-colors duration-200 hover:text-portal-blue"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                {getVisibleFooterLinks([...columns.resources.links]).map(
+                  (link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-portal-navy/70 transition-colors duration-200 hover:text-portal-blue"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ),
+                )}
               </ul>
             </FooterColumn>
 
             <FooterColumn title={columns.company.title}>
               <ul className="space-y-3">
-                {columns.company.links.map((link) => (
+                {getVisibleFooterLinks([...columns.company.links]).map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}

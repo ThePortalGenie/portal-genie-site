@@ -3,7 +3,7 @@
 import { useEffect, useId, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { headerActions, mainNavItems } from "@/content/navigation";
+import { getVisibleMainNavItems, headerActions } from "@/content/navigation";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { mobileNavItemClasses } from "@/components/navigation/navStyles";
 
@@ -81,7 +81,7 @@ export function MobileMenu() {
         >
           <nav aria-label="Mobile navigation" className="px-6 py-6 md:px-8">
             <ul className="flex flex-col gap-1">
-              {mainNavItems.map((item) => {
+              {getVisibleMainNavItems().map((item) => {
                 const isActive = pathname === item.href;
 
                 return (

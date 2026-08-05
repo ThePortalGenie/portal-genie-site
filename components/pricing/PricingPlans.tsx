@@ -11,6 +11,7 @@ import { Container } from "@/components/ui/Container";
 import { CurrencySelector } from "@/components/pricing/CurrencySelector";
 import { PricingCard } from "@/components/pricing/PricingCard";
 import { PricingPromotionBanner } from "@/components/pricing/PricingPromotionBanner";
+import { PricingStorageEmailAllowances } from "@/components/pricing/PricingStorageEmailAllowances";
 import { PricingTrustBar } from "@/components/pricing/PricingTrustBar";
 
 export function PricingPlans() {
@@ -51,6 +52,8 @@ export function PricingPlans() {
               <PricingCard key={plan.id} plan={plan} currency={currency} />
             ))}
           </div>
+
+          <PricingStorageEmailAllowances currency={currency} />
         </section>
       </Container>
     </section>

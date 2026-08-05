@@ -2,6 +2,7 @@ import { Check } from "lucide-react";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import {
   formatPlanPrice,
+  getPlanBasePrice,
   getPlanCardFeatures,
   getPlanUserAllowanceCopy,
   pricingPage,
@@ -14,9 +15,12 @@ type PricingCardProps = {
   currency: CurrencyCode;
 };
 
+const featureRowBackground = (index: number) =>
+  index % 2 === 0 ? "bg-background" : "bg-surface";
+
 export function PricingCard({ plan, currency }: PricingCardProps) {
   const features = getPlanCardFeatures(plan.id);
-  const price = formatPlanPrice(plan.prices[currency], currency);
+  const price = formatPlanPrice(getPlanBasePrice(plan, currency), currency);
   const userAllowance = getPlanUserAllowanceCopy(plan, currency);
 
   return (
@@ -72,11 +76,14 @@ export function PricingCard({ plan, currency }: PricingCardProps) {
         </p>
       ) : null}
 
-      <ul className="mt-4 flex flex-1 flex-col gap-2 border-t border-muted/15 pt-4">
-        {features.map((feature) => (
+      <ul className="-mx-1 mt-4 flex flex-1 flex-col border-t border-muted/15 pt-3">
+        {features.map((feature, index) => (
           <li
             key={feature}
-            className="flex items-start gap-2.5 text-sm leading-snug text-portal-navy/75"
+            className={[
+              "flex items-start gap-2.5 px-3 py-2.5 text-sm leading-snug text-portal-navy/75",
+              featureRowBackground(index),
+            ].join(" ")}
           >
             <Check
               className="mt-0.5 size-4 shrink-0 text-portal-teal"
