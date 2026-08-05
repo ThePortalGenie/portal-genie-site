@@ -58,6 +58,23 @@ body {
     top: calc(var(--hero-wave-top) * 1% + var(--hero-wave-top-adjust));
     left: calc(50vw - var(--hero-wave-offset-lg));
     width: var(--hero-wave-width-lg);
+    /* Fade the left edge so copy stays on a clean background */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      transparent 6%,
+      rgba(0, 0, 0, 0.35) 18%,
+      black 34%,
+      black 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      transparent 6%,
+      rgba(0, 0, 0, 0.35) 18%,
+      black 34%,
+      black 100%
+    );
   }
 
   @media (min-width: 80rem) {

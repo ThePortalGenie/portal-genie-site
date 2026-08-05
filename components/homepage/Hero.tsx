@@ -9,30 +9,30 @@ export function Hero() {
   const { hero } = homepage;
 
   return (
-    <section className="relative overflow-hidden bg-background pt-6 pb-8 md:pt-10 md:pb-12 lg:pt-10 lg:pb-14">
+    <section className="relative overflow-hidden bg-background pt-6 pb-8 md:pt-9 md:pb-11 lg:pt-10 lg:pb-12">
       <Container>
-        <div className="grid items-start lg:grid-cols-[minmax(0,42rem)_minmax(0,1fr)] lg:gap-8 xl:gap-10">
-          <div className="relative z-10 mx-auto w-full max-w-[42rem] text-center md:mx-0 md:max-w-none md:text-left">
+        <div className="grid items-start lg:grid-cols-[minmax(0,40rem)_minmax(0,1fr)] lg:gap-6 xl:gap-8">
+          <div className="relative z-10 mx-auto w-full max-w-[40rem] text-center md:mx-0 md:max-w-none md:text-left">
             <AccountingIntegrationLogos
               size="compact"
-              className="mb-3.5 justify-center md:mb-5 md:justify-start"
+              className="mb-3 justify-center md:mb-4 md:justify-start"
             />
 
             <p className="text-sm font-medium tracking-wide text-portal-blue">
               {hero.eyebrow}
             </p>
 
-            <h1 className="mt-5 text-balance text-[1.875rem] font-semibold leading-[1.12] tracking-tight text-portal-navy sm:mt-7 sm:text-[2.75rem] sm:leading-[1.1] md:mt-8 lg:text-5xl lg:leading-[1.08]">
+            <h1 className="mt-4 text-balance text-[1.875rem] font-bold leading-[1.1] tracking-tight text-portal-navy sm:mt-5 sm:text-[2.75rem] sm:leading-[1.08] md:mt-6 lg:text-5xl lg:leading-[1.05]">
               {hero.headline}
             </h1>
 
-            <div className="mx-auto mt-5 max-w-xl space-y-2.5 text-base leading-7 text-portal-navy/75 sm:mt-6 sm:text-lg md:mx-0 md:max-w-none lg:mt-7 lg:leading-relaxed">
+            <div className="mx-auto mt-5 max-w-xl space-y-2 text-base leading-7 text-portal-navy/80 sm:mt-5 sm:text-lg md:mx-0 md:max-w-none lg:leading-relaxed">
               {hero.supportingCopy.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
 
-            <ul className="mx-auto mt-5 flex w-fit max-w-full flex-col items-start gap-1.5 text-left sm:mt-6 sm:gap-2 md:mx-0 lg:mt-7">
+            <ul className="mx-auto mt-4 flex w-fit max-w-full flex-col items-start gap-1.5 text-left sm:gap-2 md:mx-0 lg:mt-5">
               {hero.valueStatements.map((statement) => (
                 <li
                   key={statement}
@@ -48,7 +48,7 @@ export function Hero() {
               ))}
             </ul>
 
-            <div className="mt-5 flex flex-col items-stretch gap-3 sm:mt-6 sm:flex-row sm:items-center sm:justify-center md:items-start md:justify-start lg:mt-7">
+            <div className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center md:items-start md:justify-start lg:mt-6">
               <ButtonLink
                 href={hero.primaryCta.href}
                 variant="primary"
