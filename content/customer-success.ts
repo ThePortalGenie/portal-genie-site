@@ -59,6 +59,14 @@ export const customerSuccessPage = {
       "Verified reviews from businesses using Portal Genie to deliver a more connected customer experience.",
     items: [
       {
+        name: "Kinesh Chinasamy",
+        title: "Helpful",
+        date: "3 August 2026",
+        excerpt:
+          "Great App, The Team are helpful and always willing to go the extra mile especially having this as a new app within our firm! Looking forward to a brighter future!",
+        body: "Great App, The Team are helpful and always willing to go the extra mile especially having this as a new app within our firm! Looking forward to a brighter future!",
+      },
+      {
         name: "Justin Myles Fuchs",
         title: "A Great Addition to the Xero Ecosystem",
         date: "7 May 2026",
