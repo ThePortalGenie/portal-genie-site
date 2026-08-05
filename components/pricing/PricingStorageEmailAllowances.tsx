@@ -76,7 +76,10 @@ function IncludedValue({ children }: { children: string }) {
 function UnavailableValue({ note }: { note?: string }) {
   return (
     <div>
-      <p className="text-base font-medium leading-none text-muted" aria-hidden="true">
+      <p
+        className="text-base font-medium leading-none text-muted"
+        aria-hidden="true"
+      >
         —
       </p>
       {note ? (
@@ -111,41 +114,71 @@ function AddOnCell({
   );
 }
 
-function MobileFeatureCard({
-  icon,
+function MobileSectionCard({
+  icon: Icon,
   title,
-  description,
   premium,
   advanced,
-  highlighted = false,
+  addOnLabel,
+  addOnPrice,
 }: {
   icon: LucideIcon;
   title: string;
-  description: string;
   premium: ReactNode;
   advanced: ReactNode;
-  highlighted?: boolean;
+  addOnLabel: string;
+  addOnPrice: string | null;
 }) {
+  const premiumPlan = pricingPlans.find((plan) => plan.id === "premium");
+  const advancedPlan = pricingPlans.find((plan) => plan.id === "advanced");
+
   return (
-    <article
-      className={[
-        "border-t border-muted/10 px-4 py-4 first:border-t-0 sm:px-5",
-        highlighted ? "bg-portal-blue/[0.04]" : "bg-surface",
-      ].join(" ")}
-    >
-      <FeatureLabel icon={icon} title={title} description={description} />
-      <div className="mt-4 space-y-3.5">
-        {pricingPlans.map((plan) => (
-          <div key={plan.id}>
+    <article className="overflow-hidden rounded-[1.25rem] border border-muted/20 bg-surface shadow-[0_12px_32px_-16px_rgba(0,119,190,0.12)] ring-1 ring-portal-blue/8">
+      <div className="px-4 py-4 sm:px-5">
+        <div className="flex items-center gap-2">
+          <span className="inline-flex size-7 shrink-0 items-center justify-center rounded-lg bg-portal-blue/[0.08] text-portal-blue">
+            <Icon className="size-3.5" strokeWidth={2} aria-hidden="true" />
+          </span>
+          <h3 className="text-xs font-semibold uppercase tracking-[0.08em] text-portal-blue">
+            {title}
+          </h3>
+        </div>
+
+        <div className="mt-4 space-y-3.5">
+          <div>
             <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-portal-navy/40">
-              {plan.name}
+              {premiumPlan?.name}
             </p>
-            <div className="mt-1">
-              {plan.id === "premium" ? premium : advanced}
+            <div className="mt-1">{premium}</div>
+          </div>
+          <div>
+            <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-portal-navy/40">
+              {advancedPlan?.name}
+            </p>
+            <div className="mt-1">{advanced}</div>
+          </div>
+        </div>
+      </div>
+
+      {addOnPrice ? (
+        <div className="border-t border-muted/10 bg-portal-blue/[0.04] px-4 py-3.5 sm:px-5">
+          <div className="flex items-start gap-2">
+            <Plus
+              className="mt-0.5 size-4 shrink-0 text-portal-blue"
+              strokeWidth={2}
+              aria-hidden="true"
+            />
+            <div className="min-w-0 flex-1">
+              <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-portal-blue/80">
+                {addOnLabel}
+              </p>
+              <p className="mt-1 break-words text-base font-semibold leading-snug text-portal-navy">
+                {addOnPrice}
+              </p>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ) : null}
     </article>
   );
 }
@@ -228,8 +261,9 @@ export function PricingStorageEmailAllowances({
         </p>
       </div>
 
-      <div className="mt-5 overflow-hidden rounded-[1.5rem] border border-muted/20 bg-surface shadow-[0_16px_40px_-16px_rgba(0,119,190,0.12)] ring-1 ring-portal-blue/8">
-        <table className="hidden w-full table-fixed border-collapse text-left md:table">
+      {/* Desktop / tablet comparison table — unchanged */}
+      <div className="mt-5 hidden overflow-hidden rounded-[1.5rem] border border-muted/20 bg-surface shadow-[0_16px_40px_-16px_rgba(0,119,190,0.12)] ring-1 ring-portal-blue/8 md:block">
+        <table className="w-full table-fixed border-collapse text-left">
           <caption className="sr-only">
             Storage and email allowances compared across Premium and Advanced
             plans
@@ -288,25 +322,37 @@ export function PricingStorageEmailAllowances({
             })}
           </tbody>
         </table>
+      </div>
 
-        <div className="md:hidden">
-          {rows.map((row) => (
-            <MobileFeatureCard
-              key={row.id}
-              icon={row.icon}
-              title={row.title}
-              description={row.description}
-              premium={row.premium}
-              advanced={row.advanced}
-              highlighted={row.highlighted}
-            />
-          ))}
-        </div>
+      {/* Mobile: feature + related add-on grouped in each card */}
+      <div className="mt-4 flex flex-col gap-4 md:hidden">
+        <MobileSectionCard
+          icon={Cloud}
+          title={storageEmailAllowances.storageHeading}
+          premium={<IncludedValue>{premiumStorage}</IncludedValue>}
+          advanced={<IncludedValue>{advancedStorage}</IncludedValue>}
+          addOnLabel={storageEmailAllowances.additionalStorageLabel}
+          addOnPrice={additionalStorage}
+        />
+        <MobileSectionCard
+          icon={Mail}
+          title={storageEmailAllowances.emailHeading}
+          premium={<UnavailableValue />}
+          advanced={
+            advancedEmail ? (
+              <IncludedValue>{advancedEmail}</IncludedValue>
+            ) : null
+          }
+          addOnLabel={storageEmailAllowances.additionalEmailsLabel}
+          addOnPrice={emailBundleAddOn}
+        />
       </div>
 
       <p className="mt-2 flex items-start gap-1.5 text-[11px] leading-snug text-portal-navy/40">
         <Info className="mt-0.5 size-3 shrink-0" aria-hidden="true" />
-        <span>{storageEmailAllowances.infoLine}</span>
+        <span className="min-w-0 break-words">
+          {storageEmailAllowances.infoLine}
+        </span>
       </p>
     </section>
   );
