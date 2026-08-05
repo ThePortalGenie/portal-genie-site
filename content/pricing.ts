@@ -146,8 +146,8 @@ export const pricingFeatures: PricingFeatureDefinition[] = [
     name: "Users Included",
     kind: "value",
     values: {
-      premium: { compare: "5" },
-      advanced: { compare: "7" },
+      premium: { compare: "3" },
+      advanced: { compare: "5" },
     },
   },
   {

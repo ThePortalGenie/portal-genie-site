@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, type ReactNode } from "react";
 import { Check, Minus } from "lucide-react";
 import {
   getComparisonFeatureSections,
@@ -76,43 +76,87 @@ function CompareFeatureRow({
   );
 }
 
+function MobileStatus({
+  feature,
+  planId,
+  planName,
+}: {
+  feature: PricingFeatureDefinition;
+  planId: (typeof pricingPlans)[number]["id"];
+  planName: string;
+}) {
+  const cell = getFeatureCompareValue(feature, planId);
+
+  let status: ReactNode;
+  if (cell.kind === "value") {
+    status = (
+      <span className="ml-1.5 text-[11px] font-semibold text-portal-navy">
+        {cell.text ?? "—"}
+      </span>
+    );
+  } else if (cell.included) {
+    status = (
+      <Check
+        className="ml-1.5 size-3.5 shrink-0 text-portal-teal"
+        strokeWidth={2.5}
+        aria-label="Included"
+      />
+    );
+  } else {
+    status = (
+      <span
+        className="ml-1.5 text-sm font-medium leading-none text-muted"
+        aria-label="Not included"
+      >
+        —
+      </span>
+    );
+  }
+
+  return (
+    <div className="flex min-w-0 items-center">
+      <span className="text-[11px] font-semibold uppercase tracking-[0.04em] text-portal-navy/45">
+        {planName}
+      </span>
+      {status}
+    </div>
+  );
+}
+
 function MobileCompare() {
   const sections = getComparisonFeatureSections();
 
   return (
-    <div className="mt-8 space-y-6 md:hidden">
+    <div className="mt-8 space-y-4 md:hidden">
       {sections.map((section) => (
         <div
           key={section.id}
           className="overflow-hidden rounded-card border border-muted/20 bg-surface"
         >
-          <h3 className="bg-portal-blue/[0.06] px-4 py-2.5 text-sm font-semibold text-portal-blue">
+          <h3 className="bg-portal-blue/[0.06] px-5 py-3.5 text-base font-semibold leading-snug text-portal-blue">
             {section.title}
           </h3>
           <ul>
             {section.features.map((feature, index) => (
               <li
                 key={feature.id}
-                className={`border-t border-muted/10 px-4 py-3 first:border-t-0 ${featureRowBackground(index)}`}
+                className={`border-t border-muted/10 px-5 py-4 ${
+                  index % 2 === 0 ? "bg-surface" : "bg-portal-blue/[0.03]"
+                }`}
               >
-                <p className="text-sm font-medium leading-snug text-portal-navy">
+                <p className="text-base font-medium leading-snug text-portal-navy">
                   {feature.name}
                 </p>
-                <dl className="mt-2.5 grid grid-cols-2 gap-2">
+                <div className="mt-2.5 grid grid-cols-2 gap-x-3">
                   {pricingPlans.map((plan) => (
-                    <div
+                    <MobileStatus
                       key={`${plan.id}-${feature.id}`}
-                      className="rounded-lg bg-surface/80 px-2.5 py-2 ring-1 ring-muted/15"
-                    >
-                      <dt className="text-[11px] font-semibold uppercase tracking-[0.06em] text-portal-navy/50">
-                        {plan.name}
-                      </dt>
-                      <dd className="mt-1 flex min-h-[1.25rem] items-center">
-                        <CompareValue feature={feature} planId={plan.id} />
-                      </dd>
-                    </div>
+                      feature={feature}
+                      planId={plan.id}
+                      planName={plan.name}
+                    />
                   ))}
-                </dl>
+                </div>
               </li>
             ))}
           </ul>
