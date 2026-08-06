@@ -4,6 +4,8 @@ export const links = {
   platform: "/platform",
   features: "/features",
   pricing: "/pricing",
+  /** Plan selection anchor on the Pricing page */
+  pricingPlans: "/pricing#plans",
   resources: "/resources",
   customerSuccess: "/customer-success",
   contact: "/contact",

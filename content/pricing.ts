@@ -503,7 +503,7 @@ export const pricingPage = {
       "Book a demo to explore the platform, or start a 30-day free trial with Premium or Advanced.",
     primaryCta: {
       label: buttons.start30DaysFree,
-      href: links.premiumStartFree,
+      href: links.pricingPlans,
     },
     secondaryCta: {
       label: buttons.bookDemo,

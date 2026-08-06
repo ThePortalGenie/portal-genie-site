@@ -1,9 +1,6 @@
 import { links } from "@/config/links";
 import { buttons } from "@/content/buttons";
 
-export const xeroAppStoreUrl =
-  "https://apps.xero.com/app/the-portal-genie" as const;
-
 export const customerSuccessPage = {
   metadata: {
     title: "Customer Success",
@@ -195,10 +192,6 @@ export const customerSuccessPage = {
     headline: "Verified on the Xero App Store",
     description:
       "Every review displayed on this page comes from a verified customer through the Xero App Store. These are authentic experiences from businesses using Portal Genie alongside Xero — not marketing copy.",
-    cta: {
-      label: "View Reviews on the Xero App Store",
-      href: xeroAppStoreUrl,
-    },
   },
   industriesServed: {
     eyebrow: "Industries we serve",
@@ -253,7 +246,7 @@ export const customerSuccessPage = {
     },
     secondaryCta: {
       label: buttons.startFree,
-      href: links.startFree,
+      href: links.pricingPlans,
     },
   },
 } as const;

@@ -7,9 +7,8 @@ import { WhyHeroIllustration } from "@/components/why/WhyHeroIllustration";
  * Why The Portal Genie page hero only.
  *
  * Composition: text is the foreground content layer; the blue streak is a
- * large decorative background layer on the right (absolute on md+), not a
- * second content column. GenieFlow is omitted so this artwork is the only
- * streak treatment.
+ * large decorative background layer (absolute on md+), not a second content
+ * column. GenieFlow is omitted so this artwork is the only streak treatment.
  */
 export function WhyHero() {
   const { hero } = whyPage;
@@ -17,13 +16,12 @@ export function WhyHero() {
   return (
     <section className="relative overflow-hidden bg-background pt-6 pb-8 md:pt-8 md:pb-10 lg:pt-10 lg:pb-12">
       {/*
-        Desktop/tablet: streak as an independent right-side background layer.
-        Anchored to the right so the strongest blue stays away from the copy;
-        clipped by the section's overflow-hidden.
+        Desktop/tablet: full-bleed atmospheric streak behind copy.
+        Oversized and clipped by overflow-hidden — not a right-hand column.
       */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[62%] md:block lg:w-[72%] xl:w-[70%]"
+        className="pointer-events-none absolute inset-0 z-0 hidden md:block"
       >
         <WhyHeroIllustration variant="desktop" />
       </div>

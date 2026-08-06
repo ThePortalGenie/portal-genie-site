@@ -1,12 +1,20 @@
 "use client";
 
-import { pricingPage } from "@/content/pricing";
+import type { MouseEvent } from "react";
+import { pricingPage, pricingPromotion } from "@/content/pricing";
 import { ScrollReveal } from "@/components/features/ScrollReveal";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Container } from "@/components/ui/Container";
+import { scrollToPricingPlans } from "@/components/pricing/scrollToPricingPlans";
 
 export function PricingCta() {
   const { finalCta } = pricingPage;
+
+  function handleStartFreeClick(event: MouseEvent<HTMLAnchorElement>) {
+    event.preventDefault();
+    scrollToPricingPlans("smooth");
+    window.history.replaceState(null, "", `#${pricingPromotion.targetId}`);
+  }
 
   return (
     <section className="bg-background py-12 md:py-20 lg:py-[120px]">
@@ -24,6 +32,7 @@ export function PricingCta() {
                 href={finalCta.primaryCta.href}
                 variant="primary"
                 className="w-full sm:w-auto"
+                onClick={handleStartFreeClick}
               >
                 {finalCta.primaryCta.label}
               </ButtonLink>

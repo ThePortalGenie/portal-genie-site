@@ -86,32 +86,28 @@ body {
 /*
  * Why The Portal Genie hero streak — used only by WhyHeroIllustration.
  *
- * Two masks are intersected so every edge dissolves. The horizontal pass
- * keeps the left (copy-adjacent) side very soft — only faint wisps survive —
- * while the strong blue remains solid toward the right and trails off the
- * outer edge. The vertical pass removes the top/bottom crop line so the
- * opaque white plate never reads as a rectangle.
+ * Softens the opaque white plate on the source artwork so the natural-aspect
+ * image blends into the hero. Left fade keeps copy on clean white; bottom fade
+ * avoids a hard edge near the CTAs.
  */
 .why-hero-visual {
   -webkit-mask-image:
     linear-gradient(
       to right,
       transparent 0%,
-      transparent 10%,
-      rgba(0, 0, 0, 0.2) 22%,
-      rgba(0, 0, 0, 0.65) 36%,
-      black 48%,
-      black 94%,
-      rgba(0, 0, 0, 0.45) 98%,
-      transparent 100%
+      rgba(0, 0, 0, 0.06) 8%,
+      rgba(0, 0, 0, 0.28) 16%,
+      rgba(0, 0, 0, 0.62) 26%,
+      black 38%,
+      black 100%
     ),
     linear-gradient(
       to bottom,
       transparent 0%,
-      rgba(0, 0, 0, 0.45) 5%,
+      rgba(0, 0, 0, 0.2) 6%,
       black 14%,
-      black 86%,
-      rgba(0, 0, 0, 0.4) 96%,
+      black 80%,
+      rgba(0, 0, 0, 0.35) 92%,
       transparent 100%
     );
   -webkit-mask-composite: source-in;
@@ -119,21 +115,19 @@ body {
     linear-gradient(
       to right,
       transparent 0%,
-      transparent 10%,
-      rgba(0, 0, 0, 0.2) 22%,
-      rgba(0, 0, 0, 0.65) 36%,
-      black 48%,
-      black 94%,
-      rgba(0, 0, 0, 0.45) 98%,
-      transparent 100%
+      rgba(0, 0, 0, 0.06) 8%,
+      rgba(0, 0, 0, 0.28) 16%,
+      rgba(0, 0, 0, 0.62) 26%,
+      black 38%,
+      black 100%
     ),
     linear-gradient(
       to bottom,
       transparent 0%,
-      rgba(0, 0, 0, 0.45) 5%,
+      rgba(0, 0, 0, 0.2) 6%,
       black 14%,
-      black 86%,
-      rgba(0, 0, 0, 0.4) 96%,
+      black 80%,
+      rgba(0, 0, 0, 0.35) 92%,
       transparent 100%
     );
   mask-composite: intersect;
@@ -433,51 +427,8 @@ body {
   mask-composite: intersect;
 }
 
-/* Mobile stacked treatment — softer, smaller, symmetrical edge dissolve */
-.why-hero-visual--stacked {
-  -webkit-mask-image:
-    linear-gradient(
-      to right,
-      transparent 0%,
-      rgba(0, 0, 0, 0.45) 8%,
-      black 22%,
-      black 78%,
-      rgba(0, 0, 0, 0.45) 92%,
-      transparent 100%
-    ),
-    linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(0, 0, 0, 0.45) 6%,
-      black 16%,
-      black 84%,
-      rgba(0, 0, 0, 0.4) 96%,
-      transparent 100%
-    );
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(
-      to right,
-      transparent 0%,
-      rgba(0, 0, 0, 0.45) 8%,
-      black 22%,
-      black 78%,
-      rgba(0, 0, 0, 0.45) 92%,
-      transparent 100%
-    ),
-    linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(0, 0, 0, 0.45) 6%,
-      black 16%,
-      black 84%,
-      rgba(0, 0, 0, 0.4) 96%,
-      transparent 100%
-    );
-  mask-composite: intersect;
-}
-
 /*
+
  * Genie Flow — reusable decorative motif.
  * Hidden on small screens; clipped by parent overflow-hidden.
  */

@@ -6,24 +6,18 @@ import { motion, useReducedMotion } from "framer-motion";
 import { whyPage } from "@/content/why";
 
 type WhyHeroIllustrationProps = {
-  /** Desktop/tablet absolute layer vs stacked mobile treatment */
+  /** Desktop/tablet absolute layer — mobile is hidden by WhyHero. */
   variant?: "desktop" | "mobile";
-  /**
-   * Foreground layer for future product/device artwork. Rendered above the
-   * streak and outside its mask, so devices stay crisp when they're added.
-   */
+  /** Reserved for future foreground artwork above the streak. */
   children?: ReactNode;
 };
 
 /**
- * Why-page-only hero streak. Scoped here so other heroes are unaffected.
+ * Why-page-only hero streak. Wide decorative illustration anchored to the
+ * lower-right — natural aspect ratio, no cover-crop or transform stack.
  *
- * Desktop: fills the absolute right-hand layer from WhyHero, with the image
- * biased toward the right so strong blue energy stays clear of the copy.
- * Mobile: smaller, centred, under the CTAs.
- *
- * The artwork ships on an opaque white plate — edge masks (`.why-hero-visual`
- * in globals.css) dissolve the canvas. No card, border or shadow.
+ * Source: 1695×928 (≈1.83:1). Sized ~70–75vw wide; height follows automatically.
+ * The opaque white plate is softened via `.why-hero-visual` in globals.css.
  */
 export function WhyHeroIllustration({
   variant = "desktop",
@@ -31,30 +25,20 @@ export function WhyHeroIllustration({
 }: WhyHeroIllustrationProps) {
   const { illustration } = whyPage.hero;
   const prefersReducedMotion = useReducedMotion();
-  const isMobile = variant === "mobile";
+
+  if (variant === "mobile") {
+    return null;
+  }
 
   return (
     <motion.div
-      className={
-        isMobile
-          ? "pointer-events-none relative mx-auto w-full max-w-[min(100%,420px)] opacity-80"
-          : // Slightly oversized + right-biased so the streak uses the layer
-            // confidently while the strong blue sits ~8–12% further right.
-            "pointer-events-none absolute inset-0 flex items-center justify-end"
-      }
+      className="pointer-events-none absolute z-0 right-[-3vw] bottom-[-5%] w-[70vw] md:w-[72vw] lg:w-[74vw] xl:w-[75vw]"
       initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
+      aria-hidden="true"
     >
-      <div
-        className={
-          isMobile
-            ? "why-hero-visual why-hero-visual--stacked w-full"
-            : // Wider right-anchored layer: the mask keeps the new leftward
-              // reach faint while the source's strongest blue remains right.
-              "why-hero-visual relative h-full w-[140%] max-w-none translate-x-[4%] lg:w-[142%] lg:translate-x-0 xl:w-[148%] xl:translate-x-[2%]"
-        }
-      >
+      <div className="why-hero-visual">
         <Image
           src={illustration.src}
           alt=""
@@ -63,21 +47,13 @@ export function WhyHeroIllustration({
           height={illustration.height}
           quality={100}
           priority
-          className={
-            isMobile
-              ? "h-auto w-full object-contain object-center"
-              : "h-full w-full object-contain object-right"
-          }
-          sizes={
-            isMobile
-              ? "(max-width: 767px) 88vw, 420px"
-              : "(min-width: 1280px) 82vw, (min-width: 1024px) 86vw, (min-width: 768px) 80vw, 1px"
-          }
+          className="block h-auto w-full max-w-none"
+          sizes="(min-width: 1280px) 75vw, (min-width: 1024px) 74vw, (min-width: 768px) 72vw, 70vw"
         />
       </div>
 
       {children ? (
-        <div className="absolute inset-0 z-10 flex items-center justify-center">
+        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
           {children}
         </div>
       ) : null}
