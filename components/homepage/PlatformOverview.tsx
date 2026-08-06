@@ -1,7 +1,7 @@
 import {
-  ClipboardList,
   CreditCard,
   FileText,
+  MailCheck,
   MessageSquare,
   ShieldCheck,
   UserCheck,
@@ -19,7 +19,7 @@ const iconMap: Record<string, LucideIcon> = {
   "file-text": FileText,
   "message-square": MessageSquare,
   "credit-card": CreditCard,
-  "clipboard-list": ClipboardList,
+  "mail-check": MailCheck,
   "user-check": UserCheck,
 };
 

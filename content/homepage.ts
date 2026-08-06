@@ -36,7 +36,7 @@ export const homepage = {
   },
   trustBar: {
     items: [
-      "Built for modern accounting businesses",
+      "Built for modern businesses",
       "Works with Xero, QuickBooks and Sage",
       "No disruption to existing workflows",
       "Secure cloud platform",
@@ -102,10 +102,10 @@ export const homepage = {
         icon: "credit-card",
       },
       {
-        title: "Digital Forms & Workflows",
+        title: "Client Communication & Updates",
         description:
-          "Guide customers through requests and approvals with clear digital workflows that save everyone time.",
-        icon: "clipboard-list",
+          "Keep clients informed with document notes, email campaigns, reminders and updates, all connected to their portal experience.",
+        icon: "mail-check",
       },
       {
         title: "Customer Self-Service",
