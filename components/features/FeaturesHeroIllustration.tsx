@@ -37,9 +37,9 @@ export function FeaturesHeroIllustration({
         className={
           isMobile
             ? "features-hero-visual features-hero-visual--stacked w-full"
-            : // Broad right-entry sweep: flatter than the previous diagonal,
-              // with faint strands reaching centre and saturated blue in view.
-              "features-hero-visual absolute top-[-28%] bottom-[-32%] left-[34%] right-[-18%] origin-[48%_54%] rotate-[3deg] lg:top-[-34%] lg:bottom-[-40%] lg:left-[22%] lg:right-[-20%] lg:rotate-[4deg] xl:left-[18%] xl:right-[-22%]"
+            : // Broad right-entry sweep — shifted upward so strong blue sits
+              // around the hero centre rather than below the bottom edge.
+              "features-hero-visual absolute top-[-42%] bottom-[-18%] left-[34%] right-[-18%] origin-[48%_48%] rotate-[3deg] lg:top-[-50%] lg:bottom-[-20%] lg:left-[22%] lg:right-[-20%] lg:rotate-[4deg] xl:top-[-52%] xl:bottom-[-22%] xl:left-[18%] xl:right-[-22%]"
         }
       >
         <Image
@@ -52,7 +52,7 @@ export function FeaturesHeroIllustration({
           className={
             isMobile
               ? "h-auto w-full object-contain object-center"
-              : "h-full w-full object-cover object-[42%_54%] lg:object-[44%_50%] xl:object-[46%_48%]"
+              : "h-full w-full object-cover object-[42%_62%] lg:object-[44%_58%] xl:object-[46%_56%]"
           }
           sizes={
             isMobile

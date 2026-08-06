@@ -157,8 +157,8 @@ body {
       transparent 0%,
       rgba(0, 0, 0, 0.35) 6%,
       black 16%,
-      black 62%,
-      rgba(0, 0, 0, 0.35) 82%,
+      black 72%,
+      rgba(0, 0, 0, 0.4) 88%,
       transparent 100%
     );
   -webkit-mask-composite: source-in;
@@ -179,8 +179,8 @@ body {
       transparent 0%,
       rgba(0, 0, 0, 0.35) 6%,
       black 16%,
-      black 62%,
-      rgba(0, 0, 0, 0.35) 82%,
+      black 72%,
+      rgba(0, 0, 0, 0.4) 88%,
       transparent 100%
     );
   mask-composite: intersect;

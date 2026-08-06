@@ -29,10 +29,9 @@ const desktopMaskStyle: CSSProperties = {
       transparent 0%,
       rgba(0, 0, 0, 0.2) 10%,
       black 20%,
-      black 58%,
-      rgba(0, 0, 0, 0.65) 68%,
-      rgba(0, 0, 0, 0.35) 78%,
-      rgba(0, 0, 0, 0.12) 88%,
+      black 68%,
+      rgba(0, 0, 0, 0.55) 78%,
+      rgba(0, 0, 0, 0.2) 90%,
       transparent 100%
     )
   `,
@@ -54,10 +53,9 @@ const desktopMaskStyle: CSSProperties = {
       transparent 0%,
       rgba(0, 0, 0, 0.2) 10%,
       black 20%,
-      black 58%,
-      rgba(0, 0, 0, 0.65) 68%,
-      rgba(0, 0, 0, 0.35) 78%,
-      rgba(0, 0, 0, 0.12) 88%,
+      black 68%,
+      rgba(0, 0, 0, 0.55) 78%,
+      rgba(0, 0, 0, 0.2) 90%,
       transparent 100%
     )
   `,
@@ -135,9 +133,9 @@ export function CustomerSuccessHeroIllustration({
         className={
           isMobile
             ? "absolute inset-0 h-full w-full origin-[68%_56%] -rotate-[1.5deg] opacity-65"
-            : // Upward-sweeping right-entry treatment. Tablet stays farther right
-              // for copy clearance; desktop reveals more of the strong ribbon.
-              "absolute top-[-18%] bottom-[-36%] left-[34%] right-[-18%] origin-[52%_56%] -rotate-[1deg] lg:top-[-22%] lg:bottom-[-42%] lg:left-[22%] lg:right-[-20%] lg:-rotate-[2deg] xl:left-[18%] xl:right-[-22%] xl:-rotate-[2.5deg]"
+            : // Upward-sweeping right-entry — raised so the strong ribbon sits
+              // through the hero centre/right rather than below the fold.
+              "absolute top-[-34%] bottom-[-20%] left-[34%] right-[-18%] origin-[52%_50%] -rotate-[1deg] lg:top-[-40%] lg:bottom-[-22%] lg:left-[22%] lg:right-[-20%] lg:-rotate-[2deg] xl:top-[-44%] xl:bottom-[-24%] xl:left-[18%] xl:right-[-22%] xl:-rotate-[2.5deg]"
         }
       >
         <Image
@@ -150,7 +148,7 @@ export function CustomerSuccessHeroIllustration({
           className={
             isMobile
               ? "h-full w-full object-cover object-[42%_58%]"
-              : "h-full w-full object-cover object-[40%_56%] lg:object-[42%_52%] xl:object-[44%_50%]"
+              : "h-full w-full object-cover object-[40%_64%] lg:object-[42%_60%] xl:object-[44%_58%]"
           }
           sizes={
             isMobile
