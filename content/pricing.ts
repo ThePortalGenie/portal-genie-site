@@ -397,7 +397,7 @@ export const pricingExtras = {
   storagePriceSuffix: "per GB",
   storage1TbBundlePriceSuffix: "/ month",
   emailPriceSuffix: (bundleSize: number) =>
-    `per ${bundleSize.toLocaleString("en-US")} emails`,
+    `per ${bundleSize.toLocaleString("en-US")} emails / month`,
   usersPriceSuffix: "per user / month",
   infoLine:
     "Add-ons are billed monthly and can be added as your business grows.",
