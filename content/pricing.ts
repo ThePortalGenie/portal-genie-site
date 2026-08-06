@@ -292,7 +292,7 @@ export const pricingPlans: PricingPlan[] = [
     name: "Premium",
     description: "The complete core Portal Genie experience.",
     featured: true,
-    includedUsers: 3,
+    includedUsers: 2,
     prices: {
       ZAR: 575,
       USD: 35,
@@ -315,7 +315,7 @@ export const pricingPlans: PricingPlan[] = [
     id: "advanced",
     name: "Advanced",
     description: "Everything in Premium, plus:",
-    includedUsers: 5,
+    includedUsers: 2,
     prices: {
       ZAR: 650,
       USD: 40,
