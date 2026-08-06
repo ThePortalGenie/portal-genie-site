@@ -6,7 +6,7 @@ export function DemoAlternativeContact() {
   const { alternativeContact } = demoPage;
 
   return (
-    <section className="border-t border-muted/15 bg-background pb-12 md:pb-16">
+    <section className="border-t border-muted/15 bg-background pb-10 pt-8 md:pb-12 md:pt-10">
       <Container className="max-w-4xl">
         <p className="text-center text-sm text-portal-navy/60">
           {alternativeContact.prompt}{" "}

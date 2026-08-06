@@ -18,29 +18,6 @@ export const demoPage = {
       "Book a personalised demo and discover how The Portal Genie can help you deliver a better customer experience through secure portals, branded communication and streamlined workflows.",
     instruction: "Choose a time that suits you below.",
   },
-  highlights: {
-    headline: "What you'll see",
-    cards: [
-      {
-        title: "Connected Customer Experience",
-        description:
-          "See exactly how your customers interact with your branded Portal Genie experience.",
-        icon: "users",
-      },
-      {
-        title: "Built Around Xero",
-        description:
-          "Understand how Portal Genie extends your existing Xero workflow rather than replacing it.",
-        icon: "layers",
-      },
-      {
-        title: "Tailored Demonstration",
-        description:
-          "We'll focus on the workflows, features and questions most relevant to your business.",
-        icon: "message-square",
-      },
-    ],
-  },
   alternativeContact: {
     prompt: "Prefer to contact us directly?",
     email: "info@theportalgenie.com.au",

@@ -9,7 +9,7 @@ export function DemoBookingSection() {
   return (
     <section
       id="booking"
-      className="relative scroll-mt-[5.5rem] overflow-hidden bg-background pb-10 pt-8 md:pb-14 md:pt-12 lg:scroll-mt-24 lg:pt-14"
+      className="relative scroll-mt-[5.5rem] overflow-hidden bg-background pb-6 pt-8 md:pb-8 md:pt-12 lg:scroll-mt-24 lg:pt-14"
       aria-label="Book a demonstration"
     >
       <GenieFlow variant="corner" />
