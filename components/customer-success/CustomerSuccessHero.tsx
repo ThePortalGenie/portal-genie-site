@@ -15,7 +15,7 @@ export function CustomerSuccessHero() {
     <section className="relative overflow-hidden bg-background pt-6 pb-8 md:pt-10 md:pb-12 lg:pt-12 lg:pb-14">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 -bottom-12 z-0 hidden md:block lg:-bottom-16"
+        className="pointer-events-none absolute inset-0 z-0 hidden md:block"
       >
         <CustomerSuccessHeroIllustration variant="desktop" />
       </div>

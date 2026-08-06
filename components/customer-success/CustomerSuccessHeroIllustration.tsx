@@ -135,9 +135,9 @@ export function CustomerSuccessHeroIllustration({
         className={
           isMobile
             ? "absolute inset-0 h-full w-full origin-[68%_56%] -rotate-[1.5deg] opacity-65"
-            : // Large environmental sweep: faint strands from centre-left, ribbon
-              // through lower-middle/right, strongest blue in right third.
-              "absolute top-[8%] bottom-[-18%] left-[-10%] right-[-24%] origin-[44%_54%] -rotate-[2deg] md:top-[10%] md:bottom-[-16%] md:left-[-8%] md:right-[-22%] lg:left-[-6%] lg:-rotate-[2.5deg] xl:left-[-4%] xl:right-[-26%]"
+            : // Upward-sweeping right-entry treatment. Tablet stays farther right
+              // for copy clearance; desktop reveals more of the strong ribbon.
+              "absolute top-[-18%] bottom-[-36%] left-[34%] right-[-18%] origin-[52%_56%] -rotate-[1deg] lg:top-[-22%] lg:bottom-[-42%] lg:left-[22%] lg:right-[-20%] lg:-rotate-[2deg] xl:left-[18%] xl:right-[-22%] xl:-rotate-[2.5deg]"
         }
       >
         <Image
@@ -150,12 +150,12 @@ export function CustomerSuccessHeroIllustration({
           className={
             isMobile
               ? "h-full w-full object-cover object-[42%_58%]"
-              : "h-full w-full object-cover object-[22%_62%] md:object-[24%_60%] lg:object-[28%_56%]"
+              : "h-full w-full object-cover object-[40%_56%] lg:object-[42%_52%] xl:object-[44%_50%]"
           }
           sizes={
             isMobile
               ? "(max-width: 767px) 70vw, 320px"
-              : "(min-width: 1280px) 96vw, (min-width: 768px) 90vw, 1px"
+              : "(min-width: 1280px) 88vw, (min-width: 1024px) 92vw, (min-width: 768px) 78vw, 1px"
           }
         />
       </div>

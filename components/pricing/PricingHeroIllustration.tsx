@@ -9,9 +9,9 @@ type PricingHeroIllustrationProps = {
 };
 
 /**
- * Pricing-page-only hero streak. Same asset as Features, flattest composition:
- * oversized layer clipped to the hero so the mid-ribbon stays visible across
- * the right half (not parked below the overflow edge).
+ * Pricing-page-only hero streak. The horizontal source is oversized and
+ * cropped by the existing hero so its soft trails reach centre while the
+ * strongest blue remains inside the right edge.
  */
 export function PricingHeroIllustration({
   variant = "desktop",
@@ -32,10 +32,9 @@ export function PricingHeroIllustration({
         className={
           isMobile
             ? "pricing-hero-visual pricing-hero-visual--stacked absolute inset-0 h-full w-full"
-            : // Features-style oversized layer (h/w %), right-biased. Clockwise
-              // rotation flattens the asset's natural rise. Tall % height keeps
-              // the ribbon visible even in Pricing's short hero at 1920px.
-              "pricing-hero-visual absolute left-[30%] top-[-70%] h-[250%] w-[90%] origin-[48%_52%] rotate-[12deg] md:left-[34%] md:top-[-65%] md:h-[240%] md:w-[86%] md:rotate-[13deg] lg:left-[38%] lg:top-[-60%] lg:h-[230%] lg:w-[82%] lg:rotate-[14deg] xl:left-[40%] xl:w-[80%]"
+            : // Tablet stays farther right for copy clearance. At lg/xl the
+              // crop moves left so the source's strong blue is visibly in-frame.
+              "pricing-hero-visual absolute top-[-92%] bottom-[-104%] left-[40%] right-[-14%] origin-[52%_58%] rotate-[1deg] lg:top-[-96%] lg:bottom-[-108%] lg:left-[30%] lg:right-[-12%] xl:left-[26%] xl:right-[-12%] xl:rotate-[2deg]"
         }
       >
         <Image
@@ -48,12 +47,12 @@ export function PricingHeroIllustration({
           className={
             isMobile
               ? "h-full w-full object-cover object-center"
-              : "h-full w-full object-cover object-[40%_52%] md:object-[42%_50%] lg:object-[44%_48%] xl:object-[46%_46%]"
+              : "h-full w-full object-cover object-[52%_60%] lg:object-[54%_58%] xl:object-[56%_56%]"
           }
           sizes={
             isMobile
               ? "1px"
-              : "(min-width: 1536px) 70vw, (min-width: 1280px) 75vw, (min-width: 768px) 80vw, 1px"
+              : "(min-width: 1280px) 86vw, (min-width: 1024px) 82vw, (min-width: 768px) 74vw, 1px"
           }
         />
       </div>

@@ -444,11 +444,11 @@ export const pricingPage = {
     headline: "Simple pricing that grows with your business.",
     description: "Choose the Premium or Advanced plan that fits your business.",
     illustration: {
-      src: "/images/features/features-hero-streak.png",
+      src: "/images/assets/images/why-portal-genie-hero-three.png",
       description:
-        "The Portal Genie blue magic streak sweeping gently downward through the Pricing hero.",
+        "The Portal Genie blue magic streak flowing horizontally through the Pricing hero.",
       width: 1536,
-      height: 1024,
+      height: 677,
     },
   },
   currency: {

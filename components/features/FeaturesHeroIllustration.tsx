@@ -37,9 +37,9 @@ export function FeaturesHeroIllustration({
         className={
           isMobile
             ? "features-hero-visual features-hero-visual--stacked w-full"
-            : // Larger than the hero, gently rotated for a steeper upward
-              // trajectory, biased so strong blue crops past the upper-right.
-              "features-hero-visual absolute left-[6%] top-[-18%] h-[130%] w-[108%] origin-[70%_55%] -rotate-[5deg] md:left-[6%] md:w-[100%] lg:left-[5%] lg:w-[105%] lg:-rotate-[6deg] xl:left-[7%] xl:w-[108%]"
+            : // Broad right-entry sweep: flatter than the previous diagonal,
+              // with faint strands reaching centre and saturated blue in view.
+              "features-hero-visual absolute top-[-28%] bottom-[-32%] left-[34%] right-[-18%] origin-[48%_54%] rotate-[3deg] lg:top-[-34%] lg:bottom-[-40%] lg:left-[22%] lg:right-[-20%] lg:rotate-[4deg] xl:left-[18%] xl:right-[-22%]"
         }
       >
         <Image
@@ -52,12 +52,12 @@ export function FeaturesHeroIllustration({
           className={
             isMobile
               ? "h-auto w-full object-contain object-center"
-              : "h-full w-full object-cover object-[58%_48%] lg:object-[58%_42%]"
+              : "h-full w-full object-cover object-[42%_54%] lg:object-[44%_50%] xl:object-[46%_48%]"
           }
           sizes={
             isMobile
               ? "(max-width: 767px) 86vw, 380px"
-              : "(min-width: 1280px) 75vw, (min-width: 768px) 70vw, 1px"
+              : "(min-width: 1280px) 88vw, (min-width: 1024px) 92vw, (min-width: 768px) 78vw, 1px"
           }
         />
       </div>
