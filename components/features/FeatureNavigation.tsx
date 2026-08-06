@@ -25,13 +25,20 @@ export function FeatureNavigation() {
   }, [activeId]);
 
   useEffect(() => {
-    const activeLink = listRef.current?.querySelector<HTMLElement>(
+    const list = listRef.current;
+    const activeLink = list?.querySelector<HTMLElement>(
       `[data-section-id="${activeId}"]`,
     );
-    activeLink?.scrollIntoView({
+    if (!list || !activeLink) return;
+
+    // Scroll the horizontal tab strip only — scrollIntoView also moves the
+    // window vertically, which pulled /features down past the hero on mount.
+    const targetScrollLeft =
+      activeLink.offsetLeft - (list.clientWidth - activeLink.offsetWidth) / 2;
+
+    list.scrollTo({
+      left: Math.max(0, targetScrollLeft),
       behavior: "smooth",
-      inline: "center",
-      block: "nearest",
     });
   }, [activeId]);
 

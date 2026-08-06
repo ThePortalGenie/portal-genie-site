@@ -30,7 +30,10 @@ export function MobileMenu() {
     };
   }, [open]);
 
-  const closeMenu = () => setOpen(false);
+  const closeMenu = () => {
+    document.body.style.overflow = "";
+    setOpen(false);
+  };
 
   return (
     <div className="lg:hidden">
