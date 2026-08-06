@@ -25,6 +25,15 @@ export const whyPage = {
       label: "Explore Features",
       href: links.features,
     },
+    illustration: {
+      src: "/images/assets/images/why-portal-genie-hero.png",
+      // Purely decorative supporting layer, rendered with an empty alt and
+      // hidden from assistive tech. Description kept for maintainers.
+      description:
+        "The Portal Genie blue magic streak flowing through the right side of the hero.",
+      width: 1695,
+      height: 928,
+    },
   },
   challenge: {
     eyebrow: "The challenge",

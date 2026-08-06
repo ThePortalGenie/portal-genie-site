@@ -38,7 +38,7 @@ export function Header() {
           <div className="ml-auto flex shrink-0 items-center gap-5 lg:ml-0">
             <Link
               href={headerActions.login.href}
-              className="hidden h-11 items-center text-sm font-medium leading-none text-portal-navy transition-colors duration-200 hover:text-portal-blue md:inline-flex"
+              className="hidden h-11 items-center text-sm font-medium leading-none text-portal-navy transition-colors duration-200 hover:text-portal-blue lg:inline-flex"
             >
               {headerActions.login.label}
             </Link>

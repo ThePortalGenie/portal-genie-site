@@ -33,6 +33,13 @@ export const customerSuccessPage = {
       label: buttons.bookDemo,
       href: links.bookDemo,
     },
+    illustration: {
+      src: "/images/features/features-hero-streak.png",
+      description:
+        "The Portal Genie blue magic streak flowing gently upward through the Customer Success hero.",
+      width: 1536,
+      height: 1024,
+    },
   },
   statistics: {
     items: [

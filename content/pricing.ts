@@ -443,6 +443,13 @@ export const pricingPage = {
   hero: {
     headline: "Simple pricing that grows with your business.",
     description: "Choose the Premium or Advanced plan that fits your business.",
+    illustration: {
+      src: "/images/features/features-hero-streak.png",
+      description:
+        "The Portal Genie blue magic streak sweeping gently downward through the Pricing hero.",
+      width: 1536,
+      height: 1024,
+    },
   },
   currency: {
     default: "ZAR" as CurrencyCode,

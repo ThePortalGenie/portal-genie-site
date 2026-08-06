@@ -45,6 +45,14 @@ export const featuresPage = {
       label: buttons.contactSales,
       href: links.contact,
     },
+    illustration: {
+      src: "/images/features/features-hero-streak.png",
+      // Decorative supporting layer — empty alt at render time.
+      description:
+        "The Portal Genie blue magic streak sweeping diagonally through the Features hero.",
+      width: 1536,
+      height: 1024,
+    },
   },
   navigation: [
     { id: "customer-portal", label: "Customer Portal" },

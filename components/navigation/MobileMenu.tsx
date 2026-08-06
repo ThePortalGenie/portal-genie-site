@@ -4,8 +4,10 @@ import { useEffect, useId, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { getVisibleMainNavItems, headerActions } from "@/content/navigation";
-import { ButtonLink } from "@/components/ui/ButtonLink";
-import { mobileNavItemClasses } from "@/components/navigation/navStyles";
+import {
+  mobileNavConversionItemClasses,
+  mobileNavItemClasses,
+} from "@/components/navigation/navStyles";
 
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
@@ -27,6 +29,8 @@ export function MobileMenu() {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  const closeMenu = () => setOpen(false);
 
   return (
     <div className="lg:hidden">
@@ -79,8 +83,8 @@ export function MobileMenu() {
           id={panelId}
           className="absolute inset-x-0 top-full border-b border-muted/15 bg-surface shadow-[0_12px_32px_-16px_rgba(17,33,54,0.18)]"
         >
-          <nav aria-label="Mobile navigation" className="px-4 py-5 sm:px-6 sm:py-6 md:px-8">
-            <ul className="flex max-h-[min(70vh,28rem)] flex-col gap-1 overflow-y-auto">
+          <nav aria-label="Mobile navigation" className="px-4 py-4 sm:px-6 sm:py-5 md:px-8">
+            <ul className="flex flex-col gap-0.5">
               {getVisibleMainNavItems().map((item) => {
                 const isActive = pathname === item.href;
 
@@ -90,33 +94,38 @@ export function MobileMenu() {
                       href={item.href}
                       className={mobileNavItemClasses(isActive)}
                       aria-current={isActive ? "page" : undefined}
-                      onClick={() => setOpen(false)}
+                      onClick={closeMenu}
                     >
                       {item.label}
                     </Link>
                   </li>
                 );
               })}
-            </ul>
 
-            <div className="mt-6 flex flex-col gap-3 border-t border-muted/15 pt-6">
-              <ButtonLink
-                href={headerActions.startFree.href}
-                variant="secondary"
-                className="w-full"
-                onClick={() => setOpen(false)}
-              >
-                {headerActions.startFree.label}
-              </ButtonLink>
-              <ButtonLink
-                href={headerActions.bookDemo.href}
-                variant="primary"
-                className="w-full"
-                onClick={() => setOpen(false)}
-              >
-                {headerActions.bookDemo.label}
-              </ButtonLink>
-            </div>
+              <li
+                aria-hidden="true"
+                className="my-4 list-none border-t border-muted/15"
+              />
+
+              <li>
+                <Link
+                  href={headerActions.startFree.href}
+                  className={mobileNavConversionItemClasses()}
+                  onClick={closeMenu}
+                >
+                  {headerActions.startFree.label}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={headerActions.bookDemo.href}
+                  className={mobileNavConversionItemClasses()}
+                  onClick={closeMenu}
+                >
+                  {headerActions.bookDemo.label}
+                </Link>
+              </li>
+            </ul>
           </nav>
         </div>
       ) : null}

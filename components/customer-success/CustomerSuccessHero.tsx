@@ -2,14 +2,24 @@ import { customerSuccessPage } from "@/content/customer-success";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Container } from "@/components/ui/Container";
 import { AccountingIntegrationLogos } from "@/components/shared/AccountingIntegrationLogos";
-import { GenieFlow } from "@/components/visuals/GenieFlow";
+import { CustomerSuccessHeroIllustration } from "@/components/customer-success/CustomerSuccessHeroIllustration";
 
+/**
+ * Customer Success hero. GenieFlow replaced by a page-specific gentle rising
+ * streak (same asset as Features/Pricing, distinct composition).
+ */
 export function CustomerSuccessHero() {
   const { hero } = customerSuccessPage;
 
   return (
     <section className="relative overflow-hidden bg-background pt-6 pb-8 md:pt-10 md:pb-12 lg:pt-12 lg:pb-14">
-      <GenieFlow variant="vertical" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 -bottom-12 z-0 hidden md:block lg:-bottom-16"
+      >
+        <CustomerSuccessHeroIllustration variant="desktop" />
+      </div>
+
       <Container className="relative z-10">
         <div className="mx-auto max-w-3xl text-center lg:mx-0 lg:text-left">
           <h1 className="text-[1.875rem] font-semibold leading-[1.15] tracking-tight text-portal-navy sm:text-[2.75rem] sm:leading-tight lg:text-5xl">

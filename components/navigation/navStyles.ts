@@ -23,3 +23,8 @@ export function mobileNavItemClasses(active: boolean) {
 
   return "block rounded-button border-l-2 border-transparent px-3 py-3 text-sm font-medium text-portal-navy transition-colors duration-200 hover:bg-background hover:text-portal-blue";
 }
+
+/** Mobile menu conversion links — nav-item layout with restrained blue emphasis. */
+export function mobileNavConversionItemClasses() {
+  return "block rounded-button border-l-2 border-transparent px-3 py-3 text-sm font-semibold text-portal-blue transition-colors duration-200 hover:bg-background";
+}
