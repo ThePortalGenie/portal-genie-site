@@ -23,13 +23,13 @@ export function WhyHero() {
       */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[58%] md:block lg:w-[68%] xl:w-[66%]"
+        className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[62%] md:block lg:w-[72%] xl:w-[70%]"
       >
         <WhyHeroIllustration variant="desktop" />
       </div>
 
       <Container className="relative z-10">
-        <div className="mx-auto w-full max-w-xl text-center md:mx-0 md:max-w-[min(100%,28rem)] md:text-left lg:max-w-[30rem]">
+        <div className="mx-auto w-full max-w-xl text-center md:mx-0 md:max-w-[min(100%,38rem)] md:text-left lg:max-w-[40rem]">
           <h1 className="text-[1.875rem] font-semibold leading-[1.15] tracking-tight text-portal-navy sm:text-[2.75rem] sm:leading-tight lg:text-5xl">
             {hero.headline}
           </h1>

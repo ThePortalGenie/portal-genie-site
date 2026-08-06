@@ -50,10 +50,9 @@ export function WhyHeroIllustration({
         className={
           isMobile
             ? "why-hero-visual why-hero-visual--stacked w-full"
-            : // Soft left nudge on lg+ only — faint wisps enter the centre gap
-              // while the strong blue still crops past the right viewport edge.
-              // Tablet (md) keeps the previous right bias for copy clearance.
-            "why-hero-visual relative h-full w-[120%] max-w-none translate-x-[10%] lg:w-[124%] lg:translate-x-[3%] xl:translate-x-[4%]"
+            : // Wider right-anchored layer: the mask keeps the new leftward
+              // reach faint while the source's strongest blue remains right.
+              "why-hero-visual relative h-full w-[140%] max-w-none translate-x-[4%] lg:w-[142%] lg:translate-x-0 xl:w-[148%] xl:translate-x-[2%]"
         }
       >
         <Image
@@ -72,7 +71,7 @@ export function WhyHeroIllustration({
           sizes={
             isMobile
               ? "(max-width: 767px) 88vw, 420px"
-              : "(min-width: 1280px) 70vw, (min-width: 768px) 68vw, 1px"
+              : "(min-width: 1280px) 82vw, (min-width: 1024px) 86vw, (min-width: 768px) 80vw, 1px"
           }
         />
       </div>
