@@ -146,8 +146,8 @@ export const pricingFeatures: PricingFeatureDefinition[] = [
     name: "Users Included",
     kind: "value",
     values: {
-      premium: { compare: "3" },
-      advanced: { compare: "5" },
+      premium: { compare: "2" },
+      advanced: { compare: "2" },
     },
   },
   {
@@ -362,6 +362,8 @@ export const pricingAddOns = {
     GBP: 0.25,
     EUR: 0.3,
   } satisfies PlanPrices,
+  /** 1 TB storage bundle — USD-only (no FX rates provided for other currencies) */
+  storage1TbBundleUsdMonthly: 22,
   emailBundlePrice: {
     ZAR: 35,
     USD: 2,
@@ -380,6 +382,10 @@ export const pricingExtras = {
     name: "Storage",
     description: "Secure document storage",
   },
+  storage1TbBundle: {
+    name: "1 TB Storage Bundle",
+    description: "1 TB of secure document storage",
+  },
   email: {
     name: "Email Campaigns",
     description: "Scheduled client email campaigns",
@@ -389,6 +395,7 @@ export const pricingExtras = {
     description: "Add additional team members",
   },
   storagePriceSuffix: "per GB",
+  storage1TbBundlePriceSuffix: "/ month",
   emailPriceSuffix: (bundleSize: number) =>
     `per ${bundleSize.toLocaleString("en-US")} emails`,
   usersPriceSuffix: "per user / month",
@@ -601,6 +608,16 @@ export function getAdditionalStorageCopy(currency: CurrencyCode): string | null 
   }
 
   return `${amount} ${pricingExtras.storagePriceSuffix}`;
+}
+
+/** 1 TB storage bundle — priced in USD only; shown as $22 / month across currencies */
+export function getStorage1TbBundleCopy(): string {
+  const amount = formatAddOnCurrencyAmount(
+    pricingAddOns.storage1TbBundleUsdMonthly,
+    "USD",
+  );
+
+  return `${amount} ${pricingExtras.storage1TbBundlePriceSuffix}`;
 }
 
 export function getEmailBundleAddOnCopy(currency: CurrencyCode): string | null {

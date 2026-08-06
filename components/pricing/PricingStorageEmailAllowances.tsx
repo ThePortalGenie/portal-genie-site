@@ -1,11 +1,12 @@
 "use client";
 
 import type { LucideIcon } from "lucide-react";
-import { Cloud, Info, Mail, UserPlus } from "lucide-react";
+import { Cloud, Folders, Info, Mail, UserPlus } from "lucide-react";
 import {
   getAdditionalStorageCopy,
   getAdditionalUserCopy,
   getEmailBundleAddOnCopy,
+  getStorage1TbBundleCopy,
   pricingExtras,
   type CurrencyCode,
 } from "@/content/pricing";
@@ -32,6 +33,13 @@ export function PricingStorageEmailAllowances({
       description: pricingExtras.storage.description,
       icon: Cloud,
       price: getAdditionalStorageCopy(currency),
+    },
+    {
+      id: "storage-1tb-bundle",
+      name: pricingExtras.storage1TbBundle.name,
+      description: pricingExtras.storage1TbBundle.description,
+      icon: Folders,
+      price: getStorage1TbBundleCopy(),
     },
     {
       id: "email",
