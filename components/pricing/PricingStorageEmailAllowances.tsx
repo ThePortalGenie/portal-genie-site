@@ -39,7 +39,7 @@ export function PricingStorageEmailAllowances({
       name: pricingExtras.storage1TbBundle.name,
       description: pricingExtras.storage1TbBundle.description,
       icon: Folders,
-      price: getStorage1TbBundleCopy(),
+      price: getStorage1TbBundleCopy(currency),
     },
     {
       id: "email",

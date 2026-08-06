@@ -362,8 +362,12 @@ export const pricingAddOns = {
     GBP: 0.25,
     EUR: 0.3,
   } satisfies PlanPrices,
-  /** 1 TB storage bundle — USD-only (no FX rates provided for other currencies) */
-  storage1TbBundleUsdMonthly: 22,
+  storage1TbBundle: {
+    ZAR: 374,
+    USD: 22,
+    GBP: 16,
+    EUR: 19,
+  } satisfies PlanPrices,
   emailBundlePrice: {
     ZAR: 35,
     USD: 2,
@@ -610,12 +614,18 @@ export function getAdditionalStorageCopy(currency: CurrencyCode): string | null 
   return `${amount} ${pricingExtras.storagePriceSuffix}`;
 }
 
-/** 1 TB storage bundle — priced in USD only; shown as $22 / month across currencies */
-export function getStorage1TbBundleCopy(): string {
+/** 1 TB storage bundle — uses the active pricing-page currency */
+export function getStorage1TbBundleCopy(
+  currency: CurrencyCode,
+): string | null {
   const amount = formatAddOnCurrencyAmount(
-    pricingAddOns.storage1TbBundleUsdMonthly,
-    "USD",
+    pricingAddOns.storage1TbBundle[currency],
+    currency,
   );
+
+  if (!amount) {
+    return null;
+  }
 
   return `${amount} ${pricingExtras.storage1TbBundlePriceSuffix}`;
 }
