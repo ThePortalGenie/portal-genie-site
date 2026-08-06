@@ -11,10 +11,10 @@ export function PricingHero() {
 
   return (
     <section className="relative overflow-hidden bg-background pt-3 pb-1 md:pt-6 md:pb-4 lg:pt-8 lg:pb-4">
-      {/* Desktop/tablet: streak bleeds below hero edge — faded before pricing content */}
+      {/* Desktop/tablet: streak clipped to hero — no bottom bleed that hides the ribbon */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 -bottom-14 z-0 hidden md:block lg:-bottom-20"
+        className="pointer-events-none absolute inset-0 z-0 hidden md:block"
       >
         <PricingHeroIllustration variant="desktop" />
       </div>
