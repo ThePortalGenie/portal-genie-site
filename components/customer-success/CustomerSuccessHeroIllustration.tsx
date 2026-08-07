@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
 import { customerSuccessPage } from "@/content/customer-success";
 import type { CSSProperties } from "react";
 
@@ -117,15 +114,11 @@ export function CustomerSuccessHeroIllustration({
   variant = "desktop",
 }: CustomerSuccessHeroIllustrationProps) {
   const { illustration } = customerSuccessPage.hero;
-  const prefersReducedMotion = useReducedMotion();
   const isMobile = variant === "mobile";
 
   return (
-    <motion.div
-      className="pointer-events-none absolute inset-0"
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+    <div
+      className="hero-animate-enter-sm pointer-events-none absolute inset-0"
       aria-hidden="true"
     >
       <div
@@ -157,6 +150,6 @@ export function CustomerSuccessHeroIllustration({
           }
         />
       </div>
-    </motion.div>
+    </div>
   );
 }

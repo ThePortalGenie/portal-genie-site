@@ -71,7 +71,7 @@ export const trustedByPlacements = {
 export const clientLogos: ClientLogo[] = [
   {
     name: "African Technopreneurs",
-    image: "/images/logos/African Techno Logo.png",
+    image: "/images/logos/optimized/african-techno-logo.webp",
     alt: "African Technopreneurs",
   },
   {
@@ -101,7 +101,7 @@ export const clientLogos: ClientLogo[] = [
   },
   {
     name: "FREED",
-    image: "/images/logos/Freed Logo2.png",
+    image: "/images/logos/optimized/freed-logo.webp",
     alt: "FREED",
   },
   {
@@ -111,7 +111,7 @@ export const clientLogos: ClientLogo[] = [
   },
   {
     name: "JBM Finance Solutions",
-    image: "/images/logos/JBM_Logo.png",
+    image: "/images/logos/optimized/jbm-logo.webp",
     alt: "JBM Finance Solutions",
   },
   {
@@ -131,7 +131,7 @@ export const clientLogos: ClientLogo[] = [
   },
   {
     name: "Myccountant",
-    image: "/images/logos/Myccountant_Logo-01.jpg",
+    image: "/images/logos/optimized/myccountant-logo.webp",
     alt: "Myccountant",
   },
   {
@@ -141,7 +141,7 @@ export const clientLogos: ClientLogo[] = [
   },
   {
     name: "Sourcing",
-    image: "/images/logos/Sourcing Logo Real Big.jpg",
+    image: "/images/logos/optimized/sourcing-logo.webp",
     alt: "Sourcing",
   },
   {

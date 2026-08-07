@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { Check, Globe, Link2, Mail, Share2 } from "lucide-react";
 import { Section } from "@/components/ui/Section";

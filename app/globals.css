@@ -589,3 +589,58 @@ body {
   );
 }
 
+/* Hero illustration entrance + decorative float (replaces framer-motion) */
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-enter-sm {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.hero-animate-enter {
+  animation: hero-enter 0.8s ease-out forwards;
+}
+
+.hero-animate-enter-sm {
+  animation: hero-enter-sm 0.6s ease-out forwards;
+}
+
+.hero-animate-float {
+  animation: hero-float 10s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-animate-enter,
+  .hero-animate-enter-sm,
+  .hero-animate-float {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+

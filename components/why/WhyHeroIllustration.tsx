@@ -1,8 +1,5 @@
-"use client";
-
 import type { ReactNode } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
 import { whyPage } from "@/content/why";
 
 type WhyHeroIllustrationProps = {
@@ -24,18 +21,14 @@ export function WhyHeroIllustration({
   children,
 }: WhyHeroIllustrationProps) {
   const { illustration } = whyPage.hero;
-  const prefersReducedMotion = useReducedMotion();
 
   if (variant === "mobile") {
     return null;
   }
 
   return (
-    <motion.div
-      className="pointer-events-none absolute z-0 right-[-3vw] bottom-[-5%] w-[70vw] md:w-[72vw] lg:w-[74vw] xl:w-[75vw]"
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+    <div
+      className="hero-animate-enter-sm pointer-events-none absolute z-0 right-[-3vw] bottom-[-5%] w-[70vw] md:w-[72vw] lg:w-[74vw] xl:w-[75vw]"
       aria-hidden="true"
     >
       <div className="why-hero-visual">
@@ -57,6 +50,6 @@ export function WhyHeroIllustration({
           {children}
         </div>
       ) : null}
-    </motion.div>
+    </div>
   );
 }

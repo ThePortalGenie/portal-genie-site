@@ -3,28 +3,28 @@ import { buttons } from "@/content/buttons";
 
 const marketingScreenshots = {
   customerPortal: {
-    src: "/images/product/marketing/customer-portal.png",
+    src: "/images/product/marketing/optimized/customer-portal.webp",
     alt: "Portal Genie client portal allowing customers to view invoices, access documents, make payments and securely communicate with a business.",
     aspectRatio: "3/2",
   },
   paymentsDashboard: {
-    src: "/images/product/marketing/payments-dashboard.png",
+    src: "/images/product/marketing/optimized/payments-dashboard.webp",
     alt: "Portal Genie customer portal showing invoice selection with a secure online payment modal.",
     aspectRatio: "3/2",
   },
   platformDashboard: {
-    src: "/images/product/marketing/platform-overview-dashboard.png",
+    src: "/images/product/marketing/optimized/platform-overview-dashboard.webp",
     alt: "Portal Genie dashboard showing customer activity, analytics, document management and customer engagement.",
     aspectRatio: "3/2",
   },
   customerCommunication: {
-    src: "/images/features/customer-communication-note-history.png",
+    src: "/images/features/optimized/customer-communication-note-history.webp",
     alt: "Portal Genie customer communication and note history",
     aspectRatio: "3/2",
     framed: false,
   },
   documentManagement: {
-    src: "/images/product/marketing/document-management-admin-client-portal.png",
+    src: "/images/product/marketing/optimized/document-management-admin-client-portal.webp",
     alt: "The Portal Genie document management showing the Admin Portal and Client Portal side by side",
     aspectRatio: "3/2",
     framed: false,

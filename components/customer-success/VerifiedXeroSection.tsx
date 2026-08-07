@@ -28,10 +28,10 @@ export function VerifiedXeroSection() {
                 aria-hidden="true"
               />
               <Image
-                src="/images/logos/xero-connected-app-badge.png"
+                src="/images/logos/optimized/xero-connected-app-badge.webp"
                 alt="Xero Connected App"
-                width={1920}
-                height={1080}
+                width={512}
+                height={288}
                 className="relative h-auto w-[140px] sm:w-[180px] md:w-[220px]"
               />
             </div>

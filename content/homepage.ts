@@ -72,7 +72,7 @@ export const homepage = {
     description:
       "The Portal Genie brings together the capabilities businesses need to serve customers. Secure access to documents, communication, payments and self-service.",
     showcase: {
-      image: "/images/product/marketing/platform-overview-dashboard.png",
+      image: "/images/product/marketing/optimized/platform-overview-dashboard.webp",
       alt: "Portal Genie dashboard showing customer activity, analytics, document management and customer engagement.",
       aspectRatio: "3/2",
     },
@@ -128,7 +128,7 @@ export const homepage = {
       href: `${links.features}#customer-portal`,
     },
     showcase: {
-      image: "/images/product/marketing/customer-portal.png",
+      image: "/images/product/marketing/optimized/customer-portal.webp",
       alt: "Portal Genie client portal allowing customers to view invoices, access documents, make payments and securely communicate with a business.",
       aspectRatio: "3/2",
     },

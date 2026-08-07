@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import {
   Accessibility,
   BookOpenCheck,
@@ -70,9 +67,10 @@ const iconMap: Record<string, LucideIcon> = {
   brush: Brush,
 };
 
+const EXPAND_CHECKBOX_ID = "industries-served-expand";
+
 export function IndustriesServed() {
   const { industriesServed } = customerSuccessPage;
-  const [expanded, setExpanded] = useState(false);
   const { mobilePreviewCount } = industriesServed;
   const hasHiddenOnMobile =
     industriesServed.items.length > mobilePreviewCount;
@@ -103,18 +101,28 @@ export function IndustriesServed() {
           </div>
         </ScrollReveal>
 
+        {hasHiddenOnMobile ? (
+          <input
+            type="checkbox"
+            id={EXPAND_CHECKBOX_ID}
+            className="peer sr-only md:hidden"
+          />
+        ) : null}
+
         <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-6 lg:gap-4 xl:grid-cols-7">
           {industriesServed.items.map((industry, index) => {
             const Icon = iconMap[industry.icon];
-            const hiddenOnMobile =
-              hasHiddenOnMobile &&
-              !expanded &&
-              index >= mobilePreviewCount;
+            const collapsibleOnMobile =
+              hasHiddenOnMobile && index >= mobilePreviewCount;
 
             return (
               <li
                 key={industry.name}
-                className={hiddenOnMobile ? "hidden md:block" : undefined}
+                className={
+                  collapsibleOnMobile
+                    ? "hidden max-md:peer-checked:block md:block"
+                    : undefined
+                }
               >
                 <div className="flex h-full flex-col items-center justify-center rounded-2xl border border-muted/20 bg-surface px-2 py-3 text-center shadow-[0_2px_8px_-4px_rgba(17,33,54,0.06)] sm:px-3 sm:py-3.5">
                   <div
@@ -135,18 +143,24 @@ export function IndustriesServed() {
         </ul>
 
         {hasHiddenOnMobile ? (
-          <div className="mt-6 flex justify-center md:hidden">
-            <button
-              type="button"
-              onClick={() => setExpanded((value) => !value)}
-              className="inline-flex h-10 items-center justify-center rounded-button border border-muted/30 bg-surface px-5 text-sm font-medium text-portal-navy transition-colors duration-200 hover:border-portal-blue/30 hover:text-portal-blue"
-              aria-expanded={expanded}
+          <>
+            <label
+              htmlFor={EXPAND_CHECKBOX_ID}
+              className="mt-6 flex cursor-pointer justify-center peer-checked:hidden md:hidden"
             >
-              {expanded
-                ? industriesServed.collapseLabel
-                : industriesServed.expandLabel}
-            </button>
-          </div>
+              <span className="inline-flex h-10 items-center justify-center rounded-button border border-muted/30 bg-surface px-5 text-sm font-medium text-portal-navy transition-colors duration-200 hover:border-portal-blue/30 hover:text-portal-blue">
+                {industriesServed.expandLabel}
+              </span>
+            </label>
+            <label
+              htmlFor={EXPAND_CHECKBOX_ID}
+              className="mt-6 hidden cursor-pointer justify-center peer-checked:flex md:hidden"
+            >
+              <span className="inline-flex h-10 items-center justify-center rounded-button border border-muted/30 bg-surface px-5 text-sm font-medium text-portal-navy transition-colors duration-200 hover:border-portal-blue/30 hover:text-portal-blue">
+                {industriesServed.collapseLabel}
+              </span>
+            </label>
+          </>
         ) : null}
       </Container>
     </section>

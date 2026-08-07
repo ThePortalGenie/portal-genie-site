@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
 import { homepage } from "@/content/homepage";
 import {
   heroIllustrationLayout,
@@ -25,27 +22,19 @@ import {
  */
 export function HeroIllustration() {
   const { illustration } = homepage.hero;
-  const prefersReducedMotion = useReducedMotion();
   const { imageSizes } = heroIllustrationLayout;
 
   return (
-    <motion.div
-      className="hero-wave-wrapper pointer-events-none relative lg:mx-0 lg:max-w-none"
+    <div
+      className="hero-wave-wrapper hero-animate-enter pointer-events-none relative lg:mx-0 lg:max-w-none"
       style={heroIllustrationLayoutVars()}
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -inset-[10%] -z-10 translate-x-[12%] rounded-full bg-portal-blue/5 blur-[130px]"
       />
 
-      <motion.div
-        aria-hidden="true"
-        animate={prefersReducedMotion ? undefined : { y: [0, -4, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      >
+      <div aria-hidden="true" className="hero-animate-float">
         <Image
           src={illustration.src}
           alt=""
@@ -56,7 +45,7 @@ export function HeroIllustration() {
           className="h-auto w-full -scale-x-100 object-contain opacity-95 drop-shadow-[0_24px_48px_rgba(17,33,54,0.08)]"
           sizes={imageSizes}
         />
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }

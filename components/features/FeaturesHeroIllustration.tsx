@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
 import { featuresPage } from "@/content/features";
 
 type FeaturesHeroIllustrationProps = {
@@ -18,19 +15,15 @@ export function FeaturesHeroIllustration({
   variant = "desktop",
 }: FeaturesHeroIllustrationProps) {
   const { illustration } = featuresPage.hero;
-  const prefersReducedMotion = useReducedMotion();
   const isMobile = variant === "mobile";
 
   return (
-    <motion.div
+    <div
       className={
         isMobile
-          ? "pointer-events-none relative mx-auto w-full max-w-[min(100%,380px)] opacity-70"
-          : "pointer-events-none absolute inset-0"
+          ? "hero-animate-enter-sm pointer-events-none relative mx-auto w-full max-w-[min(100%,380px)] opacity-70"
+          : "hero-animate-enter-sm pointer-events-none absolute inset-0"
       }
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
       aria-hidden="true"
     >
       <div
@@ -61,6 +54,6 @@ export function FeaturesHeroIllustration({
           }
         />
       </div>
-    </motion.div>
+    </div>
   );
 }
