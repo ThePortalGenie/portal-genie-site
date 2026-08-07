@@ -58,10 +58,6 @@ function resolveMetadataDescription(metadata: Metadata): string {
     : seo.defaultDescription;
 }
 
-function canonicalPathForRoute(path: IndexableRoute): string {
-  return path === "/" ? "/" : path;
-}
-
 /** Builds Open Graph and Twitter metadata for an indexable marketing page. */
 export function buildSocialMetadata(
   path: IndexableRoute,
@@ -77,13 +73,13 @@ export function buildSocialMetadata(
     typeof metadata.openGraph?.description === "string"
       ? metadata.openGraph.description
       : pageDescription;
-  const canonicalPath = canonicalPathForRoute(path);
+  const canonicalUrl = getCanonicalUrl(path);
 
   return {
     openGraph: {
       type: "website",
       siteName: seo.siteName,
-      url: canonicalPath,
+      url: canonicalUrl,
       title: ogTitle,
       description: ogDescription,
       images: [socialShareImageMetadata],
@@ -211,7 +207,7 @@ export function indexablePageMetadata(
     ...metadata,
     ...social,
     alternates: {
-      canonical: path,
+      canonical: getCanonicalUrl(path),
     },
     robots: robotsForIndexablePage(),
   };

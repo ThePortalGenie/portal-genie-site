@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FeaturesCta } from "@/components/features/FeaturesCta";
 import { FeaturesHero } from "@/components/features/FeaturesHero";
 import { FeatureNavigation } from "@/components/features/FeatureNavigation";
 import { FeatureSections } from "@/components/features/FeatureSections";
@@ -7,9 +8,9 @@ import { trustedByPlacements } from "@/content/client-logos";
 import { indexablePageMetadata } from "@/config/seo";
 
 export const metadata: Metadata = indexablePageMetadata("/features", {
-  title: "Portal Genie Features | Customer Portal, Documents & Payments",
+  title: "Client Portal Software Features | The Portal Genie",
   description:
-    "Explore Portal Genie features including a customer portal, document management, online payments, branding, communication and security for businesses using Xero.",
+    "Explore The Portal Genie's client portal software features, including document management, customer communication, online payments, branding, security and self-service.",
 });
 
 export default function FeaturesPage() {
@@ -19,6 +20,7 @@ export default function FeaturesPage() {
       <FeatureNavigation />
       <FeatureSections />
       <TrustedByLogos {...trustedByPlacements.features} />
+      <FeaturesCta />
     </main>
   );
 }

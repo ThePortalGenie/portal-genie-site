@@ -1,3 +1,5 @@
+import { links } from "@/config/links";
+
 export interface ClientLogo {
   name: string;
   image: string;
@@ -13,6 +15,10 @@ export type TrustedByPlacement = {
   variant: TrustedByVariant;
   background: "background" | "surface";
   showCountries?: boolean;
+  relatedLink?: {
+    label: string;
+    href: string;
+  };
 };
 
 export const trustedByContent = {
@@ -49,6 +55,10 @@ export const trustedByPlacements = {
       "From accounting firms to professional services businesses, organisations trust The Portal Genie to deliver a connected customer experience.",
     variant: "default",
     background: "surface",
+    relatedLink: {
+      label: "See customer stories",
+      href: links.customerSuccess,
+    },
   },
   pricing: {
     id: "pricing-trusted-by",

@@ -14,6 +14,9 @@ export function FeatureSections() {
           portalLinkCallout={
             "portalLinkCallout" in section ? section.portalLinkCallout : undefined
           }
+          relatedLink={
+            "relatedLink" in section ? section.relatedLink : undefined
+          }
           screenshot={section.screenshot}
           imagePosition={index % 2 === 0 ? "right" : "left"}
           background={index % 2 === 0 ? "surface" : "background"}

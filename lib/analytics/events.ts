@@ -38,6 +38,7 @@ export type CtaLocation =
   | "promotion_banner"
   | "customer_success_final"
   | "why_final"
+  | "features_final_cta"
   | "xerocon_hero"
   | "xerocon_final"
   | "platform"

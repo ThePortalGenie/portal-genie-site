@@ -12,9 +12,10 @@ import { indexablePageMetadata } from "@/config/seo";
 // import { trustedByPlacements } from "@/content/client-logos";
 
 export const metadata: Metadata = indexablePageMetadata("/", {
-  title: "Customer Portal for Xero Businesses | The Portal Genie",
+  title:
+    "Client Portal Software for Xero, QuickBooks & Sage | The Portal Genie",
   description:
-    "The Portal Genie helps Xero businesses deliver a secure, branded customer portal for documents, communication and payments — without changing how your team works.",
+    "Give customers secure 24/7 access to invoices, statements, documents and payments with branded client portal software connected to Xero, QuickBooks and Sage.",
 });
 
 export default function Home() {

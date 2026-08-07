@@ -36,7 +36,7 @@ export const featuresPage = {
   hero: {
     headline: "Everything your customers need. Built into one platform.",
     description:
-      "Explore the features that help businesses deliver a modern customer experience — from secure document sharing to payments, communication and self-service.",
+      "Explore the client portal software features that help businesses deliver a modern customer experience — from secure document sharing and self-service to communication and online payments.",
     primaryCta: {
       label: buttons.bookDemo,
       href: links.bookDemo,
@@ -56,7 +56,7 @@ export const featuresPage = {
   },
   navigation: [
     { id: "customer-portal", label: "Customer Portal" },
-    { id: "payments", label: "Payments" },
+    { id: "payments", label: "Online Payments" },
     { id: "document-management", label: "Document Management" },
     { id: "customer-communication", label: "Customer Communication" },
     { id: "branding-personalisation", label: "Branding & Personalisation" },
@@ -86,7 +86,7 @@ export const featuresPage = {
     },
     {
       id: "payments",
-      title: "Payments",
+      title: "Online Payments",
       description:
         "Allow customers to pay multiple invoices at once with payment button integration.",
       benefits: [
@@ -94,6 +94,10 @@ export const featuresPage = {
         "Streamline customer tasks with guided workflows and automation",
         "Works seamlessly alongside your existing processes",
       ],
+      relatedLink: {
+        label: "View pricing",
+        href: links.pricing,
+      },
       screenshot: marketingScreenshots.paymentsDashboard,
     },
     {
@@ -147,4 +151,17 @@ export const featuresPage = {
       screenshot: marketingScreenshots.platformDashboard,
     },
   ],
+  finalCta: {
+    headline: "Ready to see The Portal Genie in action?",
+    description:
+      "Book a personalised demo and see how The Portal Genie can work for your business.",
+    primaryCta: {
+      label: buttons.bookDemo,
+      href: links.bookDemo,
+    },
+    secondaryCta: {
+      label: "View Pricing",
+      href: links.pricing,
+    },
+  },
 } as const;

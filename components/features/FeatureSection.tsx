@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Check, Globe, Link2, Mail, Share2 } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -18,12 +19,18 @@ const portalLinkPillMeta = [
   { label: "Share directly", icon: Share2 },
 ] as const;
 
+type RelatedLink = {
+  label: string;
+  href: string;
+};
+
 type FeatureSectionProps = {
   id: string;
   title: string;
   description: string;
   benefits: readonly string[];
   portalLinkCallout?: PortalLinkCallout;
+  relatedLink?: RelatedLink;
   screenshot: {
     src: string;
     alt: string;
@@ -43,6 +50,7 @@ export function FeatureSection({
   description,
   benefits,
   portalLinkCallout,
+  relatedLink,
   screenshot,
   imagePosition,
   background = "background",
@@ -92,6 +100,17 @@ export function FeatureSection({
                 </li>
               ))}
             </ul>
+
+            {relatedLink ? (
+              <p className="mt-5 text-sm sm:mt-6">
+                <Link
+                  href={relatedLink.href}
+                  className="font-medium text-portal-blue transition-colors duration-200 hover:text-portal-blue/80"
+                >
+                  {relatedLink.label}
+                </Link>
+              </p>
+            ) : null}
 
             {portalLinkCallout ? (
               <aside className="mt-5 rounded-card border border-portal-blue/20 bg-surface p-3.5 shadow-[0_4px_16px_-8px_rgba(17,33,54,0.06)] sm:mt-6 sm:p-4">

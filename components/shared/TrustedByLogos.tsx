@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import {
   clientLogos,
   customerCountries,
@@ -19,6 +20,10 @@ type TrustedByLogosProps = {
   logos?: ClientLogo[];
   countries?: CustomerCountry[];
   showCountries?: boolean;
+  relatedLink?: {
+    label: string;
+    href: string;
+  };
   variant?: TrustedByVariant;
   background?: "background" | "surface";
   className?: string;
@@ -194,6 +199,7 @@ export function TrustedByLogos({
   logos = clientLogos,
   countries = customerCountries,
   showCountries = true,
+  relatedLink,
   variant = "default",
   background = "surface",
   className = "",
@@ -224,6 +230,16 @@ export function TrustedByLogos({
           {subtitle ? (
             <p className="mt-6 text-base leading-relaxed text-portal-navy/75 sm:text-lg">
               {subtitle}
+            </p>
+          ) : null}
+          {relatedLink ? (
+            <p className="mt-4">
+              <Link
+                href={relatedLink.href}
+                className="text-sm font-medium text-portal-blue transition-colors duration-200 hover:text-portal-blue/80 sm:text-base"
+              >
+                {relatedLink.label}
+              </Link>
             </p>
           ) : null}
         </div>
