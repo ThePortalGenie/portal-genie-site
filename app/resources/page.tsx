@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import { ResourcesHero } from "@/components/resources/ResourcesHero";
-import { ResourceCategories } from "@/components/resources/ResourceCategories";
-import { FeaturedResources } from "@/components/resources/FeaturedResources";
-import { LatestProductUpdates } from "@/components/resources/LatestProductUpdates";
-import { DocumentationPreview } from "@/components/resources/DocumentationPreview";
-import { ResourcesNewsletter } from "@/components/resources/ResourcesNewsletter";
 import { ResourcesCta } from "@/components/resources/ResourcesCta";
+import { KnowledgeBaseSection } from "@/components/knowledge/KnowledgeBaseSection";
 import { resourcesPage } from "@/content/resources";
 import { noIndexPageMetadata } from "@/config/seo";
 import { site } from "@/config/site";
@@ -23,11 +19,7 @@ export default function ResourcesPage() {
   return (
     <main>
       <ResourcesHero />
-      <ResourceCategories />
-      <FeaturedResources />
-      <LatestProductUpdates />
-      <DocumentationPreview />
-      <ResourcesNewsletter />
+      <KnowledgeBaseSection />
       <ResourcesCta />
     </main>
   );

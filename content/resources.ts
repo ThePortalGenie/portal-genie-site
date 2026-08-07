@@ -17,12 +17,12 @@ export const resourcesPage = {
     description:
       "Explore guides, product updates, documentation and best practices to help you get the most from The Portal Genie.",
     primaryCta: {
-      label: "Explore Guides",
-      href: "#guides",
+      label: "Browse articles",
+      href: "#knowledge-base",
     },
     secondaryCta: {
-      label: "View Documentation",
-      href: "#documentation",
+      label: "View Pricing",
+      href: links.pricing,
     },
   },
   categories: {

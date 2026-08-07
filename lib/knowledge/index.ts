@@ -15,6 +15,16 @@ export {
 
 export { getArticleMarkdownPath, getResourcesUrlPath } from "@/lib/knowledge/paths";
 
+export {
+  getCategoryDisplayName,
+  KNOWLEDGE_CATEGORY_LABELS,
+} from "@/lib/knowledge/categories";
+
+export {
+  getRelatedPageLabel,
+  RELATED_PAGE_LABELS,
+} from "@/lib/knowledge/related-pages";
+
 export { validateKnowledgeRegistry } from "@/lib/knowledge/validate";
 
 export type {
