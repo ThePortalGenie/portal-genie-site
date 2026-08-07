@@ -8,6 +8,11 @@ import {
   mobileNavConversionItemClasses,
   mobileNavItemClasses,
 } from "@/components/navigation/navStyles";
+import {
+  trackBookDemoClick,
+  trackTrialCtaClick,
+  trialCtaDestinationFromHref,
+} from "@/lib/analytics/track";
 
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
@@ -114,7 +119,15 @@ export function MobileMenu() {
                 <Link
                   href={headerActions.startFree.href}
                   className={mobileNavConversionItemClasses()}
-                  onClick={closeMenu}
+                  onClick={() => {
+                    trackTrialCtaClick({
+                      ctaLocation: "header_mobile",
+                      destination: trialCtaDestinationFromHref(
+                        headerActions.startFree.href,
+                      ),
+                    });
+                    closeMenu();
+                  }}
                 >
                   {headerActions.startFree.label}
                 </Link>
@@ -123,7 +136,13 @@ export function MobileMenu() {
                 <Link
                   href={headerActions.bookDemo.href}
                   className={mobileNavConversionItemClasses()}
-                  onClick={closeMenu}
+                  onClick={() => {
+                    trackBookDemoClick({
+                      ctaLocation: "header_mobile",
+                      linkUrl: headerActions.bookDemo.href,
+                    });
+                    closeMenu();
+                  }}
                 >
                   {headerActions.bookDemo.label}
                 </Link>

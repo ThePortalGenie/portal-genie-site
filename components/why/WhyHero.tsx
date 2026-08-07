@@ -1,4 +1,5 @@
 import { whyPage } from "@/content/why";
+import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Container } from "@/components/ui/Container";
 import { WhyHeroIllustration } from "@/components/why/WhyHeroIllustration";
@@ -37,13 +38,14 @@ export function WhyHero() {
           </p>
 
           <div className="mt-6 flex flex-col items-stretch gap-3 sm:mt-8 sm:flex-row sm:items-center sm:justify-center md:justify-start lg:mt-10">
-            <ButtonLink
+            <TrackedButtonLink
               href={hero.primaryCta.href}
               variant="primary"
               className="w-full sm:w-auto"
+              track={{ type: "book_demo", ctaLocation: "hero" }}
             >
               {hero.primaryCta.label}
-            </ButtonLink>
+            </TrackedButtonLink>
             <ButtonLink
               href={hero.secondaryCta.href}
               variant="secondary"

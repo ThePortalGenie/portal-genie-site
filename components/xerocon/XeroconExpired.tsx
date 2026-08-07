@@ -3,6 +3,8 @@ import Link from "next/link";
 import { xeroconCampaign } from "@/config/xerocon";
 import { site } from "@/config/site";
 import { xeroconPage } from "@/content/xerocon";
+import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
+import { TrackedLoginLink } from "@/components/analytics/TrackedLoginLink";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Container } from "@/components/ui/Container";
 
@@ -28,12 +30,13 @@ export function XeroconExpired() {
                 priority
               />
             </Link>
-            <Link
+            <TrackedLoginLink
               href={header.loginHref}
+              ctaLocation="xerocon_hero"
               className="hidden text-sm font-medium text-portal-navy transition-colors duration-200 hover:text-portal-blue sm:inline"
             >
               {header.loginLabel}
-            </Link>
+            </TrackedLoginLink>
           </div>
         </Container>
       </header>
@@ -57,13 +60,14 @@ export function XeroconExpired() {
               >
                 {expired.primaryCta.label}
               </ButtonLink>
-              <ButtonLink
+              <TrackedButtonLink
                 href={expired.secondaryCta.href}
                 variant="secondary"
                 className="w-full sm:w-auto sm:min-w-[12rem]"
+                track={{ type: "book_demo", ctaLocation: "xerocon_hero" }}
               >
                 {expired.secondaryCta.label}
-              </ButtonLink>
+              </TrackedButtonLink>
             </div>
           </div>
         </Container>

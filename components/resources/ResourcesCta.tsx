@@ -2,6 +2,7 @@
 
 import { resourcesPage } from "@/content/resources";
 import { ScrollReveal } from "@/components/features/ScrollReveal";
+import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Container } from "@/components/ui/Container";
 
@@ -20,13 +21,14 @@ export function ResourcesCta() {
               {finalCta.description}
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center sm:justify-center md:mt-10">
-              <ButtonLink
+              <TrackedButtonLink
                 href={finalCta.primaryCta.href}
                 variant="primary"
                 className="w-full sm:w-auto"
+                track={{ type: "book_demo", ctaLocation: "section_final" }}
               >
                 {finalCta.primaryCta.label}
-              </ButtonLink>
+              </TrackedButtonLink>
               <ButtonLink
                 href={finalCta.secondaryCta.href}
                 variant="secondary"

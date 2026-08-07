@@ -3,6 +3,8 @@ import Link from "next/link";
 import { links } from "@/config/links";
 import { site } from "@/config/site";
 import { footerContent, getVisibleFooterLinks } from "@/content/footer";
+import { TrackedEmailLink } from "@/components/analytics/TrackedEmailLink";
+import { TrackedFooterNavLink } from "@/components/analytics/TrackedFooterNavLink";
 import { Container } from "@/components/ui/Container";
 import { FooterBottom } from "@/components/layout/FooterBottom";
 import { FooterColumn } from "@/components/layout/FooterColumn";
@@ -46,12 +48,11 @@ export function Footer() {
               <ul className="space-y-3">
                 {getVisibleFooterLinks([...columns.product.links]).map((link) => (
                   <li key={link.href}>
-                    <Link
+                    <TrackedFooterNavLink
                       href={link.href}
+                      label={link.label}
                       className="text-sm text-portal-navy/70 transition-colors duration-200 hover:text-portal-blue"
-                    >
-                      {link.label}
-                    </Link>
+                    />
                   </li>
                 ))}
               </ul>
@@ -90,12 +91,14 @@ export function Footer() {
             </FooterColumn>
 
             <FooterColumn title={columns.connect.title}>
-              <a
+              <TrackedEmailLink
                 href={`mailto:${columns.connect.email}`}
+                emailDomain="theportalgenie.com"
+                ctaLocation="footer"
                 className="text-sm text-portal-navy/70 transition-colors duration-200 hover:text-portal-blue"
               >
                 {columns.connect.email}
-              </a>
+              </TrackedEmailLink>
               <ul className="mt-5 flex items-center gap-3">
                 {columns.connect.social.map((item) => {
                   const Icon = socialIcons[item.icon];

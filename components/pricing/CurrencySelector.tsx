@@ -2,6 +2,7 @@
 
 import type { CurrencyCode } from "@/content/pricing";
 import { pricingCurrencies } from "@/content/pricing";
+import { trackPricingCurrencyChange } from "@/lib/analytics/track";
 
 type CurrencySelectorProps = {
   value: CurrencyCode;
@@ -23,7 +24,14 @@ export function CurrencySelector({ value, onChange }: CurrencySelectorProps) {
             <button
               key={currency.code}
               type="button"
-              onClick={() => onChange(currency.code)}
+              onClick={() => {
+                if (currency.code === value) {
+                  return;
+                }
+
+                trackPricingCurrencyChange(currency.code);
+                onChange(currency.code);
+              }}
               aria-pressed={isActive}
               className={[
                 "min-w-[2.75rem] rounded-[0.6rem] px-2.5 py-2 text-sm font-medium transition-colors duration-200 sm:min-w-[3.25rem] sm:px-3.5",

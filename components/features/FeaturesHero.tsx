@@ -1,5 +1,5 @@
 import { featuresPage } from "@/content/features";
-import { ButtonLink } from "@/components/ui/ButtonLink";
+import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
 import { Container } from "@/components/ui/Container";
 import { FeaturesHeroIllustration } from "@/components/features/FeaturesHeroIllustration";
 
@@ -31,20 +31,22 @@ export function FeaturesHero() {
           </p>
 
           <div className="mt-6 flex flex-col items-stretch gap-3 sm:mt-8 sm:flex-row sm:items-center sm:justify-center lg:mt-7 lg:justify-start">
-            <ButtonLink
+            <TrackedButtonLink
               href={hero.primaryCta.href}
               variant="primary"
               className="w-full sm:w-auto"
+              track={{ type: "book_demo", ctaLocation: "hero" }}
             >
               {hero.primaryCta.label}
-            </ButtonLink>
-            <ButtonLink
+            </TrackedButtonLink>
+            <TrackedButtonLink
               href={hero.secondaryCta.href}
               variant="secondary"
               className="w-full sm:w-auto"
+              track={{ type: "contact_sales", ctaLocation: "hero" }}
             >
               {hero.secondaryCta.label}
-            </ButtonLink>
+            </TrackedButtonLink>
           </div>
         </div>
       </Container>

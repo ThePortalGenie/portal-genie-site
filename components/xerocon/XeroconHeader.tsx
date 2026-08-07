@@ -3,6 +3,7 @@ import Link from "next/link";
 import { xeroconCampaign } from "@/config/xerocon";
 import { site } from "@/config/site";
 import { xeroconPage } from "@/content/xerocon";
+import { TrackedLoginLink } from "@/components/analytics/TrackedLoginLink";
 import { Container } from "@/components/ui/Container";
 
 export function XeroconHeader() {
@@ -29,12 +30,13 @@ export function XeroconHeader() {
 
           <p className="hidden text-right text-xs text-portal-navy/55 sm:block sm:text-sm">
             <span className="hidden sm:inline">{header.loginPrompt} </span>
-            <Link
+            <TrackedLoginLink
               href={header.loginHref}
+              ctaLocation="xerocon_hero"
               className="font-medium text-portal-navy transition-colors duration-200 hover:text-portal-blue"
             >
               {header.loginLabel}
-            </Link>
+            </TrackedLoginLink>
           </p>
         </div>
       </Container>

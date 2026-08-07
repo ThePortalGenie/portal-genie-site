@@ -1,4 +1,5 @@
 import { customerSuccessPage } from "@/content/customer-success";
+import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Container } from "@/components/ui/Container";
 import { AccountingIntegrationLogos } from "@/components/shared/AccountingIntegrationLogos";
@@ -43,13 +44,14 @@ export function CustomerSuccessHero() {
             >
               {hero.primaryCta.label}
             </ButtonLink>
-            <ButtonLink
+            <TrackedButtonLink
               href={hero.secondaryCta.href}
               variant="secondary"
               className="w-full sm:w-auto"
+              track={{ type: "book_demo", ctaLocation: "hero" }}
             >
               {hero.secondaryCta.label}
-            </ButtonLink>
+            </TrackedButtonLink>
           </div>
         </div>
       </Container>

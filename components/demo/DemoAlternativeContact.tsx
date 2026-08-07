@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { demoPage } from "@/content/demo";
+import { TrackedEmailLink } from "@/components/analytics/TrackedEmailLink";
 import { Container } from "@/components/ui/Container";
 
 export function DemoAlternativeContact() {
@@ -10,12 +10,14 @@ export function DemoAlternativeContact() {
       <Container className="max-w-4xl">
         <p className="text-center text-sm text-portal-navy/60">
           {alternativeContact.prompt}{" "}
-          <Link
+          <TrackedEmailLink
             href={`mailto:${alternativeContact.email}`}
+            emailDomain="theportalgenie.com.au"
+            ctaLocation="section_final"
             className="font-medium text-portal-navy/75 transition-colors duration-200 hover:text-portal-blue"
           >
             {alternativeContact.email}
-          </Link>
+          </TrackedEmailLink>
         </p>
       </Container>
     </section>

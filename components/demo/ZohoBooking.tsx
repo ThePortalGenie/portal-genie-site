@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { booking } from "@/config/booking";
+import { trackBookingWidgetLoaded } from "@/lib/analytics/track";
 
 const IFRAME_TITLE = "Book a Portal Genie demonstration";
 
@@ -52,6 +53,7 @@ export function ZohoBooking() {
           loading="lazy"
           className={`${PLACEHOLDER_CLASS} border-0`}
           allowFullScreen
+          onLoad={() => trackBookingWidgetLoaded()}
         />
       ) : (
         <div

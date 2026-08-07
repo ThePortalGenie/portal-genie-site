@@ -3,15 +3,20 @@
 import type { MouseEvent } from "react";
 import { pricingPage, pricingPromotion } from "@/content/pricing";
 import { ScrollReveal } from "@/components/features/ScrollReveal";
-import { ButtonLink } from "@/components/ui/ButtonLink";
+import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
 import { Container } from "@/components/ui/Container";
 import { scrollToPricingPlans } from "@/components/pricing/scrollToPricingPlans";
+import { trackTrialCtaClick } from "@/lib/analytics/track";
 
 export function PricingCta() {
   const { finalCta } = pricingPage;
 
   function handleStartFreeClick(event: MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
+    trackTrialCtaClick({
+      ctaLocation: "pricing_final",
+      destination: "pricing_plans",
+    });
     scrollToPricingPlans("smooth");
     window.history.replaceState(null, "", `#${pricingPromotion.targetId}`);
   }
@@ -28,21 +33,22 @@ export function PricingCta() {
               {finalCta.description}
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center sm:justify-center md:mt-10">
-              <ButtonLink
+              <TrackedButtonLink
                 href={finalCta.primaryCta.href}
                 variant="primary"
                 className="w-full sm:w-auto"
                 onClick={handleStartFreeClick}
               >
                 {finalCta.primaryCta.label}
-              </ButtonLink>
-              <ButtonLink
+              </TrackedButtonLink>
+              <TrackedButtonLink
                 href={finalCta.secondaryCta.href}
                 variant="secondary"
                 className="w-full sm:w-auto"
+                track={{ type: "book_demo", ctaLocation: "pricing_final" }}
               >
                 {finalCta.secondaryCta.label}
-              </ButtonLink>
+              </TrackedButtonLink>
             </div>
           </div>
         </ScrollReveal>

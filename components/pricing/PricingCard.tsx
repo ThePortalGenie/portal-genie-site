@@ -1,5 +1,5 @@
 import { Check } from "lucide-react";
-import { ButtonLink } from "@/components/ui/ButtonLink";
+import { PricingPlanCta } from "@/components/pricing/PricingPlanCta";
 import {
   formatPlanPrice,
   getPlanBasePrice,
@@ -51,9 +51,12 @@ export function PricingCard({ plan, currency }: PricingCardProps) {
       </div>
 
       <div className="mt-4">
-        <ButtonLink href={plan.cta.href} variant="primary" className="w-full">
-          {plan.cta.label}
-        </ButtonLink>
+        <PricingPlanCta
+          planId={plan.id}
+          currency={currency}
+          href={plan.cta.href}
+          label={plan.cta.label}
+        />
       </div>
 
       {currency === "ZAR" ? (

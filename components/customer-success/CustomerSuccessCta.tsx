@@ -2,7 +2,7 @@
 
 import { customerSuccessPage } from "@/content/customer-success";
 import { ScrollReveal } from "@/components/features/ScrollReveal";
-import { ButtonLink } from "@/components/ui/ButtonLink";
+import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
 import { Container } from "@/components/ui/Container";
 
 export function CustomerSuccessCta() {
@@ -20,20 +20,22 @@ export function CustomerSuccessCta() {
               {finalCta.description}
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center sm:justify-center md:mt-10">
-              <ButtonLink
+              <TrackedButtonLink
                 href={finalCta.primaryCta.href}
                 variant="primary"
                 className="w-full sm:w-auto"
+                track={{ type: "book_demo", ctaLocation: "customer_success_final" }}
               >
                 {finalCta.primaryCta.label}
-              </ButtonLink>
-              <ButtonLink
+              </TrackedButtonLink>
+              <TrackedButtonLink
                 href={finalCta.secondaryCta.href}
                 variant="secondary"
                 className="w-full sm:w-auto"
+                track={{ type: "trial_cta", ctaLocation: "customer_success_final" }}
               >
                 {finalCta.secondaryCta.label}
-              </ButtonLink>
+              </TrackedButtonLink>
             </div>
           </div>
         </ScrollReveal>

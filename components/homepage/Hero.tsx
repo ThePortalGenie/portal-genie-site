@@ -1,7 +1,7 @@
 import { Check } from "lucide-react";
 import { homepage } from "@/content/homepage";
 import { Container } from "@/components/ui/Container";
-import { ButtonLink } from "@/components/ui/ButtonLink";
+import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
 import { HeroIllustration } from "@/components/homepage/HeroIllustration";
 import { AccountingIntegrationLogos } from "@/components/shared/AccountingIntegrationLogos";
 
@@ -49,20 +49,22 @@ export function Hero() {
             </ul>
 
             <div className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center md:items-start md:justify-start lg:mt-6">
-              <ButtonLink
+              <TrackedButtonLink
                 href={hero.primaryCta.href}
                 variant="primary"
                 className="w-full sm:w-auto"
+                track={{ type: "book_demo", ctaLocation: "hero" }}
               >
                 {hero.primaryCta.label}
-              </ButtonLink>
-              <ButtonLink
+              </TrackedButtonLink>
+              <TrackedButtonLink
                 href={hero.secondaryCta.href}
                 variant="secondary"
                 className="w-full sm:w-auto"
+                track={{ type: "trial_cta", ctaLocation: "hero" }}
               >
                 {hero.secondaryCta.label}
-              </ButtonLink>
+              </TrackedButtonLink>
             </div>
           </div>
 

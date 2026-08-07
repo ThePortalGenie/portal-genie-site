@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Check } from "lucide-react";
 import { xeroconCampaign } from "@/config/xerocon";
 import { xeroconPage } from "@/content/xerocon";
-import { ButtonLink } from "@/components/ui/ButtonLink";
+import { XeroconClaimCta } from "@/components/xerocon/XeroconClaimCta";
 import { Container } from "@/components/ui/Container";
 
 function formatUsdAmount(amount: number | null): string | null {
@@ -20,6 +20,10 @@ function formatUsdAmount(amount: number | null): string | null {
 type XeroconPlan =
   | (typeof xeroconCampaign.pricing)["premium"]
   | (typeof xeroconCampaign.pricing)["advanced"];
+
+function planNameFromXeroconPlan(plan: XeroconPlan): "premium" | "advanced" {
+  return plan.name === "Advanced" ? "advanced" : "premium";
+}
 
 function PlanCard({ plan }: { plan: XeroconPlan }) {
   const { pricing } = xeroconPage;
@@ -72,9 +76,12 @@ function PlanCard({ plan }: { plan: XeroconPlan }) {
       </div>
 
       <div className="mt-5">
-        <ButtonLink href={pricing.claimCta.href} className="w-full">
-          {pricing.claimCta.label}
-        </ButtonLink>
+        <XeroconClaimCta
+          href={pricing.claimCta.href}
+          label={pricing.claimCta.label}
+          planName={planNameFromXeroconPlan(plan)}
+          className="w-full"
+        />
       </div>
 
       <ul className="mt-5 flex flex-1 flex-col gap-2.5 border-t border-muted/15 pt-5">

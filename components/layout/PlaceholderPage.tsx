@@ -1,3 +1,7 @@
+"use client";
+
+import { links } from "@/config/links";
+import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Container } from "@/components/ui/Container";
 
@@ -26,13 +30,24 @@ export function PlaceholderPage({
             {description}
           </p>
           {primaryCta ? (
-            <ButtonLink
-              href={primaryCta.href}
-              variant="primary"
-              className="mt-10 w-full sm:w-auto"
-            >
-              {primaryCta.label}
-            </ButtonLink>
+            primaryCta.href === links.bookDemo ? (
+              <TrackedButtonLink
+                href={primaryCta.href}
+                variant="primary"
+                className="mt-10 w-full sm:w-auto"
+                track={{ type: "book_demo", ctaLocation: "section_final" }}
+              >
+                {primaryCta.label}
+              </TrackedButtonLink>
+            ) : (
+              <ButtonLink
+                href={primaryCta.href}
+                variant="primary"
+                className="mt-10 w-full sm:w-auto"
+              >
+                {primaryCta.label}
+              </ButtonLink>
+            )
           ) : null}
         </div>
       </Container>

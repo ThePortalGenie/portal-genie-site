@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { links } from "@/config/links";
 import { noIndexPageMetadata } from "@/config/seo";
 import { site } from "@/config/site";
-import { buttons } from "@/content/buttons";
+import { PlatformBookDemoCta } from "@/components/platform/PlatformBookDemoCta";
 import { Container } from "@/components/ui/Container";
 import { GenieFlow } from "@/components/visuals/GenieFlow";
 
@@ -26,12 +24,7 @@ export default function PlatformPage() {
             This page is currently being developed as part of the new Portal
             Genie website.
           </p>
-          <Link
-            href={links.bookDemo}
-            className="mt-10 inline-flex h-10 items-center justify-center rounded-button bg-portal-blue px-5 text-sm font-medium text-white transition-colors duration-200 hover:bg-portal-blue/90 sm:px-6"
-          >
-            {buttons.bookDemo}
-          </Link>
+          <PlatformBookDemoCta />
         </div>
       </Container>
     </main>

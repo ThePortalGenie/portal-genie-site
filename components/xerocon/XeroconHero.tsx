@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { xeroconPage } from "@/content/xerocon";
+import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Container } from "@/components/ui/Container";
 
@@ -32,12 +33,17 @@ export function XeroconHero() {
           </div>
 
           <div className="mt-6 flex flex-col gap-3 sm:mx-auto sm:mt-7 sm:max-w-md sm:flex-row sm:justify-center">
-            <ButtonLink
+            <TrackedButtonLink
               href={hero.primaryCta.href}
               className="w-full sm:w-auto sm:min-w-[12rem]"
+              track={{
+                type: "trial_start",
+                ctaLocation: "xerocon_hero",
+                linkUrl: hero.primaryCta.href,
+              }}
             >
               {hero.primaryCta.label}
-            </ButtonLink>
+            </TrackedButtonLink>
             <ButtonLink
               href={hero.secondaryCta.href}
               variant="secondary"

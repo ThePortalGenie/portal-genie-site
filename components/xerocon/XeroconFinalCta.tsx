@@ -1,5 +1,5 @@
 import { xeroconPage } from "@/content/xerocon";
-import { ButtonLink } from "@/components/ui/ButtonLink";
+import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
 import { Container } from "@/components/ui/Container";
 
 export function XeroconFinalCta() {
@@ -16,19 +16,25 @@ export function XeroconFinalCta() {
             {finalCta.description}
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:mx-auto sm:max-w-md sm:flex-row sm:justify-center">
-            <ButtonLink
+            <TrackedButtonLink
               href={finalCta.primaryCta.href}
               className="w-full sm:w-auto sm:min-w-[12rem]"
+              track={{
+                type: "trial_start",
+                ctaLocation: "xerocon_final",
+                linkUrl: finalCta.primaryCta.href,
+              }}
             >
               {finalCta.primaryCta.label}
-            </ButtonLink>
-            <ButtonLink
+            </TrackedButtonLink>
+            <TrackedButtonLink
               href={finalCta.secondaryCta.href}
               variant="secondary"
               className="w-full sm:w-auto sm:min-w-[12rem]"
+              track={{ type: "book_demo", ctaLocation: "xerocon_final" }}
             >
               {finalCta.secondaryCta.label}
-            </ButtonLink>
+            </TrackedButtonLink>
           </div>
         </div>
       </Container>
