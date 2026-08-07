@@ -5,10 +5,8 @@ import { DemoFaq } from "@/components/demo/DemoFaq";
 import { DemoCta } from "@/components/demo/DemoCta";
 import { demoPage } from "@/content/demo";
 import { indexablePageMetadata } from "@/config/seo";
-import { site } from "@/config/site";
-
 export const metadata: Metadata = indexablePageMetadata("/book-a-demo", {
-  title: `${demoPage.metadata.title} | ${site.title}`,
+  title: "Book a Portal Genie Demo | The Portal Genie",
   description: demoPage.metadata.description,
   openGraph: {
     title: demoPage.metadata.openGraph.title,

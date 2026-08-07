@@ -4,11 +4,11 @@ export const demoPage = {
   metadata: {
     title: "Book a Demo",
     description:
-      "Book a personalised Portal Genie demonstration and see how Xero businesses deliver a secure, branded customer experience alongside Xero.",
+      "Book a personalised demo of The Portal Genie client portal software and see secure self-service, documents and communication alongside your accounting software.",
     openGraph: {
-      title: "Book a Portal Genie Demo — Customer Experience for Xero Businesses",
+      title: "Book a Portal Genie Demo | The Portal Genie",
       description:
-        "Schedule a tailored demonstration of The Portal Genie and discover how it extends Xero with secure portals, branded communication and streamlined workflows.",
+        "Book a personalised demo of The Portal Genie client portal software and see secure self-service, documents and communication alongside your accounting software.",
     },
   },
   booking: {
@@ -16,7 +16,8 @@ export const demoPage = {
     headline: "See The Portal Genie in Action",
     description:
       "Book a personalised demo and discover how The Portal Genie can help you deliver a better customer experience through secure portals, branded communication and streamlined workflows.",
-    instruction: "Choose a time that suits you below.",
+    instruction:
+      "Book a live demonstration of our client portal software and choose a time that suits you below.",
   },
   alternativeContact: {
     prompt: "Prefer to contact us directly?",
