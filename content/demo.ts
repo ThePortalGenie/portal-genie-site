@@ -21,7 +21,7 @@ export const demoPage = {
   },
   alternativeContact: {
     prompt: "Prefer to contact us directly?",
-    email: "info@theportalgenie.com.au",
+    email: "sales@theportalgenie.com",
   },
   faq: {
     headline: "Frequently asked questions",

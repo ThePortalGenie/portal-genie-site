@@ -117,7 +117,7 @@ export function trackPricingCurrencyChange(currency: AnalyticsCurrency) {
 
 type EmailContactParams = {
   ctaLocation: CtaLocation;
-  emailDomain: "theportalgenie.com" | "theportalgenie.com.au";
+  emailDomain: "theportalgenie.com";
   destination?: "sales@theportalgenie.com";
 };
 

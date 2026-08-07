@@ -111,6 +111,7 @@ export const INDEXABLE_ROUTES = [
   "/pricing",
   "/customer-success",
   "/book-a-demo",
+  "/contact",
   "/privacy-policy",
   "/terms-and-conditions",
 ] as const;
@@ -122,7 +123,6 @@ export const NOINDEX_ROUTES = [
   "/resources",
   "/platform",
   "/about",
-  "/contact",
   "/documentation",
   "/product-updates",
   "/faq",

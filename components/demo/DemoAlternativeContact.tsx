@@ -12,7 +12,7 @@ export function DemoAlternativeContact() {
           {alternativeContact.prompt}{" "}
           <TrackedEmailLink
             href={`mailto:${alternativeContact.email}`}
-            emailDomain="theportalgenie.com.au"
+            emailDomain="theportalgenie.com"
             ctaLocation="section_final"
             className="font-medium text-portal-navy/75 transition-colors duration-200 hover:text-portal-blue"
           >

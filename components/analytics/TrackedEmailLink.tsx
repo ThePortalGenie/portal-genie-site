@@ -6,7 +6,7 @@ import { trackEmailContactClick } from "@/lib/analytics/track";
 
 type TrackedEmailLinkProps = {
   href: string;
-  emailDomain: "theportalgenie.com" | "theportalgenie.com.au";
+  emailDomain: "theportalgenie.com";
   destination?: "sales@theportalgenie.com";
   ctaLocation: CtaLocation;
   className?: string;

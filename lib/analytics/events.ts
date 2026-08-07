@@ -92,7 +92,7 @@ export type PricingCurrencyChangeEvent = BaseDataLayerFields & {
 
 export type EmailContactClickEvent = BaseDataLayerFields & {
   event: typeof AnalyticsEvent.emailContactClick;
-  email_domain: "theportalgenie.com" | "theportalgenie.com.au";
+  email_domain: "theportalgenie.com";
   destination?: "sales@theportalgenie.com";
 };
 

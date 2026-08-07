@@ -5,7 +5,12 @@ export const contactPage = {
   metadata: {
     title: "Contact Sales",
     description:
-      "Have a question about The Portal Genie or need help choosing the right solution? Send us a message or contact our sales team.",
+      "Contact The Portal Genie sales team with questions about our client portal software, plans or demos. Send us a message or email our team directly.",
+    openGraph: {
+      title: "Contact The Portal Genie | The Portal Genie",
+      description:
+        "Contact The Portal Genie sales team with questions about our client portal software, plans or demos. Send us a message or email our team directly.",
+    },
   },
   intro: {
     headline: "Contact us",
