@@ -73,6 +73,15 @@ export const featuresPage = {
         "Upload files, exchange notes and stay informed with your Notice Board",
         "Secure OTP login with a branded experience on any device",
       ],
+      portalLinkCallout: {
+        heading: "Your portal. One simple link.",
+        body: "Every Portal Genie account includes a unique portal link you can share with your customers — or connect to a Client Login button on your website — giving them a simple, consistent way to access their portal whenever they need it.",
+        points: [
+          "Add it to a Client Login button on your website",
+          "Include it in customer emails and communications",
+          "Share it directly with customers",
+        ],
+      },
       screenshot: marketingScreenshots.customerPortal,
     },
     {

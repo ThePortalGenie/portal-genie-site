@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   CreditCard,
   FileText,
@@ -20,7 +21,7 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export function CustomerExperience() {
-  const { headline, description, showcase, features } =
+  const { headline, description, portalLinkNote, showcase, features } =
     homepage.customerExperience;
 
   return (
@@ -33,7 +34,18 @@ export function CustomerExperience() {
             description={description}
           />
 
-          <ul className="mt-8 flex flex-col gap-0 border-t border-muted/20">
+          <p className="mt-4 text-sm leading-relaxed text-portal-navy/70 sm:mt-5 sm:text-base">
+            {portalLinkNote.beforeLink}
+            <Link
+              href={portalLinkNote.href}
+              className="font-medium text-portal-blue underline decoration-portal-blue/30 underline-offset-2 transition-colors duration-200 hover:text-portal-blue/80 hover:decoration-portal-blue/50"
+            >
+              {portalLinkNote.linkText}
+            </Link>
+            {portalLinkNote.afterLink}
+          </p>
+
+          <ul className="mt-6 flex flex-col gap-0 border-t border-muted/20 sm:mt-8">
             {features.map((feature) => {
               const Icon = iconMap[feature.icon];
 

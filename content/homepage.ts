@@ -119,6 +119,14 @@ export const homepage = {
     headline: "Give every customer a secure, branded destination.",
     description:
       "Today's customers expect more than emailed invoices and disconnected conversations. The Portal Genie provides every customer with one secure, branded destination where they can view invoices, access documents, communicate with your business, make payments and manage their relationship.",
+    portalLinkNote: {
+      beforeLink:
+        "Give customers one simple place to return to — using your ",
+      linkText: "unique portal link",
+      afterLink:
+        ", shared directly or connected to a Client Login button on your website.",
+      href: `${links.features}#customer-portal`,
+    },
     showcase: {
       image: "/images/product/marketing/customer-portal.png",
       alt: "Portal Genie client portal allowing customers to view invoices, access documents, make payments and securely communicate with a business.",

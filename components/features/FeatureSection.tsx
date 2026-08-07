@@ -1,18 +1,31 @@
 "use client";
 
 import Image from "next/image";
-import { Check } from "lucide-react";
+import { Check, Globe, Link2, Mail, Share2 } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { BrowserFrame } from "@/components/ui/product-showcase/BrowserFrame";
 import { ScrollReveal } from "@/components/features/ScrollReveal";
 import { FeatureScreenshot } from "@/components/features/FeatureScreenshot";
 
+type PortalLinkCallout = {
+  heading: string;
+  body: string;
+  points: readonly string[];
+};
+
+const portalLinkPillMeta = [
+  { label: "Website Client Login", icon: Globe },
+  { label: "Customer emails", icon: Mail },
+  { label: "Share directly", icon: Share2 },
+] as const;
+
 type FeatureSectionProps = {
   id: string;
   title: string;
   description: string;
   benefits: readonly string[];
+  portalLinkCallout?: PortalLinkCallout;
   screenshot: {
     src: string;
     alt: string;
@@ -31,6 +44,7 @@ export function FeatureSection({
   title,
   description,
   benefits,
+  portalLinkCallout,
   screenshot,
   imagePosition,
   background = "background",
@@ -80,6 +94,50 @@ export function FeatureSection({
                 </li>
               ))}
             </ul>
+
+            {portalLinkCallout ? (
+              <aside className="mt-5 rounded-card border border-portal-blue/20 bg-surface p-3.5 shadow-[0_4px_16px_-8px_rgba(17,33,54,0.06)] sm:mt-6 sm:p-4">
+                <div className="flex items-start gap-3">
+                  <div
+                    className="inline-flex size-8 shrink-0 items-center justify-center rounded-button bg-portal-blue/10 text-portal-blue"
+                    aria-hidden="true"
+                  >
+                    <Link2 className="size-4" strokeWidth={2} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-sm font-semibold leading-snug text-portal-navy sm:text-[0.9375rem]">
+                      {portalLinkCallout.heading}
+                    </h3>
+                    <p className="mt-1.5 text-xs leading-relaxed text-portal-navy/70 sm:text-sm">
+                      {portalLinkCallout.body}
+                    </p>
+                  </div>
+                </div>
+                <ul className="mt-3 grid grid-cols-1 gap-2 sm:mt-3.5 sm:grid-cols-3">
+                  {portalLinkCallout.points.map((point, index) => {
+                    const pill = portalLinkPillMeta[index];
+                    const PillIcon = pill?.icon ?? Check;
+
+                    return (
+                      <li
+                        key={point}
+                        aria-label={point}
+                        className="flex min-w-0 items-center gap-2 rounded-button border border-muted/20 bg-background px-2.5 py-2 text-portal-navy/80 sm:px-3 sm:py-2.5"
+                      >
+                        <PillIcon
+                          className="size-3.5 shrink-0 text-portal-blue"
+                          strokeWidth={2}
+                          aria-hidden="true"
+                        />
+                        <span className="text-xs leading-snug sm:text-[0.8125rem]">
+                          {pill?.label ?? point}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </aside>
+            ) : null}
           </div>
 
           <div
