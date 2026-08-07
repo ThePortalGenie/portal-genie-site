@@ -5,18 +5,19 @@ export const whyPage = {
   metadata: {
     title: "Why The Portal Genie",
     description:
-      "Discover why The Portal Genie exists — the customer experience layer built to work alongside Xero, QuickBooks and Sage Business Cloud and help businesses deliver a modern, connected and professional service.",
+      "Discover the benefits of client portal software and how The Portal Genie brings documents, communication, payments and self-service together alongside your accounting software.",
     openGraph: {
-      title:
-        "Why The Portal Genie — The Customer Experience Layer for Your Business",
+      title: "Benefits of Client Portal Software | The Portal Genie",
       description:
-        "Great accounting software manages finances. Great customer experiences require something more. Learn why Portal Genie was built to extend your accounting software and modernise client interactions.",
+        "Discover the benefits of client portal software and how The Portal Genie brings documents, communication, payments and self-service together alongside your accounting software.",
     },
   },
   hero: {
     headline: "Why The Portal Genie",
     description:
       "Great accounting software manages finances. Great customer experiences require something more. The Portal Genie exists to help businesses deliver the modern, connected service their customers expect - without changing the way their team works.",
+    clarification:
+      "The Portal Genie provides client portal software that brings customer self-service, documents, communication and payments together in one branded experience.",
     primaryCta: {
       label: buttons.bookDemo,
       href: links.bookDemo,
@@ -67,6 +68,10 @@ export const whyPage = {
           "Customers move between systems and touchpoints without a clear, branded destination that ties their relationship with your business together.",
       },
     ],
+    relatedLink: {
+      label: "See customer stories",
+      href: links.customerSuccess,
+    },
   },
   whyBuilt: {
     eyebrow: "Our purpose",

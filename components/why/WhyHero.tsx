@@ -34,7 +34,7 @@ export function WhyHero() {
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-portal-navy/75 sm:mt-6 sm:text-lg md:mx-0">
-            {hero.description}
+            {hero.description} {hero.clarification}
           </p>
 
           <div className="mt-6 flex flex-col items-stretch gap-3 sm:mt-8 sm:flex-row sm:items-center sm:justify-center md:justify-start lg:mt-10">

@@ -8,10 +8,8 @@ import { WhyLookingForward } from "@/components/why/WhyLookingForward";
 import { WhyCta } from "@/components/why/WhyCta";
 import { whyPage } from "@/content/why";
 import { indexablePageMetadata } from "@/config/seo";
-import { site } from "@/config/site";
-
 export const metadata: Metadata = indexablePageMetadata("/why-the-portal-genie", {
-  title: `${whyPage.metadata.title} | ${site.title}`,
+  title: "Benefits of Client Portal Software | The Portal Genie",
   description: whyPage.metadata.description,
   openGraph: {
     title: whyPage.metadata.openGraph.title,

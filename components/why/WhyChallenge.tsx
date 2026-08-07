@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { whyPage } from "@/content/why";
 import { ScrollReveal } from "@/components/features/ScrollReveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -26,7 +27,7 @@ export function WhyChallenge() {
         </ScrollReveal>
 
         <div ref={listRef}>
-          <ul className="mt-12 grid gap-8 pb-12 md:grid-cols-2 md:gap-x-12 md:gap-y-10 md:pb-16 lg:mt-16">
+          <ul className="mt-12 grid gap-8 md:grid-cols-2 md:gap-x-12 md:gap-y-10 lg:mt-16">
             {challenge.points.map((point, index) => (
               <li
                 key={point.title}
@@ -49,6 +50,17 @@ export function WhyChallenge() {
               </li>
             ))}
           </ul>
+
+          {challenge.relatedLink ? (
+            <p className="mt-6 pb-12 text-sm sm:pb-16 sm:text-base md:pb-16">
+              <Link
+                href={challenge.relatedLink.href}
+                className="font-medium text-portal-blue transition-colors duration-200 hover:text-portal-blue/80"
+              >
+                {challenge.relatedLink.label}
+              </Link>
+            </p>
+          ) : null}
         </div>
       </Container>
     </section>
