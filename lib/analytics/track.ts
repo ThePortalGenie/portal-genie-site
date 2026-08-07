@@ -118,17 +118,20 @@ export function trackPricingCurrencyChange(currency: AnalyticsCurrency) {
 type EmailContactParams = {
   ctaLocation: CtaLocation;
   emailDomain: "theportalgenie.com" | "theportalgenie.com.au";
+  destination?: "sales@theportalgenie.com";
 };
 
 export function trackEmailContactClick({
   ctaLocation,
   emailDomain,
+  destination,
 }: EmailContactParams) {
   pushDataLayerEvent({
     event: AnalyticsEvent.emailContactClick,
     cta_location: ctaLocation,
     page_path: getCurrentPagePath(),
     email_domain: emailDomain,
+    ...(destination ? { destination } : {}),
   });
 }
 

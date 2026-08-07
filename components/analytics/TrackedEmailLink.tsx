@@ -7,6 +7,7 @@ import { trackEmailContactClick } from "@/lib/analytics/track";
 type TrackedEmailLinkProps = {
   href: string;
   emailDomain: "theportalgenie.com" | "theportalgenie.com.au";
+  destination?: "sales@theportalgenie.com";
   ctaLocation: CtaLocation;
   className?: string;
   children: ReactNode;
@@ -15,6 +16,7 @@ type TrackedEmailLinkProps = {
 export function TrackedEmailLink({
   href,
   emailDomain,
+  destination,
   ctaLocation,
   className,
   children,
@@ -24,7 +26,7 @@ export function TrackedEmailLink({
       href={href}
       className={className}
       onClick={() =>
-        trackEmailContactClick({ ctaLocation, emailDomain })
+        trackEmailContactClick({ ctaLocation, emailDomain, destination })
       }
     >
       {children}

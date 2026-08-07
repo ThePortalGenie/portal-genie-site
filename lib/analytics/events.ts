@@ -40,7 +40,8 @@ export type CtaLocation =
   | "why_final"
   | "xerocon_hero"
   | "xerocon_final"
-  | "platform";
+  | "platform"
+  | "contact_page";
 
 type BaseDataLayerFields = {
   event: AnalyticsEventName;
@@ -91,6 +92,7 @@ export type PricingCurrencyChangeEvent = BaseDataLayerFields & {
 export type EmailContactClickEvent = BaseDataLayerFields & {
   event: typeof AnalyticsEvent.emailContactClick;
   email_domain: "theportalgenie.com" | "theportalgenie.com.au";
+  destination?: "sales@theportalgenie.com";
 };
 
 export type BookingWidgetLoadedEvent = BaseDataLayerFields & {
