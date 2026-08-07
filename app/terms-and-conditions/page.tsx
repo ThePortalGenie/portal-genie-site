@@ -2,12 +2,11 @@ import type { Metadata } from "next";
 import { LegalDocumentViewer } from "@/components/legal/LegalDocumentViewer";
 import { legalPages } from "@/content/legal";
 import { indexablePageMetadata } from "@/config/seo";
-import { site } from "@/config/site";
 
 const { termsAndConditions } = legalPages;
 
 export const metadata: Metadata = indexablePageMetadata("/terms-and-conditions", {
-  title: `${termsAndConditions.metadata.title} | ${site.title}`,
+  title: "Terms & Conditions | The Portal Genie",
   description: termsAndConditions.metadata.description,
   openGraph: {
     title: termsAndConditions.metadata.openGraph.title,
