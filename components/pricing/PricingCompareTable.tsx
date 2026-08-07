@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, type ReactNode } from "react";
+import Link from "next/link";
 import { Check, Minus } from "lucide-react";
 import {
   getComparisonFeatureSections,
@@ -193,6 +194,17 @@ export function PricingCompareTable() {
           align="left"
           className="mx-auto max-w-2xl text-center md:mx-0 md:text-left"
         />
+
+        {compare.relatedLink ? (
+          <p className="mx-auto mt-4 max-w-2xl text-center text-sm sm:text-base md:mx-0 md:text-left">
+            <Link
+              href={compare.relatedLink.href}
+              className="font-medium text-portal-blue transition-colors duration-200 hover:text-portal-blue/80"
+            >
+              {compare.relatedLink.label}
+            </Link>
+          </p>
+        ) : null}
 
         <MobileCompare />
 

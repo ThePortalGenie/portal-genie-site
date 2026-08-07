@@ -441,16 +441,17 @@ export const pricingPage = {
   metadata: {
     title: "Pricing",
     description:
-      "Simple pricing for Portal Genie. Choose Premium or Advanced and start with a 30-day free trial — with currency options for ZAR, USD, GBP, EUR and AED.",
+      "Compare Premium and Advanced client portal software plans from The Portal Genie, with monthly pricing in ZAR, USD, GBP, EUR and AED and a 30-day free trial.",
     openGraph: {
-      title: "Portal Genie Pricing",
+      title: "Client Portal Software Pricing | The Portal Genie",
       description:
-        "Explore Portal Genie pricing — Premium and Advanced plans with currency options for ZAR, USD, GBP, EUR and AED.",
+        "Compare Premium and Advanced client portal software plans from The Portal Genie, with monthly pricing in ZAR, USD, GBP, EUR and AED and a 30-day free trial.",
     },
   },
   hero: {
     headline: "Simple pricing that grows with your business.",
-    description: "Choose the Premium or Advanced plan that fits your business.",
+    description:
+      "Compare our Premium and Advanced client portal software plans and start with a 30-day free trial.",
     illustration: {
       src: "/images/assets/images/why-portal-genie-hero-three.png",
       description:
@@ -469,6 +470,10 @@ export const pricingPage = {
   compare: {
     headline: "Compare plans",
     description: "See everything included across Premium and Advanced.",
+    relatedLink: {
+      label: "See all features",
+      href: links.features,
+    },
   },
   faq: {
     headline: "Frequently asked questions",

@@ -24,7 +24,7 @@ export function PricingHero() {
           <h1 className="text-2xl font-semibold leading-tight tracking-tight text-portal-navy sm:text-3xl md:text-4xl lg:text-[2.5rem]">
             {hero.headline}
           </h1>
-          <p className="mt-2.5 hidden text-base leading-relaxed text-portal-navy/75 md:block sm:text-lg">
+          <p className="mt-2.5 text-base leading-relaxed text-portal-navy/75 sm:text-lg">
             {hero.description}
           </p>
         </div>

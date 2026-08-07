@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { Check, Star } from "lucide-react";
+import { links } from "@/config/links";
 import { customerSuccessPage } from "@/content/customer-success";
 
 export function PricingTrustBar() {
@@ -39,6 +41,15 @@ export function PricingTrustBar() {
           </li>
         ))}
       </ul>
+
+      <p className="mt-3 text-center text-sm sm:text-base md:mt-4 lg:text-left">
+        <Link
+          href={links.customerSuccess}
+          className="font-medium text-portal-blue transition-colors duration-200 hover:text-portal-blue/80"
+        >
+          See customer stories
+        </Link>
+      </p>
     </aside>
   );
 }

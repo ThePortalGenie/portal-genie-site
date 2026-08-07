@@ -7,10 +7,8 @@ import { PricingCta } from "@/components/pricing/PricingCta";
 import { PricingFaqStructuredData } from "@/components/seo/PricingFaqStructuredData";
 import { pricingPage } from "@/content/pricing";
 import { indexablePageMetadata } from "@/config/seo";
-import { site } from "@/config/site";
-
 export const metadata: Metadata = indexablePageMetadata("/pricing", {
-  title: `${pricingPage.metadata.title} | ${site.title}`,
+  title: "Client Portal Software Pricing | The Portal Genie",
   description: pricingPage.metadata.description,
   openGraph: {
     title: pricingPage.metadata.openGraph.title,
