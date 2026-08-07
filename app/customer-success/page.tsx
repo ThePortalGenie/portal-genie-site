@@ -8,10 +8,8 @@ import { IndustriesServed } from "@/components/customer-success/IndustriesServed
 import { CustomerSuccessCta } from "@/components/customer-success/CustomerSuccessCta";
 import { customerSuccessPage } from "@/content/customer-success";
 import { indexablePageMetadata } from "@/config/seo";
-import { site } from "@/config/site";
-
 export const metadata: Metadata = indexablePageMetadata("/customer-success", {
-  title: `${customerSuccessPage.metadata.title} | ${site.title}`,
+  title: "Portal Genie Customer Stories & Reviews | The Portal Genie",
   description: customerSuccessPage.metadata.description,
   openGraph: {
     title: customerSuccessPage.metadata.openGraph.title,

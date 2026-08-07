@@ -5,18 +5,19 @@ export const customerSuccessPage = {
   metadata: {
     title: "Customer Success",
     description:
-      "Read verified customer stories and reviews. See why businesses value Portal Genie's customer experience layer, exceptional support and seamless integration with Xero, QuickBooks and Sage Business Cloud.",
+      "Read verified customer reviews and stories from businesses using The Portal Genie for secure self-service, documents and communication alongside their accounting software.",
     openGraph: {
-      title:
-        "Portal Genie Customer Success — Customer Stories & Verified Reviews",
+      title: "Portal Genie Customer Stories & Reviews | The Portal Genie",
       description:
-        "Authentic customer stories and verified reviews from businesses using Portal Genie to deliver a connected customer experience alongside their accounting software.",
+        "Read verified customer reviews and stories from businesses using The Portal Genie for secure self-service, documents and communication alongside their accounting software.",
     },
   },
   hero: {
     headline: "Trusted by businesses delivering better customer experiences.",
     description:
       "Businesses across multiple industries rely on The Portal Genie for secure document access, smoother communication and professional self-service portals — working alongside the accounting software they already use.",
+    clarification:
+      "Read verified customer experiences from businesses using The Portal Genie.",
     rating: {
       value: "5.0",
       label: "Rating",
@@ -61,6 +62,10 @@ export const customerSuccessPage = {
     headline: "Featured customer stories",
     description:
       "Verified reviews from businesses using Portal Genie to deliver a more connected customer experience.",
+    relatedLink: {
+      label: "See all features",
+      href: links.features,
+    },
     items: [
       {
         name: "Kinesh Chinasamy",

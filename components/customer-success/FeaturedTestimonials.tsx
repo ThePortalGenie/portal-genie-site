@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { customerSuccessPage } from "@/content/customer-success";
 import { TestimonialCard } from "@/components/customer-success/TestimonialCard";
 import { ScrollReveal } from "@/components/features/ScrollReveal";
@@ -20,6 +21,17 @@ export function FeaturedTestimonials() {
           align="left"
           className="mx-auto max-w-xl text-center md:mx-0 md:text-left"
         />
+
+        {testimonials.relatedLink ? (
+          <p className="mx-auto mt-4 max-w-xl text-center text-sm sm:text-base md:mx-0 md:text-left">
+            <Link
+              href={testimonials.relatedLink.href}
+              className="font-medium text-portal-blue transition-colors duration-200 hover:text-portal-blue/80"
+            >
+              {testimonials.relatedLink.label}
+            </Link>
+          </p>
+        ) : null}
       </ScrollReveal>
 
       <div
