@@ -5,16 +5,17 @@ import { PricingCompareTable } from "@/components/pricing/PricingCompareTable";
 import { PricingFaq } from "@/components/pricing/PricingFaq";
 import { PricingCta } from "@/components/pricing/PricingCta";
 import { pricingPage } from "@/content/pricing";
+import { indexablePageMetadata } from "@/config/seo";
 import { site } from "@/config/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = indexablePageMetadata("/pricing", {
   title: `${pricingPage.metadata.title} | ${site.title}`,
   description: pricingPage.metadata.description,
   openGraph: {
     title: pricingPage.metadata.openGraph.title,
     description: pricingPage.metadata.openGraph.description,
   },
-};
+});
 
 export default function PricingPage() {
   return (

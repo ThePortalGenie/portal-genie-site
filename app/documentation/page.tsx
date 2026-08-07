@@ -1,9 +1,17 @@
+import type { Metadata } from "next";
 import { PlaceholderPage } from "@/components/layout/PlaceholderPage";
+import { noIndexPageMetadata } from "@/config/seo";
+import { site } from "@/config/site";
 import { placeholderPages } from "@/content/placeholders";
 
-export default function DocumentationPage() {
-  const page = placeholderPages.documentation;
+const page = placeholderPages.documentation;
 
+export const metadata: Metadata = noIndexPageMetadata({
+  title: `${page.title} | ${site.title}`,
+  description: page.description,
+});
+
+export default function DocumentationPage() {
   return (
     <PlaceholderPage
       title={page.title}

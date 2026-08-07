@@ -7,16 +7,17 @@ import { VerifiedXeroSection } from "@/components/customer-success/VerifiedXeroS
 import { IndustriesServed } from "@/components/customer-success/IndustriesServed";
 import { CustomerSuccessCta } from "@/components/customer-success/CustomerSuccessCta";
 import { customerSuccessPage } from "@/content/customer-success";
+import { indexablePageMetadata } from "@/config/seo";
 import { site } from "@/config/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = indexablePageMetadata("/customer-success", {
   title: `${customerSuccessPage.metadata.title} | ${site.title}`,
   description: customerSuccessPage.metadata.description,
   openGraph: {
     title: customerSuccessPage.metadata.openGraph.title,
     description: customerSuccessPage.metadata.openGraph.description,
   },
-};
+});
 
 export default function CustomerSuccessPage() {
   return (

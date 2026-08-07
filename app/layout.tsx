@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { AppChrome } from "@/components/layout/AppChrome";
-import { site } from "@/config/site";
+import {
+  getDefaultLayoutRobots,
+  getMetadataBase,
+  seo,
+} from "@/config/seo";
 import "./globals.css";
 
 const inter = Inter({
@@ -11,8 +15,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: site.title,
-  description: site.description,
+  metadataBase: getMetadataBase(),
+  title: seo.siteName,
+  description: seo.defaultDescription,
+  robots: getDefaultLayoutRobots(),
 };
 
 export default function RootLayout({

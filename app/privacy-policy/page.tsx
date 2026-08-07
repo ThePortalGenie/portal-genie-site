@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
 import { LegalDocumentViewer } from "@/components/legal/LegalDocumentViewer";
 import { legalPages } from "@/content/legal";
+import { indexablePageMetadata } from "@/config/seo";
 import { site } from "@/config/site";
 
 const { privacyPolicy } = legalPages;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = indexablePageMetadata("/privacy-policy", {
   title: `${privacyPolicy.metadata.title} | ${site.title}`,
   description: privacyPolicy.metadata.description,
   openGraph: {
     title: privacyPolicy.metadata.openGraph.title,
     description: privacyPolicy.metadata.openGraph.description,
   },
-};
+});
 
 export default function PrivacyPolicyPage() {
   return (

@@ -1,8 +1,17 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { links } from "@/config/links";
+import { noIndexPageMetadata } from "@/config/seo";
+import { site } from "@/config/site";
 import { buttons } from "@/content/buttons";
 import { Container } from "@/components/ui/Container";
 import { GenieFlow } from "@/components/visuals/GenieFlow";
+
+export const metadata: Metadata = noIndexPageMetadata({
+  title: `The Platform | ${site.title}`,
+  description:
+    "The Portal Genie platform overview page is currently being developed.",
+});
 
 export default function PlatformPage() {
   return (

@@ -7,16 +7,17 @@ import { WhyPhilosophy } from "@/components/why/WhyPhilosophy";
 import { WhyLookingForward } from "@/components/why/WhyLookingForward";
 import { WhyCta } from "@/components/why/WhyCta";
 import { whyPage } from "@/content/why";
+import { indexablePageMetadata } from "@/config/seo";
 import { site } from "@/config/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = indexablePageMetadata("/why-the-portal-genie", {
   title: `${whyPage.metadata.title} | ${site.title}`,
   description: whyPage.metadata.description,
   openGraph: {
     title: whyPage.metadata.openGraph.title,
     description: whyPage.metadata.openGraph.description,
   },
-};
+});
 
 export default function WhyThePortalGeniePage() {
   return (
