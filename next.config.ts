@@ -9,6 +9,30 @@ const nextConfig: NextConfig = {
     // haze behind the artwork once composited on the page.
     qualities: [75, 90, 100],
   },
+  async redirects() {
+    return [
+      {
+        source: "/contact-sales-1",
+        destination: "/contact",
+        permanent: true,
+      },
+      {
+        source: "/book-demo",
+        destination: "/book-a-demo",
+        permanent: true,
+      },
+      {
+        source: "/pricing-plans/list",
+        destination: "/pricing",
+        permanent: true,
+      },
+      {
+        source: "/solutions",
+        destination: "/why-the-portal-genie",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
