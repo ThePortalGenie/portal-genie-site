@@ -19,8 +19,8 @@ export const links = {
   /** Permanent campaign URL — encoded in printed QR codes. Do not rename. */
   xerocon: "/xerocon",
   login: "https://app.theportalgenie.com/app/login",
-  startFree:
-    "https://app.theportalgenie.com/register?registerPage=true&packageId=STANDARD_CUSTOMER_PORTAL",
+  /** General site-level free-trial CTA — routes to plan selection on Pricing. */
+  startFree: "/pricing",
   /**
    * Package-specific registration URLs for paid trials.
    * Replace with confirmed packageId query params when available.

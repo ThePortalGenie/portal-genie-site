@@ -27,7 +27,7 @@ export const headerActions = {
   },
   startFree: {
     label: buttons.startFree,
-    href: links.pricing,
+    href: links.startFree,
   },
   bookDemo: {
     label: buttons.bookDemo,
