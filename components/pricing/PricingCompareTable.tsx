@@ -169,7 +169,20 @@ function MobileCompare() {
 export function PricingCompareTable() {
   const sections = getComparisonFeatureSections();
   const { compare } = pricingPage;
-  let rowIndex = 0;
+
+  const sectionStartIndices = sections.reduce<number[]>((indices, section, index) => {
+    const previousCount =
+      index === 0 ? 0 : indices[index - 1] + sections[index - 1].features.length;
+    return [...indices, previousCount];
+  }, []);
+
+  const sectionsWithRowIndices = sections.map((section, sectionIndex) => ({
+    section,
+    features: section.features.map((feature, featureIndex) => ({
+      feature,
+      rowIndex: sectionStartIndices[sectionIndex] + featureIndex,
+    })),
+  }));
 
   return (
     <section className="bg-surface py-12 md:py-20 lg:py-24">
@@ -213,7 +226,7 @@ export function PricingCompareTable() {
               </tr>
             </thead>
             <tbody>
-              {sections.map((section, sectionIndex) => (
+              {sectionsWithRowIndices.map(({ section, features }, sectionIndex) => (
                 <Fragment key={section.id}>
                   <tr
                     className={
@@ -228,17 +241,13 @@ export function PricingCompareTable() {
                       {section.title}
                     </th>
                   </tr>
-                  {section.features.map((feature) => {
-                    const row = (
-                      <CompareFeatureRow
-                        key={feature.id}
-                        feature={feature}
-                        rowIndex={rowIndex}
-                      />
-                    );
-                    rowIndex += 1;
-                    return row;
-                  })}
+                  {features.map(({ feature, rowIndex }) => (
+                    <CompareFeatureRow
+                      key={feature.id}
+                      feature={feature}
+                      rowIndex={rowIndex}
+                    />
+                  ))}
                 </Fragment>
               ))}
             </tbody>

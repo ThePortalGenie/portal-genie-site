@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { company } from "./company";
+import { site } from "./site";
 
 /** Official canonical marketing origin — never derived from request host or VERCEL_URL. */
 export const PRODUCTION_SITE_URL = "https://www.theportalgenie.com" as const;
@@ -9,6 +10,102 @@ export const seo = {
   defaultDescription: company.tagline,
   productionSiteUrl: PRODUCTION_SITE_URL,
 } as const;
+
+/**
+ * Social sharing image — add this file before launch.
+ * Required path: public/images/social/portal-genie-og.png (1200×630).
+ * See Sprint 1B report for brand asset guidance.
+ */
+export const SOCIAL_SHARE_IMAGE = {
+  path: "/images/social/portal-genie-og.png",
+  width: 1200,
+  height: 630,
+} as const;
+
+/** Absolute logo URL for Organization schema and brand references. */
+export const ORGANIZATION_LOGO_URL = `${PRODUCTION_SITE_URL}${site.logo.src}`;
+
+const socialShareImageMetadata = {
+  url: SOCIAL_SHARE_IMAGE.path,
+  width: SOCIAL_SHARE_IMAGE.width,
+  height: SOCIAL_SHARE_IMAGE.height,
+  alt: seo.siteName,
+} as const;
+
+function resolveMetadataTitle(metadata: Metadata): string {
+  const { title } = metadata;
+
+  if (typeof title === "string") {
+    return title;
+  }
+
+  if (title && typeof title === "object") {
+    if ("absolute" in title && typeof title.absolute === "string") {
+      return title.absolute;
+    }
+
+    if ("default" in title && typeof title.default === "string") {
+      return title.default;
+    }
+  }
+
+  return seo.siteName;
+}
+
+function resolveMetadataDescription(metadata: Metadata): string {
+  return typeof metadata.description === "string"
+    ? metadata.description
+    : seo.defaultDescription;
+}
+
+function canonicalPathForRoute(path: IndexableRoute): string {
+  return path === "/" ? "/" : path;
+}
+
+/** Builds Open Graph and Twitter metadata for an indexable marketing page. */
+export function buildSocialMetadata(
+  path: IndexableRoute,
+  metadata: Metadata,
+): Pick<Metadata, "openGraph" | "twitter"> {
+  const pageTitle = resolveMetadataTitle(metadata);
+  const pageDescription = resolveMetadataDescription(metadata);
+  const ogTitle =
+    typeof metadata.openGraph?.title === "string"
+      ? metadata.openGraph.title
+      : pageTitle;
+  const ogDescription =
+    typeof metadata.openGraph?.description === "string"
+      ? metadata.openGraph.description
+      : pageDescription;
+  const canonicalPath = canonicalPathForRoute(path);
+
+  return {
+    openGraph: {
+      type: "website",
+      siteName: seo.siteName,
+      url: canonicalPath,
+      title: ogTitle,
+      description: ogDescription,
+      images: [socialShareImageMetadata],
+      ...metadata.openGraph,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ogTitle,
+      description: ogDescription,
+      images: [SOCIAL_SHARE_IMAGE.path],
+      ...metadata.twitter,
+    },
+  };
+}
+
+/** Site-wide Open Graph / Twitter defaults for the root layout. */
+export function getRootSocialMetadata(): Pick<Metadata, "openGraph" | "twitter"> {
+  return buildSocialMetadata("/", {
+    title: seo.siteName,
+    description: seo.defaultDescription,
+  });
+}
 
 /** Routes approved for production indexing and the initial XML sitemap. */
 export const INDEXABLE_ROUTES = [
@@ -108,8 +205,11 @@ export function indexablePageMetadata(
   path: IndexableRoute,
   metadata: Omit<Metadata, "alternates" | "robots">,
 ): Metadata {
+  const social = buildSocialMetadata(path, metadata);
+
   return {
     ...metadata,
+    ...social,
     alternates: {
       canonical: path,
     },

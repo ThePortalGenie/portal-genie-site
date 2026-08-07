@@ -7,16 +7,26 @@ import { useEffect, useState } from "react";
  * Uses IntersectionObserver with a top-biased root margin to account for
  * sticky header + sub-nav height.
  */
+function getInitialActiveSection(sectionIds: readonly string[]): string {
+  if (typeof window === "undefined") {
+    return sectionIds[0] ?? "";
+  }
+
+  const hash = window.location.hash.replace(/^#/, "");
+  if (hash && sectionIds.includes(hash)) {
+    return hash;
+  }
+
+  return sectionIds[0] ?? "";
+}
+
 export function useActiveSection(sectionIds: readonly string[]) {
-  const [activeId, setActiveId] = useState(sectionIds[0] ?? "");
+  const [activeId, setActiveId] = useState(() =>
+    getInitialActiveSection(sectionIds),
+  );
 
   useEffect(() => {
     if (sectionIds.length === 0) return;
-
-    const hash = window.location.hash.replace(/^#/, "");
-    if (hash && sectionIds.includes(hash)) {
-      setActiveId(hash);
-    }
 
     const elements = sectionIds
       .map((id) => document.getElementById(id))

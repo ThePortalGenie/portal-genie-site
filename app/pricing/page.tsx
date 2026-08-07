@@ -4,6 +4,7 @@ import { PricingPlans } from "@/components/pricing/PricingPlans";
 import { PricingCompareTable } from "@/components/pricing/PricingCompareTable";
 import { PricingFaq } from "@/components/pricing/PricingFaq";
 import { PricingCta } from "@/components/pricing/PricingCta";
+import { PricingFaqStructuredData } from "@/components/seo/PricingFaqStructuredData";
 import { pricingPage } from "@/content/pricing";
 import { indexablePageMetadata } from "@/config/seo";
 import { site } from "@/config/site";
@@ -20,6 +21,7 @@ export const metadata: Metadata = indexablePageMetadata("/pricing", {
 export default function PricingPage() {
   return (
     <main>
+      <PricingFaqStructuredData />
       <PricingHero />
       <PricingPlans />
       <PricingCompareTable />
