@@ -1,7 +1,7 @@
 import { links } from "@/config/links";
 import { buttons } from "@/content/buttons";
 
-export type CurrencyCode = "ZAR" | "USD" | "GBP" | "EUR";
+export type CurrencyCode = "ZAR" | "USD" | "GBP" | "EUR" | "AED";
 
 export type PlanId = "premium" | "advanced";
 
@@ -56,6 +56,7 @@ export const pricingCurrencies: {
   { code: "USD", label: "USD", symbol: "$" },
   { code: "GBP", label: "GBP", symbol: "£" },
   { code: "EUR", label: "EUR", symbol: "€" },
+  { code: "AED", label: "AED", symbol: "AED " },
 ];
 
 /** Premium plan card features — exact wording and order */
@@ -298,12 +299,14 @@ export const pricingPlans: PricingPlan[] = [
       USD: 35,
       GBP: 26,
       EUR: 30,
+      AED: 129,
     },
     extraUserPrices: {
       ZAR: 80,
       USD: 5,
       GBP: 4,
       EUR: 4.5,
+      AED: 18,
     },
     cta: {
       label: buttons.start30DaysFree,
@@ -321,12 +324,14 @@ export const pricingPlans: PricingPlan[] = [
       USD: 40,
       GBP: 30,
       EUR: 35,
+      AED: 147,
     },
     extraUserPrices: {
       ZAR: 80,
       USD: 5,
       GBP: 4,
       EUR: 4.5,
+      AED: 18,
     },
     cta: {
       label: buttons.start30DaysFree,
@@ -361,18 +366,21 @@ export const pricingAddOns = {
     USD: 0.3,
     GBP: 0.25,
     EUR: 0.3,
+    AED: 1.1,
   } satisfies PlanPrices,
   storage1TbBundle: {
     ZAR: 374,
     USD: 22,
     GBP: 16,
     EUR: 19,
+    AED: 81,
   } satisfies PlanPrices,
   emailBundlePrice: {
     ZAR: 35,
     USD: 2,
     GBP: 1.5,
     EUR: 2,
+    AED: 7,
   } satisfies PlanPrices,
   emailBundleSize: 1000,
 };
@@ -433,11 +441,11 @@ export const pricingPage = {
   metadata: {
     title: "Pricing",
     description:
-      "Simple pricing for Portal Genie. Choose Premium or Advanced and start with a 30-day free trial — with currency options for ZAR, USD, GBP and EUR.",
+      "Simple pricing for Portal Genie. Choose Premium or Advanced and start with a 30-day free trial — with currency options for ZAR, USD, GBP, EUR and AED.",
     openGraph: {
       title: "Portal Genie Pricing",
       description:
-        "Explore Portal Genie pricing — Premium and Advanced plans with currency options for ZAR, USD, GBP and EUR.",
+        "Explore Portal Genie pricing — Premium and Advanced plans with currency options for ZAR, USD, GBP, EUR and AED.",
     },
   },
   hero: {
