@@ -355,7 +355,7 @@ export const planAllowances: Record<PlanId, PlanAllowances> = {
   },
   advanced: {
     storageIncludedGb: 10,
-    emailAllowancePerMonth: 3000,
+    emailAllowancePerMonth: 2000,
   },
 };
 
