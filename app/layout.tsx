@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { GoogleTagManager } from "@/components/analytics/GoogleTagManager";
 import { AnalyticsBootstrap } from "@/components/analytics/AnalyticsBootstrap";
 import { ConsentBanner } from "@/components/analytics/ConsentBanner";
+import { GenieRoot } from "@/components/genie/GenieRoot";
 import { AppChrome } from "@/components/layout/AppChrome";
 import { SiteStructuredData } from "@/components/seo/SiteStructuredData";
 import { getGtmId, isAnalyticsEnabled } from "@/config/analytics";
@@ -47,6 +48,7 @@ export default function RootLayout({
         <AnalyticsBootstrap />
         <SiteStructuredData />
         <AppChrome>{children}</AppChrome>
+        <GenieRoot />
         <ConsentBanner />
       </body>
     </html>
