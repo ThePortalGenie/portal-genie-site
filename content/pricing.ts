@@ -290,7 +290,7 @@ export const pricingComparisonSections: ComparisonFeatureSection[] = [
 export const pricingPlans: PricingPlan[] = [
   {
     id: "premium",
-    name: "Premium",
+    name: "Core",
     description: "The complete core Portal Genie experience.",
     featured: true,
     includedUsers: 2,
@@ -316,8 +316,8 @@ export const pricingPlans: PricingPlan[] = [
   },
   {
     id: "advanced",
-    name: "Advanced",
-    description: "Everything in Premium, plus:",
+    name: "Pro",
+    description: "Everything in Core, plus:",
     includedUsers: 2,
     prices: {
       ZAR: 650,
@@ -430,7 +430,7 @@ export const storageEmailAllowances = {
   additionalEmailsLabel: "Additional Emails",
   additionalStoragePeriod: "per GB per month",
   premiumNotIncluded: "Not included",
-  premiumEmailNote: "Available with Advanced",
+  premiumEmailNote: "Available with Pro",
   storageIncludedSuffix: "included",
   emailIncludedSuffix: "emails included per month",
   emailBundleAdditionalSuffix: "additional emails",
@@ -441,17 +441,17 @@ export const pricingPage = {
   metadata: {
     title: "Pricing",
     description:
-      "Compare Premium and Advanced client portal software plans from The Portal Genie, with monthly pricing in ZAR, USD, GBP, EUR and AED and a 30-day free trial.",
+      "Compare Core and Pro client portal software plans from The Portal Genie, with monthly pricing in ZAR, USD, GBP, EUR and AED and a 30-day free trial.",
     openGraph: {
       title: "Client Portal Software Pricing | The Portal Genie",
       description:
-        "Compare Premium and Advanced client portal software plans from The Portal Genie, with monthly pricing in ZAR, USD, GBP, EUR and AED and a 30-day free trial.",
+        "Compare Core and Pro client portal software plans from The Portal Genie, with monthly pricing in ZAR, USD, GBP, EUR and AED and a 30-day free trial.",
     },
   },
   hero: {
     headline: "Simple pricing that grows with your business.",
     description:
-      "Compare our Premium and Advanced client portal software plans and start with a 30-day free trial.",
+      "Compare our Core and Pro client portal software plans and start with a 30-day free trial.",
     illustration: {
       src: "/images/assets/images/why-portal-genie-hero-three.png",
       description:
@@ -469,7 +469,7 @@ export const pricingPage = {
   },
   compare: {
     headline: "Compare plans",
-    description: "See everything included across Premium and Advanced.",
+    description: "See everything included across Core and Pro.",
     relatedLink: {
       label: "See all features",
       href: links.features,
@@ -486,17 +486,17 @@ export const pricingPage = {
       {
         question: "Is there a free trial?",
         answer:
-          "Yes. Premium and Advanced both include a 30-day free trial so you can explore the platform before subscribing.",
+          "Yes. Core and Pro both include a 30-day free trial so you can explore the platform before subscribing.",
       },
       {
         question: "Can I change plans later?",
         answer:
-          "Yes. You can move between Premium and Advanced as your business needs change. Compare the plans above to see what is included at each tier.",
+          "Yes. You can move between Core and Pro as your business needs change. Compare the plans above to see what is included at each tier.",
       },
       {
         question: "Can I use my own branding?",
         answer:
-          "Yes. Premium includes your own logo, brand colours and a customised client portal. Advanced adds your own portal web address, email domain and the option to remove Portal Genie branding.",
+          "Yes. Core includes your own logo, brand colours and a customised client portal. Pro adds your own portal web address, email domain and the option to remove Portal Genie branding.",
       },
       {
         question: "Is Portal Genie secure?",
@@ -506,14 +506,14 @@ export const pricingPage = {
       {
         question: "How quickly can I get started?",
         answer:
-          "You can start a 30-day free trial on Premium or Advanced and begin setting up your customer portal immediately.",
+          "You can start a 30-day free trial on Core or Pro and begin setting up your customer portal immediately.",
       },
     ],
   },
   finalCta: {
     headline: "Ready to create a better customer experience?",
     description:
-      "Book a demo to explore the platform, or start a 30-day free trial with Premium or Advanced.",
+      "Book a demo to explore the platform, or start a 30-day free trial with Core or Pro.",
     primaryCta: {
       label: buttons.start30DaysFree,
       href: links.pricingPlans,

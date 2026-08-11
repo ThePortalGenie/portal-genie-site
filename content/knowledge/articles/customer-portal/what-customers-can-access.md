@@ -29,5 +29,5 @@ The platform is built as a **secure cloud platform for business use**, with admi
 ## Explore further
 
 - [Features](/features) — full capability overview
-- [Pricing](/pricing) — compare Premium and Advanced plans
+- [Pricing](/pricing) — compare Core and Pro plans
 - [Book a Demo](/book-a-demo) — see the platform in action

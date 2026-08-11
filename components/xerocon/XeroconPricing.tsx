@@ -22,7 +22,7 @@ type XeroconPlan =
   | (typeof xeroconCampaign.pricing)["advanced"];
 
 function planNameFromXeroconPlan(plan: XeroconPlan): "premium" | "advanced" {
-  return plan.name === "Advanced" ? "advanced" : "premium";
+  return plan.name === "Pro" ? "advanced" : "premium";
 }
 
 function PlanCard({ plan }: { plan: XeroconPlan }) {

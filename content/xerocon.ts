@@ -102,7 +102,7 @@ export const xeroconPage = {
     eyebrow: "Exclusive offer",
     headline: "Exclusive Xerocon Pricing",
     description:
-      "Special pricing available for Xerocon attendees. Choose Premium or Advanced and claim your offer.",
+      "Special pricing available for Xerocon attendees. Choose Core or Pro and claim your offer.",
     pricePendingLabel: "Special Xerocon pricing",
     pricePendingNote: "Claim the offer to lock in your promotional rate.",
     perMonth: "per month",

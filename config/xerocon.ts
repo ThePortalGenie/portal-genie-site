@@ -26,7 +26,7 @@ export const xeroconCampaign = {
   pricing: {
     currencyNote: "Prices shown in USD. Contact us for other currencies.",
     premium: {
-      name: "Premium",
+      name: "Core",
       description: "The complete core Portal Genie experience.",
       /** Base monthly promotional price — null until confirmed */
       monthlyPrice: null as number | null,
@@ -41,13 +41,13 @@ export const xeroconCampaign = {
       ],
     },
     advanced: {
-      name: "Advanced",
-      description: "Everything in Premium, plus branding and automation.",
+      name: "Pro",
+      description: "Everything in Core, plus branding and automation.",
       monthlyPrice: null as number | null,
       includedUsers: 7,
       additionalUserPrice: null as number | null,
       features: [
-        "Everything in Premium",
+        "Everything in Core",
         "Your own portal web address",
         "Send emails from your own domain",
         "Schedule email campaigns",

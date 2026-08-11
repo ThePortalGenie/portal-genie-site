@@ -32,4 +32,4 @@ For a full overview of capabilities, see the [Features](/features) page.
 ## Learn more
 
 - [Why The Portal Genie](/why-the-portal-genie) — the benefits of client portal software
-- [Pricing](/pricing) — compare Premium and Advanced plans
+- [Pricing](/pricing) — compare Core and Pro plans

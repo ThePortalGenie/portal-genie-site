@@ -62,11 +62,11 @@ export const knowledgeArticles: readonly KnowledgeArticleMetadata[] = [
     slug: "getting-started/30-day-free-trial",
     title: "How does the 30-day free trial work?",
     description:
-      "Understand how to start a 30-day free trial on Premium or Advanced plans and where to compare plan options.",
+      "Understand how to start a 30-day free trial on Core or Pro plans and where to compare plan options.",
     category: "getting-started",
     summary:
-      "Premium and Advanced both include a 30-day free trial so you can explore the platform before subscribing. Compare plans and start from the Pricing page.",
-    keywords: ["free trial", "pricing", "premium", "advanced", "getting started"],
+      "Core and Pro both include a 30-day free trial so you can explore the platform before subscribing. Compare plans and start from the Pricing page.",
+    keywords: ["free trial", "pricing", "core", "pro", "getting started"],
     relatedArticles: ["what-is-the-portal-genie", "what-customers-can-access"],
     relatedPages: [
       links.pricing,

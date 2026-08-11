@@ -211,7 +211,7 @@ export function PricingCompareTable() {
         <div className="mt-10 hidden overflow-x-auto rounded-card border border-muted/20 bg-surface md:block">
           <table className="w-full min-w-[36rem] table-fixed border-collapse text-left text-sm">
             <caption className="sr-only">
-              Feature comparison across Premium and Advanced plans
+              Feature comparison across Core and Pro plans
             </caption>
             <colgroup>
               <col className="w-[50%]" />
