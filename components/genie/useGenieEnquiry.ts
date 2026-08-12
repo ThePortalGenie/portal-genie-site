@@ -56,7 +56,6 @@ export function useGenieEnquiry() {
     Partial<Record<keyof GenieEnquiryFormState, string>>
   >({});
   const [formError, setFormError] = useState<string | null>(null);
-  const [notificationError, setNotificationError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submitLockRef = useRef(false);
 
@@ -64,7 +63,6 @@ export function useGenieEnquiry() {
     setEnquiryType(type);
     setFieldErrors({});
     setFormError(null);
-    setNotificationError(null);
     setSuccessEnquiryType(null);
   }, []);
 
@@ -84,7 +82,6 @@ export function useGenieEnquiry() {
     setFormValues(EMPTY_ENQUIRY_FORM);
     setFieldErrors({});
     setFormError(null);
-    setNotificationError(null);
     setIsSubmitting(false);
   }, []);
 
@@ -118,7 +115,6 @@ export function useGenieEnquiry() {
     submitLockRef.current = true;
     setIsSubmitting(true);
     setFormError(null);
-    setNotificationError(null);
 
     const submittedType = enquiryType;
 
@@ -131,20 +127,6 @@ export function useGenieEnquiry() {
         outcome: "success",
       });
     } catch (error) {
-      if (
-        error instanceof GenieEnquiryRequestError &&
-        error.code === "notification_failed"
-      ) {
-        setNotificationError(error.message);
-        setEnquiryType(null);
-        trackGenieEnquirySubmit({
-          enquiryType: submittedType,
-          outcome: "error",
-          errorCode: error.code,
-        });
-        return;
-      }
-
       const message =
         error instanceof GenieEnquiryRequestError
           ? error.message
@@ -169,7 +151,6 @@ export function useGenieEnquiry() {
     formValues,
     fieldErrors,
     formError,
-    notificationError,
     isSubmitting,
     openEnquiry,
     closeEnquiry,

@@ -383,7 +383,7 @@ export async function updateContact(
   return { id: extractRecordId(response) };
 }
 
-/** Attach a Note to a Contact or Lead record. */
+/** Attach a Note to a Contact or Lead record (triggers Zoho CRM workflow notifications). */
 export async function createCrmNote(options: {
   module: "Leads" | "Contacts";
   recordId: string;

@@ -6,8 +6,6 @@ import {
   GENIE_NOTE_TITLES,
 } from "@/lib/genie/enquiry-content";
 import { GENIE_SUPPORT_COMPANY_FALLBACK } from "@/config/genie-enquiry";
-import { GenieEnquiryNotificationError } from "@/lib/genie/enquiry-errors";
-import { sendGenieEnquiryNotification } from "@/lib/genie/send-enquiry-notification";
 import type { ValidatedGenieEnquiry } from "@/lib/genie/validate-enquiry";
 import {
   ZOHO_CURRENT_CAMPAIGN_PORTAL_GENIE_WEBSITE,
@@ -27,12 +25,6 @@ export type GenieEnquiryResolution = "contact" | "lead" | "new_lead";
 
 export type GenieEnquiryProcessResult = {
   resolution: GenieEnquiryResolution;
-};
-
-type CrmWriteResult = {
-  resolution: GenieEnquiryResolution;
-  recordModule: "Leads" | "Contacts";
-  recordId: string;
 };
 
 function mapLeadFieldsForUpdate(enquiry: ValidatedGenieEnquiry): ZohoLeadWritePayload {
@@ -77,10 +69,14 @@ function resolveCompanyForNewLead(enquiry: ValidatedGenieEnquiry): string {
 async function writeCrmEnquiry(
   enquiry: ValidatedGenieEnquiry,
   submittedAt: Date,
-): Promise<CrmWriteResult> {
+): Promise<GenieEnquiryResolution> {
   const person = await resolveCrmPersonByEmail(enquiry.email);
   const noteTitle = GENIE_NOTE_TITLES[enquiry.enquiryType];
   const noteBody = buildGenieEnquiryNoteBody(enquiry, submittedAt);
+
+  // Zoho CRM workflows (Leads + Contacts) trigger on Note added — the Note must
+  // be attached to the record returned by Contact-first resolution, never a Lead
+  // when an existing Contact was found.
 
   if (person.type === "contact") {
     const contactUpdate: ZohoContactWritePayload = {};
@@ -99,11 +95,7 @@ async function writeCrmEnquiry(
       content: noteBody,
     });
 
-    return {
-      resolution: "contact",
-      recordModule: "Contacts",
-      recordId: person.id,
-    };
+    return "contact";
   }
 
   if (person.type === "lead") {
@@ -116,11 +108,7 @@ async function writeCrmEnquiry(
       content: noteBody,
     });
 
-    return {
-      resolution: "lead",
-      recordModule: "Leads",
-      recordId: person.id,
-    };
+    return "lead";
   }
 
   const created = await createLead({
@@ -135,41 +123,17 @@ async function writeCrmEnquiry(
     content: noteBody,
   });
 
-  return {
-    resolution: "new_lead",
-    recordModule: "Leads",
-    recordId: created.id,
-  };
+  return "new_lead";
 }
 
 /**
- * Routes a validated Genie enquiry to Zoho CRM, attaches a Note, and notifies the team.
- * CRM writes are not retried if notification fails.
+ * Routes a validated Genie enquiry to Zoho CRM and attaches a Note to the resolved
+ * Contact or Lead record. Zoho CRM native workflows notify the team when the Note
+ * is added.
  */
 export async function processGenieEnquiry(
   enquiry: ValidatedGenieEnquiry,
 ): Promise<GenieEnquiryProcessResult> {
-  const submittedAt = new Date();
-  const crmResult = await writeCrmEnquiry(enquiry, submittedAt);
-
-  try {
-    await sendGenieEnquiryNotification({
-      enquiry,
-      resolution: crmResult.resolution,
-      recordModule: crmResult.recordModule,
-      recordId: crmResult.recordId,
-      submittedAt,
-    });
-  } catch (error) {
-    if (error instanceof GenieEnquiryNotificationError) {
-      throw error;
-    }
-
-    throw new GenieEnquiryNotificationError(
-      "Email notification could not be sent.",
-      { code: "notification_failed", httpStatus: 503 },
-    );
-  }
-
-  return { resolution: crmResult.resolution };
+  const resolution = await writeCrmEnquiry(enquiry, new Date());
+  return { resolution };
 }

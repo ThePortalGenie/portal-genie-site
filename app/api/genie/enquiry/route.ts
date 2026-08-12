@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { isGenieEnabled } from "@/config/genie";
 import { GENIE_ENQUIRY_MAX_BODY_BYTES } from "@/config/genie-enquiry";
-import { GenieEnquiryNotificationError } from "@/lib/genie/enquiry-errors";
-import { isEnquiryNotificationConfigured } from "@/lib/genie/send-enquiry-notification";
 import { processGenieEnquiry } from "@/lib/genie/process-enquiry";
 import {
   checkGenieEnquiryRateLimit,
@@ -105,17 +103,6 @@ export async function POST(
     return safeCrmErrorResponse();
   }
 
-  if (!isEnquiryNotificationConfigured()) {
-    return NextResponse.json(
-      {
-        ok: false,
-        error: "Genie enquiries are not fully configured.",
-        code: "notification_not_configured",
-      },
-      { status: 503 },
-    );
-  }
-
   const clientKey = getEnquiryClientKey(request);
   if (!checkGenieEnquiryRateLimit(clientKey)) {
     return NextResponse.json(
@@ -136,18 +123,6 @@ export async function POST(
       message: SUCCESS_MESSAGE,
     });
   } catch (error) {
-    if (error instanceof GenieEnquiryNotificationError) {
-      return NextResponse.json(
-        {
-          ok: false,
-          error:
-            "Your request was saved, but we couldn't notify our team automatically. Please contact us directly if you need urgent help.",
-          code: error.code,
-        },
-        { status: error.httpStatus },
-      );
-    }
-
     if (
       error instanceof ZohoConfigurationError ||
       error instanceof ZohoOAuthError ||

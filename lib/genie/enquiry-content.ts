@@ -8,17 +8,8 @@ export const GENIE_NOTE_TITLES: Record<GenieEnquiryType, string> = {
   support: "Genie Support Request",
 };
 
-export const GENIE_NOTIFICATION_SUBJECT_LABELS: Record<GenieEnquiryType, string> = {
-  sales: "Sales Enquiry",
-  callback: "Callback Request",
-  support: "Support Request",
-};
-
-export const GENIE_RESOLUTION_LABELS = {
-  contact: "Existing Contact",
-  lead: "Existing Lead",
-  new_lead: "New Lead",
-} as const;
+/** Stable Note titles used by Zoho CRM workflow filters (Leads + Contacts modules). */
+export const GENIE_WORKFLOW_NOTE_TITLES = Object.values(GENIE_NOTE_TITLES);
 
 export function formatEnquiryCompany(enquiry: ValidatedGenieEnquiry): string {
   if (enquiry.company?.trim()) {
@@ -57,45 +48,6 @@ export function buildGenieEnquiryNoteBody(
   }
 
   lines.push("", `Submitted at: ${submittedAt.toISOString()}`);
-
-  return lines.join("\n");
-}
-
-export function buildGenieEnquiryNotificationSubject(
-  enquiry: ValidatedGenieEnquiry,
-): string {
-  const label = GENIE_NOTIFICATION_SUBJECT_LABELS[enquiry.enquiryType];
-  const company = formatEnquiryCompany(enquiry);
-  return `Genie ${label} — ${enquiry.firstName} ${enquiry.lastName} — ${company}`;
-}
-
-export function buildGenieEnquiryNotificationBody(options: {
-  enquiry: ValidatedGenieEnquiry;
-  resolution: keyof typeof GENIE_RESOLUTION_LABELS;
-  submittedAt: Date;
-  crmRecordUrl?: string;
-}): string {
-  const { enquiry, resolution, submittedAt, crmRecordUrl } = options;
-  const lines = [
-    `Enquiry type: ${GENIE_NOTIFICATION_SUBJECT_LABELS[enquiry.enquiryType]}`,
-    `CRM resolution: ${GENIE_RESOLUTION_LABELS[resolution]}`,
-    "",
-    `First name: ${enquiry.firstName}`,
-    `Last name: ${enquiry.lastName}`,
-    `Company: ${formatEnquiryCompany(enquiry)}`,
-    `Email: ${enquiry.email}`,
-    `Phone: ${enquiry.phone ?? "Not supplied"}`,
-    `Accounting software: ${enquiry.accountingSoftware ?? "Not supplied"}`,
-    "",
-    "Message:",
-    enquiry.message ?? "Not supplied",
-    "",
-    `Submitted at: ${submittedAt.toISOString()}`,
-  ];
-
-  if (crmRecordUrl) {
-    lines.push("", `Zoho CRM record: ${crmRecordUrl}`);
-  }
 
   return lines.join("\n");
 }

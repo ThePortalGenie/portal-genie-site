@@ -26,7 +26,6 @@ type GeniePanelProps = {
   enquiryFormValues: GenieEnquiryFormState;
   enquiryFieldErrors: Partial<Record<keyof GenieEnquiryFormState, string>>;
   enquiryFormError: string | null;
-  notificationError: string | null;
   isEnquirySubmitting: boolean;
   messagesEndRef: React.RefObject<HTMLDivElement | null>;
   onClose: () => void;
@@ -53,7 +52,6 @@ export function GeniePanel({
   enquiryFormValues,
   enquiryFieldErrors,
   enquiryFormError,
-  notificationError,
   isEnquirySubmitting,
   messagesEndRef,
   onClose,
@@ -100,7 +98,6 @@ export function GeniePanel({
             messages={messages}
             isLoading={isLoading}
             messagesEndRef={messagesEndRef}
-            notificationError={notificationError}
           />
           <GenieSuggestedQuestions
             visible={showSuggestions}

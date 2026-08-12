@@ -71,7 +71,6 @@ export function Genie() {
           enquiryFormValues={enquiry.formValues}
           enquiryFieldErrors={enquiry.fieldErrors}
           enquiryFormError={enquiry.formError}
-          notificationError={enquiry.notificationError}
           isEnquirySubmitting={enquiry.isSubmitting}
           messagesEndRef={messagesEndRef}
           onClose={() => setIsOpen(false)}
