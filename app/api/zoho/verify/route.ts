@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { isZohoConfigured } from "@/lib/zoho/config";
-import { verifyLeadsModuleAccess } from "@/lib/zoho/crm-client";
+import {
+  verifyContactsModuleAccess,
+  verifyLeadsModuleAccess,
+} from "@/lib/zoho/crm-client";
 import {
   ZohoConfigurationError,
   ZohoCrmApiError,
@@ -14,8 +17,52 @@ import {
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+type VerifyFailureResponse = {
+  ok: false;
+  configured: boolean;
+  leadsAccess: boolean;
+  contactsAccess: boolean;
+  failedCheck: "leads" | "contacts";
+  error: string;
+  code?: string;
+};
+
+function verificationFailureResponse(
+  options: VerifyFailureResponse,
+  status: number,
+): NextResponse {
+  return NextResponse.json(options, { status });
+}
+
+function mapVerificationError(error: unknown): {
+  message: string;
+  code?: string;
+  status: number;
+} {
+  if (error instanceof ZohoOAuthError) {
+    return {
+      message: error.message,
+      code: error.code,
+      status: error.httpStatus,
+    };
+  }
+
+  if (error instanceof ZohoCrmApiError) {
+    return {
+      message: error.message,
+      code: error.code,
+      status: error.httpStatus,
+    };
+  }
+
+  return {
+    message: "Zoho verification failed.",
+    status: 500,
+  };
+}
+
 /**
- * Temporary internal endpoint — verifies Zoho OAuth + Leads module access.
+ * Temporary internal endpoint — verifies Zoho OAuth + Leads/Contacts module access.
  * Protect with ZOHO_OAUTH_SETUP_SECRET. Remove or disable after setup.
  */
 export async function GET(request: Request): Promise<NextResponse> {
@@ -28,23 +75,50 @@ export async function GET(request: Request): Promise<NextResponse> {
       );
     }
 
-    const leads = await verifyLeadsModuleAccess();
+    try {
+      await verifyLeadsModuleAccess();
+    } catch (error) {
+      const mapped = mapVerificationError(error);
+      return verificationFailureResponse(
+        {
+          ok: false,
+          configured: true,
+          leadsAccess: false,
+          contactsAccess: false,
+          failedCheck: "leads",
+          error: mapped.message,
+          code: mapped.code,
+        },
+        mapped.status,
+      );
+    }
+
+    try {
+      await verifyContactsModuleAccess();
+    } catch (error) {
+      const mapped = mapVerificationError(error);
+      return verificationFailureResponse(
+        {
+          ok: false,
+          configured: true,
+          leadsAccess: true,
+          contactsAccess: false,
+          failedCheck: "contacts",
+          error: mapped.message,
+          code: mapped.code,
+        },
+        mapped.status,
+      );
+    }
 
     return NextResponse.json({
       ok: true,
       configured: true,
-      leadsModule: leads.module,
-      leadsApiName: leads.apiName,
+      leadsAccess: true,
+      contactsAccess: true,
     });
   } catch (error) {
     if (error instanceof ZohoOAuthError) {
-      return NextResponse.json(
-        { ok: false, error: error.message, code: error.code },
-        { status: error.httpStatus },
-      );
-    }
-
-    if (error instanceof ZohoCrmApiError) {
       return NextResponse.json(
         { ok: false, error: error.message, code: error.code },
         { status: error.httpStatus },
