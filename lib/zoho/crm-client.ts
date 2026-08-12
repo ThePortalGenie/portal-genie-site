@@ -120,24 +120,22 @@ export async function zohoCrmRequest<T = unknown>(
   return payload as T;
 }
 
-type LeadsModuleSettingsResponse = {
-  modules?: Array<{ api_name?: string; module_name?: string }>;
-};
-
-/** Harmless read used to verify OAuth + Leads module access (no customer data required). */
+/** Harmless Leads read used to verify OAuth + READ scope (no record data returned). */
 export async function verifyLeadsModuleAccess(): Promise<{
   module: string;
   apiName: string;
 }> {
-  const payload = await zohoCrmRequest<LeadsModuleSettingsResponse>(
-    "/settings/modules/Leads",
-  );
-
-  const apiName = payload.modules?.[0]?.api_name ?? "Leads";
+  await zohoCrmRequest("/Leads", {
+    searchParams: {
+      per_page: 1,
+      page: 1,
+      fields: "id",
+    },
+  });
 
   return {
     module: "Leads",
-    apiName,
+    apiName: "Leads",
   };
 }
 
