@@ -6,7 +6,7 @@
  */
 
 /**
- * Minimum Zoho CRM scopes for future Genie Lead create/update/search.
+ * Minimum Zoho CRM OAuth scopes for Genie enquiry workflow.
  * @see https://www.zoho.com/crm/developer/docs/api/v8/scopes.html
  */
 export const ZOHO_CRM_LEAD_SCOPES = [
@@ -15,7 +15,23 @@ export const ZOHO_CRM_LEAD_SCOPES = [
   "ZohoCRM.modules.leads.UPDATE",
 ] as const;
 
-export const ZOHO_CRM_OAUTH_SCOPE = ZOHO_CRM_LEAD_SCOPES.join(",");
+export const ZOHO_CRM_CONTACT_SCOPES = [
+  "ZohoCRM.modules.contacts.READ",
+  "ZohoCRM.modules.contacts.UPDATE",
+] as const;
+
+export const ZOHO_CRM_OAUTH_SCOPES = [
+  ...ZOHO_CRM_LEAD_SCOPES,
+  ...ZOHO_CRM_CONTACT_SCOPES,
+] as const;
+
+/** Comma-separated scope string for OAuth authorization requests. */
+export const ZOHO_CRM_OAUTH_SCOPE = ZOHO_CRM_OAUTH_SCOPES.join(",");
+
+/**
+ * After changing scopes, re-run OAuth bootstrap via /api/zoho/oauth/start to
+ * obtain a new ZOHO_REFRESH_TOKEN with the expanded permissions.
+ */
 
 /** Confirmed Lead Source picklist value for Genie (future enquiry task). */
 export const ZOHO_LEAD_SOURCE_PORTAL_GENIE_CHATBOT = "Portal Genie Chatbot" as const;
@@ -35,6 +51,20 @@ export const ZOHO_LEAD_API_FIELDS = {
 
 export type ZohoLeadApiField =
   (typeof ZOHO_LEAD_API_FIELDS)[keyof typeof ZOHO_LEAD_API_FIELDS];
+
+/** Zoho CRM Contacts module API names used for Genie enquiry updates. */
+export const ZOHO_CONTACT_API_FIELDS = {
+  First_Name: "First_Name",
+  Last_Name: "Last_Name",
+  Email: "Email",
+  Phone: "Phone",
+  Accounting_Software_Used: "Accounting_Software_Used",
+  Current_Campaign: "Current_Campaign",
+  Description: "Description",
+} as const;
+
+export type ZohoContactApiField =
+  (typeof ZOHO_CONTACT_API_FIELDS)[keyof typeof ZOHO_CONTACT_API_FIELDS];
 
 /** Cookie set during one-time OAuth bootstrap (short-lived). */
 export const ZOHO_OAUTH_SETUP_COOKIE = "pg_zoho_oauth_setup";
