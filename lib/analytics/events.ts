@@ -41,6 +41,7 @@ export type CtaLocation =
   | "features_final_cta"
   | "xerocon_hero"
   | "xerocon_final"
+  | "xerocon_activate"
   | "platform"
   | "contact_page";
 

@@ -19,9 +19,12 @@ export const xeroconCampaign = {
    */
   offerExpiry: null as string | null,
 
-  /** Dedicated campaign signup / claim-offer URL */
+  /** Zoho lead capture form for Xerocon claim-offer CTAs */
   signupUrl:
-    "https://app.theportalgenie.com/app/register?registerPage=true&packageId=PRO_CUSTOMER_PORTAL",
+    "https://forms.zohopublic.com/naggingpanda/form/XeroRoadShows20261/formperma/_vnEnH7J8re1zzNUTpUiQoPUCfLj7njmXxUomyyFtWY",
+
+  /** Existing Core plan 30-day free trial registration — post-Zoho activation hand-off */
+  trialStartUrl: links.premiumStartFree,
 
   pricing: {
     currencyNote: "Prices shown in USD. Contact us for other currencies.",

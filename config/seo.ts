@@ -128,6 +128,7 @@ export const NOINDEX_ROUTES = [
   "/faq",
   "/youtube",
   "/xerocon",
+  "/xerocon/activate",
 ] as const;
 
 export type NoIndexRoute = (typeof NOINDEX_ROUTES)[number];

@@ -17,8 +17,10 @@ export const xeroconPage = {
     headline: "Your Client Portal.\nConnected to Xero.\nBuilt for Better Client Service.",
     description:
       "Give your clients one secure place for documents, communication and the information they need — connected directly to Xero.",
-    offerLabel: "XEROCON",
-    offerTitle: "SPECIAL PRICING",
+    offerLabel: "XEROCON EXCLUSIVE",
+    offerTitle: "30 Days FREE + 70% OFF for 3 Months",
+    offerDetail:
+      "Start with a 30-day free trial. When you activate your paid account after the trial, get 70% off for the following 3 months. Claim below — your Xerocon coupon code will be sent to you; keep it for activation.",
     primaryCta: {
       label: "Claim Xerocon Pricing",
       href: xeroconCampaign.signupUrl,
@@ -144,6 +146,29 @@ export const xeroconPage = {
     secondaryCta: {
       label: buttons.bookDemo,
       href: xeroconCampaign.links.bookDemo,
+    },
+  },
+  activate: {
+    metadata: {
+      title: "Activate Your Xerocon Offer",
+      description:
+        "Your Xerocon offer is secured. Start your Portal Genie 30-day free trial — your coupon code will be needed when you activate your paid account after the trial.",
+    },
+    eyebrow: "XEROCON EXCLUSIVE",
+    headline: "Your Xerocon Offer Is Secured 🎉",
+    subheadline: "Now start your 30-day free trial",
+    emailReminder:
+      "We've sent your Xerocon offer details and coupon code to your email. Keep that email safe — you'll need the coupon when you activate your paid Portal Genie account after your free trial.",
+    offer: {
+      heading: "Your Xerocon Offer",
+      freeTrial: "30 Days FREE",
+      discount: "+ 70% OFF for 3 Months",
+      discountNote:
+        "The 70% discount applies when you activate your paid Portal Genie account after completing your 30-day free trial.",
+    },
+    primaryCta: {
+      label: "Start My 30-Day Free Trial",
+      href: xeroconCampaign.trialStartUrl,
     },
   },
 } as const;

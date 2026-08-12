@@ -30,6 +30,9 @@ export function XeroconHero() {
             <p className="mt-0.5 text-lg font-semibold tracking-tight text-portal-navy sm:text-xl">
               {hero.offerTitle}
             </p>
+            <p className="mt-2 max-w-md text-xs leading-relaxed text-portal-navy/65 sm:text-sm">
+              {hero.offerDetail}
+            </p>
           </div>
 
           <div className="mt-6 flex flex-col gap-3 sm:mx-auto sm:mt-7 sm:max-w-md sm:flex-row sm:justify-center">
