@@ -1,11 +1,11 @@
 import { isGenieEnabled } from "@/config/genie";
 import { GenieClientRoot } from "@/components/genie/GenieClientRoot";
 
-/** Server gate — renders Genie UI only when GENIE_ENABLED=true. */
+/**
+ * Server hint for Genie visibility. The client re-checks `/api/genie/status` at
+ * runtime when this is false so Preview/production env vars are respected even
+ * if the root layout was statically prerendered without them.
+ */
 export function GenieRoot() {
-  if (!isGenieEnabled()) {
-    return null;
-  }
-
-  return <GenieClientRoot />;
+  return <GenieClientRoot initiallyEnabled={isGenieEnabled()} />;
 }

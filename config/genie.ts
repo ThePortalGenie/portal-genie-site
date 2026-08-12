@@ -1,6 +1,13 @@
 /**
- * Central Genie configuration — evaluated at runtime only.
- * No environment variables are required at build time.
+ * Central Genie configuration.
+ *
+ * Vercel setup (Preview and/or Production):
+ * - GENIE_ENABLED=true   — master switch (literal "true" only)
+ * - OPENAI_API_KEY       — server-side only; never use NEXT_PUBLIC_ for this
+ * - GENIE_MODEL          — optional model override
+ *
+ * After adding or changing variables in the Vercel dashboard, redeploy so
+ * serverless functions pick up the new values.
  */
 
 /** Default model for low-volume website knowledge Q&A. Override via GENIE_MODEL. */
