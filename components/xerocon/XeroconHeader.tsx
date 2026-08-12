@@ -11,11 +11,11 @@ export function XeroconHeader() {
 
   return (
     <header className="border-b border-muted/15 bg-surface">
-      <Container>
-        <div className="flex h-14 items-center justify-between gap-4 sm:h-16">
+      <Container className="px-3.5 sm:px-6 md:px-8">
+        <div className="flex h-12 min-w-0 items-center justify-between gap-2 sm:h-14 sm:gap-4 md:h-[3.75rem]">
           <Link
             href={xeroconCampaign.links.home}
-            className="flex shrink-0 items-center"
+            className="flex min-w-0 shrink items-center"
             aria-label={site.logo.ariaLabel}
           >
             <Image
@@ -23,17 +23,17 @@ export function XeroconHeader() {
               alt={site.logo.alt}
               width={site.logo.width}
               height={site.logo.height}
-              className="h-auto max-h-10 w-auto sm:max-h-11"
+              className="h-auto max-h-9 w-auto sm:max-h-10 md:max-h-11"
               priority
             />
           </Link>
 
-          <p className="hidden text-right text-xs text-portal-navy/55 sm:block sm:text-sm">
-            <span className="hidden sm:inline">{header.loginPrompt} </span>
+          <p className="shrink-0 text-right text-[11px] leading-tight text-portal-navy/55 min-[360px]:text-xs sm:text-sm">
+            <span className="hidden min-[420px]:inline">{header.loginPrompt} </span>
             <TrackedLoginLink
               href={header.loginHref}
               ctaLocation="xerocon_hero"
-              className="font-medium text-portal-navy transition-colors duration-200 hover:text-portal-blue"
+              className="inline-flex min-h-10 items-center font-medium text-portal-navy transition-colors duration-200 hover:text-portal-blue sm:min-h-11"
             >
               {header.loginLabel}
             </TrackedLoginLink>
