@@ -3,6 +3,7 @@ import { isZohoConfigured } from "@/lib/zoho/config";
 import {
   verifyContactsModuleAccess,
   verifyLeadsModuleAccess,
+  verifyNotesModuleAccess,
 } from "@/lib/zoho/crm-client";
 import {
   ZohoConfigurationError,
@@ -22,7 +23,8 @@ type VerifyFailureResponse = {
   configured: boolean;
   leadsAccess: boolean;
   contactsAccess: boolean;
-  failedCheck: "leads" | "contacts";
+  notesAccess: boolean;
+  failedCheck: "leads" | "contacts" | "notes";
   error: string;
   code?: string;
 };
@@ -62,7 +64,7 @@ function mapVerificationError(error: unknown): {
 }
 
 /**
- * Temporary internal endpoint — verifies Zoho OAuth + Leads/Contacts module access.
+ * Temporary internal endpoint — verifies Zoho OAuth + Leads/Contacts/Notes access.
  * Protect with ZOHO_OAUTH_SETUP_SECRET. Remove or disable after setup.
  */
 export async function GET(request: Request): Promise<NextResponse> {
@@ -85,6 +87,7 @@ export async function GET(request: Request): Promise<NextResponse> {
           configured: true,
           leadsAccess: false,
           contactsAccess: false,
+          notesAccess: false,
           failedCheck: "leads",
           error: mapped.message,
           code: mapped.code,
@@ -103,7 +106,27 @@ export async function GET(request: Request): Promise<NextResponse> {
           configured: true,
           leadsAccess: true,
           contactsAccess: false,
+          notesAccess: false,
           failedCheck: "contacts",
+          error: mapped.message,
+          code: mapped.code,
+        },
+        mapped.status,
+      );
+    }
+
+    try {
+      await verifyNotesModuleAccess();
+    } catch (error) {
+      const mapped = mapVerificationError(error);
+      return verificationFailureResponse(
+        {
+          ok: false,
+          configured: true,
+          leadsAccess: true,
+          contactsAccess: true,
+          notesAccess: false,
+          failedCheck: "notes",
           error: mapped.message,
           code: mapped.code,
         },
@@ -116,6 +139,7 @@ export async function GET(request: Request): Promise<NextResponse> {
       configured: true,
       leadsAccess: true,
       contactsAccess: true,
+      notesAccess: true,
     });
   } catch (error) {
     if (error instanceof ZohoOAuthError) {

@@ -45,6 +45,12 @@ export const GENIE_ENQUIRY_SUCCESS_MESSAGES: Record<GenieEnquiryType, string> = 
     "Thanks — we've received your support request. A member of the Portal Genie team will be in touch.",
 };
 
+export const GENIE_ENQUIRY_SUCCESS_HEADINGS: Record<GenieEnquiryType, string> = {
+  sales: "Enquiry received",
+  callback: "Callback requested",
+  support: "Support request received",
+};
+
 export const GENIE_ENQUIRY_INTRO: Record<GenieEnquiryType, string> = {
   sales: "Share your details and our team will follow up about The Portal Genie.",
   callback:

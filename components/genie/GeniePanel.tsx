@@ -6,6 +6,7 @@ import {
   GenieEnquiryForm,
   type GenieEnquiryFormState,
 } from "@/components/genie/GenieEnquiryForm";
+import { GenieEnquirySuccess } from "@/components/genie/GenieEnquirySuccess";
 import { GenieHeader } from "@/components/genie/GenieHeader";
 import { GenieMessages } from "@/components/genie/GenieMessages";
 import { GenieSuggestedQuestions } from "@/components/genie/GenieSuggestedQuestions";
@@ -21,10 +22,11 @@ type GeniePanelProps = {
   showSuggestions: boolean;
   showEnquiryActions: boolean;
   enquiryType: GenieEnquiryType | null;
+  successEnquiryType: GenieEnquiryType | null;
   enquiryFormValues: GenieEnquiryFormState;
   enquiryFieldErrors: Partial<Record<keyof GenieEnquiryFormState, string>>;
   enquiryFormError: string | null;
-  enquirySuccessMessage: string | null;
+  notificationError: string | null;
   isEnquirySubmitting: boolean;
   messagesEndRef: React.RefObject<HTMLDivElement | null>;
   onClose: () => void;
@@ -47,10 +49,11 @@ export function GeniePanel({
   showSuggestions,
   showEnquiryActions,
   enquiryType,
+  successEnquiryType,
   enquiryFormValues,
   enquiryFieldErrors,
   enquiryFormError,
-  enquirySuccessMessage,
+  notificationError,
   isEnquirySubmitting,
   messagesEndRef,
   onClose,
@@ -78,7 +81,9 @@ export function GeniePanel({
       ].join(" ")}
     >
       <GenieHeader onClose={onClose} onReset={onReset} />
-      {enquiryType ? (
+      {successEnquiryType ? (
+        <GenieEnquirySuccess enquiryType={successEnquiryType} />
+      ) : enquiryType ? (
         <GenieEnquiryForm
           enquiryType={enquiryType}
           values={enquiryFormValues}
@@ -95,7 +100,7 @@ export function GeniePanel({
             messages={messages}
             isLoading={isLoading}
             messagesEndRef={messagesEndRef}
-            successMessage={enquirySuccessMessage}
+            notificationError={notificationError}
           />
           <GenieSuggestedQuestions
             visible={showSuggestions}

@@ -1,12 +1,20 @@
 import "server-only";
 
-import type { GenieEnquiryType } from "@/config/genie-enquiry";
+import {
+  buildGenieEnquiryNoteBody,
+  buildInitialLeadDescription,
+  GENIE_NOTE_TITLES,
+} from "@/lib/genie/enquiry-content";
 import { GENIE_SUPPORT_COMPANY_FALLBACK } from "@/config/genie-enquiry";
+import { GenieEnquiryNotificationError } from "@/lib/genie/enquiry-errors";
+import { sendGenieEnquiryNotification } from "@/lib/genie/send-enquiry-notification";
+import type { ValidatedGenieEnquiry } from "@/lib/genie/validate-enquiry";
 import {
   ZOHO_CURRENT_CAMPAIGN_PORTAL_GENIE_WEBSITE,
   ZOHO_LEAD_SOURCE_PORTAL_GENIE_CHATBOT,
 } from "@/lib/zoho/constants";
 import {
+  createCrmNote,
   createLead,
   resolveCrmPersonByEmail,
   updateContact,
@@ -14,7 +22,6 @@ import {
   type ZohoContactWritePayload,
   type ZohoLeadWritePayload,
 } from "@/lib/zoho/crm-client";
-import type { ValidatedGenieEnquiry } from "@/lib/genie/validate-enquiry";
 
 export type GenieEnquiryResolution = "contact" | "lead" | "new_lead";
 
@@ -22,28 +29,19 @@ export type GenieEnquiryProcessResult = {
   resolution: GenieEnquiryResolution;
 };
 
-const ENQUIRY_TYPE_LABELS: Record<GenieEnquiryType, string> = {
-  sales: "Genie Sales Enquiry",
-  callback: "Genie Callback Request",
-  support: "Genie Support Enquiry",
+type CrmWriteResult = {
+  resolution: GenieEnquiryResolution;
+  recordModule: "Leads" | "Contacts";
+  recordId: string;
 };
 
-function buildLeadDescription(enquiry: ValidatedGenieEnquiry): string {
-  const lines = [ENQUIRY_TYPE_LABELS[enquiry.enquiryType]];
-  if (enquiry.message) {
-    lines.push("", enquiry.message);
-  }
-  return lines.join("\n");
-}
-
-function mapLeadFields(enquiry: ValidatedGenieEnquiry): ZohoLeadWritePayload {
+function mapLeadFieldsForUpdate(enquiry: ValidatedGenieEnquiry): ZohoLeadWritePayload {
   const payload: ZohoLeadWritePayload = {
     First_Name: enquiry.firstName,
     Last_Name: enquiry.lastName,
     Email: enquiry.email,
     Lead_Source: ZOHO_LEAD_SOURCE_PORTAL_GENIE_CHATBOT,
     Current_Campaign: ZOHO_CURRENT_CAMPAIGN_PORTAL_GENIE_WEBSITE,
-    Description: buildLeadDescription(enquiry),
   };
 
   if (enquiry.company) {
@@ -61,23 +59,28 @@ function mapLeadFields(enquiry: ValidatedGenieEnquiry): ZohoLeadWritePayload {
   return payload;
 }
 
+function mapLeadFieldsForCreate(enquiry: ValidatedGenieEnquiry): ZohoLeadWritePayload {
+  return {
+    ...mapLeadFieldsForUpdate(enquiry),
+    Description: buildInitialLeadDescription(enquiry),
+  };
+}
+
 function resolveCompanyForNewLead(enquiry: ValidatedGenieEnquiry): string {
   if (enquiry.company) {
     return enquiry.company;
   }
 
-  if (enquiry.enquiryType === "support") {
-    return GENIE_SUPPORT_COMPANY_FALLBACK;
-  }
-
-  return enquiry.company ?? GENIE_SUPPORT_COMPANY_FALLBACK;
+  return GENIE_SUPPORT_COMPANY_FALLBACK;
 }
 
-/** Routes a validated Genie enquiry to Zoho CRM using Contact-first resolution. */
-export async function processGenieEnquiry(
+async function writeCrmEnquiry(
   enquiry: ValidatedGenieEnquiry,
-): Promise<GenieEnquiryProcessResult> {
+  submittedAt: Date,
+): Promise<CrmWriteResult> {
   const person = await resolveCrmPersonByEmail(enquiry.email);
+  const noteTitle = GENIE_NOTE_TITLES[enquiry.enquiryType];
+  const noteBody = buildGenieEnquiryNoteBody(enquiry, submittedAt);
 
   if (person.type === "contact") {
     const contactUpdate: ZohoContactWritePayload = {};
@@ -89,25 +92,84 @@ export async function processGenieEnquiry(
       await updateContact(person.id, contactUpdate);
     }
 
-    return { resolution: "contact" };
-  }
+    await createCrmNote({
+      module: "Contacts",
+      recordId: person.id,
+      title: noteTitle,
+      content: noteBody,
+    });
 
-  const leadFields = mapLeadFields(enquiry);
+    return {
+      resolution: "contact",
+      recordModule: "Contacts",
+      recordId: person.id,
+    };
+  }
 
   if (person.type === "lead") {
-    await updateLead(person.id, leadFields);
-    return { resolution: "lead" };
+    await updateLead(person.id, mapLeadFieldsForUpdate(enquiry));
+
+    await createCrmNote({
+      module: "Leads",
+      recordId: person.id,
+      title: noteTitle,
+      content: noteBody,
+    });
+
+    return {
+      resolution: "lead",
+      recordModule: "Leads",
+      recordId: person.id,
+    };
   }
 
-  await createLead({
-    ...leadFields,
+  const created = await createLead({
+    ...mapLeadFieldsForCreate(enquiry),
     Company: resolveCompanyForNewLead(enquiry),
   });
 
-  return { resolution: "new_lead" };
+  await createCrmNote({
+    module: "Leads",
+    recordId: created.id,
+    title: noteTitle,
+    content: noteBody,
+  });
+
+  return {
+    resolution: "new_lead",
+    recordModule: "Leads",
+    recordId: created.id,
+  };
 }
 
 /**
- * Limitation: Lead Description is set to the latest enquiry summary on update.
- * Existing Description content is not fetched or appended to avoid an extra CRM read.
+ * Routes a validated Genie enquiry to Zoho CRM, attaches a Note, and notifies the team.
+ * CRM writes are not retried if notification fails.
  */
+export async function processGenieEnquiry(
+  enquiry: ValidatedGenieEnquiry,
+): Promise<GenieEnquiryProcessResult> {
+  const submittedAt = new Date();
+  const crmResult = await writeCrmEnquiry(enquiry, submittedAt);
+
+  try {
+    await sendGenieEnquiryNotification({
+      enquiry,
+      resolution: crmResult.resolution,
+      recordModule: crmResult.recordModule,
+      recordId: crmResult.recordId,
+      submittedAt,
+    });
+  } catch (error) {
+    if (error instanceof GenieEnquiryNotificationError) {
+      throw error;
+    }
+
+    throw new GenieEnquiryNotificationError(
+      "Email notification could not be sent.",
+      { code: "notification_failed", httpStatus: 503 },
+    );
+  }
+
+  return { resolution: crmResult.resolution };
+}

@@ -20,9 +20,16 @@ export const ZOHO_CRM_CONTACT_SCOPES = [
   "ZohoCRM.modules.contacts.UPDATE",
 ] as const;
 
+/** Minimum Notes scopes — CREATE for enquiry history, READ for verification. */
+export const ZOHO_CRM_NOTE_SCOPES = [
+  "ZohoCRM.modules.notes.CREATE",
+  "ZohoCRM.modules.notes.READ",
+] as const;
+
 export const ZOHO_CRM_OAUTH_SCOPES = [
   ...ZOHO_CRM_LEAD_SCOPES,
   ...ZOHO_CRM_CONTACT_SCOPES,
+  ...ZOHO_CRM_NOTE_SCOPES,
 ] as const;
 
 /** Comma-separated scope string for OAuth authorization requests. */

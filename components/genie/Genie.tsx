@@ -62,13 +62,16 @@ export function Genie() {
           isLoading={isLoading}
           showSuggestions={!hasUserMessage && !isLoading && !enquiry.enquiryType}
           showEnquiryActions={
-            !enquiry.enquiryType && !enquiry.successMessage && !enquiry.isSubmitting
+            !enquiry.enquiryType &&
+            !enquiry.successEnquiryType &&
+            !enquiry.isSubmitting
           }
           enquiryType={enquiry.enquiryType}
+          successEnquiryType={enquiry.successEnquiryType}
           enquiryFormValues={enquiry.formValues}
           enquiryFieldErrors={enquiry.fieldErrors}
           enquiryFormError={enquiry.formError}
-          enquirySuccessMessage={enquiry.successMessage}
+          notificationError={enquiry.notificationError}
           isEnquirySubmitting={enquiry.isSubmitting}
           messagesEndRef={messagesEndRef}
           onClose={() => setIsOpen(false)}

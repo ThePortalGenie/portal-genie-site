@@ -382,3 +382,39 @@ export async function updateContact(
 
   return { id: extractRecordId(response) };
 }
+
+/** Attach a Note to a Contact or Lead record. */
+export async function createCrmNote(options: {
+  module: "Leads" | "Contacts";
+  recordId: string;
+  title: string;
+  content: string;
+}): Promise<void> {
+  const recordId = normalizeRecordId(
+    options.recordId,
+    `${options.module.slice(0, -1)} ID`,
+  );
+
+  await zohoCrmRequest(`/${options.module}/${recordId}/Notes`, {
+    method: "POST",
+    body: {
+      data: [
+        {
+          Note_Title: options.title,
+          Note_Content: options.content,
+        },
+      ],
+    },
+  });
+}
+
+/** Harmless Notes read used to verify OAuth + Notes scope (no record data returned). */
+export async function verifyNotesModuleAccess(): Promise<void> {
+  await zohoCrmRequest("/Notes", {
+    searchParams: {
+      per_page: 1,
+      page: 1,
+      fields: "id",
+    },
+  });
+}

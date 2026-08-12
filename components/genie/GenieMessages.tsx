@@ -8,7 +8,7 @@ type GenieMessagesProps = {
   messages: GenieChatMessage[];
   isLoading: boolean;
   messagesEndRef: React.RefObject<HTMLDivElement | null>;
-  successMessage?: string | null;
+  notificationError?: string | null;
 };
 
 function GenieThinkingIndicator() {
@@ -49,7 +49,7 @@ export function GenieMessages({
   messages,
   isLoading,
   messagesEndRef,
-  successMessage,
+  notificationError,
 }: GenieMessagesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldAutoScrollRef = useRef(true);
@@ -76,7 +76,7 @@ export function GenieMessages({
     }
 
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [messages, isLoading, messagesEndRef, successMessage]);
+  }, [messages, isLoading, messagesEndRef, notificationError]);
 
   return (
     <div
@@ -92,12 +92,12 @@ export function GenieMessages({
         {messages.map((message) => (
           <GenieMessage key={message.id} message={message} />
         ))}
-        {successMessage ? (
+        {notificationError ? (
           <div
-            className="rounded-card border border-portal-teal/25 bg-portal-teal/5 px-4 py-3 text-sm leading-relaxed text-portal-navy"
-            role="status"
+            className="rounded-card border border-amber-300/60 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-portal-navy"
+            role="alert"
           >
-            {successMessage}
+            {notificationError}
           </div>
         ) : null}
         {isLoading ? <GenieThinkingIndicator /> : null}
