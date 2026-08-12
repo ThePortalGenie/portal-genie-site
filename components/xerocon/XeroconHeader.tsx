@@ -28,12 +28,12 @@ export function XeroconHeader() {
             />
           </Link>
 
-          <p className="shrink-0 text-right text-[11px] leading-tight text-portal-navy/55 min-[360px]:text-xs sm:text-sm">
-            <span className="hidden min-[420px]:inline">{header.loginPrompt} </span>
+          <p className="hidden shrink-0 text-right text-sm text-portal-navy/55 md:block">
+            {header.loginPrompt}{" "}
             <TrackedLoginLink
               href={header.loginHref}
               ctaLocation="xerocon_hero"
-              className="inline-flex min-h-10 items-center font-medium text-portal-navy transition-colors duration-200 hover:text-portal-blue sm:min-h-11"
+              className="font-medium text-portal-navy transition-colors duration-200 hover:text-portal-blue"
             >
               {header.loginLabel}
             </TrackedLoginLink>
