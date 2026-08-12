@@ -23,8 +23,8 @@ export const xeroconCampaign = {
   signupUrl:
     "https://forms.zohopublic.com/naggingpanda/form/XeroRoadShows20261/formperma/_vnEnH7J8re1zzNUTpUiQoPUCfLj7njmXxUomyyFtWY",
 
-  /** Existing Core plan 30-day free trial registration — post-Zoho activation hand-off */
-  trialStartUrl: links.premiumStartFree,
+  /** Existing Pro plan 30-day free trial registration — post-Zoho activation hand-off */
+  trialStartUrl: links.advancedStartFree,
 
   pricing: {
     currencyNote: "Prices shown in USD. Contact us for other currencies.",
