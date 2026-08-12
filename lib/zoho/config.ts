@@ -1,6 +1,5 @@
 import "server-only";
 
-import { ZOHO_OAUTH_REDIRECT_URI } from "@/lib/zoho/constants";
 import { ZohoConfigurationError } from "@/lib/zoho/errors";
 
 export type ZohoServerConfig = {
@@ -39,6 +38,38 @@ function normalizeBaseUrl(url: string, label: string): string {
   return trimmed;
 }
 
+function isLocalhostHostname(hostname: string): boolean {
+  return hostname === "localhost" || hostname === "127.0.0.1";
+}
+
+/** Validates ZOHO_REDIRECT_URI — HTTPS required except for localhost. */
+function normalizeRedirectUri(url: string): string {
+  const trimmed = url.trim();
+  let parsed: URL;
+
+  try {
+    parsed = new URL(trimmed);
+  } catch {
+    throw new ZohoConfigurationError(
+      "ZOHO_REDIRECT_URI must be an absolute URL (received an invalid value).",
+    );
+  }
+
+  const isLocalhost = isLocalhostHostname(parsed.hostname);
+
+  if (!isLocalhost && parsed.protocol !== "https:") {
+    throw new ZohoConfigurationError(
+      "ZOHO_REDIRECT_URI must use HTTPS in deployed environments (localhost may use HTTP for local development).",
+    );
+  }
+
+  return trimmed.replace(/\/+$/, "");
+}
+
+function requireRedirectUri(): string {
+  return normalizeRedirectUri(requireEnv("ZOHO_REDIRECT_URI"));
+}
+
 /** Returns true when all required Zoho CRM env vars are present. */
 export function isZohoConfigured(): boolean {
   return Boolean(
@@ -64,7 +95,7 @@ export function getZohoConfig(): ZohoServerConfig {
       requireEnv("ZOHO_API_BASE_URL"),
       "ZOHO_API_BASE_URL",
     ),
-    redirectUri: ZOHO_OAUTH_REDIRECT_URI,
+    redirectUri: requireRedirectUri(),
     oauthSetupSecret: optionalEnv("ZOHO_OAUTH_SETUP_SECRET"),
   };
 }
@@ -81,7 +112,7 @@ export function getZohoOAuthClientConfig(): Pick<
       requireEnv("ZOHO_ACCOUNTS_URL"),
       "ZOHO_ACCOUNTS_URL",
     ),
-    redirectUri: ZOHO_OAUTH_REDIRECT_URI,
+    redirectUri: requireRedirectUri(),
     oauthSetupSecret: optionalEnv("ZOHO_OAUTH_SETUP_SECRET"),
   };
 }

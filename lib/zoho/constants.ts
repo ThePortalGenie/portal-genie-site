@@ -1,6 +1,9 @@
-/** Registered OAuth redirect URI — do not change without updating the Zoho OAuth client. */
-export const ZOHO_OAUTH_REDIRECT_URI =
-  "https://www.theportalgenie.com/api/zoho/oauth/callback" as const;
+/**
+ * OAuth redirect URI is configured via ZOHO_REDIRECT_URI (server-only env var).
+ * Registered in the Zoho OAuth client — must match exactly at runtime:
+ * - Production: https://www.theportalgenie.com/api/zoho/oauth/callback
+ * - Vercel testing: https://<preview-host>/api/zoho/oauth/callback
+ */
 
 /**
  * Minimum Zoho CRM scopes for future Genie Lead create/update/search.
