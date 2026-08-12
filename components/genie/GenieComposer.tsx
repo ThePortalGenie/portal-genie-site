@@ -26,7 +26,7 @@ export function GenieComposer({
   };
 
   return (
-    <div className="border-t border-muted/15 bg-surface px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+    <div className="shrink-0 border-t border-muted/15 bg-surface px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
       <label htmlFor="genie-composer-input" className="sr-only">
         Ask about The Portal Genie
       </label>

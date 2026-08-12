@@ -9,7 +9,7 @@ type GenieHeaderProps = {
 
 export function GenieHeader({ onClose, onReset }: GenieHeaderProps) {
   return (
-    <div className="flex items-start justify-between gap-3 border-b border-muted/15 px-4 py-3">
+    <div className="sticky top-0 z-10 flex shrink-0 items-start justify-between gap-3 border-b border-muted/15 bg-surface px-4 py-3">
       <div className="min-w-0">
         <div className="flex items-center gap-2">
           <h2 id="genie-panel-title" className="text-base font-semibold text-portal-navy">

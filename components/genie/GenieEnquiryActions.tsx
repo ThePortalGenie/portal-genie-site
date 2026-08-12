@@ -18,7 +18,7 @@ export function GenieEnquiryActions({
   }
 
   return (
-    <div className="border-t border-muted/15 px-4 py-3">
+    <div className="shrink-0 border-t border-muted/15 px-4 py-3">
       <p className="text-xs font-semibold uppercase tracking-wide text-portal-navy/55">
         Get in touch
       </p>

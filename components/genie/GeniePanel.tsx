@@ -73,27 +73,11 @@ export function GeniePanel({
       aria-modal="true"
       aria-labelledby="genie-panel-title"
       className={[
-        "fixed z-[95] flex flex-col overflow-hidden border border-muted/20 bg-surface shadow-[0_20px_60px_-20px_rgba(17,33,54,0.35)] motion-reduce:transition-none",
+        "fixed z-[95] flex min-h-0 flex-col overflow-hidden border border-muted/20 bg-surface shadow-[0_20px_60px_-20px_rgba(17,33,54,0.35)] motion-reduce:transition-none",
         "inset-x-3 top-[max(0.75rem,env(safe-area-inset-top))] bottom-[max(5.5rem,env(safe-area-inset-bottom))] rounded-card sm:inset-x-auto sm:bottom-24 sm:right-6 sm:top-auto sm:h-[min(620px,calc(100dvh-7rem))] sm:w-[min(400px,calc(100vw-3rem))]",
       ].join(" ")}
     >
       <GenieHeader onClose={onClose} onReset={onReset} />
-      <GenieMessages
-        messages={messages}
-        isLoading={isLoading}
-        messagesEndRef={messagesEndRef}
-        successMessage={enquirySuccessMessage}
-      />
-      <GenieSuggestedQuestions
-        visible={showSuggestions}
-        disabled={isLoading || isEnquirySubmitting}
-        onSelect={onSuggestedQuestion}
-      />
-      <GenieEnquiryActions
-        visible={showEnquiryActions}
-        disabled={isLoading || isEnquirySubmitting}
-        onSelect={onOpenEnquiry}
-      />
       {enquiryType ? (
         <GenieEnquiryForm
           enquiryType={enquiryType}
@@ -106,12 +90,30 @@ export function GeniePanel({
           onBack={onCloseEnquiry}
         />
       ) : (
-        <GenieComposer
-          value={draft}
-          disabled={composerDisabled}
-          onChange={onDraftChange}
-          onSubmit={onSubmit}
-        />
+        <>
+          <GenieMessages
+            messages={messages}
+            isLoading={isLoading}
+            messagesEndRef={messagesEndRef}
+            successMessage={enquirySuccessMessage}
+          />
+          <GenieSuggestedQuestions
+            visible={showSuggestions}
+            disabled={isLoading || isEnquirySubmitting}
+            onSelect={onSuggestedQuestion}
+          />
+          <GenieEnquiryActions
+            visible={showEnquiryActions}
+            disabled={isLoading || isEnquirySubmitting}
+            onSelect={onOpenEnquiry}
+          />
+          <GenieComposer
+            value={draft}
+            disabled={composerDisabled}
+            onChange={onDraftChange}
+            onSubmit={onSubmit}
+          />
+        </>
       )}
     </div>
   );
