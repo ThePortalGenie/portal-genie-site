@@ -8,6 +8,7 @@ import {
   useGenieIds,
   useGeniePanelEffects,
 } from "@/components/genie/useGenieChat";
+import { useGenieEnquiry } from "@/components/genie/useGenieEnquiry";
 
 export function Genie() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,9 +24,11 @@ export function Genie() {
     submitMessage,
     reset,
   } = useGenieChat();
+  const enquiry = useGenieEnquiry();
 
   const handleReset = () => {
     reset();
+    enquiry.resetEnquiry();
   };
 
   const { panelRef } = useGeniePanelEffects({
@@ -57,13 +60,28 @@ export function Genie() {
           messages={messages}
           draft={draft}
           isLoading={isLoading}
-          showSuggestions={!hasUserMessage && !isLoading}
+          showSuggestions={!hasUserMessage && !isLoading && !enquiry.enquiryType}
+          showEnquiryActions={
+            !enquiry.enquiryType && !enquiry.successMessage && !enquiry.isSubmitting
+          }
+          enquiryType={enquiry.enquiryType}
+          enquiryFormValues={enquiry.formValues}
+          enquiryFieldErrors={enquiry.fieldErrors}
+          enquiryFormError={enquiry.formError}
+          enquirySuccessMessage={enquiry.successMessage}
+          isEnquirySubmitting={enquiry.isSubmitting}
           messagesEndRef={messagesEndRef}
           onClose={() => setIsOpen(false)}
           onReset={handleReset}
           onDraftChange={setDraft}
           onSubmit={handleSubmit}
           onSuggestedQuestion={handleSuggestedQuestion}
+          onOpenEnquiry={enquiry.openEnquiry}
+          onCloseEnquiry={enquiry.closeEnquiry}
+          onEnquiryFieldChange={enquiry.updateField}
+          onEnquirySubmit={() => {
+            void enquiry.submitEnquiry();
+          }}
         />
       ) : null}
     </>

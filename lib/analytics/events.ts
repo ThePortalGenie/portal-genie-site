@@ -11,6 +11,7 @@ export const AnalyticsEvent = {
   pricingCurrencyChange: "pricing_currency_change",
   emailContactClick: "email_contact_click",
   bookingWidgetLoaded: "booking_widget_loaded",
+  genieEnquirySubmit: "genie_enquiry_submit",
 } as const;
 
 export type AnalyticsEventName =
@@ -43,7 +44,8 @@ export type CtaLocation =
   | "xerocon_final"
   | "xerocon_activate"
   | "platform"
-  | "contact_page";
+  | "contact_page"
+  | "genie_panel";
 
 type BaseDataLayerFields = {
   event: AnalyticsEventName;
@@ -101,6 +103,15 @@ export type BookingWidgetLoadedEvent = BaseDataLayerFields & {
   event: typeof AnalyticsEvent.bookingWidgetLoaded;
 };
 
+export type GenieEnquiryTypeAnalytics = "sales" | "callback" | "support";
+
+export type GenieEnquirySubmitEvent = BaseDataLayerFields & {
+  event: typeof AnalyticsEvent.genieEnquirySubmit;
+  enquiry_type: GenieEnquiryTypeAnalytics;
+  outcome: "success" | "error";
+  error_code?: string;
+};
+
 export type DataLayerEvent =
   | BookDemoClickEvent
   | TrialCtaClickEvent
@@ -110,4 +121,5 @@ export type DataLayerEvent =
   | LoginClickEvent
   | PricingCurrencyChangeEvent
   | EmailContactClickEvent
-  | BookingWidgetLoadedEvent;
+  | BookingWidgetLoadedEvent
+  | GenieEnquirySubmitEvent;

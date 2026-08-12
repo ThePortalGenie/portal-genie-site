@@ -8,6 +8,7 @@ type GenieMessagesProps = {
   messages: GenieChatMessage[];
   isLoading: boolean;
   messagesEndRef: React.RefObject<HTMLDivElement | null>;
+  successMessage?: string | null;
 };
 
 function GenieThinkingIndicator() {
@@ -37,7 +38,9 @@ export function GenieWelcome() {
   return (
     <div className="rounded-card border border-muted/20 bg-background px-4 py-3 text-sm leading-relaxed text-portal-navy/85">
       <p>Hi, I&apos;m Genie. I can help answer questions about The Portal Genie.</p>
-      <p className="mt-2">What would you like to know?</p>
+      <p className="mt-2">
+        Ask a question below, or use Contact sales, Request a callback, or Support to reach our team.
+      </p>
     </div>
   );
 }
@@ -46,6 +49,7 @@ export function GenieMessages({
   messages,
   isLoading,
   messagesEndRef,
+  successMessage,
 }: GenieMessagesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldAutoScrollRef = useRef(true);
@@ -72,7 +76,7 @@ export function GenieMessages({
     }
 
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [messages, isLoading, messagesEndRef]);
+  }, [messages, isLoading, messagesEndRef, successMessage]);
 
   return (
     <div
@@ -88,6 +92,14 @@ export function GenieMessages({
         {messages.map((message) => (
           <GenieMessage key={message.id} message={message} />
         ))}
+        {successMessage ? (
+          <div
+            className="rounded-card border border-portal-teal/25 bg-portal-teal/5 px-4 py-3 text-sm leading-relaxed text-portal-navy"
+            role="status"
+          >
+            {successMessage}
+          </div>
+        ) : null}
         {isLoading ? <GenieThinkingIndicator /> : null}
         <div ref={messagesEndRef} />
       </div>

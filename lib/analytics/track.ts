@@ -142,6 +142,27 @@ export function trackBookingWidgetLoaded() {
   });
 }
 
+type GenieEnquirySubmitParams = {
+  enquiryType: "sales" | "callback" | "support";
+  outcome: "success" | "error";
+  errorCode?: string;
+};
+
+export function trackGenieEnquirySubmit({
+  enquiryType,
+  outcome,
+  errorCode,
+}: GenieEnquirySubmitParams) {
+  pushDataLayerEvent({
+    event: AnalyticsEvent.genieEnquirySubmit,
+    cta_location: "genie_panel",
+    page_path: getCurrentPagePath(),
+    enquiry_type: enquiryType,
+    outcome,
+    ...(errorCode ? { error_code: errorCode } : {}),
+  });
+}
+
 /** Map internal pricing hrefs to trial_cta destination values. */
 export function trialCtaDestinationFromHref(href: string): TrialCtaDestination {
   if (href.includes("#")) {

@@ -33,8 +33,12 @@ export const ZOHO_CRM_OAUTH_SCOPE = ZOHO_CRM_OAUTH_SCOPES.join(",");
  * obtain a new ZOHO_REFRESH_TOKEN with the expanded permissions.
  */
 
-/** Confirmed Lead Source picklist value for Genie (future enquiry task). */
+/** Confirmed Lead Source picklist value for Genie enquiries. */
 export const ZOHO_LEAD_SOURCE_PORTAL_GENIE_CHATBOT = "Portal Genie Chatbot" as const;
+
+/** Server-controlled Current_Campaign value for Genie website enquiries. */
+export const ZOHO_CURRENT_CAMPAIGN_PORTAL_GENIE_WEBSITE =
+  "Portal Genie Website" as const;
 
 /** Confirmed Zoho CRM Leads module API names — do not rename. */
 export const ZOHO_LEAD_API_FIELDS = {
