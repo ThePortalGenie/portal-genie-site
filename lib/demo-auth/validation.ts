@@ -1,8 +1,11 @@
 import {
-  DEMO_ACCOUNTING_SOFTWARE_OPTIONS,
-  DEMO_ACCESS_FIELD_LIMITS,
   DEMO_HONEYPOT_FIELD,
+  DEMO_ACCESS_FIELD_LIMITS,
 } from "@/config/demo-access";
+import {
+  GENIE_ACCOUNTING_SOFTWARE_OPTIONS,
+  GENIE_ENQUIRY_FIELD_LIMITS,
+} from "@/config/genie-enquiry";
 import type { ValidatedDemoLeadRequest } from "@/lib/demo-auth/types";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -104,15 +107,15 @@ export function validateDemoLeadBody(body: unknown): DemoLeadValidationResult {
   const accountingSoftwareRaw = sanitizeRequired(
     record.accountingSoftware,
     "Accounting software",
-    DEMO_ACCESS_FIELD_LIMITS.accountingSoftware,
+    GENIE_ENQUIRY_FIELD_LIMITS.accountingSoftware,
   );
   if (typeof accountingSoftwareRaw !== "string") {
     return accountingSoftwareRaw;
   }
 
   if (
-    !DEMO_ACCOUNTING_SOFTWARE_OPTIONS.includes(
-      accountingSoftwareRaw as (typeof DEMO_ACCOUNTING_SOFTWARE_OPTIONS)[number],
+    !GENIE_ACCOUNTING_SOFTWARE_OPTIONS.includes(
+      accountingSoftwareRaw as (typeof GENIE_ACCOUNTING_SOFTWARE_OPTIONS)[number],
     )
   ) {
     return fail("Please select a valid accounting software option.", "invalid_field");

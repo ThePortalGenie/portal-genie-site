@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
-  DEMO_ACCOUNTING_SOFTWARE_OPTIONS,
   DEMO_HONEYPOT_FIELD,
   DEMO_RESEND_COOLDOWN_SECONDS,
 } from "@/config/demo-access";
+import { GENIE_ACCOUNTING_SOFTWARE_OPTIONS } from "@/config/genie-enquiry";
 import { site } from "@/config/site";
 
 type FormState = {
@@ -312,7 +312,7 @@ export function DemoAccessGate() {
                       className={fieldClassName(Boolean(fieldErrors.accountingSoftware))}
                     >
                       <option value="">Select accounting software</option>
-                      {DEMO_ACCOUNTING_SOFTWARE_OPTIONS.map((option) => (
+                      {GENIE_ACCOUNTING_SOFTWARE_OPTIONS.map((option) => (
                         <option key={option} value={option}>
                           {option}
                         </option>

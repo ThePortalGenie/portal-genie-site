@@ -1,4 +1,4 @@
-/** Demo lead gate — field limits and options (server + client). */
+/** Demo lead gate — field limits (server + client). */
 
 export const DEMO_ACCESS_FIELD_LIMITS = {
   firstName: 80,
@@ -6,27 +6,14 @@ export const DEMO_ACCESS_FIELD_LIMITS = {
   company: 200,
   phone: 40,
   email: 254,
-  accountingSoftware: 80,
   otherAccountingSoftware: 120,
 } as const;
-
-export const DEMO_ACCOUNTING_SOFTWARE_OPTIONS = [
-  "Xero",
-  "Sage",
-  "QuickBooks",
-  "Zoho Books",
-  "Pastel",
-  "Other",
-] as const;
-
-export type DemoAccountingSoftwareOption =
-  (typeof DEMO_ACCOUNTING_SOFTWARE_OPTIONS)[number];
 
 /** Verification token TTL — 30 minutes. */
 export const DEMO_VERIFICATION_TTL_SECONDS = 30 * 60;
 
-/** Verified demo session TTL — 24 hours. */
-export const DEMO_SESSION_TTL_SECONDS = 24 * 60 * 60;
+/** Verified demo session TTL — 14 days (Redis + cookie). */
+export const DEMO_SESSION_TTL_SECONDS = 1_209_600;
 
 export const DEMO_SESSION_COOKIE_NAME = "portal_genie_demo_session";
 
