@@ -5,8 +5,7 @@ export type PortalSection =
   | "credit-notes"
   | "agreements"
   | "financial-statements"
-  | "notes"
-  | "upload-documents";
+  | "notes";
 
 export type InvoiceStatus = "paid" | "unpaid" | "overdue";
 
@@ -28,7 +27,7 @@ export type Invoice = {
   amountPaid: number;
 };
 
-export type QuoteStatus = "draft" | "sent" | "accepted" | "expired";
+export type QuoteStatus = "draft" | "sent" | "accepted" | "expired" | "open";
 
 export type Quote = {
   id: string;
@@ -59,6 +58,7 @@ export type Agreement = {
   title: string;
   date: string;
   status: AgreementStatus;
+  docType: string;
   summary: string;
   body: string;
 };
@@ -78,6 +78,7 @@ export type FinancialStatementFolder = {
 export type PortalNote = {
   id: string;
   date: string;
+  name: string;
   author: string;
   role: string;
   content: string;
@@ -111,9 +112,13 @@ export type StatementEntry = {
   date: string;
   reference: string;
   description: string;
-  debit: number;
+  docNumber: string;
+  transactionDate: string;
+  dueDate: string;
+  amount: number;
+  paid: number;
   credit: number;
-  balance: number;
+  balanceDue: number;
 };
 
 export type BannerId =
@@ -170,6 +175,7 @@ export type DemoPortalState = {
   activeBanner: BannerId;
   paymentModalOpen: boolean;
   paymentStep: "form" | "processing" | "success";
+  uploadModalOpen: boolean;
   customiseOpen: boolean;
   sidebarOpen: boolean;
   resetConfirmOpen: boolean;
@@ -188,9 +194,14 @@ export type DemoPortalState = {
   logoError: string | null;
   downloadFeedback: string | null;
   selectedDocumentFolder: DocumentFolderId | null;
+  statementDateFrom: string;
+  statementDateTo: string;
 };
 
 export type DemoPortalAction =
+  | { type: "SET_UPLOAD_MODAL"; open: boolean }
+  | { type: "SET_STATEMENT_DATE_FROM"; date: string }
+  | { type: "SET_STATEMENT_DATE_TO"; date: string }
   | { type: "SET_SECTION"; section: PortalSection }
   | { type: "TOGGLE_SIDEBAR"; open?: boolean }
   | { type: "SET_CUSTOMISE_OPEN"; open: boolean }

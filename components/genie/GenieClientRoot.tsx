@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const Genie = dynamic(
   () => import("@/components/genie/Genie").then((module) => module.Genie),
@@ -13,9 +14,12 @@ type GenieClientRootProps = {
   initiallyEnabled?: boolean;
 };
 
+const DEMO_ROUTE_PREFIX = "/demo/client-portal";
+
 export function GenieClientRoot({
   initiallyEnabled = false,
 }: GenieClientRootProps) {
+  const pathname = usePathname();
   const [enabled, setEnabled] = useState<boolean | null>(
     initiallyEnabled ? true : null,
   );
@@ -50,6 +54,10 @@ export function GenieClientRoot({
       cancelled = true;
     };
   }, [initiallyEnabled]);
+
+  if (pathname === DEMO_ROUTE_PREFIX || pathname.startsWith(`${DEMO_ROUTE_PREFIX}/`)) {
+    return null;
+  }
 
   if (enabled !== true) {
     return null;

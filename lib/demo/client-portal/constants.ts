@@ -1,19 +1,20 @@
 import type { BrandingTheme, BrandPresetId } from "@/lib/demo/client-portal/types";
 
+/** Aurora Global reference portal — bright cyan shell. */
 export const DEFAULT_BRANDING: BrandingTheme = {
-  brandColor: "#0077BE",
-  sidebarBg: "#112136",
-  menuText: "rgba(255,255,255,0.72)",
-  menuSelectedText: "#ffffff",
-  menuSelectedBg: "rgba(0,119,190,0.35)",
+  brandColor: "#00CCFF",
+  sidebarBg: "#00CCFF",
+  menuText: "#FFFFFF",
+  menuSelectedText: "#00CCFF",
+  menuSelectedBg: "#F5F5F5",
   portalText: "#112136",
-  tableBodyText: "#334155",
-  tableHeadingBg: "#F1F5F9",
-  tableHeadingText: "#112136",
-  payNowBg: "#0077BE",
-  payNowText: "#ffffff",
-  amountColor: "#0077BE",
-  accentColor: "#00BEB9",
+  tableBodyText: "#112136",
+  tableHeadingBg: "#00CCFF",
+  tableHeadingText: "#FFFFFF",
+  payNowBg: "#0055FF",
+  payNowText: "#FFFFFF",
+  amountColor: "#FFFFFF",
+  accentColor: "#0055FF",
 };
 
 export const BRAND_PRESETS: Record<
@@ -21,61 +22,61 @@ export const BRAND_PRESETS: Record<
   { label: string; branding: BrandingTheme }
 > = {
   "portal-genie": {
-    label: "Portal Genie",
+    label: "Portal Genie (Aurora)",
     branding: { ...DEFAULT_BRANDING },
   },
   "professional-blue": {
     label: "Professional Blue",
     branding: {
       brandColor: "#1D4ED8",
-      sidebarBg: "#0F172A",
-      menuText: "rgba(255,255,255,0.7)",
-      menuSelectedText: "#ffffff",
-      menuSelectedBg: "rgba(29,78,216,0.4)",
+      sidebarBg: "#1D4ED8",
+      menuText: "#FFFFFF",
+      menuSelectedText: "#1D4ED8",
+      menuSelectedBg: "#F0F4FF",
       portalText: "#0F172A",
       tableBodyText: "#334155",
-      tableHeadingBg: "#E2E8F0",
-      tableHeadingText: "#0F172A",
-      payNowBg: "#1D4ED8",
-      payNowText: "#ffffff",
-      amountColor: "#1D4ED8",
-      accentColor: "#38BDF8",
+      tableHeadingBg: "#1D4ED8",
+      tableHeadingText: "#FFFFFF",
+      payNowBg: "#1E40AF",
+      payNowText: "#FFFFFF",
+      amountColor: "#FFFFFF",
+      accentColor: "#3B82F6",
     },
   },
   "modern-green": {
     label: "Modern Green",
     branding: {
       brandColor: "#059669",
-      sidebarBg: "#064E3B",
-      menuText: "rgba(255,255,255,0.72)",
-      menuSelectedText: "#ffffff",
-      menuSelectedBg: "rgba(5,150,105,0.35)",
+      sidebarBg: "#059669",
+      menuText: "#FFFFFF",
+      menuSelectedText: "#059669",
+      menuSelectedBg: "#ECFDF5",
       portalText: "#064E3B",
       tableBodyText: "#374151",
-      tableHeadingBg: "#ECFDF5",
-      tableHeadingText: "#064E3B",
-      payNowBg: "#059669",
-      payNowText: "#ffffff",
-      amountColor: "#059669",
+      tableHeadingBg: "#059669",
+      tableHeadingText: "#FFFFFF",
+      payNowBg: "#047857",
+      payNowText: "#FFFFFF",
+      amountColor: "#FFFFFF",
       accentColor: "#34D399",
     },
   },
   "executive-dark": {
     label: "Executive Dark",
     branding: {
-      brandColor: "#C9A227",
-      sidebarBg: "#1A1A2E",
-      menuText: "rgba(255,255,255,0.65)",
-      menuSelectedText: "#ffffff",
-      menuSelectedBg: "rgba(201,162,39,0.25)",
-      portalText: "#1A1A2E",
+      brandColor: "#112136",
+      sidebarBg: "#112136",
+      menuText: "#FFFFFF",
+      menuSelectedText: "#112136",
+      menuSelectedBg: "#F3F4F6",
+      portalText: "#112136",
       tableBodyText: "#4B5563",
-      tableHeadingBg: "#F3F4F6",
-      tableHeadingText: "#1A1A2E",
+      tableHeadingBg: "#112136",
+      tableHeadingText: "#FFFFFF",
       payNowBg: "#C9A227",
-      payNowText: "#1A1A2E",
-      amountColor: "#C9A227",
-      accentColor: "#E5C76B",
+      payNowText: "#112136",
+      amountColor: "#FFFFFF",
+      accentColor: "#C9A227",
     },
   },
 };
@@ -86,6 +87,19 @@ export const BANNER_OPTIONS = [
   { id: "refer-client" as const, label: "Refer a Client" },
   { id: "new-service" as const, label: "New Service Announcement" },
 ];
+
+export const BANNER_ASSETS: Record<
+  (typeof BANNER_OPTIONS)[number]["id"],
+  { image?: string; alt: string }
+> = {
+  "portal-genie": {
+    image: "/demo/client-portal/banners/portal-genie-win-tv.png",
+    alt: "Portal Genie promotion — Win This TV",
+  },
+  "tax-season": { alt: "Tax season reminder" },
+  "refer-client": { alt: "Refer a client promotion" },
+  "new-service": { alt: "New service announcement" },
+};
 
 export const DOCUMENT_FOLDERS = [
   { id: "bank-statements" as const, label: "Bank Statements" },
@@ -105,14 +119,13 @@ export const NAV_ITEMS = [
   { id: "agreements" as const, label: "Agreements" },
   { id: "financial-statements" as const, label: "Financial Statements" },
   { id: "notes" as const, label: "Notes" },
-  { id: "upload-documents" as const, label: "Upload Documents" },
-];
+] as const;
 
 export const DEMO_ACCOUNTANT = {
-  name: "Summit Accounting Partners",
-  address: "42 Commerce Street, Sandton, Johannesburg, 2196",
-  email: "accounts@summitaccounting.co.za",
-  phone: "+27 11 555 0100",
+  name: "Aurora Global",
+  address: "18 Innovation Drive, Cape Town, 8001",
+  email: "accounts@auroraglobal.demo",
+  phone: "+27 21 555 0180",
   vatNumber: "4123456789",
 };
 
@@ -123,3 +136,5 @@ export const DEMO_CUSTOMER = {
   email: "geoff.ferrier@auroraglobal.demo",
   accountNumber: "AG-10482",
 };
+
+export const DEFAULT_LOGO_PATH = "/demo/client-portal/aurora-logo.svg";

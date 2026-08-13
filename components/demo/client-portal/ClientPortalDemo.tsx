@@ -4,15 +4,14 @@ import { DemoPortalProvider, useDemoPortal } from "@/lib/demo/client-portal/cont
 import { DemoSidebar } from "@/components/demo/client-portal/DemoSidebar";
 import { DemoTopBar } from "@/components/demo/client-portal/DemoTopBar";
 import {
-  DemoBannerMobile,
-  DemoBannerPanel,
-} from "@/components/demo/client-portal/DemoBannerPanel";
+  DemoPortalAdvertisingMobile,
+  DemoPortalAdvertisingPanel,
+} from "@/components/demo/client-portal/DemoPortalAdvertisingPanel";
+import { DemoFloatingControls } from "@/components/demo/client-portal/DemoFloatingControls";
 import { CustomisePortalPanel } from "@/components/demo/client-portal/CustomisePortalPanel";
 import { PaymentModal } from "@/components/demo/client-portal/PaymentModal";
-import {
-  DemoViewModals,
-  ResetConfirmModal,
-} from "@/components/demo/client-portal/DemoViewModals";
+import { UploadDocumentsModal } from "@/components/demo/client-portal/UploadDocumentsModal";
+import { ResetConfirmModal } from "@/components/demo/client-portal/ResetConfirmModal";
 import { InvoicesSection } from "@/components/demo/client-portal/sections/InvoicesSection";
 import { StatementSection } from "@/components/demo/client-portal/sections/StatementSection";
 import {
@@ -21,13 +20,47 @@ import {
 } from "@/components/demo/client-portal/sections/QuotesSection";
 import {
   AgreementsSection,
-  DocumentsSection,
   FinancialStatementsSection,
   NotesSection,
 } from "@/components/demo/client-portal/sections/OtherSections";
+import {
+  AgreementDocumentView,
+  CreditNoteDocumentView,
+  FinancialDocumentView,
+  InvoiceDocumentView,
+  QuoteDocumentView,
+} from "@/components/demo/client-portal/documents/DocumentViews";
 
-function DemoMainContent() {
+function PortalContentArea() {
   const { state } = useDemoPortal();
+
+  if (state.viewInvoiceId) {
+    const invoice = state.invoices.find((item) => item.id === state.viewInvoiceId);
+    if (invoice) {
+      return <InvoiceDocumentView invoice={invoice} />;
+    }
+  }
+
+  if (state.viewQuoteId) {
+    return <QuoteDocumentView quoteId={state.viewQuoteId} />;
+  }
+
+  if (state.viewCreditNoteId) {
+    return <CreditNoteDocumentView creditNoteId={state.viewCreditNoteId} />;
+  }
+
+  if (state.viewAgreementId) {
+    return <AgreementDocumentView agreementId={state.viewAgreementId} />;
+  }
+
+  if (state.viewFinancialDoc) {
+    return (
+      <FinancialDocumentView
+        folderId={state.viewFinancialDoc.folderId}
+        docId={state.viewFinancialDoc.docId}
+      />
+    );
+  }
 
   switch (state.section) {
     case "invoices":
@@ -44,60 +77,43 @@ function DemoMainContent() {
       return <FinancialStatementsSection />;
     case "notes":
       return <NotesSection />;
-    case "upload-documents":
-      return <DocumentsSection />;
     default:
       return <InvoicesSection />;
   }
 }
 
 function ClientPortalDemoInner() {
-  const { state } = useDemoPortal();
-  const { branding } = state;
-
   return (
-    <div
-      className="flex min-h-[100dvh] flex-col bg-background"
-      style={
-        {
-          "--demo-brand": branding.brandColor,
-          "--demo-accent": branding.accentColor,
-          color: branding.portalText,
-        } as React.CSSProperties
-      }
-    >
-      <div className="border-b border-muted/20 bg-surface px-4 py-2 sm:px-6">
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-3">
-          <p className="text-xs font-medium text-portal-navy/60">
-            Demo Portal · Interactive demonstration — no real transactions
-          </p>
-          <span className="rounded-badge bg-portal-blue/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-portal-blue sm:hidden">
-            Demo
-          </span>
-        </div>
+    <div className="flex min-h-[100dvh] flex-col bg-white">
+      <div className="border-b border-[#ececec] bg-[#fafafa] px-3 py-1">
+        <p className="text-center text-[10px] text-[#666]">
+          Demo Portal · Interactive demonstration — no real transactions
+        </p>
       </div>
 
-      <div className="mx-auto flex min-h-0 w-full max-w-[1600px] flex-1">
+      <div className="flex min-h-0 flex-1">
         <DemoSidebar />
         <DemoSidebar mobile />
 
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col lg:flex-row">
-          <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-            <DemoTopBar />
-            <main className="min-h-0 flex-1 overflow-y-auto px-4 py-4 sm:px-6 sm:py-6">
-              <DemoMainContent />
-              <DemoBannerMobile />
-            </main>
-          </div>
-          <div className="hidden shrink-0 p-4 pl-0 xl:block">
-            <DemoBannerPanel />
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+          <DemoTopBar />
+
+          <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
+            <div className="flex min-h-0 min-w-0 flex-[1_1_50%] flex-col">
+              <PortalContentArea />
+              <DemoPortalAdvertisingMobile />
+            </div>
+            <div className="hidden min-h-0 min-w-0 flex-[1_1_50%] lg:flex">
+              <DemoPortalAdvertisingPanel />
+            </div>
           </div>
         </div>
       </div>
 
+      <DemoFloatingControls />
       <CustomisePortalPanel />
       <PaymentModal />
-      <DemoViewModals />
+      <UploadDocumentsModal />
       <ResetConfirmModal />
     </div>
   );

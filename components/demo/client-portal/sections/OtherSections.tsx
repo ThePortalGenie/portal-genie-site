@@ -1,67 +1,66 @@
 "use client";
 
-import { Eye, FileText, FolderOpen } from "lucide-react";
-import { useMemo, useRef } from "react";
-import { DOCUMENT_FOLDERS } from "@/lib/demo/client-portal/constants";
+import { useMemo, useState } from "react";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { formatDate, formatFileSize } from "@/lib/demo/client-portal/format";
+import { formatDate } from "@/lib/demo/client-portal/format";
 import {
-  DemoSectionCard,
-  StatusBadge,
-} from "@/components/demo/client-portal/DemoSectionParts";
-import type { DocumentFolderId } from "@/lib/demo/client-portal/types";
+  PortalIconActions,
+  PortalPageHeading,
+  PortalPagination,
+  PortalSearchInput,
+  PortalTable,
+  PortalTableBody,
+  PortalTableCell,
+  PortalTableHead,
+  PortalTableHeadCell,
+  PortalTableRow,
+} from "@/components/demo/client-portal/PortalPrimitives";
 
 export function AgreementsSection() {
   const { state, dispatch } = useDemoPortal();
   const { branding, agreements } = state;
+  const [search, setSearch] = useState("");
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) {
+      return agreements;
+    }
+    return agreements.filter((a) => a.title.toLowerCase().includes(q));
+  }, [agreements, search]);
 
   return (
-    <DemoSectionCard title="Agreements" description="Service agreements on file for your business.">
-      <div className="overflow-x-auto rounded-lg border border-muted/20">
-        <table className="min-w-[640px] w-full text-sm">
-          <thead style={{ backgroundColor: branding.tableHeadingBg }}>
-            <tr>
-              {["Agreement", "Date", "Status", "Actions"].map((heading) => (
-                <th
-                  key={heading}
-                  className="px-3 py-3 text-left font-semibold"
-                  style={{ color: branding.tableHeadingText }}
-                >
-                  {heading}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody style={{ color: branding.tableBodyText }}>
-            {agreements.map((agreement) => (
-              <tr key={agreement.id} className="border-t border-muted/15">
-                <td className="px-3 py-3 font-medium">{agreement.title}</td>
-                <td className="px-3 py-3">{formatDate(agreement.date)}</td>
-                <td className="px-3 py-3">
-                  <StatusBadge
-                    label={agreement.status}
-                    tone="agreement"
-                    status={agreement.status}
-                  />
-                </td>
-                <td className="px-3 py-3">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      dispatch({ type: "VIEW_AGREEMENT", agreementId: agreement.id })
-                    }
-                    className="inline-flex items-center gap-1 rounded-button px-2 py-1.5 text-xs font-medium text-portal-blue hover:bg-portal-blue/10"
-                  >
-                    <Eye className="h-3.5 w-3.5" aria-hidden="true" />
-                    View
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="min-h-0 flex-1 overflow-y-auto bg-white p-3 sm:p-4">
+      <PortalPageHeading>Agreements</PortalPageHeading>
+      <div className="mb-3">
+        <PortalSearchInput value={search} onChange={setSearch} />
       </div>
-    </DemoSectionCard>
+      <PortalTable>
+        <PortalTableHead branding={branding}>
+          <PortalTableHeadCell branding={branding}>Name ↑</PortalTableHeadCell>
+          <PortalTableHeadCell branding={branding}>Type</PortalTableHeadCell>
+          <PortalTableHeadCell branding={branding}>Actions</PortalTableHeadCell>
+        </PortalTableHead>
+        <PortalTableBody branding={branding}>
+          {filtered.map((agreement) => (
+            <PortalTableRow key={agreement.id}>
+              <PortalTableCell>{agreement.title}</PortalTableCell>
+              <PortalTableCell>{agreement.docType}</PortalTableCell>
+              <PortalTableCell>
+                <PortalIconActions
+                  onView={() =>
+                    dispatch({ type: "VIEW_AGREEMENT", agreementId: agreement.id })
+                  }
+                  onDownload={() => undefined}
+                  onEdit={() => undefined}
+                />
+              </PortalTableCell>
+            </PortalTableRow>
+          ))}
+        </PortalTableBody>
+      </PortalTable>
+      <PortalPagination />
+    </div>
   );
 }
 
@@ -70,21 +69,13 @@ export function FinancialStatementsSection() {
   const { financialStatements } = state;
 
   return (
-    <DemoSectionCard
-      title="Financial Statements"
-      description="Browse annual and management reports shared with you."
-    >
-      <div className="grid gap-4 sm:grid-cols-3">
+    <div className="min-h-0 flex-1 overflow-y-auto bg-white p-3 sm:p-4">
+      <PortalPageHeading>Financial Statements</PortalPageHeading>
+      <div className="space-y-4 text-[12px]">
         {financialStatements.map((folder) => (
-          <div
-            key={folder.id}
-            className="rounded-lg border border-muted/20 bg-background p-4"
-          >
-            <div className="mb-3 flex items-center gap-2">
-              <FolderOpen className="h-5 w-5 text-portal-blue" aria-hidden="true" />
-              <h3 className="font-semibold text-portal-navy">{folder.year}</h3>
-            </div>
-            <ul className="space-y-2">
+          <div key={folder.id}>
+            <p className="mb-2 font-bold text-[#112136]">{folder.year}</p>
+            <ul className="divide-y divide-[#ececec] border border-[#ececec]">
               {folder.documents.map((doc) => (
                 <li key={doc.id}>
                   <button
@@ -95,10 +86,9 @@ export function FinancialStatementsSection() {
                         payload: { folderId: folder.id, docId: doc.id },
                       })
                     }
-                    className="flex w-full items-start gap-2 rounded-lg px-2 py-2 text-left text-sm text-portal-navy/80 transition-colors hover:bg-surface hover:text-portal-blue"
+                    className="flex w-full px-3 py-2 text-left hover:bg-[#f9fcff]"
                   >
-                    <FileText className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-                    <span>{doc.name}</span>
+                    {doc.name}
                   </button>
                 </li>
               ))}
@@ -106,218 +96,54 @@ export function FinancialStatementsSection() {
           </div>
         ))}
       </div>
-    </DemoSectionCard>
+    </div>
   );
 }
 
 export function NotesSection() {
   const { state } = useDemoPortal();
-  const { notes } = state;
+  const { branding, notes } = state;
+  const [search, setSearch] = useState("");
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) {
+      return notes;
+    }
+    return notes.filter(
+      (note) =>
+        note.name.toLowerCase().includes(q) ||
+        note.author.toLowerCase().includes(q),
+    );
+  }, [notes, search]);
 
   return (
-    <DemoSectionCard
-      title="Notes"
-      description="Messages and updates from your accounting team."
-    >
-      <ul className="space-y-3">
-        {notes.map((note) => (
-          <li
-            key={note.id}
-            className="rounded-lg border border-muted/20 bg-background px-4 py-3"
-          >
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <p className="text-sm font-semibold text-portal-navy">{note.author}</p>
-              <p className="text-xs text-portal-navy/55">
-                {formatDate(note.date)} · {note.role}
-              </p>
-            </div>
-            <p className="mt-2 text-sm leading-relaxed text-portal-navy/75">{note.content}</p>
-          </li>
-        ))}
-      </ul>
-    </DemoSectionCard>
-  );
-}
-
-export function DocumentsSection() {
-  const { state, dispatch } = useDemoPortal();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const {
-    branding,
-    documents,
-    uploadFolder,
-    uploadProgress,
-    uploadFeedback,
-    selectedDocumentFolder,
-  } = state;
-
-  const folderDocuments = useMemo(() => {
-    if (!selectedDocumentFolder) {
-      return [];
-    }
-    return documents.filter((doc) => doc.folderId === selectedDocumentFolder);
-  }, [documents, selectedDocumentFolder]);
-
-  const simulateUpload = (file: File) => {
-    dispatch({ type: "SET_UPLOAD_FEEDBACK", message: null });
-    dispatch({ type: "SET_UPLOAD_PROGRESS", progress: 0 });
-
-    let progress = 0;
-    const interval = window.setInterval(() => {
-      progress += 25;
-      dispatch({ type: "SET_UPLOAD_PROGRESS", progress });
-
-      if (progress >= 100) {
-        window.clearInterval(interval);
-        dispatch({
-          type: "ADD_UPLOADED_DOCUMENT",
-          document: {
-            id: `doc-upload-${Date.now()}`,
-            name: file.name,
-            folderId: uploadFolder,
-            size: file.size,
-            uploadedAt: new Date().toISOString().slice(0, 10),
-            isSessionUpload: true,
-          },
-        });
-      }
-    }, 250);
-  };
-
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    event.target.value = "";
-    if (file) {
-      simulateUpload(file);
-    }
-  };
-
-  return (
-    <div className="space-y-6">
-      <DemoSectionCard
-        title="Upload Documents"
-        description="Share documents with your accountant. Files remain in your browser for this demo."
-      >
-        <div className="grid gap-4 lg:grid-cols-2">
-          <label className="block">
-            <span className="mb-1 block text-xs font-medium text-portal-navy/70">Folder</span>
-            <select
-              value={uploadFolder}
-              onChange={(event) =>
-                dispatch({
-                  type: "SET_UPLOAD_FOLDER",
-                  folderId: event.target.value as DocumentFolderId,
-                })
-              }
-              className="w-full rounded-lg border border-muted/30 px-3 py-2 text-sm"
-            >
-              {DOCUMENT_FOLDERS.map((folder) => (
-                <option key={folder.id} value={folder.id}>
-                  {folder.label}
-                </option>
-              ))}
-            </select>
-          </label>
-          <div className="flex items-end">
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              className="rounded-button bg-portal-blue px-4 py-2.5 text-sm font-semibold text-white hover:bg-portal-blue/90"
-            >
-              Choose file to upload
-            </button>
-            <input
-              ref={fileInputRef}
-              type="file"
-              className="sr-only"
-              onChange={handleFileSelect}
-            />
-          </div>
-        </div>
-
-        {uploadProgress !== null ? (
-          <div className="mt-4">
-            <div className="mb-1 flex justify-between text-xs text-portal-navy/65">
-              <span>Uploading...</span>
-              <span>{uploadProgress}%</span>
-            </div>
-            <div className="h-2 overflow-hidden rounded-full bg-muted/30">
-              <div
-                className="h-full bg-portal-blue transition-all"
-                style={{ width: `${uploadProgress}%` }}
-              />
-            </div>
-          </div>
-        ) : null}
-
-        {uploadFeedback ? (
-          <p className="mt-3 text-sm text-portal-teal" role="status">
-            {uploadFeedback}
-          </p>
-        ) : null}
-      </DemoSectionCard>
-
-      <DemoSectionCard
-        title="Document Browser"
-        description="Browse folders and open shared documents."
-      >
-        <div className="grid gap-4 lg:grid-cols-[220px_minmax(0,1fr)]">
-          <ul className="space-y-1">
-            {DOCUMENT_FOLDERS.map((folder) => {
-              const count = documents.filter((doc) => doc.folderId === folder.id).length;
-              const selected = selectedDocumentFolder === folder.id;
-              return (
-                <li key={folder.id}>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      dispatch({ type: "SET_DOCUMENT_FOLDER", folderId: folder.id })
-                    }
-                    className={[
-                      "flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm transition-colors",
-                      selected
-                        ? "bg-portal-blue/10 font-medium text-portal-blue"
-                        : "text-portal-navy/75 hover:bg-background",
-                    ].join(" ")}
-                  >
-                    <span>{folder.label}</span>
-                    <span className="text-xs opacity-70">{count}</span>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-
-          <div className="rounded-lg border border-muted/20 bg-background p-4">
-            {!selectedDocumentFolder ? (
-              <p className="text-sm text-portal-navy/60">Select a folder to view documents.</p>
-            ) : folderDocuments.length === 0 ? (
-              <p className="text-sm text-portal-navy/60">No documents in this folder yet.</p>
-            ) : (
-              <ul className="space-y-2">
-                {folderDocuments.map((doc) => (
-                  <li key={doc.id}>
-                    <button
-                      type="button"
-                      onClick={() => dispatch({ type: "VIEW_DOCUMENT", documentId: doc.id })}
-                      className="flex w-full items-center justify-between gap-3 rounded-lg px-2 py-2 text-left text-sm transition-colors hover:bg-surface"
-                      style={{ color: branding.tableBodyText }}
-                    >
-                      <span className="inline-flex items-center gap-2">
-                        <FileText className="h-4 w-4 text-portal-blue" aria-hidden="true" />
-                        {doc.name}
-                      </span>
-                      <span className="text-xs text-portal-navy/55">
-                        {doc.size ? formatFileSize(doc.size) : "—"}
-                      </span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </div>
-      </DemoSectionCard>
+    <div className="min-h-0 flex-1 overflow-y-auto bg-white p-3 sm:p-4">
+      <PortalPageHeading>Notes</PortalPageHeading>
+      <div className="mb-3">
+        <PortalSearchInput value={search} onChange={setSearch} />
+      </div>
+      <PortalTable minWidth="680px">
+        <PortalTableHead branding={branding}>
+          <PortalTableHeadCell branding={branding}>Created Date</PortalTableHeadCell>
+          <PortalTableHeadCell branding={branding}>Note Name</PortalTableHeadCell>
+          <PortalTableHeadCell branding={branding}>Created By</PortalTableHeadCell>
+          <PortalTableHeadCell branding={branding}>Actions</PortalTableHeadCell>
+        </PortalTableHead>
+        <PortalTableBody branding={branding}>
+          {filtered.map((note) => (
+            <PortalTableRow key={note.id}>
+              <PortalTableCell>{formatDate(note.date)}</PortalTableCell>
+              <PortalTableCell>{note.name}</PortalTableCell>
+              <PortalTableCell>{note.author}</PortalTableCell>
+              <PortalTableCell>
+                <PortalIconActions onView={() => undefined} />
+              </PortalTableCell>
+            </PortalTableRow>
+          ))}
+        </PortalTableBody>
+      </PortalTable>
+      <PortalPagination />
     </div>
   );
 }

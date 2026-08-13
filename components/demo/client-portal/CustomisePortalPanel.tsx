@@ -8,12 +8,12 @@ import {
   DEMO_CUSTOMER,
 } from "@/lib/demo/client-portal/constants";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import type { BrandPresetId } from "@/lib/demo/client-portal/types";
+import type { BrandPresetId, BrandingTheme } from "@/lib/demo/client-portal/types";
 
 const ACCEPTED_LOGO_TYPES = ["image/png", "image/jpeg", "image/webp", "image/svg+xml"];
 
 const BRANDING_FIELDS: {
-  key: keyof typeof BRAND_PRESETS["portal-genie"]["branding"];
+  key: keyof BrandingTheme;
   label: string;
 }[] = [
   { key: "brandColor", label: "Main brand colour" },

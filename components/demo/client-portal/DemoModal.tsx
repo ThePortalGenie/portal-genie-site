@@ -10,6 +10,8 @@ type DemoModalProps = {
   children: ReactNode;
   size?: "md" | "lg" | "xl";
   footer?: ReactNode;
+  overlayClassName?: string;
+  hideTitle?: boolean;
 };
 
 export function DemoModal({
@@ -19,6 +21,8 @@ export function DemoModal({
   children,
   size = "md",
   footer,
+  overlayClassName = "bg-[#112136]/50",
+  hideTitle = false,
 }: DemoModalProps) {
   const titleId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -52,51 +56,56 @@ export function DemoModal({
   }
 
   const sizeClass =
-    size === "xl"
-      ? "max-w-4xl"
-      : size === "lg"
-        ? "max-w-2xl"
-        : "max-w-lg";
+    size === "xl" ? "max-w-4xl" : size === "lg" ? "max-w-2xl" : "max-w-lg";
 
   return (
-    <div
-      className="fixed inset-0 z-[100] flex items-end justify-center p-0 sm:items-center sm:p-4"
-      role="presentation"
-    >
+    <div className="fixed inset-0 z-[100] flex items-end justify-center p-0 sm:items-center sm:p-4" role="presentation">
       <button
         type="button"
-        className="absolute inset-0 bg-portal-navy/50"
+        className={`absolute inset-0 ${overlayClassName}`}
         aria-label="Close dialog"
         onClick={onClose}
       />
       <div
         role="dialog"
         aria-modal="true"
-        aria-labelledby={titleId}
+        aria-labelledby={hideTitle ? undefined : titleId}
         className={[
-          "relative flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-card border border-muted/20 bg-surface shadow-[0_24px_64px_-24px_rgba(17,33,54,0.45)] sm:rounded-card",
+          "relative flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-md border border-[#ececec] bg-white shadow-[0_12px_40px_rgba(17,33,54,0.18)] sm:rounded-md",
           sizeClass,
         ].join(" ")}
       >
-        <div className="flex items-center justify-between border-b border-muted/20 px-4 py-3 sm:px-6">
-          <h2 id={titleId} className="text-base font-semibold text-portal-navy sm:text-lg">
-            {title}
-          </h2>
+        {!hideTitle ? (
+          <div className="flex items-center justify-between border-b border-[#ececec] px-4 py-3">
+            <h2 id={titleId} className="text-[14px] font-bold text-[#112136]">
+              {title}
+            </h2>
+            <button
+              ref={closeRef}
+              type="button"
+              onClick={onClose}
+              className="p-1 text-[#666] hover:text-[#112136]"
+              aria-label="Close"
+            >
+              <X className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
+        ) : (
           <button
             ref={closeRef}
             type="button"
             onClick={onClose}
-            className="rounded-button p-2 text-portal-navy/70 transition-colors hover:bg-background hover:text-portal-navy"
+            className="absolute right-3 top-3 p-1 text-[#666] hover:text-[#112136]"
             aria-label="Close"
           >
             <X className="h-5 w-5" aria-hidden="true" />
           </button>
-        </div>
+        )}
         <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4 sm:px-6 sm:py-5">
           {children}
         </div>
         {footer ? (
-          <div className="border-t border-muted/20 px-4 py-3 sm:px-6">{footer}</div>
+          <div className="border-t border-[#ececec] px-4 py-3 sm:px-6">{footer}</div>
         ) : null}
       </div>
     </div>

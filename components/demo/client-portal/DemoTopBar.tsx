@@ -1,21 +1,19 @@
 "use client";
 
+import { Menu } from "lucide-react";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { formatZar } from "@/lib/demo/client-portal/format";
-import { DemoToolbar } from "@/components/demo/client-portal/DemoToolbar";
+import { formatAmountPlain } from "@/lib/demo/client-portal/statement";
 
 export function DemoTopBar() {
-  const {
-    state,
-    dispatch,
-    selectedPaymentTotal,
-    outstandingBalance,
-  } = useDemoPortal();
+  const { state, dispatch, selectedPaymentTotal, outstandingBalance } = useDemoPortal();
   const { branding, customerName } = state;
 
   const displayAmount =
     selectedPaymentTotal > 0 ? selectedPaymentTotal : outstandingBalance;
-  const hasSelection = selectedPaymentTotal > 0;
+  const amountLabel =
+    selectedPaymentTotal > 0
+      ? `ZAR ${formatAmountPlain(displayAmount)}`
+      : formatAmountPlain(displayAmount);
 
   const handlePayNow = () => {
     if (selectedPaymentTotal <= 0) {
@@ -26,54 +24,36 @@ export function DemoTopBar() {
 
   return (
     <header
-      className="border-b border-muted/20 bg-surface px-4 py-4 sm:px-6"
-      style={{ color: branding.portalText }}
+      className="flex shrink-0 items-center justify-between px-4 py-3 lg:px-6"
+      style={{ backgroundColor: branding.sidebarBg }}
     >
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        <div className="min-w-0">
-          <p className="text-sm text-portal-navy/60">Welcome back</p>
-          <h1 className="truncate text-xl font-semibold sm:text-2xl">{customerName}</h1>
-        </div>
-
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between lg:justify-end">
-          <DemoToolbar />
-          <div className="flex items-center justify-between gap-4 rounded-card border border-muted/20 bg-background px-4 py-3 sm:justify-end">
-            <div className="text-left sm:text-right">
-              <p className="text-xs font-medium uppercase tracking-wide text-portal-navy/55">
-                {hasSelection ? "Selected to pay" : "Outstanding balance"}
-              </p>
-              <p
-                className="text-lg font-semibold sm:text-xl"
-                style={{ color: branding.amountColor }}
-              >
-                {formatZar(displayAmount)}
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={handlePayNow}
-              disabled={selectedPaymentTotal <= 0}
-              className="rounded-button px-4 py-2.5 text-sm font-semibold transition-opacity disabled:cursor-not-allowed disabled:opacity-45"
-              style={{
-                backgroundColor: branding.payNowBg,
-                color: branding.payNowText,
-              }}
-              title={
-                selectedPaymentTotal <= 0
-                  ? "Select unpaid invoices to pay"
-                  : undefined
-              }
-            >
-              Pay Now
-            </button>
-          </div>
-        </div>
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={() => dispatch({ type: "TOGGLE_SIDEBAR", open: true })}
+          className="rounded p-1 text-white lg:hidden"
+          aria-label="Open navigation menu"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
+        <p className="text-[14px] font-bold text-white">Hi {customerName}</p>
       </div>
-      {selectedPaymentTotal <= 0 ? (
-        <p className="mt-3 text-xs text-portal-navy/55 lg:text-right">
-          Select unpaid invoices below to pay online.
-        </p>
-      ) : null}
+
+      <div className="flex items-center gap-3">
+        <span className="text-[14px] font-semibold text-white">{amountLabel}</span>
+        <button
+          type="button"
+          onClick={handlePayNow}
+          disabled={selectedPaymentTotal <= 0}
+          className="px-4 py-1.5 text-[12px] font-semibold disabled:cursor-not-allowed disabled:opacity-50"
+          style={{
+            backgroundColor: branding.payNowBg,
+            color: branding.payNowText,
+          }}
+        >
+          Pay Now
+        </button>
+      </div>
     </header>
   );
 }

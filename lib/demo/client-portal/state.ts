@@ -49,6 +49,7 @@ export function createDemoPortalState(): DemoPortalState {
     activeBanner: "portal-genie",
     paymentModalOpen: false,
     paymentStep: "form",
+    uploadModalOpen: false,
     customiseOpen: false,
     sidebarOpen: false,
     resetConfirmOpen: false,
@@ -67,6 +68,8 @@ export function createDemoPortalState(): DemoPortalState {
     logoError: null,
     downloadFeedback: null,
     selectedDocumentFolder: null,
+    statementDateFrom: "2026-07-01",
+    statementDateTo: "2026-08-13",
   };
 }
 
@@ -82,7 +85,22 @@ export function demoPortalReducer(
         sidebarOpen: false,
         downloadFeedback: null,
         uploadFeedback: null,
+        viewInvoiceId: null,
+        viewQuoteId: null,
+        viewCreditNoteId: null,
+        viewAgreementId: null,
+        viewFinancialDoc: null,
+        viewDocumentId: null,
       };
+
+    case "SET_UPLOAD_MODAL":
+      return { ...state, uploadModalOpen: action.open };
+
+    case "SET_STATEMENT_DATE_FROM":
+      return { ...state, statementDateFrom: action.date };
+
+    case "SET_STATEMENT_DATE_TO":
+      return { ...state, statementDateTo: action.date };
 
     case "TOGGLE_SIDEBAR":
       return { ...state, sidebarOpen: action.open ?? !state.sidebarOpen };
@@ -213,6 +231,7 @@ export function demoPortalReducer(
         payments: [...state.payments, payment],
         selectedInvoiceIds: [],
         paymentStep: "success",
+        section: "invoices",
       };
     }
 

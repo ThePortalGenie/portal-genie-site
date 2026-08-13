@@ -11,6 +11,7 @@ const quoteStyles: Record<QuoteStatus, string> = {
   sent: "bg-blue-50 text-blue-700",
   accepted: "bg-emerald-50 text-emerald-700",
   expired: "bg-amber-50 text-amber-800",
+  open: "bg-amber-50 text-amber-800",
 };
 
 const creditStyles: Record<CreditNoteStatus, string> = {

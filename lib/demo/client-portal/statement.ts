@@ -1,72 +1,172 @@
 import type { StatementEntry } from "@/lib/demo/client-portal/types";
 import type { DemoPortalState } from "@/lib/demo/client-portal/types";
-import { formatDate } from "@/lib/demo/client-portal/format";
 
 export function buildStatementEntries(state: DemoPortalState): {
   entries: StatementEntry[];
   openingBalance: number;
   closingBalance: number;
+  aging: {
+    current: number;
+    days1_30: number;
+    days31_60: number;
+    days61_90: number;
+    days91plus: number;
+    accountBalance: number;
+  };
 } {
-  const transactions: Omit<StatementEntry, "balance">[] = [];
+  const entries: StatementEntry[] = [];
+  let runningBalance = 0;
+
+  const allItems: Array<{
+    id: string;
+    date: string;
+    dueDate: string;
+    docNumber: string;
+    description: string;
+    amount: number;
+    paid: number;
+    credit: number;
+    type: "invoice" | "payment" | "credit";
+  }> = [];
 
   for (const invoice of state.invoices) {
-    transactions.push({
-      id: `stmt-${invoice.id}`,
+    allItems.push({
+      id: invoice.id,
       date: invoice.date,
-      reference: invoice.number,
-      description: `Invoice ${invoice.number}`,
-      debit: invoice.amount,
+      dueDate: invoice.dueDate,
+      docNumber: invoice.number,
+      description: invoice.number,
+      amount: invoice.amount,
+      paid: invoice.amountPaid,
       credit: 0,
+      type: "invoice",
     });
   }
 
   for (const payment of state.payments) {
-    transactions.push({
-      id: `stmt-${payment.id}`,
+    allItems.push({
+      id: payment.id,
       date: payment.date,
-      reference: payment.reference,
-      description: `Payment — ${payment.invoiceIds.length} invoice(s)`,
-      debit: 0,
+      dueDate: payment.date,
+      docNumber: payment.reference,
+      description: `Payment ${payment.reference}`,
+      amount: 0,
+      paid: payment.amount,
       credit: payment.amount,
+      type: "payment",
     });
   }
 
   for (const creditNote of state.creditNotes) {
     if (creditNote.status === "applied") {
-      transactions.push({
-        id: `stmt-${creditNote.id}`,
+      allItems.push({
+        id: creditNote.id,
         date: creditNote.date,
-        reference: creditNote.number,
-        description: `Credit Note ${creditNote.number}`,
-        debit: 0,
+        dueDate: creditNote.date,
+        docNumber: creditNote.number,
+        description: creditNote.number,
+        amount: 0,
+        paid: 0,
         credit: creditNote.amount,
+        type: "credit",
       });
     }
   }
 
-  transactions.sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-  );
+  allItems.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-  let runningBalance = 0;
-  const entries: StatementEntry[] = transactions.map((entry) => {
-    runningBalance += entry.debit - entry.credit;
-    return { ...entry, balance: runningBalance };
-  });
+  const from = state.statementDateFrom
+    ? new Date(state.statementDateFrom).getTime()
+    : null;
+  const to = state.statementDateTo ? new Date(state.statementDateTo).getTime() : null;
 
-  const openingBalance = 0;
+  for (const item of allItems) {
+    const itemTime = new Date(item.date).getTime();
+    if (from !== null && itemTime < from) {
+      continue;
+    }
+    if (to !== null && itemTime > to) {
+      continue;
+    }
+
+    const debit = item.type === "invoice" ? item.amount : 0;
+    const credit = item.credit;
+    runningBalance += debit - credit - (item.type === "payment" ? item.paid : 0);
+
+    entries.push({
+      id: `stmt-${item.id}`,
+      date: item.date,
+      reference: item.docNumber,
+      description: item.description,
+      docNumber: item.docNumber,
+      transactionDate: item.date,
+      dueDate: item.dueDate,
+      amount: item.amount,
+      paid: item.paid,
+      credit: item.credit,
+      balanceDue: runningBalance,
+    });
+  }
+
   const closingBalance = state.invoices.reduce(
     (sum, invoice) => sum + invoice.balance,
     0,
   );
 
+  const today = new Date("2026-08-13");
+  let current = 0;
+  let days1_30 = 0;
+  let days31_60 = 0;
+  let days61_90 = 0;
+  let days91plus = 0;
+
+  for (const invoice of state.invoices) {
+    if (invoice.balance <= 0) {
+      continue;
+    }
+    const due = new Date(invoice.dueDate);
+    const diffDays = Math.floor(
+      (today.getTime() - due.getTime()) / (1000 * 60 * 60 * 24),
+    );
+    if (diffDays <= 0) {
+      current += invoice.balance;
+    } else if (diffDays <= 30) {
+      days1_30 += invoice.balance;
+    } else if (diffDays <= 60) {
+      days31_60 += invoice.balance;
+    } else if (diffDays <= 90) {
+      days61_90 += invoice.balance;
+    } else {
+      days91plus += invoice.balance;
+    }
+  }
+
   return {
     entries,
-    openingBalance,
+    openingBalance: 0,
     closingBalance,
+    aging: {
+      current,
+      days1_30,
+      days31_60,
+      days61_90,
+      days91plus,
+      accountBalance: closingBalance,
+    },
   };
 }
 
-export function getStatementDate(): string {
-  return formatDate("2026-08-13");
+export function formatStatementDate(isoDate: string): string {
+  return new Intl.DateTimeFormat("en-ZA", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }).format(new Date(isoDate));
+}
+
+export function formatAmountPlain(amount: number): string {
+  return amount.toLocaleString("en-ZA", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 }

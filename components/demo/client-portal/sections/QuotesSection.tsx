@@ -1,115 +1,123 @@
 "use client";
 
-import { Eye } from "lucide-react";
+import { useMemo, useState } from "react";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
 import { formatDate, formatZar } from "@/lib/demo/client-portal/format";
 import {
-  DemoSectionCard,
-  StatusBadge,
-} from "@/components/demo/client-portal/DemoSectionParts";
+  PortalIconActions,
+  PortalPageHeading,
+  PortalPagination,
+  PortalSearchInput,
+  PortalStatusPill,
+  PortalTable,
+  PortalTableBody,
+  PortalTableCell,
+  PortalTableHead,
+  PortalTableHeadCell,
+  PortalTableRow,
+} from "@/components/demo/client-portal/PortalPrimitives";
 
 export function QuotesSection() {
   const { state, dispatch } = useDemoPortal();
   const { branding, quotes } = state;
+  const [search, setSearch] = useState("");
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) {
+      return quotes;
+    }
+    return quotes.filter((quote) => quote.number.toLowerCase().includes(q));
+  }, [quotes, search]);
 
   return (
-    <DemoSectionCard title="Quotes" description="Review quotes sent by your accountant.">
-      <div className="overflow-x-auto rounded-lg border border-muted/20">
-        <table className="min-w-[680px] w-full text-sm">
-          <thead style={{ backgroundColor: branding.tableHeadingBg }}>
-            <tr>
-              {["Quote Number", "Date", "Expiry Date", "Amount", "Status", "Actions"].map(
-                (heading) => (
-                  <th
-                    key={heading}
-                    className="px-3 py-3 text-left font-semibold"
-                    style={{ color: branding.tableHeadingText }}
-                  >
-                    {heading}
-                  </th>
-                ),
-              )}
-            </tr>
-          </thead>
-          <tbody style={{ color: branding.tableBodyText }}>
-            {quotes.map((quote) => (
-              <tr key={quote.id} className="border-t border-muted/15">
-                <td className="px-3 py-3 font-medium">{quote.number}</td>
-                <td className="px-3 py-3">{formatDate(quote.date)}</td>
-                <td className="px-3 py-3">{formatDate(quote.expiryDate)}</td>
-                <td className="px-3 py-3">{formatZar(quote.amount)}</td>
-                <td className="px-3 py-3">
-                  <StatusBadge label={quote.status} tone="quote" status={quote.status} />
-                </td>
-                <td className="px-3 py-3">
-                  <button
-                    type="button"
-                    onClick={() => dispatch({ type: "VIEW_QUOTE", quoteId: quote.id })}
-                    className="inline-flex items-center gap-1 rounded-button px-2 py-1.5 text-xs font-medium text-portal-blue hover:bg-portal-blue/10"
-                  >
-                    <Eye className="h-3.5 w-3.5" aria-hidden="true" />
-                    View
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="min-h-0 flex-1 overflow-y-auto bg-white p-3 sm:p-4">
+      <PortalPageHeading>Quotes</PortalPageHeading>
+      <div className="mb-3">
+        <PortalSearchInput value={search} onChange={setSearch} />
       </div>
-    </DemoSectionCard>
+      <PortalTable>
+        <PortalTableHead branding={branding}>
+          <PortalTableHeadCell branding={branding}>Quote ↑</PortalTableHeadCell>
+          <PortalTableHeadCell branding={branding}>Amount</PortalTableHeadCell>
+          <PortalTableHeadCell branding={branding}>Expiry</PortalTableHeadCell>
+          <PortalTableHeadCell branding={branding}>Status</PortalTableHeadCell>
+          <PortalTableHeadCell branding={branding}>Actions</PortalTableHeadCell>
+        </PortalTableHead>
+        <PortalTableBody branding={branding}>
+          {filtered.map((quote) => (
+            <PortalTableRow key={quote.id}>
+              <PortalTableCell>{quote.number}</PortalTableCell>
+              <PortalTableCell>{formatZar(quote.amount)}</PortalTableCell>
+              <PortalTableCell>{formatDate(quote.expiryDate)}</PortalTableCell>
+              <PortalTableCell>
+                <PortalStatusPill
+                  label={quote.status === "open" ? "Open" : quote.status}
+                  tone={quote.status === "open" || quote.status === "sent" ? "open" : "neutral"}
+                />
+              </PortalTableCell>
+              <PortalTableCell>
+                <PortalIconActions
+                  onView={() => dispatch({ type: "VIEW_QUOTE", quoteId: quote.id })}
+                  onDownload={() => undefined}
+                  onEdit={() => undefined}
+                  onShare={() => undefined}
+                />
+              </PortalTableCell>
+            </PortalTableRow>
+          ))}
+        </PortalTableBody>
+      </PortalTable>
+      <PortalPagination />
+    </div>
   );
 }
 
 export function CreditNotesSection() {
   const { state, dispatch } = useDemoPortal();
   const { branding, creditNotes } = state;
+  const [search, setSearch] = useState("");
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) {
+      return creditNotes;
+    }
+    return creditNotes.filter((note) => note.number.toLowerCase().includes(q));
+  }, [creditNotes, search]);
 
   return (
-    <DemoSectionCard title="Credit Notes" description="Credits applied or available on your account.">
-      <div className="overflow-x-auto rounded-lg border border-muted/20">
-        <table className="min-w-[680px] w-full text-sm">
-          <thead style={{ backgroundColor: branding.tableHeadingBg }}>
-            <tr>
-              {["Credit Note", "Date", "Reference", "Amount", "Status", "Actions"].map(
-                (heading) => (
-                  <th
-                    key={heading}
-                    className="px-3 py-3 text-left font-semibold"
-                    style={{ color: branding.tableHeadingText }}
-                  >
-                    {heading}
-                  </th>
-                ),
-              )}
-            </tr>
-          </thead>
-          <tbody style={{ color: branding.tableBodyText }}>
-            {creditNotes.map((note) => (
-              <tr key={note.id} className="border-t border-muted/15">
-                <td className="px-3 py-3 font-medium">{note.number}</td>
-                <td className="px-3 py-3">{formatDate(note.date)}</td>
-                <td className="px-3 py-3">{note.reference}</td>
-                <td className="px-3 py-3">{formatZar(note.amount)}</td>
-                <td className="px-3 py-3">
-                  <StatusBadge label={note.status} tone="credit" status={note.status} />
-                </td>
-                <td className="px-3 py-3">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      dispatch({ type: "VIEW_CREDIT_NOTE", creditNoteId: note.id })
-                    }
-                    className="inline-flex items-center gap-1 rounded-button px-2 py-1.5 text-xs font-medium text-portal-blue hover:bg-portal-blue/10"
-                  >
-                    <Eye className="h-3.5 w-3.5" aria-hidden="true" />
-                    View
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="min-h-0 flex-1 overflow-y-auto bg-white p-3 sm:p-4">
+      <PortalPageHeading>Credit Notes</PortalPageHeading>
+      <div className="mb-3">
+        <PortalSearchInput value={search} onChange={setSearch} />
       </div>
-    </DemoSectionCard>
+      <PortalTable>
+        <PortalTableHead branding={branding}>
+          <PortalTableHeadCell branding={branding}>Credit Note ↑</PortalTableHeadCell>
+          <PortalTableHeadCell branding={branding}>Amount</PortalTableHeadCell>
+          <PortalTableHeadCell branding={branding}>Actions</PortalTableHeadCell>
+        </PortalTableHead>
+        <PortalTableBody branding={branding}>
+          {filtered.map((note) => (
+            <PortalTableRow key={note.id}>
+              <PortalTableCell>{note.number}</PortalTableCell>
+              <PortalTableCell>{formatZar(note.amount)}</PortalTableCell>
+              <PortalTableCell>
+                <PortalIconActions
+                  onView={() =>
+                    dispatch({ type: "VIEW_CREDIT_NOTE", creditNoteId: note.id })
+                  }
+                  onDownload={() => undefined}
+                  onEdit={() => undefined}
+                  onShare={() => undefined}
+                />
+              </PortalTableCell>
+            </PortalTableRow>
+          ))}
+        </PortalTableBody>
+      </PortalTable>
+      <PortalPagination />
+    </div>
   );
 }
