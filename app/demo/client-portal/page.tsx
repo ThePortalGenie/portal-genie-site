@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { noIndexPageMetadata } from "@/config/seo";
 import { ClientPortalDemo } from "@/components/demo/client-portal/ClientPortalDemo";
 import { DemoAccessGate } from "@/components/demo-access/DemoAccessGate";
-import { hasValidAdminDemoSession, tryEstablishAdminBypass } from "@/lib/demo-auth/admin-session";
+import { hasValidAdminDemoSession } from "@/lib/demo-auth/admin-session";
 import { getVerifiedDemoSession } from "@/lib/demo-auth/session";
 
 export const metadata: Metadata = noIndexPageMetadata({
@@ -20,8 +20,8 @@ export default async function ClientPortalDemoPage({
   const params = await searchParams;
 
   if (params.admin_bypass) {
-    await tryEstablishAdminBypass(params.admin_bypass);
-    redirect("/demo/client-portal");
+    const query = new URLSearchParams({ token: params.admin_bypass });
+    redirect(`/api/demo/admin-bypass?${query.toString()}`);
   }
 
   const [verifiedSession, adminSession] = await Promise.all([

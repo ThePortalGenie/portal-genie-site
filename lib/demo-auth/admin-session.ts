@@ -34,18 +34,23 @@ function secretsMatch(supplied: string, expected: string): boolean {
   return timingSafeEqual(suppliedBuffer, expectedBuffer);
 }
 
-export async function tryEstablishAdminBypass(suppliedSecret: string): Promise<boolean> {
+/** Validates supplied token against DEMO_ADMIN_BYPASS_SECRET (read-only). */
+export function isValidAdminBypassToken(suppliedSecret: string): boolean {
   const configuredSecret = getConfiguredAdminBypassSecret();
   if (!configuredSecret || !suppliedSecret.trim()) {
     return false;
   }
 
-  if (!secretsMatch(suppliedSecret.trim(), configuredSecret)) {
-    return false;
-  }
+  return secretsMatch(suppliedSecret.trim(), configuredSecret);
+}
 
+/**
+ * Creates an admin session record in Redis. Returns opaque session ID or null.
+ * Does not set cookies — use the admin-bypass Route Handler for that.
+ */
+export async function createAdminDemoSessionInRedis(): Promise<string | null> {
   if (!isDemoRedisConfigured()) {
-    return false;
+    return null;
   }
 
   const redis = getDemoRedis();
@@ -60,18 +65,28 @@ export async function tryEstablishAdminBypass(suppliedSecret: string): Promise<b
     ex: DEMO_ADMIN_SESSION_TTL_SECONDS,
   });
 
-  const cookieStore = await cookies();
-  cookieStore.set(DEMO_ADMIN_SESSION_COOKIE_NAME, sessionId, {
+  return sessionId;
+}
+
+export function getAdminDemoSessionCookieOptions(): {
+  httpOnly: boolean;
+  secure: boolean;
+  sameSite: "lax";
+  path: string;
+  maxAge: number;
+} {
+  return {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
     maxAge: DEMO_ADMIN_SESSION_TTL_SECONDS,
-  });
-
-  return true;
+  };
 }
 
+export { DEMO_ADMIN_SESSION_COOKIE_NAME };
+
+/** Read-only check for a valid admin demo session (Server Components). */
 export async function hasValidAdminDemoSession(): Promise<boolean> {
   if (!isDemoRedisConfigured()) {
     return false;
