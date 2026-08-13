@@ -94,7 +94,7 @@ export const BANNER_ASSETS: Record<
 > = {
   "portal-genie": {
     image: "/demo/client-portal/banners/portal-genie-win-tv.png",
-    alt: "Portal Genie promotion — Win This TV",
+    alt: "Portal Genie — Win This TV contest entry (Xerocon Denver)",
   },
   "tax-season": { alt: "Tax season reminder" },
   "refer-client": { alt: "Refer a client promotion" },

@@ -18,7 +18,7 @@ export function DemoSidebar({ mobile = false }: DemoSidebarProps) {
   const nav = (
     <>
       <nav aria-label="Portal navigation" className="px-3">
-        <ul className="space-y-1">
+        <ul className="space-y-1.5">
           {NAV_ITEMS.map((item) => {
             const selected = section === item.id;
             return (
@@ -28,7 +28,7 @@ export function DemoSidebar({ mobile = false }: DemoSidebarProps) {
                   onClick={() =>
                     dispatch({ type: "SET_SECTION", section: item.id as PortalSection })
                   }
-                  className="w-full px-3 py-2 text-left text-[13px] font-medium"
+                  className="w-full px-3 py-2.5 text-left text-[13px] font-medium"
                   style={{
                     color: selected ? branding.menuSelectedText : branding.menuText,
                     backgroundColor: selected ? branding.menuSelectedBg : "transparent",
@@ -42,7 +42,7 @@ export function DemoSidebar({ mobile = false }: DemoSidebarProps) {
           })}
         </ul>
       </nav>
-      <div className="px-3 pt-4">
+      <div className="px-3 pt-5">
         <button
           type="button"
           onClick={() => dispatch({ type: "SET_UPLOAD_MODAL", open: true })}
@@ -57,7 +57,7 @@ export function DemoSidebar({ mobile = false }: DemoSidebarProps) {
   );
 
   const content = (
-    <div className="flex h-full flex-col py-5">
+    <div className="flex h-full min-h-full flex-col py-5">
       <div className="mb-8 flex flex-col items-center px-4 text-center">
         <div className="mb-3 flex h-[88px] w-[88px] items-center justify-center overflow-hidden rounded-full bg-white">
           <img
@@ -96,7 +96,7 @@ export function DemoSidebar({ mobile = false }: DemoSidebarProps) {
 
   return (
     <aside
-      className="hidden h-full w-[15%] min-w-[180px] max-w-[220px] shrink-0 lg:block"
+      className="hidden min-h-full self-stretch lg:col-start-1 lg:row-span-2 lg:block"
       style={{ backgroundColor: branding.sidebarBg }}
     >
       {content}

@@ -85,27 +85,27 @@ function PortalContentArea() {
 function ClientPortalDemoInner() {
   return (
     <div className="flex min-h-[100dvh] flex-col bg-white">
-      <div className="border-b border-[#ececec] bg-[#fafafa] px-3 py-1">
+      <div className="shrink-0 border-b border-[#ececec] bg-[#fafafa] px-3 py-1">
         <p className="text-center text-[10px] text-[#666]">
           Demo Portal · Interactive demonstration — no real transactions
         </p>
       </div>
 
-      <div className="flex min-h-0 flex-1">
+      <div className="grid min-h-[calc(100dvh-28px)] flex-1 lg:grid-cols-[minmax(180px,15%)_1fr] lg:grid-rows-[auto_1fr]">
         <DemoSidebar />
         <DemoSidebar mobile />
 
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+        <div className="min-w-0 lg:col-start-2 lg:row-start-1">
           <DemoTopBar />
+        </div>
 
-          <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
-            <div className="flex min-h-0 min-w-0 flex-[1_1_50%] flex-col">
-              <PortalContentArea />
-              <DemoPortalAdvertisingMobile />
-            </div>
-            <div className="hidden min-h-0 min-w-0 flex-[1_1_50%] lg:flex">
-              <DemoPortalAdvertisingPanel />
-            </div>
+        <div className="grid min-h-0 min-w-0 lg:col-start-2 lg:row-start-2 lg:grid-cols-2">
+          <div className="flex min-h-0 min-w-0 flex-col overflow-hidden">
+            <PortalContentArea />
+            <DemoPortalAdvertisingMobile />
+          </div>
+          <div className="hidden min-h-0 min-w-0 lg:block">
+            <DemoPortalAdvertisingPanel />
           </div>
         </div>
       </div>

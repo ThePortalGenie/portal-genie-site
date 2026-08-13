@@ -37,6 +37,7 @@ export function DemoPortalAdvertisingPanel() {
         src={banner.image}
         alt={banner.alt}
         className="max-h-full max-w-full object-contain"
+        draggable={false}
       />
     );
   } else if (state.activeBanner === "tax-season") {
@@ -67,12 +68,10 @@ export function DemoPortalAdvertisingPanel() {
 
   return (
     <aside
-      className="flex h-full min-h-0 items-center justify-center border-l border-[#ececec] bg-white p-2"
+      className="flex h-full min-h-0 items-center justify-center border-l border-[#ececec] bg-white p-4"
       aria-label="Promotional banner"
     >
-      <div className="flex h-full w-full items-center justify-center overflow-hidden">
-        {content}
-      </div>
+      {content}
     </aside>
   );
 }
@@ -83,8 +82,13 @@ export function DemoPortalAdvertisingMobile() {
 
   if (state.activeBanner === "portal-genie" && banner.image) {
     return (
-      <div className="mt-4 border border-[#ececec] bg-white p-2 lg:hidden">
-        <img src={banner.image} alt={banner.alt} className="mx-auto max-h-[420px] w-full object-contain" />
+      <div className="mt-4 border-t border-[#ececec] bg-white p-4 lg:hidden">
+        <img
+          src={banner.image}
+          alt={banner.alt}
+          className="mx-auto max-h-[420px] w-full max-w-[420px] object-contain"
+          draggable={false}
+        />
       </div>
     );
   }

@@ -46,7 +46,7 @@ export function InvoiceDocumentView({ invoice }: { invoice: Invoice }) {
         showAddToCart={invoice.balance > 0}
       />
 
-      <div className="mx-auto w-full max-w-[640px] border border-[#ececec] bg-white p-6 text-[12px] text-[#112136] shadow-sm">
+      <div className="mx-auto w-full max-w-[640px] border border-[#ececec] bg-white p-6 text-[12px] text-[#112136]">
         <div className="mb-6 flex items-start justify-between">
           <div>
             <h3 className="text-[18px] font-bold">TAX INVOICE</h3>
