@@ -359,7 +359,7 @@ export function PortalIconActions({
 
   if (isInvoiceVariant) {
     return (
-      <div className="inline-flex items-center justify-start gap-[9px] text-[#112136]">
+      <div className="flex w-full items-center justify-end gap-[6px] overflow-hidden whitespace-nowrap min-[1536px]:gap-[9px] text-[#112136]">
         {onView ? (
           <button
             type="button"

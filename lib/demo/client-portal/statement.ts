@@ -106,7 +106,7 @@ export function buildStatementEntries(state: DemoPortalState): {
       description: item.description,
       docNumber: item.docNumber,
       transactionDate: item.date,
-      dueDate: item.dueDate,
+      dueDate: item.type === "credit" ? "" : item.dueDate,
       amount: item.amount,
       paid: item.paid,
       credit: item.credit,

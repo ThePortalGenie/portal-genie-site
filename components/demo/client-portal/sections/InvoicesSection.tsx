@@ -34,8 +34,8 @@ const SORT_COLUMNS: Array<{
   { field: "dueDate", label: "Due" },
 ];
 
-/** Compact column proportions — clustered accounting-style layout. */
-const INVOICE_COLUMN_WIDTHS = ["17%", "16%", "14%", "14%", "15%", "11%", "13%"] as const;
+/** Compact column proportions — Actions widened for icon containment at laptop widths. */
+const INVOICE_COLUMN_WIDTHS = ["17%", "14%", "13%", "13%", "14%", "11%", "18%"] as const;
 
 export function InvoicesSection() {
   const { state, dispatch, payableInvoices } = useDemoPortal();
@@ -193,7 +193,7 @@ export function InvoicesSection() {
           <PortalTableHeadCell branding={branding} compact dense>
             Status
           </PortalTableHeadCell>
-          <PortalTableHeadCell branding={branding} compact dense className="min-w-0 !px-[4px]">
+          <PortalTableHeadCell branding={branding} compact dense className="min-w-0 !pl-[4px] !pr-[10px]">
             Actions
           </PortalTableHeadCell>
         </PortalTableHead>
@@ -242,7 +242,7 @@ export function InvoicesSection() {
                       tone={invoice.status === "paid" ? "paid" : "unpaid"}
                     />
                   </PortalTableCell>
-                  <PortalTableCell compact dense className="min-w-0 !px-[4px]">
+                  <PortalTableCell compact dense className="min-w-0 overflow-hidden !pl-[4px] !pr-[10px]">
                     <PortalIconActions
                       dense
                       variant="invoice"
