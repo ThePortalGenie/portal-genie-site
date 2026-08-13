@@ -144,6 +144,19 @@ export type BannerId =
 
 export type PreviewMode = "desktop" | "mobile";
 
+export type MobilePortalView = "home" | "content" | "notice-board";
+
+export type MobileDesignTheme = {
+  tileIconColour: string;
+  tileLabelColour: string;
+  tileBackgroundColour: string;
+  mainBackgroundColour: string;
+  footerBackgroundColour: string;
+  headerBackgroundColour: string;
+  addToCartButtonColour: string;
+  footerIconLabelColour: string;
+};
+
 export type NoticeBoardKind = "preset-image" | "preset-css" | "custom";
 
 export type NoticeBoard = {
@@ -208,6 +221,9 @@ export type DemoPortalState = {
   alternateLogoUrl: string | null;
   useAlternatePortalLogo: boolean;
   previewMode: PreviewMode;
+  mobilePortalView: MobilePortalView;
+  mobileBannerUrl: string | null;
+  mobileDesign: MobileDesignTheme;
   noticeBoards: NoticeBoard[];
   activeNoticeBoardId: string;
   paymentModalOpen: boolean;
@@ -258,6 +274,9 @@ export type DemoPortalAction =
   | { type: "SET_ALTERNATE_LOGO"; alternateLogoUrl: string | null }
   | { type: "SET_USE_ALTERNATE_PORTAL_LOGO"; enabled: boolean }
   | { type: "SET_PREVIEW_MODE"; mode: PreviewMode }
+  | { type: "SET_MOBILE_PORTAL_VIEW"; view: MobilePortalView }
+  | { type: "SET_MOBILE_BANNER"; mobileBannerUrl: string | null }
+  | { type: "SET_MOBILE_DESIGN"; mobileDesign: Partial<MobileDesignTheme> }
   | { type: "SET_LOGO_ERROR"; error: string | null }
   | { type: "SET_ACTIVE_NOTICE_BOARD"; noticeBoardId: string }
   | { type: "ADD_NOTICE_BOARD"; board: NoticeBoard }

@@ -1,14 +1,14 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Monitor, Smartphone } from "lucide-react";
 import {
   BRAND_PRESETS,
   DEFAULT_LOGO_PATH,
 } from "@/lib/demo/client-portal/constants";
+import { MOBILE_COLOUR_FIELDS } from "@/lib/demo/client-portal/mobile-design";
 import { getPortalLogo, revokeBlobUrl } from "@/lib/demo/client-portal/portal-logo";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import type { BrandPresetId, BrandingTheme, NoticeBoard } from "@/lib/demo/client-portal/types";
+import type { BrandPresetId, BrandingTheme, DemoPortalState, NoticeBoard } from "@/lib/demo/client-portal/types";
 import { PortalColourSelector } from "@/components/demo/client-portal/PortalColourSelector";
 import { NoticeBoardEditorModal } from "@/components/demo/client-portal/NoticeBoardEditorModal";
 
@@ -58,121 +58,40 @@ function LogoPreview({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-export function CustomiseDesignTab() {
-  const { state, dispatch } = useDemoPortal();
-  const mainLogoInputRef = useRef<HTMLInputElement>(null);
-  const alternateLogoInputRef = useRef<HTMLInputElement>(null);
-  const [noticeBoardEditorOpen, setNoticeBoardEditorOpen] = useState(false);
-  const [editingNoticeBoard, setEditingNoticeBoard] = useState<NoticeBoard | null>(null);
-
+function DesktopDesignControls({
+  state,
+  dispatch,
+  mainLogoInputRef,
+  alternateLogoInputRef,
+  onMainLogoUpload,
+  onAlternateLogoUpload,
+  removeMainLogo,
+  removeAlternateLogo,
+  noticeBoardEditorOpen,
+  setNoticeBoardEditorOpen,
+  editingNoticeBoard,
+  setEditingNoticeBoard,
+  onNoticeBoardSave,
+}: {
+  state: DemoPortalState;
+  dispatch: ReturnType<typeof useDemoPortal>["dispatch"];
+  mainLogoInputRef: React.RefObject<HTMLInputElement | null>;
+  alternateLogoInputRef: React.RefObject<HTMLInputElement | null>;
+  onMainLogoUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onAlternateLogoUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  removeMainLogo: () => void;
+  removeAlternateLogo: () => void;
+  noticeBoardEditorOpen: boolean;
+  setNoticeBoardEditorOpen: (open: boolean) => void;
+  editingNoticeBoard: NoticeBoard | null;
+  setEditingNoticeBoard: (board: NoticeBoard | null) => void;
+  onNoticeBoardSave: (board: NoticeBoard, setActive: boolean) => void;
+}) {
   const portalLogoSrc = getPortalLogo(state);
   const mainLogoSrc = state.logoUrl ?? DEFAULT_LOGO_PATH;
 
-  const handleMainLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    event.target.value = "";
-    if (!file) {
-      return;
-    }
-    if (!ACCEPTED_LOGO_TYPES.includes(file.type)) {
-      dispatch({
-        type: "SET_LOGO_ERROR",
-        error: "Please choose a PNG, JPG, WebP, or SVG image.",
-      });
-      return;
-    }
-    revokeBlobUrl(state.logoUrl);
-    dispatch({ type: "SET_LOGO", logoUrl: URL.createObjectURL(file) });
-  };
-
-  const removeMainLogo = () => {
-    revokeBlobUrl(state.logoUrl);
-    dispatch({ type: "SET_LOGO", logoUrl: null });
-  };
-
-  const handleAlternateLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    event.target.value = "";
-    if (!file) {
-      return;
-    }
-    if (!ACCEPTED_LOGO_TYPES.includes(file.type)) {
-      dispatch({
-        type: "SET_LOGO_ERROR",
-        error: "Please choose a PNG, JPG, WebP, or SVG image.",
-      });
-      return;
-    }
-    revokeBlobUrl(state.alternateLogoUrl);
-    dispatch({ type: "SET_ALTERNATE_LOGO", alternateLogoUrl: URL.createObjectURL(file) });
-  };
-
-  const removeAlternateLogo = () => {
-    revokeBlobUrl(state.alternateLogoUrl);
-    dispatch({ type: "SET_ALTERNATE_LOGO", alternateLogoUrl: null });
-  };
-
-  const handleNoticeBoardSave = (board: NoticeBoard, setActive: boolean) => {
-    if (editingNoticeBoard) {
-      dispatch({
-        type: "UPDATE_NOTICE_BOARD",
-        noticeBoardId: board.id,
-        patch: {
-          name: board.name,
-          headline: board.headline,
-          body: board.body,
-          ctaText: board.ctaText,
-          destinationUrl: board.destinationUrl,
-          imageUrl: board.imageUrl,
-        },
-      });
-      if (setActive) {
-        dispatch({ type: "SET_ACTIVE_NOTICE_BOARD", noticeBoardId: board.id });
-      }
-    } else {
-      dispatch({ type: "ADD_NOTICE_BOARD", board });
-      if (setActive) {
-        dispatch({ type: "SET_ACTIVE_NOTICE_BOARD", noticeBoardId: board.id });
-      }
-    }
-    setEditingNoticeBoard(null);
-  };
-
   return (
     <>
-      <div className="sticky top-0 z-10 -mx-4 border-b border-muted/15 bg-surface px-4 py-3">
-        <h3 className="text-sm font-semibold text-portal-navy">Preview</h3>
-        <div className="mt-2 inline-flex rounded-lg border border-muted/25 p-0.5">
-          <button
-            type="button"
-            onClick={() => dispatch({ type: "SET_PREVIEW_MODE", mode: "desktop" })}
-            className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-colors ${
-              state.previewMode === "desktop"
-                ? "bg-portal-blue/15 text-portal-navy"
-                : "text-portal-navy/60 hover:text-portal-navy"
-            }`}
-          >
-            <Monitor className="h-3.5 w-3.5" aria-hidden="true" />
-            Desktop
-          </button>
-          <button
-            type="button"
-            onClick={() => dispatch({ type: "SET_PREVIEW_MODE", mode: "mobile" })}
-            className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-colors ${
-              state.previewMode === "mobile"
-                ? "bg-portal-blue/15 text-portal-navy"
-                : "text-portal-navy/60 hover:text-portal-navy"
-            }`}
-          >
-            <Smartphone className="h-3.5 w-3.5" aria-hidden="true" />
-            Mobile
-          </button>
-        </div>
-      </div>
-      <p className="border-b border-muted/15 pb-6 pt-2 text-xs text-portal-navy/60">
-        Switch how the live Client Portal preview is displayed.
-      </p>
-
       <DesignSection title="Branding">
         <p className="mt-1 text-xs text-portal-navy/60">Brand presets</p>
         <div className="mt-2 grid grid-cols-2 gap-2">
@@ -240,7 +159,7 @@ export function CustomiseDesignTab() {
                 type="file"
                 accept={ACCEPTED_LOGO_TYPES.join(",")}
                 className="sr-only"
-                onChange={handleMainLogoUpload}
+                onChange={onMainLogoUpload}
               />
             </div>
           </div>
@@ -291,11 +210,12 @@ export function CustomiseDesignTab() {
                 type="file"
                 accept={ACCEPTED_LOGO_TYPES.join(",")}
                 className="sr-only"
-                onChange={handleAlternateLogoUpload}
+                onChange={onAlternateLogoUpload}
               />
             </div>
             <p className="mt-2 text-[11px] text-portal-navy/50">
-              Portal preview currently shows: {portalLogoSrc === mainLogoSrc ? "Main Logo" : "Alternate Logo"}
+              Portal preview currently shows:{" "}
+              {portalLogoSrc === mainLogoSrc ? "Main Logo" : "Alternate Logo"}
             </p>
           </div>
         </div>
@@ -307,6 +227,7 @@ export function CustomiseDesignTab() {
       </DesignSection>
 
       <DesignSection title="Colour Controls">
+        <p className="mt-1 text-xs text-portal-navy/60">Desktop / shared portal colours</p>
         <div className="mt-3 space-y-2.5">
           {BRANDING_FIELDS.map((field) => (
             <PortalColourSelector
@@ -399,8 +320,223 @@ export function CustomiseDesignTab() {
           setEditingNoticeBoard(null);
         }}
         initialBoard={editingNoticeBoard}
-        onSave={handleNoticeBoardSave}
+        onSave={onNoticeBoardSave}
       />
     </>
+  );
+}
+
+function MobileDesignControls({
+  state,
+  dispatch,
+  mobileBannerInputRef,
+  onMobileBannerUpload,
+  removeMobileBanner,
+}: {
+  state: DemoPortalState;
+  dispatch: ReturnType<typeof useDemoPortal>["dispatch"];
+  mobileBannerInputRef: React.RefObject<HTMLInputElement | null>;
+  onMobileBannerUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  removeMobileBanner: () => void;
+}) {
+  return (
+    <>
+      <DesignSection title="Mobile Banner">
+        <div className="mt-3 flex flex-wrap items-center gap-3">
+          {state.mobileBannerUrl ? (
+            <div className="aspect-[5/2] h-14 overflow-hidden rounded-lg border border-muted/20">
+              <img
+                src={state.mobileBannerUrl}
+                alt="Mobile banner preview"
+                className="h-full w-full object-cover object-center"
+              />
+            </div>
+          ) : (
+            <div className="flex h-14 w-28 items-center justify-center rounded-lg border border-dashed border-muted/30 bg-muted/5 text-[10px] text-portal-navy/45">
+              Default
+            </div>
+          )}
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => mobileBannerInputRef.current?.click()}
+              className="rounded-lg border border-muted/30 px-3 py-2 text-sm font-medium text-portal-navy/80 hover:border-portal-blue/30"
+            >
+              {state.mobileBannerUrl ? "Replace" : "Choose Image"}
+            </button>
+            {state.mobileBannerUrl ? (
+              <button
+                type="button"
+                onClick={removeMobileBanner}
+                className="rounded-lg border border-muted/30 px-3 py-2 text-sm font-medium text-portal-navy/70 hover:border-red-200 hover:text-red-600"
+              >
+                Remove
+              </button>
+            ) : null}
+          </div>
+          <input
+            ref={mobileBannerInputRef}
+            type="file"
+            accept={ACCEPTED_LOGO_TYPES.join(",")}
+            className="sr-only"
+            onChange={onMobileBannerUpload}
+          />
+        </div>
+        {state.logoError ? (
+          <p className="mt-2 text-xs text-red-600/80" role="alert">
+            {state.logoError}
+          </p>
+        ) : null}
+      </DesignSection>
+
+      <DesignSection title="Mobile Colours" className="border-b-0 pb-0">
+        <div className="mt-3 space-y-2.5">
+          {MOBILE_COLOUR_FIELDS.map((field) => (
+            <PortalColourSelector
+              key={field.key}
+              label={field.label}
+              value={state.mobileDesign[field.key]}
+              onChange={(color) =>
+                dispatch({
+                  type: "SET_MOBILE_DESIGN",
+                  mobileDesign: { [field.key]: color },
+                })
+              }
+            />
+          ))}
+        </div>
+      </DesignSection>
+    </>
+  );
+}
+
+export function CustomiseDesignTab() {
+  const { state, dispatch } = useDemoPortal();
+  const mainLogoInputRef = useRef<HTMLInputElement>(null);
+  const alternateLogoInputRef = useRef<HTMLInputElement>(null);
+  const mobileBannerInputRef = useRef<HTMLInputElement>(null);
+  const [noticeBoardEditorOpen, setNoticeBoardEditorOpen] = useState(false);
+  const [editingNoticeBoard, setEditingNoticeBoard] = useState<NoticeBoard | null>(null);
+
+  const handleMainLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) {
+      return;
+    }
+    if (!ACCEPTED_LOGO_TYPES.includes(file.type)) {
+      dispatch({
+        type: "SET_LOGO_ERROR",
+        error: "Please choose a PNG, JPG, WebP, or SVG image.",
+      });
+      return;
+    }
+    revokeBlobUrl(state.logoUrl);
+    dispatch({ type: "SET_LOGO", logoUrl: URL.createObjectURL(file) });
+  };
+
+  const removeMainLogo = () => {
+    revokeBlobUrl(state.logoUrl);
+    dispatch({ type: "SET_LOGO", logoUrl: null });
+  };
+
+  const handleAlternateLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) {
+      return;
+    }
+    if (!ACCEPTED_LOGO_TYPES.includes(file.type)) {
+      dispatch({
+        type: "SET_LOGO_ERROR",
+        error: "Please choose a PNG, JPG, WebP, or SVG image.",
+      });
+      return;
+    }
+    revokeBlobUrl(state.alternateLogoUrl);
+    dispatch({ type: "SET_ALTERNATE_LOGO", alternateLogoUrl: URL.createObjectURL(file) });
+  };
+
+  const removeAlternateLogo = () => {
+    revokeBlobUrl(state.alternateLogoUrl);
+    dispatch({ type: "SET_ALTERNATE_LOGO", alternateLogoUrl: null });
+  };
+
+  const handleMobileBannerUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) {
+      return;
+    }
+    if (!ACCEPTED_LOGO_TYPES.includes(file.type)) {
+      dispatch({
+        type: "SET_LOGO_ERROR",
+        error: "Please choose a PNG, JPG, WebP, or SVG image.",
+      });
+      return;
+    }
+    revokeBlobUrl(state.mobileBannerUrl);
+    dispatch({ type: "SET_MOBILE_BANNER", mobileBannerUrl: URL.createObjectURL(file) });
+  };
+
+  const removeMobileBanner = () => {
+    revokeBlobUrl(state.mobileBannerUrl);
+    dispatch({ type: "SET_MOBILE_BANNER", mobileBannerUrl: null });
+  };
+
+  const handleNoticeBoardSave = (board: NoticeBoard, setActive: boolean) => {
+    if (editingNoticeBoard) {
+      dispatch({
+        type: "UPDATE_NOTICE_BOARD",
+        noticeBoardId: board.id,
+        patch: {
+          name: board.name,
+          headline: board.headline,
+          body: board.body,
+          ctaText: board.ctaText,
+          destinationUrl: board.destinationUrl,
+          imageUrl: board.imageUrl,
+        },
+      });
+      if (setActive) {
+        dispatch({ type: "SET_ACTIVE_NOTICE_BOARD", noticeBoardId: board.id });
+      }
+    } else {
+      dispatch({ type: "ADD_NOTICE_BOARD", board });
+      if (setActive) {
+        dispatch({ type: "SET_ACTIVE_NOTICE_BOARD", noticeBoardId: board.id });
+      }
+    }
+    setEditingNoticeBoard(null);
+  };
+
+  if (state.previewMode === "mobile") {
+    return (
+      <MobileDesignControls
+        state={state}
+        dispatch={dispatch}
+        mobileBannerInputRef={mobileBannerInputRef}
+        onMobileBannerUpload={handleMobileBannerUpload}
+        removeMobileBanner={removeMobileBanner}
+      />
+    );
+  }
+
+  return (
+    <DesktopDesignControls
+      state={state}
+      dispatch={dispatch}
+      mainLogoInputRef={mainLogoInputRef}
+      alternateLogoInputRef={alternateLogoInputRef}
+      onMainLogoUpload={handleMainLogoUpload}
+      onAlternateLogoUpload={handleAlternateLogoUpload}
+      removeMainLogo={removeMainLogo}
+      removeAlternateLogo={removeAlternateLogo}
+      noticeBoardEditorOpen={noticeBoardEditorOpen}
+      setNoticeBoardEditorOpen={setNoticeBoardEditorOpen}
+      editingNoticeBoard={editingNoticeBoard}
+      setEditingNoticeBoard={setEditingNoticeBoard}
+      onNoticeBoardSave={handleNoticeBoardSave}
+    />
   );
 }

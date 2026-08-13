@@ -12,18 +12,17 @@ import { useDemoPortal } from "@/lib/demo/client-portal/context";
 import { DemoToggle } from "@/components/demo/client-portal/PortalSettingToggle";
 
 function FolderTypeBadge({ type }: { type: PortalFolderConfig["type"] }) {
+  const className =
+    "inline-flex h-[21px] shrink-0 items-center rounded-full px-2.5 text-[10px] font-semibold uppercase tracking-wide";
+
   if (type === "system") {
     return (
-      <span className="inline-flex rounded-full bg-[#DCFCE7] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[#15803D]">
-        System
-      </span>
+      <span className={`${className} bg-[#DCFCE7] text-[#15803D]`}>System</span>
     );
   }
 
   return (
-    <span className="inline-flex rounded-full bg-[#DBEAFE] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[#2563EB]">
-      Custom
-    </span>
+    <span className={`${className} bg-[#DBEAFE] text-[#2563EB]`}>Custom</span>
   );
 }
 
@@ -221,7 +220,7 @@ export function CustomiseFolderManagementTab() {
           </p>
         ) : null}
 
-        <ul ref={listRef} className="mt-5 space-y-3 sm:mt-6">
+        <ul ref={listRef} className="mt-5 space-y-2 sm:mt-6">
           {state.portalFolders.map((folder) => {
             const isDragging = draggedId === folder.id;
             const showDropBefore =
@@ -229,121 +228,120 @@ export function CustomiseFolderManagementTab() {
             const showDropAfter =
               dropTarget?.id === folder.id && dropTarget.insertAfter && draggedId !== folder.id;
             const isEditing = editingFolderId === folder.id;
+            const showAllowUpload = canAllowUpload(folder);
 
             return (
               <li
                 key={folder.id}
                 onDragOver={(event) => handleDragOver(event, folder.id)}
                 onDrop={(event) => handleDrop(event, folder.id)}
-                className={`relative rounded-lg border border-muted/20 bg-background/40 p-3 transition-all duration-150 ${
+                className={`relative rounded-lg border border-muted/20 bg-background/40 px-4 py-3 transition-all duration-150 ${
                   isDragging ? "scale-[1.01] opacity-60 shadow-md" : ""
                 } ${!folder.visible ? "opacity-80" : ""}`}
               >
                 {showDropBefore ? (
                   <span
                     aria-hidden="true"
-                    className="absolute -top-1.5 left-3 right-3 h-0.5 rounded-full bg-portal-blue"
+                    className="absolute -top-1 left-4 right-4 h-0.5 rounded-full bg-portal-blue"
                   />
                 ) : null}
                 {showDropAfter ? (
                   <span
                     aria-hidden="true"
-                    className="absolute -bottom-1.5 left-3 right-3 h-0.5 rounded-full bg-portal-blue"
+                    className="absolute -bottom-1 left-4 right-4 h-0.5 rounded-full bg-portal-blue"
                   />
                 ) : null}
 
-                <div className="flex items-start gap-2">
-                  <button
-                    type="button"
-                    draggable
-                    title="Drag to reorder"
-                    onDragStart={(event) => {
-                      event.dataTransfer.effectAllowed = "move";
-                      event.dataTransfer.setData("text/plain", folder.id);
-                      setDraggedId(folder.id);
-                    }}
-                    onDragEnd={clearDragState}
-                    className="mt-0.5 shrink-0 cursor-grab touch-none rounded p-1 text-portal-navy/40 hover:bg-muted/20 hover:text-portal-navy/60 active:cursor-grabbing"
-                    aria-label={`Drag to reorder ${folder.name}`}
-                  >
-                    <GripVertical className="h-4 w-4" aria-hidden="true" />
-                  </button>
+                <div className="flex items-start gap-1.5">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex min-w-0 items-center gap-1.5">
+                      <button
+                        type="button"
+                        draggable
+                        title="Drag to reorder"
+                        onDragStart={(event) => {
+                          event.dataTransfer.effectAllowed = "move";
+                          event.dataTransfer.setData("text/plain", folder.id);
+                          setDraggedId(folder.id);
+                        }}
+                        onDragEnd={clearDragState}
+                        className="-ml-0.5 shrink-0 cursor-grab touch-none rounded p-0.5 text-portal-navy/40 hover:bg-muted/20 hover:text-portal-navy/60 active:cursor-grabbing"
+                        aria-label={`Drag to reorder ${folder.name}`}
+                      >
+                        <GripVertical className="h-4 w-4" aria-hidden="true" />
+                      </button>
 
-                  <div className="min-w-0 flex-1 space-y-2.5">
-                    {folder.type === "system" ? (
-                      <div>
-                        <FolderTypeBadge type="system" />
-                        <p className="mt-1.5 text-sm font-medium text-portal-navy">{folder.name}</p>
+                      {isEditing ? (
+                        <input
+                          value={renameDraft}
+                          onChange={(event) => {
+                            setRenameDraft(event.target.value);
+                            if (renameError) {
+                              setRenameError(null);
+                            }
+                          }}
+                          className="min-w-0 flex-1 rounded-lg border border-muted/30 px-2 py-1 text-[14px] font-medium text-portal-navy"
+                          autoFocus
+                          onKeyDown={(event) => {
+                            if (event.key === "Enter") {
+                              saveRename(folder.id);
+                            }
+                            if (event.key === "Escape") {
+                              cancelRename();
+                            }
+                          }}
+                        />
+                      ) : (
+                        <p className="min-w-0 flex-1 truncate text-[14px] font-semibold leading-tight text-portal-navy">
+                          {folder.name}
+                        </p>
+                      )}
+
+                      <div className="ml-auto flex shrink-0 items-center gap-0.5">
+                        <FolderTypeBadge type={folder.type} />
+                        {!isEditing && folder.type === "custom" && canRenameFolder(folder) ? (
+                          <button
+                            type="button"
+                            onClick={() => startRename(folder)}
+                            className="rounded p-1 text-portal-navy/50 hover:bg-muted/20 hover:text-portal-navy/70"
+                            aria-label={`Rename ${folder.name}`}
+                          >
+                            <Pencil className="h-3.5 w-3.5" aria-hidden="true" />
+                          </button>
+                        ) : null}
                       </div>
-                    ) : isEditing ? (
-                      <div>
-                        <FolderTypeBadge type="custom" />
-                        <div className="mt-1.5 flex flex-wrap items-center gap-2">
-                          <input
-                            value={renameDraft}
-                            onChange={(event) => {
-                              setRenameDraft(event.target.value);
-                              if (renameError) {
-                                setRenameError(null);
-                              }
-                            }}
-                            className="min-w-0 flex-1 rounded-lg border border-muted/30 px-2.5 py-1.5 text-sm"
-                            autoFocus
-                            onKeyDown={(event) => {
-                              if (event.key === "Enter") {
-                                saveRename(folder.id);
-                              }
-                              if (event.key === "Escape") {
-                                cancelRename();
-                              }
-                            }}
-                          />
-                          <button
-                            type="button"
-                            onClick={() => saveRename(folder.id)}
-                            className="rounded-lg border border-portal-blue/30 px-2.5 py-1.5 text-xs font-medium text-portal-navy hover:bg-portal-blue/5"
-                          >
-                            Save
-                          </button>
-                          <button
-                            type="button"
-                            onClick={cancelRename}
-                            className="rounded-lg border border-muted/30 px-2.5 py-1.5 text-xs font-medium text-portal-navy/70 hover:bg-muted/10"
-                          >
-                            Cancel
-                          </button>
-                        </div>
+                    </div>
+
+                    {isEditing ? (
+                      <div className="mt-2 flex flex-wrap items-center gap-2 pl-5">
+                        <button
+                          type="button"
+                          onClick={() => saveRename(folder.id)}
+                          className="rounded-lg border border-portal-blue/30 px-2.5 py-1 text-xs font-medium text-portal-navy hover:bg-portal-blue/5"
+                        >
+                          Save
+                        </button>
+                        <button
+                          type="button"
+                          onClick={cancelRename}
+                          className="rounded-lg border border-muted/30 px-2.5 py-1 text-xs font-medium text-portal-navy/70 hover:bg-muted/10"
+                        >
+                          Cancel
+                        </button>
                         {renameError && editingFolderId === folder.id ? (
-                          <p className="mt-1 text-xs text-red-600/80" role="alert">
+                          <p className="w-full text-xs text-red-600/80" role="alert">
                             {renameError}
                           </p>
                         ) : null}
                       </div>
-                    ) : (
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <FolderTypeBadge type="custom" />
-                          <p className="mt-1.5 text-sm font-medium text-portal-navy">{folder.name}</p>
-                        </div>
-                        {canRenameFolder(folder) ? (
-                          <button
-                            type="button"
-                            onClick={() => startRename(folder)}
-                            className="shrink-0 rounded p-1 text-portal-navy/50 hover:bg-muted/20 hover:text-portal-navy/70"
-                            aria-label={`Rename ${folder.name}`}
-                          >
-                            <Pencil className="h-3.5 w-3.5" />
-                          </button>
-                        ) : null}
-                      </div>
-                    )}
+                    ) : null}
 
                     <div
-                      className={`flex flex-wrap items-center gap-y-2 text-xs ${
-                        canAllowUpload(folder) ? "gap-x-4" : "justify-between gap-x-4"
+                      className={`mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5 pl-5 text-[11px] text-portal-navy/80 ${
+                        showAllowUpload ? "" : "justify-between"
                       }`}
                     >
-                      <label className="flex items-center gap-2">
+                      <label className="flex shrink-0 items-center gap-1.5">
                         <input
                           type="checkbox"
                           checked={folder.visible}
@@ -363,8 +361,8 @@ export function CustomiseFolderManagementTab() {
                         ) : null}
                       </label>
 
-                      {canAllowUpload(folder) ? (
-                        <label className="flex items-center gap-2">
+                      {showAllowUpload ? (
+                        <label className="flex shrink-0 items-center gap-1.5">
                           <span>Allow Upload</span>
                           <DemoToggle
                             enabled={folder.allowUpload}
@@ -380,7 +378,11 @@ export function CustomiseFolderManagementTab() {
                         </label>
                       ) : null}
 
-                      <label className="flex items-center gap-2">
+                      <label
+                        className={`flex shrink-0 items-center gap-1.5 ${
+                          showAllowUpload ? "ml-auto" : ""
+                        }`}
+                      >
                         <input
                           type="radio"
                           name="landing-folder"
@@ -400,10 +402,10 @@ export function CustomiseFolderManagementTab() {
                       onClick={() =>
                         dispatch({ type: "REMOVE_PORTAL_FOLDER", folderId: folder.id })
                       }
-                      className="shrink-0 rounded p-1 text-portal-navy/50 hover:bg-red-50 hover:text-red-600"
+                      className="-mr-1 shrink-0 rounded p-1 text-portal-navy/50 hover:bg-red-50 hover:text-red-600"
                       aria-label={`Remove ${folder.name}`}
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Trash2 className="h-4 w-4" aria-hidden="true" />
                     </button>
                   ) : null}
                 </div>

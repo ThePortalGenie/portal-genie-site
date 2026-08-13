@@ -20,6 +20,7 @@ import {
   revokeNoticeBoardImages,
 } from "@/lib/demo/client-portal/notice-boards";
 import { revokeBlobUrl } from "@/lib/demo/client-portal/portal-logo";
+import { DEFAULT_MOBILE_DESIGN } from "@/lib/demo/client-portal/mobile-design";
 import { createInitialState } from "@/lib/demo/client-portal/mock-data";
 import type {
   DemoPortalAction,
@@ -61,6 +62,9 @@ export function createDemoPortalState(): DemoPortalState {
     alternateLogoUrl: null,
     useAlternatePortalLogo: false,
     previewMode: "desktop",
+    mobilePortalView: "home",
+    mobileBannerUrl: null,
+    mobileDesign: { ...DEFAULT_MOBILE_DESIGN },
     noticeBoards: createInitialNoticeBoards(),
     activeNoticeBoardId: DEFAULT_NOTICE_BOARD_ID,
     paymentModalOpen: false,
@@ -143,6 +147,7 @@ export function demoPortalReducer(
     case "RESET_DEMO": {
       revokeBlobUrl(state.logoUrl);
       revokeBlobUrl(state.alternateLogoUrl);
+      revokeBlobUrl(state.mobileBannerUrl);
       revokeNoticeBoardImages(state.noticeBoards);
       return createDemoPortalState();
     }
@@ -199,7 +204,27 @@ export function demoPortalReducer(
       return {
         ...state,
         previewMode: action.mode,
-        sidebarOpen: action.mode === "desktop" ? false : state.sidebarOpen,
+        sidebarOpen: false,
+        mobilePortalView: action.mode === "mobile" ? "home" : state.mobilePortalView,
+      };
+
+    case "SET_MOBILE_PORTAL_VIEW":
+      return { ...state, mobilePortalView: action.view };
+
+    case "SET_MOBILE_BANNER": {
+      if (
+        state.mobileBannerUrl?.startsWith("blob:") &&
+        state.mobileBannerUrl !== action.mobileBannerUrl
+      ) {
+        revokeBlobUrl(state.mobileBannerUrl);
+      }
+      return { ...state, mobileBannerUrl: action.mobileBannerUrl };
+    }
+
+    case "SET_MOBILE_DESIGN":
+      return {
+        ...state,
+        mobileDesign: { ...state.mobileDesign, ...action.mobileDesign },
       };
 
     case "SET_LOGO_ERROR":

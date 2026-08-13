@@ -13,6 +13,7 @@ import { PaymentModal } from "@/components/demo/client-portal/PaymentModal";
 import { UploadDocumentsModal } from "@/components/demo/client-portal/UploadDocumentsModal";
 import { ResetConfirmModal } from "@/components/demo/client-portal/ResetConfirmModal";
 import { isDedicatedPortalSection } from "@/lib/demo/client-portal/folders";
+import { MobilePreviewArea } from "@/components/demo/client-portal/mobile/MobilePreviewDevice";
 import { InvoicesSection } from "@/components/demo/client-portal/sections/InvoicesSection";
 import { StatementSection } from "@/components/demo/client-portal/sections/StatementSection";
 import {
@@ -92,42 +93,25 @@ function PortalContentArea() {
 }
 
 function PortalShell() {
-  const { state } = useDemoPortal();
-  const mobilePreview = state.previewMode === "mobile";
-
   return (
-    <div
-      className={
-        mobilePreview
-          ? "flex h-full min-h-0 flex-col overflow-hidden"
-          : "grid min-h-0 flex-1 overflow-hidden lg:grid-cols-[minmax(200px,220px)_minmax(0,1fr)] lg:grid-rows-[auto_minmax(0,1fr)]"
-      }
-    >
-      {!mobilePreview ? <DemoSidebar /> : null}
+    <div className="grid min-h-0 flex-1 overflow-hidden lg:grid-cols-[minmax(200px,220px)_minmax(0,1fr)] lg:grid-rows-[auto_minmax(0,1fr)]">
+      <DemoSidebar />
       <DemoSidebar mobile />
 
-      <div className={mobilePreview ? "min-w-0 shrink-0" : "min-w-0 lg:col-start-2 lg:row-start-1"}>
+      <div className="min-w-0 lg:col-start-2 lg:row-start-1">
         <DemoTopBar />
       </div>
 
-      <div
-        className={
-          mobilePreview
-            ? "flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden"
-            : "grid min-h-0 min-w-0 overflow-hidden lg:col-start-2 lg:row-start-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
-        }
-      >
+      <div className="grid min-h-0 min-w-0 overflow-hidden lg:col-start-2 lg:row-start-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <div className="flex min-h-0 min-w-0 flex-col overflow-hidden">
           <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
             <PortalContentArea />
           </div>
           <DemoPortalAdvertisingMobile />
         </div>
-        {!mobilePreview ? (
-          <div className="hidden min-h-0 min-w-0 overflow-hidden lg:block">
-            <DemoPortalAdvertisingPanel />
-          </div>
-        ) : null}
+        <div className="hidden min-h-0 min-w-0 overflow-hidden lg:block">
+          <DemoPortalAdvertisingPanel />
+        </div>
       </div>
     </div>
   );
@@ -146,11 +130,7 @@ function ClientPortalDemoInner() {
       </div>
 
       {mobilePreview ? (
-        <div className="flex min-h-0 flex-1 items-start justify-center overflow-auto bg-[#e8eaed] p-4">
-          <div className="flex h-[844px] w-[390px] shrink-0 flex-col overflow-hidden rounded-[22px] border border-black/10 bg-white shadow-lg">
-            <PortalShell />
-          </div>
-        </div>
+        <MobilePreviewArea />
       ) : (
         <PortalShell />
       )}
