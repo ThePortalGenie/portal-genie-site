@@ -1,7 +1,14 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  Eye,
+  Forward,
+  SquarePen,
+} from "lucide-react";
 import type { BrandingTheme } from "@/lib/demo/client-portal/types";
 
 /** Subtle portal control radius — matches original Portal Genie UI. */
@@ -124,7 +131,7 @@ export function PortalTable({
   fixedLayout?: boolean;
   dense?: boolean;
 }) {
-  const rowGap = dense ? "0 3px" : roundedRows ? "0 5px" : undefined;
+  const rowGap = roundedRows ? "0 7px" : dense ? "0 3px" : undefined;
 
   return (
     <div className={minWidth ? "overflow-x-auto" : "min-w-0 overflow-x-visible"}>
@@ -183,15 +190,15 @@ export function PortalTableHeadCell({
   align?: "left" | "right";
 }) {
   const padding = dense
-    ? "px-[6px] py-[5px]"
+    ? "px-[5px] py-[5px]"
     : compact
       ? "px-1.5 py-1"
       : "px-2 py-2";
 
   return (
     <th
-      className={`font-semibold text-[11px] ${padding} ${align === "right" ? "text-right" : "text-left"} ${className}`}
-      style={{ color: branding.tableHeadingText }}
+      className={`align-middle font-semibold text-[11px] ${padding} ${align === "right" ? "text-right" : "text-left"} ${className}`}
+      style={{ color: branding.tableHeadingText, fontVariantNumeric: align === "right" ? "tabular-nums" : undefined }}
     >
       {children}
     </th>
@@ -211,7 +218,7 @@ export function PortalTableBody({
     <tbody
       className={
         roundedRows
-          ? "[&>tr>td]:border-y [&>tr>td]:border-[#e8e8e8] [&>tr>td:first-child]:rounded-l-[9px] [&>tr>td:first-child]:border-l [&>tr>td:last-child]:rounded-r-[9px] [&>tr>td:last-child]:border-r"
+          ? "[&>tr>td]:border-y [&>tr>td]:border-[#e8e8e8] [&>tr>td:first-child]:rounded-l-[14px] [&>tr>td:first-child]:border-l [&>tr>td:last-child]:rounded-r-[14px] [&>tr>td:last-child]:border-r"
           : undefined
       }
       style={{ color: branding.tableBodyText }}
@@ -234,7 +241,7 @@ export function PortalTableRow({
 }) {
   return (
     <tr
-      className={`${compact ? "text-[11px]" : ""} ${roundedRows ? "" : "border-b border-[#e8e8e8]"}`}
+      className={`${compact ? "text-[11px]" : ""} ${roundedRows ? "bg-white" : ""} ${roundedRows ? "" : "border-b border-[#e8e8e8]"}`}
       style={selected ? { backgroundColor: roundedRows ? "#fafcff" : "#fafcff" } : undefined}
     >
       {children}
@@ -256,7 +263,7 @@ export function PortalTableCell({
   align?: "left" | "right";
 }) {
   const padding = dense
-    ? "px-[6px] py-[5px]"
+    ? "min-h-[42px] px-[5px] py-[9px]"
     : compact
       ? "px-1.5 py-1.5"
       : "px-2 py-2.5";
@@ -264,6 +271,7 @@ export function PortalTableCell({
   return (
     <td
       className={`align-middle text-[11px] ${padding} ${align === "right" ? "text-right tabular-nums whitespace-nowrap" : "text-left"} ${className}`}
+      style={align === "right" ? { fontVariantNumeric: "tabular-nums" } : undefined}
     >
       {children}
     </td>
@@ -320,47 +328,117 @@ export function PortalPagination() {
 export function PortalIconActions({
   onView,
   onDownload,
+  onMakeNote,
+  onForward,
   onEdit,
   onShare,
   dense = false,
+  variant = "default",
 }: {
   onView?: () => void;
   onDownload?: () => void;
+  onMakeNote?: () => void;
+  onForward?: () => void;
+  /** @deprecated Use onMakeNote for invoice actions */
   onEdit?: () => void;
+  /** @deprecated Use onForward for invoice actions */
   onShare?: () => void;
   dense?: boolean;
+  variant?: "default" | "invoice";
 }) {
-  const iconSize = dense ? 14 : 15;
-  const gapClass = dense ? "gap-1.5" : "gap-2.5";
+  const iconClass = "shrink-0 hover:text-[#0055FF]";
+  const noteHandler = onMakeNote ?? onEdit;
+  const forwardHandler = onForward ?? onShare;
+  const isInvoiceVariant = variant === "invoice";
+  const invoiceIconProps = {
+    size: 16,
+    strokeWidth: 1.75,
+    className: "text-[#112136]",
+    "aria-hidden": true as const,
+  };
+
+  if (isInvoiceVariant) {
+    return (
+      <div className="inline-flex items-center justify-start gap-[9px] text-[#112136]">
+        {onView ? (
+          <button
+            type="button"
+            onClick={onView}
+            aria-label="View"
+            title="View Invoice"
+            className={iconClass}
+          >
+            <Eye {...invoiceIconProps} />
+          </button>
+        ) : null}
+        {noteHandler ? (
+          <button
+            type="button"
+            onClick={noteHandler}
+            aria-label="Make a note"
+            title="Make a note"
+            className={iconClass}
+          >
+            <SquarePen {...invoiceIconProps} />
+          </button>
+        ) : null}
+        {forwardHandler ? (
+          <button
+            type="button"
+            onClick={forwardHandler}
+            aria-label="Forward"
+            title="Forward"
+            className={iconClass}
+          >
+            <Forward {...invoiceIconProps} />
+          </button>
+        ) : null}
+        {onDownload ? (
+          <button
+            type="button"
+            onClick={onDownload}
+            aria-label="Download"
+            title="Download"
+            className={iconClass}
+          >
+            <Download {...invoiceIconProps} />
+          </button>
+        ) : null}
+      </div>
+    );
+  }
+
+  const iconSize = dense ? 16 : 15;
+  const gapClass = dense ? "gap-[9px]" : "gap-2.5";
 
   return (
-    <div className={`flex items-center justify-end ${gapClass} text-[#666]`}>
+    <div className={`inline-flex items-center justify-start ${gapClass} text-[#112136]`}>
       {onView ? (
-        <button type="button" onClick={onView} aria-label="View" className="shrink-0 hover:text-[#0055FF]">
+        <button type="button" onClick={onView} aria-label="View" className={iconClass}>
           <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z" stroke="currentColor" strokeWidth="1.5"/>
-            <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5"/>
+            <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z" stroke="currentColor" strokeWidth="1.75"/>
+            <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.75"/>
           </svg>
         </button>
       ) : null}
-      {onEdit ? (
-        <button type="button" onClick={onEdit} aria-label="Edit" className="shrink-0 hover:text-[#0055FF]">
+      {noteHandler ? (
+        <button type="button" onClick={noteHandler} aria-label="Edit" className={iconClass}>
           <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 20h4l10-10-4-4L4 16v4Z" stroke="currentColor" strokeWidth="1.5"/>
+            <path d="M4 20h4l10-10-4-4L4 16v4Z" stroke="currentColor" strokeWidth="1.75"/>
           </svg>
         </button>
       ) : null}
-      {onShare ? (
-        <button type="button" onClick={onShare} aria-label="Share" className="shrink-0 hover:text-[#0055FF]">
+      {forwardHandler ? (
+        <button type="button" onClick={forwardHandler} aria-label="Share" className={iconClass}>
           <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13" stroke="currentColor" strokeWidth="1.5"/>
+            <path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13" stroke="currentColor" strokeWidth="1.75"/>
           </svg>
         </button>
       ) : null}
       {onDownload ? (
-        <button type="button" onClick={onDownload} aria-label="Download" className="shrink-0 hover:text-[#0055FF]">
+        <button type="button" onClick={onDownload} aria-label="Download" className={iconClass}>
           <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 3v12M7 10l5 5 5-5M5 21h14" stroke="currentColor" strokeWidth="1.5"/>
+            <path d="M12 3v12M7 10l5 5 5-5M5 21h14" stroke="currentColor" strokeWidth="1.75"/>
           </svg>
         </button>
       ) : null}

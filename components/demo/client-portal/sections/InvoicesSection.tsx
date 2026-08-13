@@ -34,8 +34,8 @@ const SORT_COLUMNS: Array<{
   { field: "dueDate", label: "Due" },
 ];
 
-/** Compact column proportions for dense accounting-style invoice table. */
-const INVOICE_COLUMN_WIDTHS = ["21%", "14%", "13%", "13%", "15%", "11%", "13%"] as const;
+/** Compact column proportions — clustered accounting-style layout. */
+const INVOICE_COLUMN_WIDTHS = ["17%", "16%", "14%", "14%", "15%", "11%", "13%"] as const;
 
 export function InvoicesSection() {
   const { state, dispatch, payableInvoices } = useDemoPortal();
@@ -101,6 +101,20 @@ export function InvoicesSection() {
     });
   };
 
+  const handleMakeNote = (invoice: Invoice) => {
+    dispatch({
+      type: "SET_DOWNLOAD_FEEDBACK",
+      message: `Demo note saved for ${invoice.number}. View it in Notes.`,
+    });
+  };
+
+  const handleForward = (invoice: Invoice) => {
+    dispatch({
+      type: "SET_DOWNLOAD_FEEDBACK",
+      message: `Demo forward prepared for ${invoice.number}. No email was sent.`,
+    });
+  };
+
   const selectedCount = selectedInvoiceIds.length;
 
   const sortIndicator = (field: typeof invoiceSort.field) => {
@@ -113,7 +127,7 @@ export function InvoicesSection() {
   return (
     <div className="min-h-0 flex-1 overflow-y-auto bg-white px-3.5 pb-3 pt-4 min-[1700px]:px-5 min-[1700px]:pb-4 min-[1700px]:pt-5">
       <PortalPageHeading>Invoices</PortalPageHeading>
-      <div className="mb-3 flex flex-wrap items-center gap-2">
+      <div className="mb-3 flex flex-wrap items-center gap-[8px]">
         <PortalSearchInput
           value={invoiceSearch}
           onChange={(search) => dispatch({ type: "SET_INVOICE_SEARCH", search })}
@@ -142,16 +156,18 @@ export function InvoicesSection() {
           ))}
         </colgroup>
         <PortalTableHead branding={branding} compact roundedRows>
-          <PortalTableHeadCell branding={branding} compact dense>
-            <div className="flex items-center gap-1 whitespace-nowrap">
-              <input
-                type="checkbox"
-                checked={allUnpaidSelected}
-                onChange={handleSelectAll}
-                aria-label="Select all unpaid invoices"
-                className="h-3 w-3 shrink-0"
-              />
-              <span>Add to cart</span>
+          <PortalTableHeadCell branding={branding} compact dense className="!px-[4px]">
+            <div className="flex flex-col items-center justify-center gap-0.5 leading-tight">
+              <div className="flex items-center justify-center gap-1 whitespace-nowrap">
+                <input
+                  type="checkbox"
+                  checked={allUnpaidSelected}
+                  onChange={handleSelectAll}
+                  aria-label="Select all unpaid invoices"
+                  className="h-4 w-4 shrink-0"
+                />
+                <span>Add to cart</span>
+              </div>
               {selectedCount > 0 ? (
                 <span className="font-normal">{selectedCount} Selected</span>
               ) : null}
@@ -167,7 +183,7 @@ export function InvoicesSection() {
                     field,
                   })
                 }
-                className={`inline-flex items-center whitespace-nowrap ${align === "right" ? "ml-auto" : ""}`}
+                className={`block whitespace-nowrap ${align === "right" ? "w-full text-right" : "text-left"}`}
               >
                 {label}
                 {sortIndicator(field)}
@@ -177,7 +193,7 @@ export function InvoicesSection() {
           <PortalTableHeadCell branding={branding} compact dense>
             Status
           </PortalTableHeadCell>
-          <PortalTableHeadCell branding={branding} compact dense className="min-w-0">
+          <PortalTableHeadCell branding={branding} compact dense className="min-w-0 !px-[4px]">
             Actions
           </PortalTableHeadCell>
         </PortalTableHead>
@@ -194,17 +210,19 @@ export function InvoicesSection() {
               const isSelected = selectedInvoiceIds.includes(invoice.id);
               return (
                 <PortalTableRow key={invoice.id} selected={isSelected} compact roundedRows>
-                  <PortalTableCell compact dense>
-                    <input
-                      type="checkbox"
-                      checked={isSelected}
-                      disabled={isPaid}
-                      onChange={() =>
-                        dispatch({ type: "TOGGLE_INVOICE_SELECTION", invoiceId: invoice.id })
-                      }
-                      aria-label={`Select ${invoice.number}`}
-                      className="h-3 w-3 disabled:opacity-40"
-                    />
+                  <PortalTableCell compact dense className="!px-[4px]">
+                    <div className="flex justify-center">
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        disabled={isPaid}
+                        onChange={() =>
+                          dispatch({ type: "TOGGLE_INVOICE_SELECTION", invoiceId: invoice.id })
+                        }
+                        aria-label={`Select ${invoice.number}`}
+                        className="h-4 w-4 disabled:opacity-40"
+                      />
+                    </div>
                   </PortalTableCell>
                   <PortalTableCell compact dense className="whitespace-nowrap">
                     {invoice.number}
@@ -224,15 +242,16 @@ export function InvoicesSection() {
                       tone={invoice.status === "paid" ? "paid" : "unpaid"}
                     />
                   </PortalTableCell>
-                  <PortalTableCell compact dense className="min-w-0">
+                  <PortalTableCell compact dense className="min-w-0 !px-[4px]">
                     <PortalIconActions
                       dense
+                      variant="invoice"
                       onView={() =>
                         dispatch({ type: "VIEW_INVOICE", invoiceId: invoice.id })
                       }
+                      onMakeNote={() => handleMakeNote(invoice)}
+                      onForward={() => handleForward(invoice)}
                       onDownload={() => handleDownload(invoice)}
-                      onEdit={() => undefined}
-                      onShare={() => undefined}
                     />
                   </PortalTableCell>
                 </PortalTableRow>
