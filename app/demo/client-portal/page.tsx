@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { noIndexPageMetadata } from "@/config/seo";
 import { ClientPortalDemo } from "@/components/demo/client-portal/ClientPortalDemo";
 import { DemoAccessGate } from "@/components/demo-access/DemoAccessGate";
+import { hasValidAdminDemoSession, tryEstablishAdminBypass } from "@/lib/demo-auth/admin-session";
 import { getVerifiedDemoSession } from "@/lib/demo-auth/session";
 
 export const metadata: Metadata = noIndexPageMetadata({
@@ -10,10 +12,24 @@ export const metadata: Metadata = noIndexPageMetadata({
     "Interactive demonstration of The Portal Genie client portal for prospective customers.",
 });
 
-export default async function ClientPortalDemoPage() {
-  const session = await getVerifiedDemoSession();
+export default async function ClientPortalDemoPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ admin_bypass?: string }>;
+}) {
+  const params = await searchParams;
 
-  if (session?.verified) {
+  if (params.admin_bypass) {
+    await tryEstablishAdminBypass(params.admin_bypass);
+    redirect("/demo/client-portal");
+  }
+
+  const [verifiedSession, adminSession] = await Promise.all([
+    getVerifiedDemoSession(),
+    hasValidAdminDemoSession(),
+  ]);
+
+  if (verifiedSession?.verified || adminSession) {
     return <ClientPortalDemo />;
   }
 

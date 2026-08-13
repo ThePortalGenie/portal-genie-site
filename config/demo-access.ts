@@ -17,6 +17,11 @@ export const DEMO_SESSION_TTL_SECONDS = 1_209_600;
 
 export const DEMO_SESSION_COOKIE_NAME = "portal_genie_demo_session";
 
+/** Temporary owner/admin bypass session — 4 hours (Redis + cookie). */
+export const DEMO_ADMIN_SESSION_TTL_SECONDS = 4 * 60 * 60;
+
+export const DEMO_ADMIN_SESSION_COOKIE_NAME = "portal_genie_demo_admin";
+
 export const DEMO_RATE_LIMIT = {
   emailWindowSeconds: 15 * 60,
   emailMaxRequests: 3,
