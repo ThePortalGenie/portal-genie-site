@@ -28,6 +28,9 @@ export const ZOHO_CRM_OAUTH_SCOPES = [
 /** Confirmed Lead Source picklist value for Genie enquiries. */
 export const ZOHO_LEAD_SOURCE_PORTAL_GENIE_CHATBOT = "Portal Genie Chatbot" as const;
 
+/** Lead Source for Client Portal Demo lead gate. Must exist in Zoho picklist. */
+export const ZOHO_LEAD_SOURCE_CLIENT_PORTAL_DEMO = "Client Portal Demo" as const;
+
 /** Server-controlled Current_Campaign value for Genie website enquiries. */
 export const ZOHO_CURRENT_CAMPAIGN_PORTAL_GENIE_WEBSITE =
   "Portal Genie Website" as const;
