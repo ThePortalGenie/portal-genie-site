@@ -5,7 +5,22 @@ export type PortalSection =
   | "credit-notes"
   | "agreements"
   | "financial-statements"
-  | "notes";
+  | "notes"
+  | (string & {});
+
+export type CustomiseTab = "design" | "folder-management" | "settings";
+
+export type PortalFolderType = "system" | "custom";
+
+export type PortalFolderConfig = {
+  id: string;
+  name: string;
+  type: PortalFolderType;
+  visible: boolean;
+  allowUpload: boolean;
+  isLandingFolder: boolean;
+  removable: boolean;
+};
 
 export type InvoiceStatus = "paid" | "unpaid";
 
@@ -101,7 +116,7 @@ export type DocumentFolder = {
 export type DemoDocument = {
   id: string;
   name: string;
-  folderId: DocumentFolderId;
+  folderId: string;
   size?: number;
   uploadedAt?: string;
   isSessionUpload?: boolean;
@@ -126,6 +141,24 @@ export type BannerId =
   | "tax-season"
   | "refer-client"
   | "new-service";
+
+export type PreviewMode = "desktop" | "mobile";
+
+export type NoticeBoardKind = "preset-image" | "preset-css" | "custom";
+
+export type NoticeBoard = {
+  id: string;
+  name: string;
+  kind: NoticeBoardKind;
+  headline?: string;
+  body?: string;
+  ctaText?: string;
+  imageUrl?: string | null;
+  imageAlt?: string;
+  destinationUrl?: string;
+  gradient?: string;
+  removable: boolean;
+};
 
 export type BrandingTheme = {
   brandColor: string;
@@ -172,7 +205,11 @@ export type DemoPortalState = {
   companyName: string;
   customerName: string;
   logoUrl: string | null;
-  activeBanner: BannerId;
+  alternateLogoUrl: string | null;
+  useAlternatePortalLogo: boolean;
+  previewMode: PreviewMode;
+  noticeBoards: NoticeBoard[];
+  activeNoticeBoardId: string;
   paymentModalOpen: boolean;
   paymentStep: "form" | "processing" | "success";
   uploadModalOpen: boolean;
@@ -189,7 +226,7 @@ export type DemoPortalState = {
   invoiceStatusFilter: "all" | InvoiceStatus;
   invoiceSort: { field: "number" | "date" | "dueDate" | "amount" | "balance"; direction: "asc" | "desc" };
   invoiceUserSorted: boolean;
-  uploadFolder: DocumentFolderId;
+  uploadFolder: string;
   uploadProgress: number | null;
   uploadFeedback: string | null;
   logoError: string | null;
@@ -197,6 +234,10 @@ export type DemoPortalState = {
   selectedDocumentFolder: DocumentFolderId | null;
   statementDateFrom: string;
   statementDateTo: string;
+  customiseTab: CustomiseTab;
+  portalFolders: PortalFolderConfig[];
+  notificationEnabled: boolean;
+  allowAdditionalContactsPortalAccess: boolean;
 };
 
 export type DemoPortalAction =
@@ -206,6 +247,7 @@ export type DemoPortalAction =
   | { type: "SET_SECTION"; section: PortalSection }
   | { type: "TOGGLE_SIDEBAR"; open?: boolean }
   | { type: "SET_CUSTOMISE_OPEN"; open: boolean }
+  | { type: "SET_CUSTOMISE_TAB"; tab: CustomiseTab }
   | { type: "SET_RESET_CONFIRM"; open: boolean }
   | { type: "RESET_DEMO" }
   | { type: "SET_BRANDING"; branding: Partial<BrandingTheme> }
@@ -213,8 +255,14 @@ export type DemoPortalAction =
   | { type: "SET_COMPANY_NAME"; name: string }
   | { type: "SET_CUSTOMER_NAME"; name: string }
   | { type: "SET_LOGO"; logoUrl: string | null }
+  | { type: "SET_ALTERNATE_LOGO"; alternateLogoUrl: string | null }
+  | { type: "SET_USE_ALTERNATE_PORTAL_LOGO"; enabled: boolean }
+  | { type: "SET_PREVIEW_MODE"; mode: PreviewMode }
   | { type: "SET_LOGO_ERROR"; error: string | null }
-  | { type: "SET_BANNER"; banner: BannerId }
+  | { type: "SET_ACTIVE_NOTICE_BOARD"; noticeBoardId: string }
+  | { type: "ADD_NOTICE_BOARD"; board: NoticeBoard }
+  | { type: "UPDATE_NOTICE_BOARD"; noticeBoardId: string; patch: Partial<Omit<NoticeBoard, "id" | "removable">> }
+  | { type: "DELETE_NOTICE_BOARD"; noticeBoardId: string }
   | { type: "SET_INVOICE_SEARCH"; search: string }
   | { type: "SET_INVOICE_STATUS_FILTER"; filter: DemoPortalState["invoiceStatusFilter"] }
   | { type: "SET_INVOICE_SORT"; field: DemoPortalState["invoiceSort"]["field"] }
@@ -231,9 +279,16 @@ export type DemoPortalAction =
   | { type: "VIEW_AGREEMENT"; agreementId: string | null }
   | { type: "VIEW_FINANCIAL_DOC"; payload: DemoPortalState["viewFinancialDoc"] }
   | { type: "VIEW_DOCUMENT"; documentId: string | null }
-  | { type: "SET_UPLOAD_FOLDER"; folderId: DocumentFolderId }
+  | { type: "SET_UPLOAD_FOLDER"; folderId: string }
   | { type: "SET_UPLOAD_PROGRESS"; progress: number | null }
   | { type: "SET_UPLOAD_FEEDBACK"; message: string | null }
   | { type: "ADD_UPLOADED_DOCUMENT"; document: DemoDocument }
   | { type: "SET_DOCUMENT_FOLDER"; folderId: DocumentFolderId | null }
-  | { type: "SET_DOWNLOAD_FEEDBACK"; message: string | null };
+  | { type: "SET_DOWNLOAD_FEEDBACK"; message: string | null }
+  | { type: "UPDATE_PORTAL_FOLDER"; folderId: string; patch: Partial<Pick<PortalFolderConfig, "name" | "visible" | "allowUpload">> }
+  | { type: "SET_LANDING_FOLDER"; folderId: string }
+  | { type: "REORDER_PORTAL_FOLDERS"; activeId: string; overId: string; insertAfter: boolean }
+  | { type: "ADD_CUSTOM_PORTAL_FOLDER"; name: string }
+  | { type: "REMOVE_PORTAL_FOLDER"; folderId: string }
+  | { type: "SET_NOTIFICATION_ENABLED"; enabled: boolean }
+  | { type: "SET_ALLOW_ADDITIONAL_CONTACTS"; enabled: boolean };

@@ -1,18 +1,31 @@
 "use client";
 
-import { useRef } from "react";
-import { DOCUMENT_FOLDERS } from "@/lib/demo/client-portal/constants";
+import { useMemo, useRef } from "react";
+import { getUploadablePortalFolders } from "@/lib/demo/client-portal/folders";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import type { DocumentFolderId } from "@/lib/demo/client-portal/types";
 import { DemoModal } from "@/components/demo/client-portal/DemoModal";
 import { PortalActionButton } from "@/components/demo/client-portal/PortalPrimitives";
 
 export function UploadDocumentsModal() {
   const { state, dispatch } = useDemoPortal();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { uploadFolder, uploadProgress, branding } = state;
+  const { uploadFolder, uploadProgress, branding, portalFolders } = state;
+
+  const uploadableFolders = useMemo(
+    () => getUploadablePortalFolders(portalFolders),
+    [portalFolders],
+  );
+
+  const selectedUploadFolder =
+    uploadableFolders.find((folder) => folder.id === uploadFolder)?.id ??
+    uploadableFolders[0]?.id ??
+    "";
 
   const simulateUpload = (file: File) => {
+    if (!selectedUploadFolder) {
+      return;
+    }
+
     dispatch({ type: "SET_UPLOAD_FEEDBACK", message: null });
     dispatch({ type: "SET_UPLOAD_PROGRESS", progress: 0 });
 
@@ -28,7 +41,7 @@ export function UploadDocumentsModal() {
           document: {
             id: `doc-upload-${Date.now()}`,
             name: file.name,
-            folderId: uploadFolder,
+            folderId: selectedUploadFolder,
             size: file.size,
             uploadedAt: new Date().toISOString().slice(0, 10),
             isSessionUpload: true,
@@ -59,6 +72,7 @@ export function UploadDocumentsModal() {
       <PortalActionButton
         branding={branding}
         variant="primary"
+        disabled={!selectedUploadFolder}
         onClick={() => fileInputRef.current?.click()}
       >
         Upload Files
@@ -77,33 +91,41 @@ export function UploadDocumentsModal() {
     >
       <p className="mb-4 text-[12px] leading-relaxed text-[#112136]">
         Please ensure your file size does not exceed 50MB. Accepted file types: PDF, PNG,
-        JPEG and JPG. Please select a folder to upload to.
+        JPEG and JPG. Please select a custom folder that allows client uploads.
       </p>
 
-      <label className="mb-4 block text-[12px]">
-        <span className="mb-1 block font-semibold">Select folder</span>
-        <select
-          value={uploadFolder}
-          onChange={(event) =>
-            dispatch({
-              type: "SET_UPLOAD_FOLDER",
-              folderId: event.target.value as DocumentFolderId,
-            })
-          }
-          className="h-9 w-full border border-[#d9d9d9] px-2"
-        >
-          {DOCUMENT_FOLDERS.map((folder) => (
-            <option key={folder.id} value={folder.id}>
-              {folder.label}
-            </option>
-          ))}
-        </select>
-      </label>
+      {uploadableFolders.length > 0 ? (
+        <label className="mb-4 block text-[12px]">
+          <span className="mb-1 block font-semibold">Select folder</span>
+          <select
+            value={selectedUploadFolder}
+            onChange={(event) =>
+              dispatch({
+                type: "SET_UPLOAD_FOLDER",
+                folderId: event.target.value,
+              })
+            }
+            className="h-9 w-full border border-[#d9d9d9] px-2"
+          >
+            {uploadableFolders.map((folder) => (
+              <option key={folder.id} value={folder.id}>
+                {folder.name}
+              </option>
+            ))}
+          </select>
+        </label>
+      ) : (
+        <p className="mb-4 text-[12px] text-[#666]">
+          No custom folders currently allow client uploads. Enable Allow Upload on a custom
+          folder in Folder Management.
+        </p>
+      )}
 
       <button
         type="button"
+        disabled={!selectedUploadFolder}
         onClick={() => fileInputRef.current?.click()}
-        className="flex min-h-[120px] w-full flex-col items-center justify-center border border-dashed border-[#bdbdbd] bg-[#fafafa] px-4 py-6 text-[12px] text-[#666]"
+        className="flex min-h-[120px] w-full flex-col items-center justify-center border border-dashed border-[#bdbdbd] bg-[#fafafa] px-4 py-6 text-[12px] text-[#666] disabled:cursor-not-allowed disabled:opacity-50"
       >
         Drag &amp; drop files here or click to browse
       </button>

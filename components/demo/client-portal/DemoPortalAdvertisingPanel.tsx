@@ -1,97 +1,126 @@
 "use client";
 
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { BANNER_ASSETS } from "@/lib/demo/client-portal/constants";
+import { getActiveNoticeBoard } from "@/lib/demo/client-portal/notice-boards";
+import type { NoticeBoard } from "@/lib/demo/client-portal/types";
 
-function CssBanner({
-  title,
-  subtitle,
-  gradient,
-}: {
-  title: string;
-  subtitle: string;
-  gradient: string;
-}) {
+/** Shared notice-board canvas — matches Portal Genie Promotion footprint (square, object-contain). */
+export function NoticeBoardCanvas({ children }: { children: React.ReactNode }) {
   return (
-    <div
-      className={`flex h-full min-h-[420px] flex-col justify-center px-8 py-10 text-white ${gradient}`}
-    >
-      <p className="text-[11px] font-semibold uppercase tracking-[0.08em] opacity-80">
-        Portal Genie
-      </p>
-      <h3 className="mt-3 text-3xl font-bold leading-tight">{title}</h3>
-      <p className="mt-4 max-w-sm text-sm leading-relaxed opacity-90">{subtitle}</p>
+    <div className="flex h-full w-full items-center justify-center overflow-hidden">
+      <div className="aspect-square w-full max-h-full max-w-full shrink-0">{children}</div>
     </div>
   );
 }
 
-export function DemoPortalAdvertisingPanel() {
-  const { state } = useDemoPortal();
-  const banner = BANNER_ASSETS[state.activeBanner];
+function NoticeBoardImage({ src, alt }: { src: string; alt: string }) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className="h-full w-full object-contain object-center"
+      draggable={false}
+    />
+  );
+}
 
-  let content: React.ReactNode;
+function NoticeBoardCssCreative({
+  headline,
+  body,
+  gradient,
+  ctaText,
+}: {
+  headline: string;
+  body: string;
+  gradient: string;
+  ctaText?: string;
+}) {
+  return (
+    <div
+      className={`flex h-full w-full flex-col justify-center overflow-hidden px-5 py-6 text-white min-[1536px]:px-6 min-[1536px]:py-8 ${gradient}`}
+    >
+      <p className="text-[10px] font-semibold uppercase tracking-[0.08em] opacity-80">
+        Portal Genie
+      </p>
+      <h3 className="mt-2 text-lg font-bold leading-tight min-[1536px]:text-xl">{headline}</h3>
+      <p className="mt-2.5 max-w-[95%] text-[11px] leading-snug opacity-90 min-[1536px]:mt-3 min-[1536px]:text-xs min-[1536px]:leading-relaxed">
+        {body}
+      </p>
+      {ctaText ? (
+        <p className="mt-3 text-[11px] font-semibold uppercase tracking-wide opacity-95">
+          {ctaText}
+        </p>
+      ) : null}
+    </div>
+  );
+}
 
-  if (state.activeBanner === "portal-genie" && banner.image) {
-    content = (
-      <img
-        src={banner.image}
-        alt={banner.alt}
-        className="max-h-full max-w-full object-contain"
-        draggable={false}
-      />
-    );
-  } else if (state.activeBanner === "tax-season") {
-    content = (
-      <CssBanner
-        title="Provisional tax deadline approaching"
-        subtitle="Ensure your supporting documents are uploaded before 28 August to avoid delays."
-        gradient="bg-gradient-to-br from-[#1D4ED8] to-[#3B82F6]"
-      />
-    );
-  } else if (state.activeBanner === "refer-client") {
-    content = (
-      <CssBanner
-        title="Refer a client"
-        subtitle="Refer a business to your accountant and receive a thank-you credit on your next invoice."
-        gradient="bg-gradient-to-br from-[#059669] to-[#34D399]"
-      />
-    );
-  } else {
-    content = (
-      <CssBanner
-        title="New service announcement"
-        subtitle="CFO advisory sessions are now available for growing businesses."
+export function NoticeBoardCreative({ board }: { board: NoticeBoard }) {
+  if (board.kind === "preset-image" || (board.kind === "custom" && board.imageUrl)) {
+    const src = board.imageUrl;
+    if (src) {
+      return (
+        <NoticeBoardImage
+          src={src}
+          alt={board.imageAlt ?? board.name}
+        />
+      );
+    }
+  }
+
+  if (board.kind === "custom" && !board.imageUrl) {
+    return (
+      <NoticeBoardCssCreative
+        headline={board.headline ?? board.name}
+        body={board.body ?? ""}
         gradient="bg-gradient-to-br from-[#112136] to-[#0055FF]"
+        ctaText={board.ctaText}
       />
     );
   }
 
   return (
+    <NoticeBoardCssCreative
+      headline={board.headline ?? board.name}
+      body={board.body ?? ""}
+      gradient={board.gradient ?? "bg-gradient-to-br from-[#112136] to-[#0055FF]"}
+      ctaText={board.ctaText}
+    />
+  );
+}
+
+export function DemoPortalAdvertisingPanel() {
+  const { state } = useDemoPortal();
+  const board = getActiveNoticeBoard(state.noticeBoards, state.activeNoticeBoardId);
+
+  if (state.previewMode === "mobile") {
+    return null;
+  }
+
+  return (
     <aside
-      className="flex h-full min-h-0 items-center justify-center border-l border-[#ececec] bg-white p-3"
+      className="flex h-full min-h-0 items-center justify-center overflow-hidden border-l border-[#ececec] bg-white p-3"
       aria-label="Promotional banner"
     >
-      {content}
+      <NoticeBoardCanvas>
+        <NoticeBoardCreative board={board} />
+      </NoticeBoardCanvas>
     </aside>
   );
 }
 
 export function DemoPortalAdvertisingMobile() {
   const { state } = useDemoPortal();
-  const banner = BANNER_ASSETS[state.activeBanner];
+  const board = getActiveNoticeBoard(state.noticeBoards, state.activeNoticeBoardId);
+  const mobilePreview = state.previewMode === "mobile";
 
-  if (state.activeBanner === "portal-genie" && banner.image) {
-    return (
-      <div className="mt-4 border-t border-[#ececec] bg-white p-4 lg:hidden">
-        <img
-          src={banner.image}
-          alt={banner.alt}
-          className="mx-auto max-h-[420px] w-full max-w-[420px] object-contain"
-          draggable={false}
-        />
+  return (
+    <div
+      className={`mt-4 border-t border-[#ececec] bg-white p-4 ${mobilePreview ? "" : "lg:hidden"}`}
+    >
+      <div className="mx-auto aspect-square w-full max-w-[420px]">
+        <NoticeBoardCreative board={board} />
       </div>
-    );
-  }
-
-  return null;
+    </div>
+  );
 }

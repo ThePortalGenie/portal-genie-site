@@ -9,7 +9,8 @@ import {
   formatStatementDate,
   formatStatementPeriodDate,
 } from "@/lib/demo/client-portal/statement";
-import { DEMO_ACCOUNTANT, DEMO_CUSTOMER, DEFAULT_LOGO_PATH } from "@/lib/demo/client-portal/constants";
+import { DEMO_ACCOUNTANT, DEMO_CUSTOMER } from "@/lib/demo/client-portal/constants";
+import { getPortalLogo } from "@/lib/demo/client-portal/portal-logo";
 import { PORTAL_CONTROL_RADIUS } from "@/components/demo/client-portal/PortalPrimitives";
 
 const TX_COLUMN_WIDTHS = ["14%", "17%", "17%", "13%", "11%", "11%", "17%"] as const;
@@ -67,12 +68,11 @@ export function StatementSection() {
     branding,
     companyName,
     customerName,
-    logoUrl,
     statementDateFrom,
     statementDateTo,
   } = state;
   const { entries, closingBalance, periodTotal, aging } = buildStatementEntries(state);
-  const logoSrc = logoUrl ?? DEFAULT_LOGO_PATH;
+  const logoSrc = getPortalLogo(state);
 
   const handleDownload = () => {
     dispatch({
@@ -84,7 +84,7 @@ export function StatementSection() {
   const buttonClass = `inline-flex h-[35px] items-center justify-center text-[11px] font-semibold text-white ${PORTAL_CONTROL_RADIUS}`;
 
   return (
-    <div className="min-h-0 flex-1 overflow-y-auto bg-white px-3.5 pb-3 pt-4 min-[1700px]:px-5 min-[1700px]:pb-4 min-[1700px]:pt-5">
+    <div className="portal-statement-scroll min-h-0 w-full flex-1 overflow-y-auto overflow-x-hidden bg-white px-3.5 pb-3 pt-4 min-[1700px]:px-5 min-[1700px]:pb-4 min-[1700px]:pt-5">
       <h2 className="mb-[18px] text-[15px] font-bold text-[#112136]">Statement</h2>
 
       <div className="mb-[50px] shrink-0">

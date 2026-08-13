@@ -6,7 +6,8 @@ import { formatAmountPlain } from "@/lib/demo/client-portal/statement";
 
 export function DemoTopBar() {
   const { state, dispatch, selectedPaymentTotal, outstandingBalance } = useDemoPortal();
-  const { branding, customerName } = state;
+  const { branding, customerName, previewMode } = state;
+  const mobilePreview = previewMode === "mobile";
 
   const displayAmount =
     selectedPaymentTotal > 0 ? selectedPaymentTotal : outstandingBalance;
@@ -31,7 +32,7 @@ export function DemoTopBar() {
         <button
           type="button"
           onClick={() => dispatch({ type: "TOGGLE_SIDEBAR", open: true })}
-          className="rounded p-1 text-white lg:hidden"
+          className={`rounded p-1 text-white ${mobilePreview ? "" : "lg:hidden"}`}
           aria-label="Open navigation menu"
         >
           <Menu className="h-5 w-5" />

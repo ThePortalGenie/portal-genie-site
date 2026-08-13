@@ -6,7 +6,8 @@ import {
   formatDate,
   formatZar,
 } from "@/lib/demo/client-portal/format";
-import { DEMO_CUSTOMER, DEFAULT_LOGO_PATH } from "@/lib/demo/client-portal/constants";
+import { DEMO_CUSTOMER } from "@/lib/demo/client-portal/constants";
+import { getPortalLogo } from "@/lib/demo/client-portal/portal-logo";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
 import {
   DocumentToolbar,
@@ -34,7 +35,7 @@ export function InvoiceDocumentView({ invoice }: { invoice: Invoice }) {
     URL.revokeObjectURL(url);
   };
 
-  const logoSrc = state.logoUrl ?? DEFAULT_LOGO_PATH;
+  const logoSrc = getPortalLogo(state);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-y-auto bg-white px-3.5 pb-3 pt-4 min-[1700px]:px-5 min-[1700px]:pb-4 min-[1700px]:pt-5">

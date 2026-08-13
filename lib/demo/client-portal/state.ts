@@ -3,6 +3,23 @@ import {
   DEFAULT_BRANDING,
   DEMO_CUSTOMER,
 } from "@/lib/demo/client-portal/constants";
+import {
+  createCustomPortalFolder,
+  createInitialPortalFolders,
+  getLandingFolderId,
+  getUploadablePortalFolders,
+  getVisiblePortalFolders,
+  getFolderNameValidationError,
+  normalizePortalFolder,
+  normalizePortalFolders,
+  reorderPortalFolders,
+} from "@/lib/demo/client-portal/folders";
+import {
+  createInitialNoticeBoards,
+  DEFAULT_NOTICE_BOARD_ID,
+  revokeNoticeBoardImages,
+} from "@/lib/demo/client-portal/notice-boards";
+import { revokeBlobUrl } from "@/lib/demo/client-portal/portal-logo";
 import { createInitialState } from "@/lib/demo/client-portal/mock-data";
 import type {
   DemoPortalAction,
@@ -41,7 +58,11 @@ export function createDemoPortalState(): DemoPortalState {
     companyName: DEMO_CUSTOMER.company,
     customerName: DEMO_CUSTOMER.contact,
     logoUrl: null,
-    activeBanner: "portal-genie",
+    alternateLogoUrl: null,
+    useAlternatePortalLogo: false,
+    previewMode: "desktop",
+    noticeBoards: createInitialNoticeBoards(),
+    activeNoticeBoardId: DEFAULT_NOTICE_BOARD_ID,
     paymentModalOpen: false,
     paymentStep: "form",
     uploadModalOpen: false,
@@ -58,7 +79,7 @@ export function createDemoPortalState(): DemoPortalState {
     invoiceStatusFilter: "all",
     invoiceSort: { field: "dueDate", direction: "desc" },
     invoiceUserSorted: false,
-    uploadFolder: "bank-statements",
+    uploadFolder: "agreements",
     uploadProgress: null,
     uploadFeedback: null,
     logoError: null,
@@ -66,6 +87,10 @@ export function createDemoPortalState(): DemoPortalState {
     selectedDocumentFolder: null,
     statementDateFrom: "2026-07-01",
     statementDateTo: "2026-08-13",
+    customiseTab: "design",
+    portalFolders: normalizePortalFolders(createInitialPortalFolders()),
+    notificationEnabled: true,
+    allowAdditionalContactsPortalAccess: true,
   };
 }
 
@@ -74,10 +99,14 @@ export function demoPortalReducer(
   action: DemoPortalAction,
 ): DemoPortalState {
   switch (action.type) {
-    case "SET_SECTION":
+    case "SET_SECTION": {
+      const visibleIds = getVisiblePortalFolders(state.portalFolders).map((f) => f.id);
+      const nextSection = visibleIds.includes(action.section)
+        ? action.section
+        : getLandingFolderId(state.portalFolders);
       return {
         ...state,
-        section: action.section,
+        section: nextSection,
         sidebarOpen: false,
         downloadFeedback: null,
         uploadFeedback: null,
@@ -88,6 +117,7 @@ export function demoPortalReducer(
         viewFinancialDoc: null,
         viewDocumentId: null,
       };
+    }
 
     case "SET_UPLOAD_MODAL":
       return { ...state, uploadModalOpen: action.open };
@@ -104,13 +134,16 @@ export function demoPortalReducer(
     case "SET_CUSTOMISE_OPEN":
       return { ...state, customiseOpen: action.open };
 
+    case "SET_CUSTOMISE_TAB":
+      return { ...state, customiseTab: action.tab };
+
     case "SET_RESET_CONFIRM":
       return { ...state, resetConfirmOpen: action.open };
 
     case "RESET_DEMO": {
-      if (state.logoUrl?.startsWith("blob:")) {
-        URL.revokeObjectURL(state.logoUrl);
-      }
+      revokeBlobUrl(state.logoUrl);
+      revokeBlobUrl(state.alternateLogoUrl);
+      revokeNoticeBoardImages(state.noticeBoards);
       return createDemoPortalState();
     }
 
@@ -132,14 +165,98 @@ export function demoPortalReducer(
     case "SET_CUSTOMER_NAME":
       return { ...state, customerName: action.name };
 
-    case "SET_LOGO":
+    case "SET_LOGO": {
+      if (state.logoUrl?.startsWith("blob:") && state.logoUrl !== action.logoUrl) {
+        revokeBlobUrl(state.logoUrl);
+      }
       return { ...state, logoUrl: action.logoUrl, logoError: null };
+    }
+
+    case "SET_ALTERNATE_LOGO": {
+      if (
+        state.alternateLogoUrl?.startsWith("blob:") &&
+        state.alternateLogoUrl !== action.alternateLogoUrl
+      ) {
+        revokeBlobUrl(state.alternateLogoUrl);
+      }
+      const useAlternatePortalLogo =
+        action.alternateLogoUrl !== null ? state.useAlternatePortalLogo : false;
+      return {
+        ...state,
+        alternateLogoUrl: action.alternateLogoUrl,
+        useAlternatePortalLogo,
+        logoError: null,
+      };
+    }
+
+    case "SET_USE_ALTERNATE_PORTAL_LOGO":
+      return {
+        ...state,
+        useAlternatePortalLogo: state.alternateLogoUrl ? action.enabled : false,
+      };
+
+    case "SET_PREVIEW_MODE":
+      return {
+        ...state,
+        previewMode: action.mode,
+        sidebarOpen: action.mode === "desktop" ? false : state.sidebarOpen,
+      };
 
     case "SET_LOGO_ERROR":
       return { ...state, logoError: action.error };
 
-    case "SET_BANNER":
-      return { ...state, activeBanner: action.banner };
+    case "SET_ACTIVE_NOTICE_BOARD":
+      return state.noticeBoards.some((board) => board.id === action.noticeBoardId)
+        ? { ...state, activeNoticeBoardId: action.noticeBoardId }
+        : state;
+
+    case "ADD_NOTICE_BOARD":
+      return {
+        ...state,
+        noticeBoards: [...state.noticeBoards, action.board],
+      };
+
+    case "UPDATE_NOTICE_BOARD": {
+      const existing = state.noticeBoards.find((board) => board.id === action.noticeBoardId);
+      if (!existing) {
+        return state;
+      }
+
+      const nextImageUrl =
+        action.patch.imageUrl !== undefined ? action.patch.imageUrl : existing.imageUrl;
+      if (
+        existing.imageUrl?.startsWith("blob:") &&
+        nextImageUrl !== existing.imageUrl
+      ) {
+        revokeBlobUrl(existing.imageUrl);
+      }
+
+      return {
+        ...state,
+        noticeBoards: state.noticeBoards.map((board) =>
+          board.id === action.noticeBoardId ? { ...board, ...action.patch } : board,
+        ),
+      };
+    }
+
+    case "DELETE_NOTICE_BOARD": {
+      const board = state.noticeBoards.find((item) => item.id === action.noticeBoardId);
+      if (!board?.removable) {
+        return state;
+      }
+
+      if (board.imageUrl?.startsWith("blob:")) {
+        revokeBlobUrl(board.imageUrl);
+      }
+
+      const noticeBoards = state.noticeBoards.filter((item) => item.id !== action.noticeBoardId);
+      const activeNoticeBoardId =
+        state.activeNoticeBoardId === action.noticeBoardId
+          ? DEFAULT_NOTICE_BOARD_ID
+          : state.activeNoticeBoardId;
+
+      return { ...state, noticeBoards, activeNoticeBoardId };
+    }
 
     case "SET_INVOICE_SEARCH":
       return { ...state, invoiceSearch: action.search };
@@ -250,8 +367,13 @@ export function demoPortalReducer(
     case "VIEW_DOCUMENT":
       return { ...state, viewDocumentId: action.documentId };
 
-    case "SET_UPLOAD_FOLDER":
-      return { ...state, uploadFolder: action.folderId };
+    case "SET_UPLOAD_FOLDER": {
+      const uploadable = getUploadablePortalFolders(state.portalFolders);
+      const folderId = uploadable.some((folder) => folder.id === action.folderId)
+        ? action.folderId
+        : (uploadable[0]?.id ?? state.uploadFolder);
+      return { ...state, uploadFolder: folderId };
+    }
 
     case "SET_UPLOAD_PROGRESS":
       return { ...state, uploadProgress: action.progress };
@@ -259,19 +381,137 @@ export function demoPortalReducer(
     case "SET_UPLOAD_FEEDBACK":
       return { ...state, uploadFeedback: action.message };
 
-    case "ADD_UPLOADED_DOCUMENT":
+    case "ADD_UPLOADED_DOCUMENT": {
+      const portalFolder = state.portalFolders.find(
+        (folder) => folder.id === action.document.folderId,
+      );
+      const folderLabel =
+        portalFolder?.name ?? action.document.folderId.replace(/-/g, " ");
+      const notificationSuffix = state.notificationEnabled
+        ? " Customer notification would be sent in the live portal."
+        : "";
       return {
         ...state,
         documents: [...state.documents, action.document],
         uploadProgress: null,
-        uploadFeedback: `"${action.document.name}" added to ${action.document.folderId.replace(/-/g, " ")}.`,
+        uploadFeedback: `"${action.document.name}" added to ${folderLabel}.${notificationSuffix}`,
       };
+    }
 
     case "SET_DOCUMENT_FOLDER":
       return { ...state, selectedDocumentFolder: action.folderId };
 
     case "SET_DOWNLOAD_FEEDBACK":
       return { ...state, downloadFeedback: action.message };
+
+    case "UPDATE_PORTAL_FOLDER": {
+      const patch = { ...action.patch };
+
+      if (patch.name !== undefined) {
+        const targetFolder = state.portalFolders.find((folder) => folder.id === action.folderId);
+        if (!targetFolder || targetFolder.type === "system") {
+          delete patch.name;
+        } else {
+          const validationError = getFolderNameValidationError(
+            state.portalFolders,
+            patch.name,
+            action.folderId,
+          );
+          if (validationError) {
+            return state;
+          }
+          patch.name = patch.name.trim();
+        }
+      }
+
+      const portalFolders = normalizePortalFolders(
+        state.portalFolders.map((folder) => {
+          if (folder.id !== action.folderId) {
+            return folder;
+          }
+          const folderPatch = { ...patch };
+          if (folder.type === "system") {
+            delete folderPatch.allowUpload;
+            delete folderPatch.name;
+          }
+          return { ...folder, ...folderPatch };
+        }),
+      );
+      const uploadable = getUploadablePortalFolders(portalFolders);
+      const uploadFolder = uploadable.some((folder) => folder.id === state.uploadFolder)
+        ? state.uploadFolder
+        : (uploadable[0]?.id ?? state.uploadFolder);
+      const visibleIds = getVisiblePortalFolders(portalFolders).map((item) => item.id);
+      const section = visibleIds.includes(state.section)
+        ? state.section
+        : getLandingFolderId(portalFolders);
+      return { ...state, portalFolders, section, uploadFolder };
+    }
+
+    case "SET_LANDING_FOLDER":
+      return {
+        ...state,
+        portalFolders: state.portalFolders.map((folder) => ({
+          ...folder,
+          isLandingFolder: folder.id === action.folderId,
+        })),
+      };
+
+    case "REORDER_PORTAL_FOLDERS":
+      return {
+        ...state,
+        portalFolders: reorderPortalFolders(
+          state.portalFolders,
+          action.activeId,
+          action.overId,
+          action.insertAfter,
+        ),
+      };
+
+    case "ADD_CUSTOM_PORTAL_FOLDER": {
+      const validationError = getFolderNameValidationError(state.portalFolders, action.name);
+      if (validationError) {
+        return state;
+      }
+
+      return {
+        ...state,
+        portalFolders: normalizePortalFolders([
+          ...state.portalFolders,
+          normalizePortalFolder(createCustomPortalFolder(action.name)),
+        ]),
+      };
+    }
+
+    case "REMOVE_PORTAL_FOLDER": {
+      const folder = state.portalFolders.find((item) => item.id === action.folderId);
+      if (!folder?.removable) {
+        return state;
+      }
+      const portalFolders = state.portalFolders.filter((item) => item.id !== action.folderId);
+      const landingId = getLandingFolderId(portalFolders);
+      const visibleIds = getVisiblePortalFolders(portalFolders).map((item) => item.id);
+      const uploadable = getUploadablePortalFolders(portalFolders);
+      const uploadFolder =
+        state.uploadFolder === action.folderId
+          ? (uploadable[0]?.id ?? state.uploadFolder)
+          : uploadable.some((item) => item.id === state.uploadFolder)
+            ? state.uploadFolder
+            : (uploadable[0]?.id ?? state.uploadFolder);
+      const section =
+        state.section === action.folderId
+          ? landingId
+          : visibleIds.includes(state.section)
+            ? state.section
+            : landingId;
+      return { ...state, portalFolders, section, uploadFolder };
+    }
+
+    case "SET_NOTIFICATION_ENABLED":
+      return { ...state, notificationEnabled: action.enabled };
+
+    case "SET_ALLOW_ADDITIONAL_CONTACTS":
+      return { ...state, allowAdditionalContactsPortalAccess: action.enabled };
 
     default:
       return state;

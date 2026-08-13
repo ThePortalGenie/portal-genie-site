@@ -1,9 +1,9 @@
 "use client";
 
 import { Upload } from "lucide-react";
-import { NAV_ITEMS, DEFAULT_LOGO_PATH } from "@/lib/demo/client-portal/constants";
+import { getVisiblePortalFolders } from "@/lib/demo/client-portal/folders";
+import { getPortalLogo } from "@/lib/demo/client-portal/portal-logo";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import type { PortalSection } from "@/lib/demo/client-portal/types";
 
 type DemoSidebarProps = {
   mobile?: boolean;
@@ -11,23 +11,23 @@ type DemoSidebarProps = {
 
 export function DemoSidebar({ mobile = false }: DemoSidebarProps) {
   const { state, dispatch } = useDemoPortal();
-  const { branding, companyName, logoUrl, section, sidebarOpen } = state;
+  const { branding, companyName, section, sidebarOpen, portalFolders, previewMode } = state;
 
-  const logoSrc = logoUrl ?? DEFAULT_LOGO_PATH;
+  const logoSrc = getPortalLogo(state);
+  const mobilePreview = previewMode === "mobile";
+  const visibleFolders = getVisiblePortalFolders(portalFolders);
 
   const nav = (
     <>
       <nav aria-label="Portal navigation" className="px-3">
         <ul className="space-y-1.5">
-          {NAV_ITEMS.map((item) => {
+          {visibleFolders.map((item) => {
             const selected = section === item.id;
             return (
               <li key={item.id}>
                 <button
                   type="button"
-                  onClick={() =>
-                    dispatch({ type: "SET_SECTION", section: item.id as PortalSection })
-                  }
+                  onClick={() => dispatch({ type: "SET_SECTION", section: item.id })}
                   className="w-full px-3 py-2.5 text-left text-[13px] font-medium"
                   style={{
                     color: selected ? branding.menuSelectedText : branding.menuText,
@@ -35,7 +35,7 @@ export function DemoSidebar({ mobile = false }: DemoSidebarProps) {
                     borderRadius: selected ? "4px" : undefined,
                   }}
                 >
-                  {item.label}
+                  {item.name}
                 </button>
               </li>
             );
@@ -80,12 +80,12 @@ export function DemoSidebar({ mobile = false }: DemoSidebarProps) {
       <>
         <button
           type="button"
-          className="fixed inset-0 z-[90] bg-black/40 lg:hidden"
+          className={`fixed inset-0 z-[90] bg-black/40 ${mobilePreview ? "" : "lg:hidden"}`}
           aria-label="Close navigation menu"
           onClick={() => dispatch({ type: "TOGGLE_SIDEBAR", open: false })}
         />
         <aside
-          className="fixed inset-y-0 left-0 z-[95] w-[min(15rem,80vw)] lg:hidden"
+          className={`fixed inset-y-0 left-0 z-[95] w-[min(15rem,80vw)] ${mobilePreview ? "" : "lg:hidden"}`}
           style={{ backgroundColor: branding.sidebarBg }}
         >
           {content}
@@ -96,7 +96,7 @@ export function DemoSidebar({ mobile = false }: DemoSidebarProps) {
 
   return (
     <aside
-      className="hidden min-h-full self-stretch lg:col-start-1 lg:row-span-2 lg:block"
+      className={`hidden min-h-full self-stretch ${mobilePreview ? "" : "lg:col-start-1 lg:row-span-2 lg:block"}`}
       style={{ backgroundColor: branding.sidebarBg }}
     >
       {content}

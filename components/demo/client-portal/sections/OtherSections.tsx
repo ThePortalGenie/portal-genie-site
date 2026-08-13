@@ -1,9 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { Upload } from "lucide-react";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
 import { formatDate } from "@/lib/demo/client-portal/format";
 import {
+  PortalActionButton,
   PortalIconActions,
   PortalPageHeading,
   PortalPagination,
@@ -15,6 +17,55 @@ import {
   PortalTableHeadCell,
   PortalTableRow,
 } from "@/components/demo/client-portal/PortalPrimitives";
+
+export function CustomPortalFolderSection({ folderId }: { folderId: string }) {
+  const { state, dispatch } = useDemoPortal();
+  const folder = state.portalFolders.find((item) => item.id === folderId);
+  const folderName = folder?.name ?? "Custom Folder";
+  const allowUpload = folder?.allowUpload ?? false;
+
+  const folderDocuments = useMemo(
+    () => state.documents.filter((document) => document.folderId === folderId),
+    [folderId, state.documents],
+  );
+
+  const openUploadModal = () => {
+    dispatch({ type: "SET_UPLOAD_FOLDER", folderId });
+    dispatch({ type: "SET_UPLOAD_MODAL", open: true });
+  };
+
+  return (
+    <div className="min-h-0 flex-1 overflow-y-auto bg-white px-3.5 pb-3 pt-5 min-[1024px]:pt-[30px] min-[1700px]:px-5 min-[1700px]:pb-4">
+      <PortalPageHeading>{folderName}</PortalPageHeading>
+
+      {allowUpload ? (
+        <div className="mb-4">
+          <PortalActionButton
+            branding={state.branding}
+            variant="primary"
+            onClick={openUploadModal}
+            className="inline-flex items-center gap-2"
+          >
+            <Upload className="h-3.5 w-3.5" aria-hidden="true" />
+            Upload Documents
+          </PortalActionButton>
+        </div>
+      ) : null}
+
+      {folderDocuments.length === 0 ? (
+        <p className="text-[12px] text-[#666]">No documents available.</p>
+      ) : (
+        <ul className="divide-y divide-[#ececec] border border-[#ececec] text-[12px]">
+          {folderDocuments.map((document) => (
+            <li key={document.id} className="px-3 py-2 text-[#112136]">
+              {document.name}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
 
 export function AgreementsSection() {
   const { state, dispatch } = useDemoPortal();

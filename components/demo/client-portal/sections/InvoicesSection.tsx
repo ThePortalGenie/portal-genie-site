@@ -125,7 +125,7 @@ export function InvoicesSection() {
   };
 
   return (
-    <div className="min-h-0 flex-1 overflow-y-auto bg-white px-3.5 pb-3 pt-4 min-[1700px]:px-5 min-[1700px]:pb-4 min-[1700px]:pt-5">
+    <div className="min-h-0 flex-1 overflow-y-auto bg-white px-3.5 pb-3 pt-5 min-[1024px]:pt-[30px] min-[1700px]:px-5 min-[1700px]:pb-4">
       <PortalPageHeading>Invoices</PortalPageHeading>
       <div className="mb-3 flex flex-wrap items-center gap-[8px]">
         <PortalSearchInput

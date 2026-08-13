@@ -1,5 +1,7 @@
 import { Montserrat } from "next/font/google";
 import type { ReactNode } from "react";
+import "./portal-statement-scroll.css";
+import "./portal-customise-scroll.css";
 
 const montserrat = Montserrat({
   subsets: ["latin"],

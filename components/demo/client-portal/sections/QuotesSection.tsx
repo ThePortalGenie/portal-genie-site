@@ -31,7 +31,7 @@ export function QuotesSection() {
   }, [quotes, search]);
 
   return (
-    <div className="min-h-0 flex-1 overflow-y-auto bg-white p-3 sm:p-4">
+    <div className="min-h-0 flex-1 overflow-y-auto bg-white px-3 pb-3 pt-5 sm:px-4 sm:pb-4 min-[1024px]:pt-[30px]">
       <PortalPageHeading>Quotes</PortalPageHeading>
       <div className="mb-3">
         <PortalSearchInput value={search} onChange={setSearch} />
@@ -87,7 +87,7 @@ export function CreditNotesSection() {
   }, [creditNotes, search]);
 
   return (
-    <div className="min-h-0 flex-1 overflow-y-auto bg-white p-3 sm:p-4">
+    <div className="min-h-0 flex-1 overflow-y-auto bg-white px-3 pb-3 pt-5 sm:px-4 sm:pb-4 min-[1024px]:pt-[30px]">
       <PortalPageHeading>Credit Notes</PortalPageHeading>
       <div className="mb-3">
         <PortalSearchInput value={search} onChange={setSearch} />
