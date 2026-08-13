@@ -67,7 +67,7 @@ export function StatementSection() {
   const buttonClass = `inline-flex h-8 items-center gap-1 px-3 text-[11px] font-semibold text-white ${PORTAL_CONTROL_RADIUS}`;
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col bg-white px-3 pb-3 pt-4 lg:px-3.5 lg:pb-4 lg:pt-5 min-[1700px]:px-5 min-[1700px]:pb-5 min-[1700px]:pt-6">
+    <div className="flex min-h-0 flex-1 flex-col bg-white px-3.5 pb-3 pt-4 min-[1700px]:px-5 min-[1700px]:pb-4 min-[1700px]:pt-5">
       <PortalPageHeading>Statement</PortalPageHeading>
 
       <div className="mb-5 shrink-0 min-[1700px]:mb-6">

@@ -9,7 +9,7 @@ export const PORTAL_CONTROL_RADIUS = "rounded-[3px]";
 
 export function PortalPageHeading({ children }: { children: ReactNode }) {
   return (
-    <h2 className="mb-3 text-[15px] font-bold text-[#112136] min-[1700px]:mb-4">{children}</h2>
+    <h2 className="mb-3 text-[15px] font-bold text-[#112136]">{children}</h2>
   );
 }
 
@@ -30,7 +30,7 @@ export function PortalSearchInput({
       value={value}
       onChange={(event) => onChange(event.target.value)}
       placeholder={placeholder}
-      className={`h-8 w-full max-w-[190px] border border-[#d9d9d9] bg-white px-2 text-[11px] text-[#112136] outline-none focus:border-[#00CCFF] min-[1700px]:max-w-[220px] ${PORTAL_CONTROL_RADIUS} ${className}`}
+      className={`h-[31px] w-full max-w-[200px] border border-[#d9d9d9] bg-white px-2 text-[11px] text-[#112136] outline-none focus:border-[#00CCFF] min-[1700px]:max-w-[210px] ${PORTAL_CONTROL_RADIUS} ${className}`}
     />
   );
 }
@@ -53,7 +53,7 @@ export function PortalSelect({
       value={value}
       onChange={(event) => onChange(event.target.value)}
       aria-label={ariaLabel}
-      className={`h-8 border border-[#d9d9d9] bg-white px-2 text-[11px] text-[#112136] outline-none focus:border-[#00CCFF] ${PORTAL_CONTROL_RADIUS} ${className}`}
+      className={`h-[31px] border border-[#d9d9d9] bg-white px-2 text-[11px] text-[#112136] outline-none focus:border-[#00CCFF] ${PORTAL_CONTROL_RADIUS} ${className}`}
     >
       {children}
     </select>
@@ -115,20 +115,24 @@ export function PortalTable({
   compact = false,
   roundedRows = false,
   fixedLayout = false,
+  dense = false,
 }: {
   children: ReactNode;
   minWidth?: string;
   compact?: boolean;
   roundedRows?: boolean;
   fixedLayout?: boolean;
+  dense?: boolean;
 }) {
+  const rowGap = dense ? "0 3px" : roundedRows ? "0 5px" : undefined;
+
   return (
     <div className={minWidth ? "overflow-x-auto" : "min-w-0 overflow-x-visible"}>
       <table
         className={`w-full ${fixedLayout ? "table-fixed" : ""} ${roundedRows ? "border-separate" : "border-collapse"} ${compact ? "text-[11px]" : "text-[12px]"}`}
         style={{
           ...(minWidth ? { minWidth } : undefined),
-          ...(roundedRows ? { borderSpacing: "0 5px" } : undefined),
+          ...(rowGap ? { borderSpacing: rowGap } : undefined),
         }}
       >
         {children}
@@ -168,17 +172,25 @@ export function PortalTableHeadCell({
   children,
   className = "",
   compact = false,
+  dense = false,
   align = "left",
 }: {
   branding: BrandingTheme;
   children: ReactNode;
   className?: string;
   compact?: boolean;
+  dense?: boolean;
   align?: "left" | "right";
 }) {
+  const padding = dense
+    ? "px-[6px] py-[5px]"
+    : compact
+      ? "px-1.5 py-1"
+      : "px-2 py-2";
+
   return (
     <th
-      className={`font-semibold ${compact ? "px-1.5 py-1 text-[11px] min-[1700px]:px-2.5 min-[1700px]:py-1.5" : "px-2 py-2 text-[12px]"} ${align === "right" ? "text-right" : "text-left"} ${className}`}
+      className={`font-semibold text-[11px] ${padding} ${align === "right" ? "text-right" : "text-left"} ${className}`}
       style={{ color: branding.tableHeadingText }}
     >
       {children}
@@ -199,7 +211,7 @@ export function PortalTableBody({
     <tbody
       className={
         roundedRows
-          ? "[&>tr>td]:border-y [&>tr>td]:border-[#e8e8e8] [&>tr>td:first-child]:rounded-l-[12px] [&>tr>td:first-child]:border-l [&>tr>td:last-child]:rounded-r-[12px] [&>tr>td:last-child]:border-r"
+          ? "[&>tr>td]:border-y [&>tr>td]:border-[#e8e8e8] [&>tr>td:first-child]:rounded-l-[9px] [&>tr>td:first-child]:border-l [&>tr>td:last-child]:rounded-r-[9px] [&>tr>td:last-child]:border-r"
           : undefined
       }
       style={{ color: branding.tableBodyText }}
@@ -234,16 +246,24 @@ export function PortalTableCell({
   children,
   className = "",
   compact = false,
+  dense = false,
   align = "left",
 }: {
   children: ReactNode;
   className?: string;
   compact?: boolean;
+  dense?: boolean;
   align?: "left" | "right";
 }) {
+  const padding = dense
+    ? "px-[6px] py-[5px]"
+    : compact
+      ? "px-1.5 py-1.5"
+      : "px-2 py-2.5";
+
   return (
     <td
-      className={`align-middle ${compact ? "px-1.5 py-1.5 min-[1700px]:px-2.5 min-[1700px]:py-2" : "px-2 py-2.5"} ${align === "right" ? "text-right tabular-nums" : "text-left"} ${className}`}
+      className={`align-middle text-[11px] ${padding} ${align === "right" ? "text-right tabular-nums whitespace-nowrap" : "text-left"} ${className}`}
     >
       {children}
     </td>
@@ -266,7 +286,7 @@ export function PortalStatusPill({
 
   return (
     <span
-      className={`inline-block rounded-[3px] px-1.5 py-0.5 text-[10px] font-medium min-[1700px]:px-2 ${styles}`}
+      className={`inline-block whitespace-nowrap rounded-[3px] px-1 py-px text-[10px] font-medium ${styles}`}
     >
       {label}
     </span>
@@ -275,7 +295,7 @@ export function PortalStatusPill({
 
 export function PortalPagination() {
   return (
-    <div className="mt-2 flex items-center justify-end gap-1.5 text-[11px] text-[#666] min-[1700px]:mt-3">
+    <div className="mt-2 flex items-center justify-end gap-1.5 text-[11px] text-[#666]">
       <button
         type="button"
         className={`px-1 ${PORTAL_CONTROL_RADIUS} hover:bg-[#f5f5f5]`}
@@ -302,39 +322,44 @@ export function PortalIconActions({
   onDownload,
   onEdit,
   onShare,
+  dense = false,
 }: {
   onView?: () => void;
   onDownload?: () => void;
   onEdit?: () => void;
   onShare?: () => void;
+  dense?: boolean;
 }) {
+  const iconSize = dense ? 14 : 15;
+  const gapClass = dense ? "gap-1.5" : "gap-2.5";
+
   return (
-    <div className="flex items-center justify-end gap-1.5 text-[#666] min-[1700px]:gap-2.5">
+    <div className={`flex items-center justify-end ${gapClass} text-[#666]`}>
       {onView ? (
-        <button type="button" onClick={onView} aria-label="View" className="hover:text-[#0055FF]">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <button type="button" onClick={onView} aria-label="View" className="shrink-0 hover:text-[#0055FF]">
+          <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z" stroke="currentColor" strokeWidth="1.5"/>
             <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5"/>
           </svg>
         </button>
       ) : null}
       {onEdit ? (
-        <button type="button" onClick={onEdit} aria-label="Edit" className="hover:text-[#0055FF]">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <button type="button" onClick={onEdit} aria-label="Edit" className="shrink-0 hover:text-[#0055FF]">
+          <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M4 20h4l10-10-4-4L4 16v4Z" stroke="currentColor" strokeWidth="1.5"/>
           </svg>
         </button>
       ) : null}
       {onShare ? (
-        <button type="button" onClick={onShare} aria-label="Share" className="hover:text-[#0055FF]">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <button type="button" onClick={onShare} aria-label="Share" className="shrink-0 hover:text-[#0055FF]">
+          <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13" stroke="currentColor" strokeWidth="1.5"/>
           </svg>
         </button>
       ) : null}
       {onDownload ? (
-        <button type="button" onClick={onDownload} aria-label="Download" className="hover:text-[#0055FF]">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <button type="button" onClick={onDownload} aria-label="Download" className="shrink-0 hover:text-[#0055FF]">
+          <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 3v12M7 10l5 5 5-5M5 21h14" stroke="currentColor" strokeWidth="1.5"/>
           </svg>
         </button>
