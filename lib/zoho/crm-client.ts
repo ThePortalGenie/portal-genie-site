@@ -229,28 +229,6 @@ async function searchRecordByEmail(
   return id ? { id } : null;
 }
 
-/** Harmless Leads read used to verify OAuth + READ scope (no record data returned). */
-export async function verifyLeadsModuleAccess(): Promise<void> {
-  await zohoCrmRequest("/Leads", {
-    searchParams: {
-      per_page: 1,
-      page: 1,
-      fields: "id",
-    },
-  });
-}
-
-/** Harmless Contacts read used to verify OAuth + READ scope (no record data returned). */
-export async function verifyContactsModuleAccess(): Promise<void> {
-  await zohoCrmRequest("/Contacts", {
-    searchParams: {
-      per_page: 1,
-      page: 1,
-      fields: "id",
-    },
-  });
-}
-
 /** Search Contacts by email. Returns record ID only. */
 export async function findContactByEmail(
   email: string,
@@ -404,17 +382,6 @@ export async function createCrmNote(options: {
           Note_Content: options.content,
         },
       ],
-    },
-  });
-}
-
-/** Harmless Notes read used to verify OAuth + Notes scope (no record data returned). */
-export async function verifyNotesModuleAccess(): Promise<void> {
-  await zohoCrmRequest("/Notes", {
-    searchParams: {
-      per_page: 1,
-      page: 1,
-      fields: "id",
     },
   });
 }

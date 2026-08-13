@@ -8,9 +8,6 @@ export type ZohoServerConfig = {
   refreshToken: string;
   accountsUrl: string;
   apiBaseUrl: string;
-  redirectUri: string;
-  /** Optional — protects bootstrap/verify routes during initial setup. */
-  oauthSetupSecret: string | undefined;
 };
 
 function requireEnv(name: string): string {
@@ -23,11 +20,6 @@ function requireEnv(name: string): string {
   return value;
 }
 
-function optionalEnv(name: string): string | undefined {
-  const value = process.env[name]?.trim();
-  return value || undefined;
-}
-
 function normalizeBaseUrl(url: string, label: string): string {
   const trimmed = url.replace(/\/+$/, "");
   if (!/^https:\/\/.+/i.test(trimmed)) {
@@ -36,38 +28,6 @@ function normalizeBaseUrl(url: string, label: string): string {
     );
   }
   return trimmed;
-}
-
-function isLocalhostHostname(hostname: string): boolean {
-  return hostname === "localhost" || hostname === "127.0.0.1";
-}
-
-/** Validates ZOHO_REDIRECT_URI — HTTPS required except for localhost. */
-function normalizeRedirectUri(url: string): string {
-  const trimmed = url.trim();
-  let parsed: URL;
-
-  try {
-    parsed = new URL(trimmed);
-  } catch {
-    throw new ZohoConfigurationError(
-      "ZOHO_REDIRECT_URI must be an absolute URL (received an invalid value).",
-    );
-  }
-
-  const isLocalhost = isLocalhostHostname(parsed.hostname);
-
-  if (!isLocalhost && parsed.protocol !== "https:") {
-    throw new ZohoConfigurationError(
-      "ZOHO_REDIRECT_URI must use HTTPS in deployed environments (localhost may use HTTP for local development).",
-    );
-  }
-
-  return trimmed.replace(/\/+$/, "");
-}
-
-function requireRedirectUri(): string {
-  return normalizeRedirectUri(requireEnv("ZOHO_REDIRECT_URI"));
 }
 
 /** Returns true when all required Zoho CRM env vars are present. */
@@ -95,24 +55,5 @@ export function getZohoConfig(): ZohoServerConfig {
       requireEnv("ZOHO_API_BASE_URL"),
       "ZOHO_API_BASE_URL",
     ),
-    redirectUri: requireRedirectUri(),
-    oauthSetupSecret: optionalEnv("ZOHO_OAUTH_SETUP_SECRET"),
-  };
-}
-
-/** OAuth client credentials only (bootstrap before refresh token exists). */
-export function getZohoOAuthClientConfig(): Pick<
-  ZohoServerConfig,
-  "clientId" | "clientSecret" | "accountsUrl" | "redirectUri" | "oauthSetupSecret"
-> {
-  return {
-    clientId: requireEnv("ZOHO_CLIENT_ID"),
-    clientSecret: requireEnv("ZOHO_CLIENT_SECRET"),
-    accountsUrl: normalizeBaseUrl(
-      requireEnv("ZOHO_ACCOUNTS_URL"),
-      "ZOHO_ACCOUNTS_URL",
-    ),
-    redirectUri: requireRedirectUri(),
-    oauthSetupSecret: optionalEnv("ZOHO_OAUTH_SETUP_SECRET"),
   };
 }

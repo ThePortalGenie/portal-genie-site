@@ -1,11 +1,6 @@
 import "server-only";
 
-import {
-  getZohoConfig,
-  getZohoOAuthClientConfig,
-  type ZohoServerConfig,
-} from "@/lib/zoho/config";
-import { ZOHO_CRM_OAUTH_SCOPE } from "@/lib/zoho/constants";
+import { getZohoConfig, type ZohoServerConfig } from "@/lib/zoho/config";
 import { ZohoOAuthError } from "@/lib/zoho/errors";
 
 type ZohoTokenSuccess = {
@@ -14,7 +9,6 @@ type ZohoTokenSuccess = {
   expires_in_sec?: number;
   api_domain?: string;
   token_type?: string;
-  refresh_token?: string;
 };
 
 type CachedAccessToken = {
@@ -101,38 +95,6 @@ async function postTokenRequest(
   }
 
   return parseZohoTokenResponse(response);
-}
-
-/** Build the one-time Zoho authorization URL for refresh-token bootstrap. */
-export function buildZohoAuthorizationUrl(state: string): string {
-  const config = getZohoOAuthClientConfig();
-  const params = new URLSearchParams({
-    scope: ZOHO_CRM_OAUTH_SCOPE,
-    client_id: config.clientId,
-    response_type: "code",
-    access_type: "offline",
-    redirect_uri: config.redirectUri,
-    prompt: "consent",
-    state,
-  });
-
-  return `${config.accountsUrl}/oauth/v2/auth?${params.toString()}`;
-}
-
-/** Exchange a one-time authorization code for tokens (bootstrap only). */
-export async function exchangeAuthorizationCodeForTokens(
-  code: string,
-): Promise<ZohoTokenSuccess> {
-  const config = getZohoOAuthClientConfig();
-  const body = new URLSearchParams({
-    grant_type: "authorization_code",
-    client_id: config.clientId,
-    client_secret: config.clientSecret,
-    redirect_uri: config.redirectUri,
-    code,
-  });
-
-  return postTokenRequest(config.accountsUrl, body);
 }
 
 /** Exchange the stored refresh token for a short-lived CRM access token. */

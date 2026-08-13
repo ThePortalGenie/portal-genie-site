@@ -1,11 +1,4 @@
 /**
- * OAuth redirect URI is configured via ZOHO_REDIRECT_URI (server-only env var).
- * Registered in the Zoho OAuth client — must match exactly at runtime:
- * - Production: https://www.theportalgenie.com/api/zoho/oauth/callback
- * - Vercel testing: https://<preview-host>/api/zoho/oauth/callback
- */
-
-/**
  * Minimum Zoho CRM OAuth scopes for Genie enquiry workflow.
  * @see https://www.zoho.com/crm/developer/docs/api/v8/scopes.html
  */
@@ -20,7 +13,7 @@ export const ZOHO_CRM_CONTACT_SCOPES = [
   "ZohoCRM.modules.contacts.UPDATE",
 ] as const;
 
-/** Minimum Notes scopes — CREATE for enquiry history, READ for verification. */
+/** Minimum Notes scopes — CREATE for enquiry history, READ for Notes module access. */
 export const ZOHO_CRM_NOTE_SCOPES = [
   "ZohoCRM.modules.notes.CREATE",
   "ZohoCRM.modules.notes.READ",
@@ -31,14 +24,6 @@ export const ZOHO_CRM_OAUTH_SCOPES = [
   ...ZOHO_CRM_CONTACT_SCOPES,
   ...ZOHO_CRM_NOTE_SCOPES,
 ] as const;
-
-/** Comma-separated scope string for OAuth authorization requests. */
-export const ZOHO_CRM_OAUTH_SCOPE = ZOHO_CRM_OAUTH_SCOPES.join(",");
-
-/**
- * After changing scopes, re-run OAuth bootstrap via /api/zoho/oauth/start to
- * obtain a new ZOHO_REFRESH_TOKEN with the expanded permissions.
- */
 
 /** Confirmed Lead Source picklist value for Genie enquiries. */
 export const ZOHO_LEAD_SOURCE_PORTAL_GENIE_CHATBOT = "Portal Genie Chatbot" as const;
@@ -76,12 +61,3 @@ export const ZOHO_CONTACT_API_FIELDS = {
 
 export type ZohoContactApiField =
   (typeof ZOHO_CONTACT_API_FIELDS)[keyof typeof ZOHO_CONTACT_API_FIELDS];
-
-/** Cookie set during one-time OAuth bootstrap (short-lived). */
-export const ZOHO_OAUTH_SETUP_COOKIE = "pg_zoho_oauth_setup";
-
-/** CSRF state cookie for OAuth bootstrap (short-lived). */
-export const ZOHO_OAUTH_STATE_COOKIE = "pg_zoho_oauth_state";
-
-/** Bootstrap cookies expire after 10 minutes. */
-export const ZOHO_OAUTH_COOKIE_MAX_AGE_SEC = 600;
