@@ -45,7 +45,7 @@ export function DemoTopBar() {
           type="button"
           onClick={handlePayNow}
           disabled={selectedPaymentTotal <= 0}
-          className="px-4 py-1.5 text-[12px] font-semibold disabled:cursor-not-allowed disabled:opacity-50"
+          className={`px-4 py-1.5 text-[12px] font-semibold disabled:cursor-not-allowed disabled:opacity-50 rounded-[3px]`}
           style={{
             backgroundColor: branding.payNowBg,
             color: branding.payNowText,

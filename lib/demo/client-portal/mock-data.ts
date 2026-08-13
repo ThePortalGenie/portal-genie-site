@@ -65,7 +65,7 @@ export function createInitialInvoices(): Invoice[] {
       dueDate: "2026-06-29",
       amount: 1850,
       balance: 1850,
-      status: "overdue",
+      status: "unpaid",
       amountPaid: 0,
       lineItems: standardLineItems("VAT return preparation — May 2026", 1608.7),
     },

@@ -4,6 +4,10 @@ import { useMemo } from "react";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
 import { formatDate, formatZar } from "@/lib/demo/client-portal/format";
 import {
+  formatInvoiceStatusLabel,
+  sortInvoicesForDisplay,
+} from "@/lib/demo/client-portal/invoices";
+import {
   PortalIconActions,
   PortalPageHeading,
   PortalPagination,
@@ -19,6 +23,17 @@ import {
 } from "@/components/demo/client-portal/PortalPrimitives";
 import type { Invoice } from "@/lib/demo/client-portal/types";
 
+const SORT_COLUMNS: Array<{
+  field: "number" | "amount" | "balance" | "dueDate";
+  label: string;
+  align?: "left" | "right";
+}> = [
+  { field: "number", label: "Invoice" },
+  { field: "amount", label: "Amount", align: "right" },
+  { field: "balance", label: "Balance", align: "right" },
+  { field: "dueDate", label: "Due" },
+];
+
 export function InvoicesSection() {
   const { state, dispatch, payableInvoices } = useDemoPortal();
   const {
@@ -28,6 +43,7 @@ export function InvoicesSection() {
     invoiceSearch,
     invoiceStatusFilter,
     invoiceSort,
+    invoiceUserSorted,
   } = state;
 
   const filteredInvoices = useMemo(() => {
@@ -43,16 +59,14 @@ export function InvoicesSection() {
           invoice.status.toLowerCase().includes(query),
       );
     }
-    result.sort((a, b) => {
-      const direction = invoiceSort.direction === "asc" ? 1 : -1;
-      const field = invoiceSort.field;
-      if (field === "amount" || field === "balance") {
-        return (a[field] - b[field]) * direction;
-      }
-      return String(a[field]).localeCompare(String(b[field])) * direction;
-    });
-    return result;
-  }, [invoices, invoiceSearch, invoiceStatusFilter, invoiceSort]);
+    return sortInvoicesForDisplay(result, invoiceSort, invoiceUserSorted);
+  }, [
+    invoices,
+    invoiceSearch,
+    invoiceStatusFilter,
+    invoiceSort,
+    invoiceUserSorted,
+  ]);
 
   const allUnpaidSelected =
     payableInvoices.length > 0 &&
@@ -86,10 +100,17 @@ export function InvoicesSection() {
 
   const selectedCount = selectedInvoiceIds.length;
 
+  const sortIndicator = (field: typeof invoiceSort.field) => {
+    if (!invoiceUserSorted || invoiceSort.field !== field) {
+      return " ↑";
+    }
+    return invoiceSort.direction === "asc" ? " ↑" : " ↓";
+  };
+
   return (
-    <div className="min-h-0 flex-1 overflow-y-auto bg-white p-3 sm:p-4">
+    <div className="min-h-0 flex-1 overflow-y-auto bg-white px-4 pb-4 pt-5 sm:px-5 sm:pb-5 sm:pt-6">
       <PortalPageHeading>Invoices</PortalPageHeading>
-      <div className="mb-3 flex flex-wrap items-center gap-3">
+      <div className="mb-4 flex flex-wrap items-center gap-3">
         <PortalSearchInput
           value={invoiceSearch}
           onChange={(search) => dispatch({ type: "SET_INVOICE_SEARCH", search })}
@@ -103,18 +124,18 @@ export function InvoicesSection() {
             })
           }
           className="w-[120px]"
+          aria-label="Status filter"
         >
           <option value="all">All</option>
           <option value="unpaid">Unpaid</option>
           <option value="paid">Paid</option>
-          <option value="overdue">Overdue</option>
         </PortalSelect>
       </div>
 
-      <PortalTable minWidth="720px">
-        <PortalTableHead branding={branding}>
-          <PortalTableHeadCell branding={branding}>
-            <div className="flex items-center gap-2">
+      <PortalTable minWidth="700px" compact roundedRows>
+        <PortalTableHead branding={branding} compact roundedRows>
+          <PortalTableHeadCell branding={branding} compact className="min-w-[140px]">
+            <div className="flex items-center gap-2 whitespace-nowrap">
               <input
                 type="checkbox"
                 checked={allUnpaidSelected}
@@ -124,38 +145,38 @@ export function InvoicesSection() {
               />
               <span>Add to cart</span>
               {selectedCount > 0 ? (
-                <span className="font-normal opacity-90">{selectedCount} Selected</span>
+                <span className="font-normal">{selectedCount} Selected</span>
               ) : null}
             </div>
           </PortalTableHeadCell>
-          {[
-            ["number", "Invoice"],
-            ["amount", "Amount"],
-            ["balance", "Balance"],
-            ["dueDate", "Due"],
-          ].map(([field, label]) => (
-            <PortalTableHeadCell key={field} branding={branding}>
+          {SORT_COLUMNS.map(({ field, label, align }) => (
+            <PortalTableHeadCell key={field} branding={branding} compact align={align}>
               <button
                 type="button"
                 onClick={() =>
                   dispatch({
                     type: "SET_INVOICE_SORT",
-                    field: field as typeof invoiceSort.field,
+                    field,
                   })
                 }
-                className="inline-flex items-center gap-1"
+                className={`inline-flex items-center whitespace-nowrap ${align === "right" ? "ml-auto" : ""}`}
               >
                 {label}
+                {sortIndicator(field)}
               </button>
             </PortalTableHeadCell>
           ))}
-          <PortalTableHeadCell branding={branding}>Status</PortalTableHeadCell>
-          <PortalTableHeadCell branding={branding}>Actions</PortalTableHeadCell>
+          <PortalTableHeadCell branding={branding} compact>
+            Status
+          </PortalTableHeadCell>
+          <PortalTableHeadCell branding={branding} compact className="min-w-[108px]">
+            Actions
+          </PortalTableHeadCell>
         </PortalTableHead>
-        <PortalTableBody branding={branding}>
+        <PortalTableBody branding={branding} roundedRows>
           {filteredInvoices.length === 0 ? (
             <tr>
-              <td colSpan={7} className="px-2 py-6 text-center text-[#666]">
+              <td colSpan={7} className="px-2 py-5 text-center text-[11px] text-[#666]">
                 No invoices match your search or filter.
               </td>
             </tr>
@@ -164,8 +185,8 @@ export function InvoicesSection() {
               const isPaid = invoice.status === "paid";
               const isSelected = selectedInvoiceIds.includes(invoice.id);
               return (
-                <PortalTableRow key={invoice.id} selected={isSelected}>
-                  <PortalTableCell>
+                <PortalTableRow key={invoice.id} selected={isSelected} compact roundedRows>
+                  <PortalTableCell compact>
                     <input
                       type="checkbox"
                       checked={isSelected}
@@ -177,17 +198,21 @@ export function InvoicesSection() {
                       className="h-3.5 w-3.5 disabled:opacity-40"
                     />
                   </PortalTableCell>
-                  <PortalTableCell>{invoice.number}</PortalTableCell>
-                  <PortalTableCell>{formatZar(invoice.amount)}</PortalTableCell>
-                  <PortalTableCell>{formatZar(invoice.balance)}</PortalTableCell>
-                  <PortalTableCell>{formatDate(invoice.dueDate)}</PortalTableCell>
-                  <PortalTableCell>
+                  <PortalTableCell compact>{invoice.number}</PortalTableCell>
+                  <PortalTableCell compact align="right">
+                    {formatZar(invoice.amount)}
+                  </PortalTableCell>
+                  <PortalTableCell compact align="right">
+                    {formatZar(invoice.balance)}
+                  </PortalTableCell>
+                  <PortalTableCell compact>{formatDate(invoice.dueDate)}</PortalTableCell>
+                  <PortalTableCell compact>
                     <PortalStatusPill
-                      label={invoice.status}
+                      label={formatInvoiceStatusLabel(invoice.status)}
                       tone={invoice.status === "paid" ? "paid" : "unpaid"}
                     />
                   </PortalTableCell>
-                  <PortalTableCell>
+                  <PortalTableCell compact className="min-w-[108px]">
                     <PortalIconActions
                       onView={() =>
                         dispatch({ type: "VIEW_INVOICE", invoiceId: invoice.id })

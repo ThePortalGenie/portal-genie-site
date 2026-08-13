@@ -5,6 +5,7 @@ export function buildStatementEntries(state: DemoPortalState): {
   entries: StatementEntry[];
   openingBalance: number;
   closingBalance: number;
+  periodTotal: number;
   aging: {
     current: number;
     days1_30: number;
@@ -14,9 +15,6 @@ export function buildStatementEntries(state: DemoPortalState): {
     accountBalance: number;
   };
 } {
-  const entries: StatementEntry[] = [];
-  let runningBalance = 0;
-
   const allItems: Array<{
     id: string;
     date: string;
@@ -58,19 +56,17 @@ export function buildStatementEntries(state: DemoPortalState): {
   }
 
   for (const creditNote of state.creditNotes) {
-    if (creditNote.status === "applied") {
-      allItems.push({
-        id: creditNote.id,
-        date: creditNote.date,
-        dueDate: creditNote.date,
-        docNumber: creditNote.number,
-        description: creditNote.number,
-        amount: 0,
-        paid: 0,
-        credit: creditNote.amount,
-        type: "credit",
-      });
-    }
+    allItems.push({
+      id: creditNote.id,
+      date: creditNote.date,
+      dueDate: creditNote.date,
+      docNumber: creditNote.number,
+      description: creditNote.number,
+      amount: -creditNote.amount,
+      paid: 0,
+      credit: creditNote.amount,
+      type: "credit",
+    });
   }
 
   allItems.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
@@ -79,6 +75,10 @@ export function buildStatementEntries(state: DemoPortalState): {
     ? new Date(state.statementDateFrom).getTime()
     : null;
   const to = state.statementDateTo ? new Date(state.statementDateTo).getTime() : null;
+
+  const entries: StatementEntry[] = [];
+  let runningBalance = 0;
+  let periodTotal = 0;
 
   for (const item of allItems) {
     const itemTime = new Date(item.date).getTime();
@@ -89,9 +89,15 @@ export function buildStatementEntries(state: DemoPortalState): {
       continue;
     }
 
-    const debit = item.type === "invoice" ? item.amount : 0;
-    const credit = item.credit;
-    runningBalance += debit - credit - (item.type === "payment" ? item.paid : 0);
+    if (item.type === "invoice") {
+      runningBalance += item.amount - item.paid;
+      periodTotal += item.amount;
+    } else if (item.type === "credit") {
+      runningBalance -= item.credit;
+      periodTotal -= item.credit;
+    } else if (item.type === "payment") {
+      runningBalance -= item.paid;
+    }
 
     entries.push({
       id: `stmt-${item.id}`,
@@ -108,10 +114,13 @@ export function buildStatementEntries(state: DemoPortalState): {
     });
   }
 
-  const closingBalance = state.invoices.reduce(
-    (sum, invoice) => sum + invoice.balance,
-    0,
-  );
+  const creditAvailable = state.creditNotes
+    .filter((note) => note.status === "available")
+    .reduce((sum, note) => sum + note.amount, 0);
+
+  const closingBalance =
+    state.invoices.reduce((sum, invoice) => sum + invoice.balance, 0) -
+    creditAvailable;
 
   const today = new Date("2026-08-13");
   let current = 0;
@@ -145,6 +154,7 @@ export function buildStatementEntries(state: DemoPortalState): {
     entries,
     openingBalance: 0,
     closingBalance,
+    periodTotal,
     aging: {
       current,
       days1_30,
@@ -164,9 +174,25 @@ export function formatStatementDate(isoDate: string): string {
   }).format(new Date(isoDate));
 }
 
+export function formatStatementPeriodDate(isoDate: string): string {
+  return new Intl.DateTimeFormat("en-ZA", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(isoDate));
+}
+
 export function formatAmountPlain(amount: number): string {
   return amount.toLocaleString("en-ZA", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
+}
+
+export function formatStatementAmount(amount: number): string {
+  if (amount === 0) {
+    return "R0.00";
+  }
+  const prefix = amount < 0 ? "-R" : "R";
+  return `${prefix}${formatAmountPlain(Math.abs(amount))}`;
 }

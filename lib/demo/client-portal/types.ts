@@ -7,7 +7,7 @@ export type PortalSection =
   | "financial-statements"
   | "notes";
 
-export type InvoiceStatus = "paid" | "unpaid" | "overdue";
+export type InvoiceStatus = "paid" | "unpaid";
 
 export type LineItem = {
   description: string;
@@ -188,6 +188,7 @@ export type DemoPortalState = {
   invoiceSearch: string;
   invoiceStatusFilter: "all" | InvoiceStatus;
   invoiceSort: { field: "number" | "date" | "dueDate" | "amount" | "balance"; direction: "asc" | "desc" };
+  invoiceUserSorted: boolean;
   uploadFolder: DocumentFolderId;
   uploadProgress: number | null;
   uploadFeedback: string | null;
@@ -215,7 +216,7 @@ export type DemoPortalAction =
   | { type: "SET_LOGO_ERROR"; error: string | null }
   | { type: "SET_BANNER"; banner: BannerId }
   | { type: "SET_INVOICE_SEARCH"; search: string }
-  | { type: "SET_INVOICE_STATUS_FILTER"; filter: "all" | InvoiceStatus }
+  | { type: "SET_INVOICE_STATUS_FILTER"; filter: DemoPortalState["invoiceStatusFilter"] }
   | { type: "SET_INVOICE_SORT"; field: DemoPortalState["invoiceSort"]["field"] }
   | { type: "TOGGLE_INVOICE_SELECTION"; invoiceId: string }
   | { type: "SELECT_ALL_UNPAID_INVOICES"; invoiceIds: string[] }

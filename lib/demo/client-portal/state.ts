@@ -14,11 +14,6 @@ function deriveInvoiceStatus(invoice: Invoice): Invoice["status"] {
   if (invoice.balance <= 0) {
     return "paid";
   }
-  const today = new Date("2026-08-13");
-  const due = new Date(invoice.dueDate);
-  if (due < today) {
-    return "overdue";
-  }
   return "unpaid";
 }
 
@@ -61,7 +56,8 @@ export function createDemoPortalState(): DemoPortalState {
     viewDocumentId: null,
     invoiceSearch: "",
     invoiceStatusFilter: "all",
-    invoiceSort: { field: "date", direction: "desc" },
+    invoiceSort: { field: "dueDate", direction: "desc" },
+    invoiceUserSorted: false,
     uploadFolder: "bank-statements",
     uploadProgress: null,
     uploadFeedback: null,
@@ -155,6 +151,7 @@ export function demoPortalReducer(
       const sameField = state.invoiceSort.field === action.field;
       return {
         ...state,
+        invoiceUserSorted: true,
         invoiceSort: {
           field: action.field,
           direction:

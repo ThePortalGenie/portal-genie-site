@@ -3,7 +3,6 @@ import type { InvoiceStatus, QuoteStatus, CreditNoteStatus, AgreementStatus } fr
 const invoiceStyles: Record<InvoiceStatus, string> = {
   paid: "bg-emerald-50 text-emerald-700",
   unpaid: "bg-blue-50 text-blue-700",
-  overdue: "bg-red-50 text-red-700",
 };
 
 const quoteStyles: Record<QuoteStatus, string> = {

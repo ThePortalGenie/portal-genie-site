@@ -6,7 +6,7 @@ import {
   formatDate,
   formatZar,
 } from "@/lib/demo/client-portal/format";
-import { DEMO_CUSTOMER } from "@/lib/demo/client-portal/constants";
+import { DEMO_CUSTOMER, DEFAULT_LOGO_PATH } from "@/lib/demo/client-portal/constants";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
 import {
   DocumentToolbar,
@@ -34,8 +34,10 @@ export function InvoiceDocumentView({ invoice }: { invoice: Invoice }) {
     URL.revokeObjectURL(url);
   };
 
+  const logoSrc = state.logoUrl ?? DEFAULT_LOGO_PATH;
+
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-y-auto bg-white p-3 sm:p-4">
+    <div className="flex min-h-0 flex-1 flex-col overflow-y-auto bg-white px-4 pb-4 pt-5 sm:px-5 sm:pb-5 sm:pt-6">
       <DocumentToolbar
         branding={state.branding}
         onClose={() => dispatch({ type: "VIEW_INVOICE", invoiceId: null })}
@@ -46,23 +48,34 @@ export function InvoiceDocumentView({ invoice }: { invoice: Invoice }) {
         showAddToCart={invoice.balance > 0}
       />
 
-      <div className="mx-auto w-full max-w-[640px] border border-[#ececec] bg-white p-6 text-[12px] text-[#112136]">
-        <div className="mb-6 flex items-start justify-between">
+      <div className="mx-auto mt-6 w-full max-w-[680px] bg-white px-2 text-[11px] text-[#112136]">
+        <div className="mb-8 flex items-start justify-between gap-4">
           <div>
-            <h3 className="text-[18px] font-bold">TAX INVOICE</h3>
-            <p className="mt-4 font-semibold">{state.customerName}</p>
+            <h3 className="text-[16px] font-bold tracking-wide">TAX INVOICE</h3>
+            <p className="mt-6 text-[11px] font-semibold">{state.customerName}</p>
+            <p className="mt-1 text-[10px] text-[#666]">{DEMO_CUSTOMER.address}</p>
           </div>
-          <div className="text-right text-[11px]">
-            <p>Invoice Date: {formatDate(invoice.date)}</p>
-            <p>Invoice Number: {invoice.number}</p>
+          <div className="flex flex-col items-end gap-3">
+            <img
+              src={logoSrc}
+              alt={`${state.companyName} logo`}
+              className="h-[60px] w-[60px] object-contain"
+            />
+            <div className="text-right text-[10px] leading-relaxed">
+              <p>Invoice Date: {formatDate(invoice.date)}</p>
+              <p>Invoice Number: {invoice.number}</p>
+            </div>
           </div>
         </div>
 
-        <table className="mb-4 w-full border-collapse text-[11px]">
+        <table className="mb-6 w-full border-collapse text-[10px]">
           <thead>
-            <tr style={{ backgroundColor: state.branding.tableHeadingBg, color: state.branding.tableHeadingText }}>
+            <tr className="border-b border-[#112136]">
               {["Description", "Quantity", "Unit Price", "VAT", "Amount ZAR"].map((h) => (
-                <th key={h} className="border border-[#ddd] px-2 py-1 text-left font-semibold">
+                <th
+                  key={h}
+                  className={`px-1 py-1 font-bold ${h === "Amount ZAR" || h === "Unit Price" || h === "VAT" ? "text-right" : "text-left"}`}
+                >
                   {h}
                 </th>
               ))}
@@ -70,25 +83,40 @@ export function InvoiceDocumentView({ invoice }: { invoice: Invoice }) {
           </thead>
           <tbody>
             {invoice.lineItems.map((item) => (
-              <tr key={item.description}>
-                <td className="border border-[#ddd] px-2 py-1">{item.description}</td>
-                <td className="border border-[#ddd] px-2 py-1">{item.quantity}</td>
-                <td className="border border-[#ddd] px-2 py-1">{formatZar(item.unitPrice)}</td>
-                <td className="border border-[#ddd] px-2 py-1">{formatZar(calculateVat(item.unitPrice * item.quantity))}</td>
-                <td className="border border-[#ddd] px-2 py-1">{formatZar(item.quantity * item.unitPrice + calculateVat(item.quantity * item.unitPrice))}</td>
+              <tr key={item.description} className="border-b border-[#e8e8e8]">
+                <td className="px-1 py-2">{item.description}</td>
+                <td className="px-1 py-2 text-center">{item.quantity}</td>
+                <td className="px-1 py-2 text-right tabular-nums">{formatZar(item.unitPrice)}</td>
+                <td className="px-1 py-2 text-right tabular-nums">
+                  {formatZar(calculateVat(item.unitPrice * item.quantity))}
+                </td>
+                <td className="px-1 py-2 text-right tabular-nums">
+                  {formatZar(
+                    item.quantity * item.unitPrice +
+                      calculateVat(item.quantity * item.unitPrice),
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
 
-        <div className="ml-auto max-w-[220px] space-y-1 text-[11px]">
-          <div className="flex justify-between"><span>Subtotal</span><span>{formatZar(subtotal)}</span></div>
-          <div className="flex justify-between"><span>TOTAL VAT</span><span>{formatZar(vat)}</span></div>
-          <div className="flex justify-between font-bold"><span>TOTAL ZAR</span><span>{formatZar(invoice.amount)}</span></div>
+        <div className="ml-auto max-w-[200px] space-y-1 text-[10px]">
+          <div className="flex justify-between gap-6">
+            <span>Subtotal</span>
+            <span className="tabular-nums">{formatZar(subtotal)}</span>
+          </div>
+          <div className="flex justify-between gap-6">
+            <span>TOTAL VAT</span>
+            <span className="tabular-nums">{formatZar(vat)}</span>
+          </div>
+          <div className="flex justify-between gap-6 font-bold">
+            <span>TOTAL ZAR</span>
+            <span className="tabular-nums">{formatZar(invoice.amount)}</span>
+          </div>
         </div>
 
-        <p className="mt-6 text-[11px]">Due Date: {formatDate(invoice.dueDate)}</p>
-        <p className="mt-2 text-[10px] text-[#666]">{DEMO_CUSTOMER.address}</p>
+        <p className="mt-10 text-[10px]">Due Date: {formatDate(invoice.dueDate)}</p>
       </div>
     </div>
   );

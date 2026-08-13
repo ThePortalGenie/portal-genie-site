@@ -46,7 +46,7 @@ export function DemoSidebar({ mobile = false }: DemoSidebarProps) {
         <button
           type="button"
           onClick={() => dispatch({ type: "SET_UPLOAD_MODAL", open: true })}
-          className="inline-flex w-full items-center justify-center gap-2 px-3 py-2 text-[12px] font-semibold text-white"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-[3px] px-3 py-2 text-[12px] font-semibold text-white"
           style={{ backgroundColor: branding.payNowBg }}
         >
           <Upload className="h-3.5 w-3.5" aria-hidden="true" />
