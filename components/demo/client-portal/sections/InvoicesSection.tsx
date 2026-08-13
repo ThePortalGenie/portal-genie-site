@@ -108,9 +108,9 @@ export function InvoicesSection() {
   };
 
   return (
-    <div className="min-h-0 flex-1 overflow-y-auto bg-white px-4 pb-4 pt-5 sm:px-5 sm:pb-5 sm:pt-6">
+    <div className="min-h-0 flex-1 overflow-y-auto bg-white px-3 pb-3 pt-4 lg:px-3.5 lg:pb-4 lg:pt-5 min-[1700px]:px-5 min-[1700px]:pb-5 min-[1700px]:pt-6">
       <PortalPageHeading>Invoices</PortalPageHeading>
-      <div className="mb-4 flex flex-wrap items-center gap-3">
+      <div className="mb-3 flex flex-wrap items-center gap-2.5 min-[1700px]:mb-4 min-[1700px]:gap-3">
         <PortalSearchInput
           value={invoiceSearch}
           onChange={(search) => dispatch({ type: "SET_INVOICE_SEARCH", search })}
@@ -123,7 +123,7 @@ export function InvoicesSection() {
               filter: filter as typeof invoiceStatusFilter,
             })
           }
-          className="w-[120px]"
+          className="w-[108px] min-[1700px]:w-[120px]"
           aria-label="Status filter"
         >
           <option value="all">All</option>
@@ -132,16 +132,25 @@ export function InvoicesSection() {
         </PortalSelect>
       </div>
 
-      <PortalTable minWidth="700px" compact roundedRows>
+      <PortalTable compact roundedRows fixedLayout>
+        <colgroup>
+          <col style={{ width: "21%" }} />
+          <col style={{ width: "11%" }} />
+          <col style={{ width: "12%" }} />
+          <col style={{ width: "12%" }} />
+          <col style={{ width: "13%" }} />
+          <col style={{ width: "10%" }} />
+          <col style={{ width: "21%" }} />
+        </colgroup>
         <PortalTableHead branding={branding} compact roundedRows>
-          <PortalTableHeadCell branding={branding} compact className="min-w-[140px]">
-            <div className="flex items-center gap-2 whitespace-nowrap">
+          <PortalTableHeadCell branding={branding} compact>
+            <div className="flex items-center gap-1.5 whitespace-nowrap min-[1700px]:gap-2">
               <input
                 type="checkbox"
                 checked={allUnpaidSelected}
                 onChange={handleSelectAll}
                 aria-label="Select all unpaid invoices"
-                className="h-3.5 w-3.5"
+                className="h-3.5 w-3.5 shrink-0"
               />
               <span>Add to cart</span>
               {selectedCount > 0 ? (
@@ -169,7 +178,7 @@ export function InvoicesSection() {
           <PortalTableHeadCell branding={branding} compact>
             Status
           </PortalTableHeadCell>
-          <PortalTableHeadCell branding={branding} compact className="min-w-[108px]">
+          <PortalTableHeadCell branding={branding} compact className="min-w-0">
             Actions
           </PortalTableHeadCell>
         </PortalTableHead>
@@ -212,7 +221,7 @@ export function InvoicesSection() {
                       tone={invoice.status === "paid" ? "paid" : "unpaid"}
                     />
                   </PortalTableCell>
-                  <PortalTableCell compact className="min-w-[108px]">
+                  <PortalTableCell compact className="min-w-0">
                     <PortalIconActions
                       onView={() =>
                         dispatch({ type: "VIEW_INVOICE", invoiceId: invoice.id })

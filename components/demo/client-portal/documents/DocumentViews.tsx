@@ -37,7 +37,7 @@ export function InvoiceDocumentView({ invoice }: { invoice: Invoice }) {
   const logoSrc = state.logoUrl ?? DEFAULT_LOGO_PATH;
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-y-auto bg-white px-4 pb-4 pt-5 sm:px-5 sm:pb-5 sm:pt-6">
+    <div className="flex min-h-0 flex-1 flex-col overflow-y-auto bg-white px-3 pb-3 pt-4 lg:px-3.5 lg:pb-4 lg:pt-5 min-[1700px]:px-5 min-[1700px]:pb-5 min-[1700px]:pt-6">
       <DocumentToolbar
         branding={state.branding}
         onClose={() => dispatch({ type: "VIEW_INVOICE", invoiceId: null })}

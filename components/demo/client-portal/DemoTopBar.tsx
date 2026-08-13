@@ -24,7 +24,7 @@ export function DemoTopBar() {
 
   return (
     <header
-      className="flex shrink-0 items-center justify-between px-4 py-3 lg:px-6"
+      className="flex shrink-0 items-center justify-between px-4 py-2.5 lg:px-5 min-[1700px]:px-6 min-[1700px]:py-3"
       style={{ backgroundColor: branding.sidebarBg }}
     >
       <div className="flex items-center gap-3">

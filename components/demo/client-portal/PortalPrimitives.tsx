@@ -9,7 +9,7 @@ export const PORTAL_CONTROL_RADIUS = "rounded-[3px]";
 
 export function PortalPageHeading({ children }: { children: ReactNode }) {
   return (
-    <h2 className="mb-4 text-[15px] font-bold text-[#112136]">{children}</h2>
+    <h2 className="mb-3 text-[15px] font-bold text-[#112136] min-[1700px]:mb-4">{children}</h2>
   );
 }
 
@@ -30,7 +30,7 @@ export function PortalSearchInput({
       value={value}
       onChange={(event) => onChange(event.target.value)}
       placeholder={placeholder}
-      className={`h-8 w-full max-w-[220px] border border-[#d9d9d9] bg-white px-2 text-[11px] text-[#112136] outline-none focus:border-[#00CCFF] ${PORTAL_CONTROL_RADIUS} ${className}`}
+      className={`h-8 w-full max-w-[190px] border border-[#d9d9d9] bg-white px-2 text-[11px] text-[#112136] outline-none focus:border-[#00CCFF] min-[1700px]:max-w-[220px] ${PORTAL_CONTROL_RADIUS} ${className}`}
     />
   );
 }
@@ -111,21 +111,23 @@ export function PortalActionButton({
 
 export function PortalTable({
   children,
-  minWidth = "640px",
+  minWidth,
   compact = false,
   roundedRows = false,
+  fixedLayout = false,
 }: {
   children: ReactNode;
   minWidth?: string;
   compact?: boolean;
   roundedRows?: boolean;
+  fixedLayout?: boolean;
 }) {
   return (
-    <div className="overflow-x-auto">
+    <div className={minWidth ? "overflow-x-auto" : "min-w-0 overflow-x-visible"}>
       <table
-        className={`w-full ${roundedRows ? "border-separate" : "border-collapse"} ${compact ? "text-[11px]" : "text-[12px]"}`}
+        className={`w-full ${fixedLayout ? "table-fixed" : ""} ${roundedRows ? "border-separate" : "border-collapse"} ${compact ? "text-[11px]" : "text-[12px]"}`}
         style={{
-          minWidth,
+          ...(minWidth ? { minWidth } : undefined),
           ...(roundedRows ? { borderSpacing: "0 5px" } : undefined),
         }}
       >
@@ -176,7 +178,7 @@ export function PortalTableHeadCell({
 }) {
   return (
     <th
-      className={`font-semibold ${compact ? "px-2.5 py-1.5 text-[11px]" : "px-2 py-2 text-[12px]"} ${align === "right" ? "text-right" : "text-left"} ${className}`}
+      className={`font-semibold ${compact ? "px-1.5 py-1 text-[11px] min-[1700px]:px-2.5 min-[1700px]:py-1.5" : "px-2 py-2 text-[12px]"} ${align === "right" ? "text-right" : "text-left"} ${className}`}
       style={{ color: branding.tableHeadingText }}
     >
       {children}
@@ -241,7 +243,7 @@ export function PortalTableCell({
 }) {
   return (
     <td
-      className={`align-middle ${compact ? "px-2.5 py-2" : "px-2 py-2.5"} ${align === "right" ? "text-right tabular-nums" : "text-left"} ${className}`}
+      className={`align-middle ${compact ? "px-1.5 py-1.5 min-[1700px]:px-2.5 min-[1700px]:py-2" : "px-2 py-2.5"} ${align === "right" ? "text-right tabular-nums" : "text-left"} ${className}`}
     >
       {children}
     </td>
@@ -264,7 +266,7 @@ export function PortalStatusPill({
 
   return (
     <span
-      className={`inline-block rounded-[3px] px-2 py-0.5 text-[10px] font-medium ${styles}`}
+      className={`inline-block rounded-[3px] px-1.5 py-0.5 text-[10px] font-medium min-[1700px]:px-2 ${styles}`}
     >
       {label}
     </span>
@@ -273,7 +275,7 @@ export function PortalStatusPill({
 
 export function PortalPagination() {
   return (
-    <div className="mt-3 flex items-center justify-end gap-1.5 text-[11px] text-[#666]">
+    <div className="mt-2 flex items-center justify-end gap-1.5 text-[11px] text-[#666] min-[1700px]:mt-3">
       <button
         type="button"
         className={`px-1 ${PORTAL_CONTROL_RADIUS} hover:bg-[#f5f5f5]`}
@@ -307,7 +309,7 @@ export function PortalIconActions({
   onShare?: () => void;
 }) {
   return (
-    <div className="flex items-center justify-end gap-2.5 text-[#666]">
+    <div className="flex items-center justify-end gap-1.5 text-[#666] min-[1700px]:gap-2.5">
       {onView ? (
         <button type="button" onClick={onView} aria-label="View" className="hover:text-[#0055FF]">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">

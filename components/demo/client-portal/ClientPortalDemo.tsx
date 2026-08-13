@@ -91,7 +91,7 @@ function ClientPortalDemoInner() {
         </p>
       </div>
 
-      <div className="grid min-h-[calc(100dvh-28px)] flex-1 lg:grid-cols-[minmax(180px,15%)_1fr] lg:grid-rows-[auto_1fr]">
+      <div className="grid min-h-[calc(100dvh-28px)] flex-1 lg:grid-cols-[minmax(200px,220px)_minmax(0,1fr)] lg:grid-rows-[auto_1fr] min-[1700px]:grid-cols-[minmax(180px,15%)_minmax(0,1fr)]">
         <DemoSidebar />
         <DemoSidebar mobile />
 
@@ -99,7 +99,7 @@ function ClientPortalDemoInner() {
           <DemoTopBar />
         </div>
 
-        <div className="grid min-h-0 min-w-0 lg:col-start-2 lg:row-start-2 lg:grid-cols-2">
+        <div className="grid min-h-0 min-w-0 lg:col-start-2 lg:row-start-2 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)] min-[1700px]:grid-cols-2">
           <div className="flex min-h-0 min-w-0 flex-col overflow-hidden">
             <PortalContentArea />
             <DemoPortalAdvertisingMobile />

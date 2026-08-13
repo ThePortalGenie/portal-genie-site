@@ -68,7 +68,7 @@ export function DemoPortalAdvertisingPanel() {
 
   return (
     <aside
-      className="flex h-full min-h-0 items-center justify-center border-l border-[#ececec] bg-white p-4"
+      className="flex h-full min-h-0 items-center justify-center border-l border-[#ececec] bg-white p-2 lg:p-3 min-[1700px]:p-4"
       aria-label="Promotional banner"
     >
       {content}
