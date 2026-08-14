@@ -3,7 +3,7 @@
 import { Home, LayoutPanelTop, Upload } from "lucide-react";
 import { getVisiblePortalFolders } from "@/lib/demo/client-portal/folders";
 import { getPortalLogo } from "@/lib/demo/client-portal/portal-logo";
-import { formatAmountPlain } from "@/lib/demo/client-portal/statement";
+import { formatCurrency } from "@/lib/demo/client-portal/format";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
 import { getMobileFolderIcon } from "@/components/demo/client-portal/mobile/folder-icons";
 import { MobileNoticeBoardView } from "@/components/demo/client-portal/mobile/MobileNoticeBoardView";
@@ -104,12 +104,16 @@ function MobilePortalHome() {
 }
 
 function MobilePortalFooter() {
-  const { state, dispatch, outstandingBalance, selectedPaymentTotal, payableInvoices } =
-    useDemoPortal();
-  const { mobileDesign, mobilePortalView } = state;
+  const { state, dispatch, selectedPaymentTotal, payableInvoices } = useDemoPortal();
+  const { mobileDesign, mobilePortalView, selectedInvoiceIds } = state;
   const footerColour = mobileDesign.footerIconLabelColour;
   const isHome = mobilePortalView === "home";
   const isNoticeBoard = mobilePortalView === "notice-board";
+
+  const paymentLabel =
+    selectedInvoiceIds.length > 0
+      ? formatCurrency(selectedPaymentTotal)
+      : "Select invoices";
 
   const handlePayNow = () => {
     if (selectedPaymentTotal <= 0 && payableInvoices.length > 0) {
@@ -175,8 +179,11 @@ function MobilePortalFooter() {
         disabled={payableInvoices.length === 0}
         className="flex flex-col items-center gap-0.5 px-1 py-1 disabled:opacity-50"
       >
-        <span className="text-[10px] font-semibold tabular-nums" style={{ color: footerColour }}>
-          {formatAmountPlain(outstandingBalance)}
+        <span
+          className="max-w-full truncate px-0.5 text-center text-[9px] font-semibold leading-tight tabular-nums"
+          style={{ color: footerColour }}
+        >
+          {paymentLabel}
         </span>
         <span
           className="rounded px-2 py-0.5 text-[9px] font-bold text-[#112136]"

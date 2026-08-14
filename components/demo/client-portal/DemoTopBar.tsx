@@ -5,13 +5,14 @@ import { useDemoPortal } from "@/lib/demo/client-portal/context";
 import { formatCurrency } from "@/lib/demo/client-portal/format";
 
 export function DemoTopBar() {
-  const { state, dispatch, selectedPaymentTotal, outstandingBalance } = useDemoPortal();
-  const { branding, customerName, previewMode } = state;
+  const { state, dispatch, selectedPaymentTotal } = useDemoPortal();
+  const { branding, customerName, previewMode, selectedInvoiceIds } = state;
   const mobilePreview = previewMode === "mobile";
 
-  const displayAmount =
-    selectedPaymentTotal > 0 ? selectedPaymentTotal : outstandingBalance;
-  const amountLabel = formatCurrency(displayAmount);
+  const paymentLabel =
+    selectedInvoiceIds.length > 0
+      ? formatCurrency(selectedPaymentTotal)
+      : "Select invoices to pay";
 
   const handlePayNow = () => {
     if (selectedPaymentTotal <= 0) {
@@ -38,7 +39,7 @@ export function DemoTopBar() {
       </div>
 
       <div className="flex items-center gap-3">
-        <span className="text-[14px] font-semibold text-white">{amountLabel}</span>
+        <span className="text-[14px] font-semibold text-white">{paymentLabel}</span>
         <button
           type="button"
           onClick={handlePayNow}
