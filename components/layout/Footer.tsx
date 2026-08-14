@@ -8,65 +8,107 @@ import { TrackedFooterNavLink } from "@/components/analytics/TrackedFooterNavLin
 import { Container } from "@/components/ui/Container";
 import { FooterBottom } from "@/components/layout/FooterBottom";
 import { FooterColumn } from "@/components/layout/FooterColumn";
-import { LinkedInIcon, YouTubeIcon } from "@/components/layout/FooterSocialIcons";
+import {
+  FacebookBrandIcon,
+  InstagramBrandIcon,
+  LinkedInBrandIcon,
+} from "@/components/layout/FooterSocialIcons";
 
 const socialIcons = {
-  linkedin: LinkedInIcon,
-  youtube: YouTubeIcon,
+  facebook: FacebookBrandIcon,
+  linkedin: LinkedInBrandIcon,
+  instagram: InstagramBrandIcon,
 } as const;
+
+const footerNavLinkClass =
+  "text-sm text-white/80 transition-colors duration-200 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
+
+const footerSocialButtonClass =
+  "inline-flex size-10 items-center justify-center rounded-button transition-transform duration-200 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
+
 export function Footer() {
   const { brand, columns } = footerContent;
 
   return (
-    <footer className="mt-auto border-t border-muted/15 bg-background">
+    <footer className="mt-auto bg-[#112136] text-white">
       <Container>
         <div className="py-12 md:py-20 lg:py-24">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-3 xl:grid-cols-5 xl:gap-8">
-            <FooterColumn className="sm:col-span-2 lg:col-span-3 xl:col-span-1">
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-10 lg:grid-cols-12 lg:gap-8">
+            <FooterColumn theme="dark" className="sm:col-span-2 lg:col-span-4">
               <Link
                 href={links.home}
-                className="inline-flex shrink-0"
+                className="inline-flex shrink-0 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 aria-label={site.logo.ariaLabel}
               >
                 <Image
-                  src={site.logo.src}
-                  alt={site.logo.alt}
-                  width={site.logo.width}
-                  height={site.logo.height}
-                  className="h-auto max-h-[44px] w-auto"
+                  src={brand.logo.src}
+                  alt={brand.logo.alt}
+                  width={brand.logo.width}
+                  height={brand.logo.height}
+                  className="h-auto max-h-[44px] w-auto max-w-[200px]"
                 />
               </Link>
-              <p className="mt-5 max-w-sm text-sm leading-relaxed text-portal-navy/75">
+              <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/75">
                 {brand.description}
               </p>
-              <p className="mt-4 text-xs font-medium tracking-wide text-portal-navy/50">
+              <p className="mt-4 text-xs font-medium tracking-wide text-white/60">
                 {brand.xeroStatement}
               </p>
+
+              <div className="mt-6">
+                <p className="text-sm font-semibold text-white">
+                  {brand.socialHeading}
+                </p>
+                <ul className="mt-3 flex items-center gap-3">
+                  {columns.connect.social.map((item) => {
+                    const Icon = socialIcons[item.icon];
+
+                    return (
+                      <li key={item.icon}>
+                        <a
+                          href={item.href}
+                          className={footerSocialButtonClass}
+                          aria-label={item.ariaLabel}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Icon className="size-6" />
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </FooterColumn>
 
-            <FooterColumn title={columns.product.title}>
+            <FooterColumn
+              theme="dark"
+              title={columns.product.title}
+              className="lg:col-span-2"
+            >
               <ul className="space-y-3">
                 {getVisibleFooterLinks([...columns.product.links]).map((link) => (
                   <li key={link.href}>
                     <TrackedFooterNavLink
                       href={link.href}
                       label={link.label}
-                      className="text-sm text-portal-navy/70 transition-colors duration-200 hover:text-portal-blue"
+                      className={footerNavLinkClass}
                     />
                   </li>
                 ))}
               </ul>
             </FooterColumn>
 
-            <FooterColumn title={columns.resources.title}>
+            <FooterColumn
+              theme="dark"
+              title={columns.resources.title}
+              className="lg:col-span-2"
+            >
               <ul className="space-y-3">
                 {getVisibleFooterLinks([...columns.resources.links]).map(
                   (link) => (
                     <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-portal-navy/70 transition-colors duration-200 hover:text-portal-blue"
-                      >
+                      <Link href={link.href} className={footerNavLinkClass}>
                         {link.label}
                       </Link>
                     </li>
@@ -75,14 +117,15 @@ export function Footer() {
               </ul>
             </FooterColumn>
 
-            <FooterColumn title={columns.company.title}>
+            <FooterColumn
+              theme="dark"
+              title={columns.company.title}
+              className="lg:col-span-2"
+            >
               <ul className="space-y-3">
                 {getVisibleFooterLinks([...columns.company.links]).map((link) => (
                   <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-portal-navy/70 transition-colors duration-200 hover:text-portal-blue"
-                    >
+                    <Link href={link.href} className={footerNavLinkClass}>
                       {link.label}
                     </Link>
                   </li>
@@ -90,36 +133,19 @@ export function Footer() {
               </ul>
             </FooterColumn>
 
-            <FooterColumn title={columns.connect.title}>
+            <FooterColumn
+              theme="dark"
+              title={columns.connect.title}
+              className="lg:col-span-2"
+            >
               <TrackedEmailLink
                 href={`mailto:${columns.connect.email}`}
                 emailDomain="theportalgenie.com"
                 ctaLocation="footer"
-                className="text-sm text-portal-navy/70 transition-colors duration-200 hover:text-portal-blue"
+                className={footerNavLinkClass}
               >
                 {columns.connect.email}
               </TrackedEmailLink>
-              <ul className="mt-5 flex items-center gap-3">
-                {columns.connect.social.map((item) => {
-                  const Icon = socialIcons[item.icon];
-                  const isExternal = item.href.startsWith("http");
-
-                  return (
-                    <li key={item.label}>
-                      <Link
-                        href={item.href}
-                        className="inline-flex size-10 items-center justify-center rounded-button text-portal-navy/70 transition-colors duration-200 hover:bg-surface hover:text-portal-blue"
-                        aria-label={item.label}
-                        {...(isExternal
-                          ? { target: "_blank", rel: "noopener noreferrer" }
-                          : {})}
-                      >
-                        <Icon className="size-5" aria-hidden="true" />
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
             </FooterColumn>
           </div>
 

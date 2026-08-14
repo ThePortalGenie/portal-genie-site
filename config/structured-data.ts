@@ -1,6 +1,6 @@
 import { featuresPage } from "@/content/features";
 import { pricingPage } from "@/content/pricing";
-import { footerContent } from "@/content/footer";
+import { links } from "@/config/links";
 import {
   ORGANIZATION_LOGO_URL,
   PRODUCTION_SITE_URL,
@@ -22,14 +22,8 @@ export const SOFTWARE_APPLICATION_DESCRIPTION =
 
 export const SOFTWARE_APPLICATION_IMAGE = `${PRODUCTION_SITE_URL}/images/product/marketing/platform-overview-dashboard.png`;
 
-const linkedInSocial = footerContent.columns.connect.social.find(
-  (profile) => profile.icon === "linkedin",
-);
-
-/** Official LinkedIn company profile — sourced from the existing footer. */
-export const ORGANIZATION_SAME_AS = linkedInSocial
-  ? ([linkedInSocial.href] as const)
-  : ([] as const);
+/** Official social profiles — sourced from the central links configuration. */
+export const ORGANIZATION_SAME_AS = [links.social.linkedin] as const;
 
 export function getSoftwareApplicationFeatureList(): string[] {
   return featuresPage.sections.map((section) => section.title);

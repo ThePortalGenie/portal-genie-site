@@ -30,4 +30,10 @@ export const links = {
   advancedStartFree:
     "https://app.theportalgenie.com/app/register?registerPage=true&packageId=ADVANCED_CUSTOMER_PORTAL",
   support: "/contact",
+  /** Official Portal Genie social profiles */
+  social: {
+    facebook: "https://www.facebook.com/profile.php?id=61582279679793#",
+    linkedin: "https://www.linkedin.com/company/the-portal-genie",
+    instagram: "https://www.instagram.com/theportalgenie/",
+  },
 } as const;

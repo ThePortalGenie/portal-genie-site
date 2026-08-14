@@ -7,11 +7,28 @@ export type FooterLink = {
   visible?: boolean;
 };
 
+export type FooterSocialIcon = "facebook" | "linkedin" | "instagram";
+
+export type FooterSocialLink = {
+  /** Accessible name, e.g. "Portal Genie on LinkedIn" */
+  ariaLabel: string;
+  icon: FooterSocialIcon;
+  /** Omit href until an official profile URL is confirmed. */
+  href?: string;
+};
+
 export const footerContent = {
   brand: {
     description:
       "The Portal Genie helps businesses deliver a modern customer experience through secure portals, branded communication and seamless integration with Xero, QuickBooks and Sage Business Cloud.",
     xeroStatement: "Built for businesses using Xero",
+    logo: {
+      src: "/images/logos/portal-genie-logo-white.svg",
+      alt: "The Portal Genie",
+      width: 1306,
+      height: 662,
+    },
+    socialHeading: "Follow us",
   },
   columns: {
     product: {
@@ -36,32 +53,37 @@ export const footerContent = {
     },
     company: {
       title: "Company",
-      links: [
-        { label: "Contact", href: links.contact },
-        { label: "Privacy Policy", href: links.privacyPolicy },
-        { label: "Terms & Conditions", href: links.termsAndConditions },
-      ] satisfies FooterLink[],
+      links: [{ label: "Contact", href: links.contact }] satisfies FooterLink[],
     },
     connect: {
       title: "Connect",
-      email: "info@theportalgenie.com",
+      email: "sales@theportalgenie.com",
       social: [
         {
-          label: "LinkedIn",
-          href: "https://www.linkedin.com/company/the-portal-genie",
+          ariaLabel: "Portal Genie on Facebook",
+          href: links.social.facebook,
+          icon: "facebook" as const,
+        },
+        {
+          ariaLabel: "Portal Genie on LinkedIn",
+          href: links.social.linkedin,
           icon: "linkedin" as const,
         },
         {
-          label: "YouTube",
-          href: links.youtube,
-          icon: "youtube" as const,
+          ariaLabel: "Portal Genie on Instagram",
+          href: links.social.instagram,
+          icon: "instagram" as const,
         },
-      ],
+      ] satisfies FooterSocialLink[],
     },
   },
   bottom: {
     copyright: "© 2026 The Portal Genie. All rights reserved.",
     tagline: "Built with ❤️ for businesses using Xero.",
+    links: [
+      { label: "Privacy Policy", href: links.privacyPolicy },
+      { label: "Terms & Conditions", href: links.termsAndConditions },
+    ] satisfies FooterLink[],
   },
 } as const;
 
