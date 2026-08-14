@@ -228,11 +228,13 @@ export function DemoAccessGate() {
                   Explore the Portal Genie Client Portal
                 </h1>
                 <p className="mt-3 text-sm leading-relaxed text-portal-navy/70">
-                  See how Portal Genie gives your clients a modern, branded portal for invoices,
-                  statements, documents, payments and more.
+                  Complete the form and verify your email to access the demo.
                 </p>
-                <p className="mt-2 text-sm text-portal-navy/70">
-                  Enter your details to access the interactive demo.
+                <p className="mt-2 text-sm leading-relaxed text-portal-navy/70">
+                  See exactly what your clients will experience and{" "}
+                  <strong className="font-semibold text-portal-navy">
+                    how easy it is to brand your own Portal.
+                  </strong>
                 </p>
 
                 <form className="mt-6 space-y-4" onSubmit={handleSubmit} noValidate>
@@ -358,7 +360,7 @@ export function DemoAccessGate() {
                     disabled={isSubmitting}
                     className="w-full rounded-button bg-portal-blue px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-portal-blue/90 disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    {isSubmitting ? "Sending verification email..." : "View Interactive Demo"}
+                    {isSubmitting ? "Sending verification email..." : "Verify & View Demo"}
                   </button>
 
                   <p className="text-center text-xs text-portal-navy/55">
