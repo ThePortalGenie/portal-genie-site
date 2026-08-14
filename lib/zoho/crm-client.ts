@@ -308,7 +308,8 @@ export async function createLead(
 
   const record = {
     ...sanitized,
-    Lead_Source: ZOHO_LEAD_SOURCE_PORTAL_GENIE_CHATBOT,
+    Lead_Source:
+      sanitized.Lead_Source ?? ZOHO_LEAD_SOURCE_PORTAL_GENIE_CHATBOT,
   };
 
   const response = await zohoCrmRequest<ZohoWriteResponse>("/Leads", {

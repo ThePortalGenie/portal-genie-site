@@ -5,7 +5,7 @@ import {
   createDemoSessionFromVerification,
   getDemoSessionRecord,
 } from "@/lib/demo-auth/session";
-import { syncDemoLeadVerifiedToZohoInBackground } from "@/lib/demo-auth/sync-zoho";
+import { scheduleDemoLeadVerifiedZohoSync } from "@/lib/demo-auth/sync-zoho";
 import {
   consumeDemoVerification,
   getDemoVerificationByToken,
@@ -52,7 +52,7 @@ export async function processDemoVerificationToken(
 
   const sessionId = await createDemoSessionFromVerification(consumed);
 
-  syncDemoLeadVerifiedToZohoInBackground(consumed);
+  scheduleDemoLeadVerifiedZohoSync(consumed);
 
   return { ok: true, sessionId };
 }

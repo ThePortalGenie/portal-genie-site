@@ -4,7 +4,7 @@ import { isDemoAccessConfigured, getDemoAccessUnavailableMessage } from "@/lib/d
 import { sendDemoVerificationEmail } from "@/lib/demo-auth/email";
 import { checkDemoAccessRateLimits } from "@/lib/demo-auth/rate-limit";
 import {
-  syncDemoLeadToZohoInBackground,
+  scheduleDemoLeadZohoSync,
 } from "@/lib/demo-auth/sync-zoho";
 import { validateDemoLeadBody } from "@/lib/demo-auth/validation";
 import { createDemoVerification } from "@/lib/demo-auth/verification";
@@ -87,7 +87,7 @@ export async function POST(
   try {
     const { rawToken, record } = await createDemoVerification(validation.data);
 
-    syncDemoLeadToZohoInBackground(validation.data);
+    scheduleDemoLeadZohoSync(validation.data);
 
     await sendDemoVerificationEmail(record, rawToken);
 
