@@ -537,6 +537,11 @@ export const pricingPromotion = {
     "Our current pricing is available for a limited time. Sign up now and lock in your plan at today's price for your business.",
   mobileDescription: "Sign up now to secure today's plan pricing.",
   ctaLabel: "Choose Your Plan",
+  secondarySalesHeading: "Need help choosing a plan?",
+  secondarySalesCta: {
+    label: buttons.contactSales,
+    href: links.contact,
+  },
   /** Stable hash target for the plan cards section */
   targetId: "plans",
 } as const;
