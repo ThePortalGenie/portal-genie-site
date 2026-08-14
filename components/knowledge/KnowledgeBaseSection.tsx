@@ -24,13 +24,12 @@ function groupArticlesByCategory() {
 
 export function KnowledgeBaseSection() {
   const groupedArticles = groupArticlesByCategory();
-  const totalArticles = listPublicArticles().length;
 
   return (
     <Section background="background" id="knowledge-base">
       <SectionHeader
         title="Knowledge Base"
-        description={`Approved guides and answers to help you get the most from The Portal Genie. ${totalArticles} article${totalArticles === 1 ? "" : "s"} available.`}
+        description="Guides and articles to help you understand, set up and get more from your Portal Genie Client Portal."
         align="left"
         className="max-w-xl"
       />

@@ -28,7 +28,7 @@ export const footerContent = {
     resources: {
       title: "Resources",
       links: [
-        { label: "Resources", href: links.resources, visible: false },
+        { label: "Resources", href: links.resources },
         { label: "Documentation", href: links.documentation },
         { label: "Product Updates", href: links.productUpdates },
         { label: "FAQ", href: links.faq },

@@ -112,6 +112,7 @@ export const INDEXABLE_ROUTES = [
   "/customer-success",
   "/book-a-demo",
   "/contact",
+  "/resources",
   "/privacy-policy",
   "/terms-and-conditions",
 ] as const;
@@ -120,7 +121,6 @@ export type IndexableRoute = (typeof INDEXABLE_ROUTES)[number];
 
 /** Public routes that must not appear in organic search on production. */
 export const NOINDEX_ROUTES = [
-  "/resources",
   "/platform",
   "/about",
   "/documentation",
@@ -222,6 +222,48 @@ export function noIndexPageMetadata(
   return {
     ...metadata,
     robots: robotsForNoIndexPage(),
+  };
+}
+
+/** Canonical metadata for a public Resource Centre article at /resources/{slug}. */
+export function indexableResourceArticleMetadata(
+  slug: string,
+  metadata: Omit<Metadata, "alternates" | "robots">,
+): Metadata {
+  const canonicalUrl = `${PRODUCTION_SITE_URL}/resources/${slug.replace(/^\/+|\/+$/g, "")}`;
+  const pageTitle = resolveMetadataTitle(metadata);
+  const pageDescription = resolveMetadataDescription(metadata);
+  const ogTitle =
+    typeof metadata.openGraph?.title === "string"
+      ? metadata.openGraph.title
+      : pageTitle;
+  const ogDescription =
+    typeof metadata.openGraph?.description === "string"
+      ? metadata.openGraph.description
+      : pageDescription;
+
+  return {
+    ...metadata,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    robots: robotsForIndexablePage(),
+    openGraph: {
+      type: "article",
+      siteName: seo.siteName,
+      url: canonicalUrl,
+      title: ogTitle,
+      description: ogDescription,
+      images: [socialShareImageMetadata],
+      ...metadata.openGraph,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ogTitle,
+      description: ogDescription,
+      images: [SOCIAL_SHARE_IMAGE.path],
+      ...metadata.twitter,
+    },
   };
 }
 

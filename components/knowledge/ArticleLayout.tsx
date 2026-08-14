@@ -3,6 +3,7 @@ import type { KnowledgeArticle } from "@/content/knowledge/types";
 import { links } from "@/config/links";
 import { buttons } from "@/content/buttons";
 import { ArticleBreadcrumbs } from "@/components/knowledge/ArticleBreadcrumbs";
+import { ArticleStructuredData } from "@/components/knowledge/ArticleStructuredData";
 import { KnowledgeArticleCard } from "@/components/knowledge/KnowledgeArticleCard";
 import { MarkdownContent } from "@/components/knowledge/MarkdownContent";
 import { ButtonLink } from "@/components/ui/ButtonLink";
@@ -35,6 +36,7 @@ export function ArticleLayout({ article }: ArticleLayoutProps) {
 
   return (
     <article className="relative overflow-hidden bg-background pb-16 md:pb-20 lg:pb-24">
+      <ArticleStructuredData article={article} />
       <GenieFlow variant="soft" />
       <Container className="relative z-10">
         <div className="mx-auto max-w-3xl pt-8 md:pt-12 lg:pt-16">

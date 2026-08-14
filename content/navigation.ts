@@ -12,7 +12,7 @@ export const mainNavItems: MainNavItem[] = [
   { label: "Why The Portal Genie", href: links.whyThePortalGenie },
   { label: "Features", href: links.features },
   { label: "Pricing", href: links.pricing },
-  { label: "Resources", href: links.resources, visible: false },
+  { label: "Resources", href: links.resources },
   { label: "Customer Success", href: links.customerSuccess },
 ];
 

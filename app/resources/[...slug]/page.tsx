@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArticleLayout } from "@/components/knowledge/ArticleLayout";
-import { noIndexPageMetadata } from "@/config/seo";
+import {
+  indexableResourceArticleMetadata,
+  noIndexPageMetadata,
+} from "@/config/seo";
 import {
   getArticleMetadataBySlug,
   getKnowledgeArticleBySlug,
@@ -31,6 +34,13 @@ export async function generateMetadata({
 
   if (!metadata?.public) {
     return {};
+  }
+
+  if (metadata.indexable) {
+    return indexableResourceArticleMetadata(slug, {
+      title: `${metadata.title} | The Portal Genie`,
+      description: metadata.description,
+    });
   }
 
   return noIndexPageMetadata({

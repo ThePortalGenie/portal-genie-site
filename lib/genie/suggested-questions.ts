@@ -1,6 +1,6 @@
-/** Starter questions answerable from the current approved Knowledge Base. */
+/** Starter questions answerable from the approved Knowledge Base. */
 export const GENIE_SUGGESTED_QUESTIONS = [
   "What is The Portal Genie?",
-  "What can my customers access?",
-  "How does the 30-day free trial work?",
+  "Do my clients need to register?",
+  "Can I add Client Login to my website?",
 ] as const;

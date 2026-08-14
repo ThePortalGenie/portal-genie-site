@@ -5,12 +5,18 @@ export const KNOWLEDGE_CATEGORIES = [
   "getting-started",
   "customer-portal",
   "documents",
-  "payments",
   "communication",
+  "integrations",
+  "payments",
   "branding",
+  "notifications",
+  "security",
+  "plans",
+  "analytics",
   "xero",
   "quickbooks",
   "sage",
+  "faq",
 ] as const;
 
 export type KnowledgeCategory = (typeof KNOWLEDGE_CATEGORIES)[number];

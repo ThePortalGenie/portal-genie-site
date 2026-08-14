@@ -3,19 +3,19 @@ import { buttons } from "@/content/buttons";
 
 export const resourcesPage = {
   metadata: {
-    title: "Resources",
+    title: "Portal Genie Resources",
     description:
-      "Explore guides, product updates, documentation and best practices to help you get the most from The Portal Genie — the customer experience layer for businesses.",
+      "Everything you need to understand, set up and get more from your Portal Genie Client Portal.",
     openGraph: {
-      title: "Portal Genie Resources — Guides, Documentation & Product Updates",
+      title: "Portal Genie Resources — Client Portal Guides & Knowledge Base",
       description:
-        "Guides, documentation, release notes and best practices to help you deliver a better customer experience with Portal Genie alongside Xero.",
+        "Guides and articles to help you understand, set up and get more from your Portal Genie Client Portal.",
     },
   },
   hero: {
-    headline: "Resources",
+    headline: "Portal Genie Resources",
     description:
-      "Explore guides, product updates, documentation and best practices to help you get the most from The Portal Genie.",
+      "Everything you need to understand, set up and get more from your Portal Genie Client Portal.",
     primaryCta: {
       label: "Browse articles",
       href: "#knowledge-base",
@@ -84,7 +84,7 @@ export const resourcesPage = {
   featured: {
     headline: "Featured resources",
     description:
-      "Hand-picked articles to help you deliver a better customer experience.",
+      "Start here — essential guides for understanding your Client Portal, client access and your website login link.",
     articles: [
       {
         category: "Guides",
