@@ -3,7 +3,7 @@ import type { BrandingTheme, BrandPresetId } from "@/lib/demo/client-portal/type
 /** Aurora Global reference portal — bright cyan shell. */
 export const DEFAULT_BRANDING: BrandingTheme = {
   brandColor: "#00CCFF",
-  sidebarBg: "#00CCFF",
+  sidebarBg: "#00d8ff",
   menuText: "#FFFFFF",
   menuSelectedText: "#00CCFF",
   menuSelectedBg: "#F5F5F5",
@@ -93,7 +93,7 @@ export const BANNER_ASSETS: Record<
   { image?: string; alt: string }
 > = {
   "portal-genie": {
-    image: "/demo/client-portal/banners/portal-genie-win-tv.png",
+    image: "/demo/client-portal/banners/demo-banner (21 x 21 cm).png",
     alt: "Portal Genie — Win This TV contest entry (Xerocon Denver)",
   },
   "tax-season": { alt: "Tax season reminder" },
