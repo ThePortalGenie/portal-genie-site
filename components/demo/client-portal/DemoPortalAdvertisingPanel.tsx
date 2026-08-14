@@ -13,34 +13,25 @@ export function NoticeBoardCanvas({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** 90% footprint for image-based notice boards (Portal Genie Promotion). */
-function NoticeBoardImageContentFrame({ children }: { children: React.ReactNode }) {
+/** Shared banner footprint — Portal Genie Promotion reference (90% square, centered). */
+function NoticeBoardBannerFrame({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-full w-full items-center justify-center">
-      <div className="aspect-square h-auto w-auto max-h-[90%] max-w-[90%]">{children}</div>
-    </div>
-  );
-}
-
-/** Larger footprint for preset CSS example notice boards (~15–20% more area than 90%). */
-function NoticeBoardExampleContentFrame({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex h-full w-full items-center justify-center">
-      <div className="aspect-square h-auto w-full max-h-full max-w-full shrink-0">{children}</div>
+      <div className="aspect-square w-[90%] max-h-[90%] shrink-0">{children}</div>
     </div>
   );
 }
 
 function NoticeBoardImage({ src, alt }: { src: string; alt: string }) {
   return (
-    <NoticeBoardImageContentFrame>
+    <NoticeBoardBannerFrame>
       <img
         src={src}
         alt={alt}
         className="h-full w-full object-contain object-center"
         draggable={false}
       />
-    </NoticeBoardImageContentFrame>
+    </NoticeBoardBannerFrame>
   );
 }
 
@@ -56,7 +47,7 @@ function NoticeBoardCssCreative({
   ctaText?: string;
 }) {
   return (
-    <NoticeBoardExampleContentFrame>
+    <NoticeBoardBannerFrame>
       <div
         className={`flex h-full w-full flex-col justify-center overflow-hidden px-5 py-6 text-white min-[1536px]:px-6 min-[1536px]:py-8 ${gradient}`}
       >
@@ -73,7 +64,7 @@ function NoticeBoardCssCreative({
           </p>
         ) : null}
       </div>
-    </NoticeBoardExampleContentFrame>
+    </NoticeBoardBannerFrame>
   );
 }
 
