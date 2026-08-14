@@ -13,14 +13,34 @@ export function NoticeBoardCanvas({ children }: { children: React.ReactNode }) {
   );
 }
 
+/** 90% footprint for image-based notice boards (Portal Genie Promotion). */
+function NoticeBoardImageContentFrame({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex h-full w-full items-center justify-center">
+      <div className="aspect-square h-auto w-auto max-h-[90%] max-w-[90%]">{children}</div>
+    </div>
+  );
+}
+
+/** Larger footprint for preset CSS example notice boards (~15–20% more area than 90%). */
+function NoticeBoardExampleContentFrame({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex h-full w-full items-center justify-center">
+      <div className="aspect-square h-auto w-full max-h-full max-w-full shrink-0">{children}</div>
+    </div>
+  );
+}
+
 function NoticeBoardImage({ src, alt }: { src: string; alt: string }) {
   return (
-    <img
-      src={src}
-      alt={alt}
-      className="h-full w-full object-contain object-center"
-      draggable={false}
-    />
+    <NoticeBoardImageContentFrame>
+      <img
+        src={src}
+        alt={alt}
+        className="h-full w-full object-contain object-center"
+        draggable={false}
+      />
+    </NoticeBoardImageContentFrame>
   );
 }
 
@@ -36,22 +56,24 @@ function NoticeBoardCssCreative({
   ctaText?: string;
 }) {
   return (
-    <div
-      className={`flex h-full w-full flex-col justify-center overflow-hidden px-5 py-6 text-white min-[1536px]:px-6 min-[1536px]:py-8 ${gradient}`}
-    >
-      <p className="text-[10px] font-semibold uppercase tracking-[0.08em] opacity-80">
-        Portal Genie
-      </p>
-      <h3 className="mt-2 text-lg font-bold leading-tight min-[1536px]:text-xl">{headline}</h3>
-      <p className="mt-2.5 max-w-[95%] text-[11px] leading-snug opacity-90 min-[1536px]:mt-3 min-[1536px]:text-xs min-[1536px]:leading-relaxed">
-        {body}
-      </p>
-      {ctaText ? (
-        <p className="mt-3 text-[11px] font-semibold uppercase tracking-wide opacity-95">
-          {ctaText}
+    <NoticeBoardExampleContentFrame>
+      <div
+        className={`flex h-full w-full flex-col justify-center overflow-hidden px-5 py-6 text-white min-[1536px]:px-6 min-[1536px]:py-8 ${gradient}`}
+      >
+        <p className="text-[10px] font-semibold uppercase tracking-[0.08em] opacity-80">
+          Portal Genie
         </p>
-      ) : null}
-    </div>
+        <h3 className="mt-2 text-lg font-bold leading-tight min-[1536px]:text-xl">{headline}</h3>
+        <p className="mt-2.5 max-w-[95%] text-[11px] leading-snug opacity-90 min-[1536px]:mt-3 min-[1536px]:text-xs min-[1536px]:leading-relaxed">
+          {body}
+        </p>
+        {ctaText ? (
+          <p className="mt-3 text-[11px] font-semibold uppercase tracking-wide opacity-95">
+            {ctaText}
+          </p>
+        ) : null}
+      </div>
+    </NoticeBoardExampleContentFrame>
   );
 }
 
