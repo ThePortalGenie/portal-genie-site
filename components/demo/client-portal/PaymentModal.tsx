@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { formatAmountPlain } from "@/lib/demo/client-portal/statement";
+import { formatCurrency } from "@/lib/demo/client-portal/format";
 import { DemoModal } from "@/components/demo/client-portal/DemoModal";
 import { PortalActionButton } from "@/components/demo/client-portal/PortalPrimitives";
 
@@ -25,7 +25,7 @@ export function PaymentModal() {
     return () => window.clearTimeout(timer);
   }, [paymentStep, dispatch]);
 
-  const amountFormatted = formatAmountPlain(selectedPaymentTotal);
+  const amountFormatted = formatCurrency(selectedPaymentTotal);
 
   const footer =
     paymentStep === "form" ? (
@@ -69,7 +69,7 @@ export function PaymentModal() {
           <CheckCircle2 className="h-12 w-12 text-[#15803d]" aria-hidden="true" />
           <p className="text-[16px] font-bold">Payment successful</p>
           <p className="text-[12px] text-[#666]">
-            R{amountFormatted} applied to selected invoices in this demo.
+            {amountFormatted} applied to selected invoices in this demo.
           </p>
         </div>
       ) : (
@@ -94,7 +94,7 @@ export function PaymentModal() {
             <div className="flex justify-between py-2">
               <span>Amount:</span>
               <span className="font-bold">
-                {amountFormatted} ZAR ({amountFormatted} ZAR)
+                {amountFormatted} ({amountFormatted})
               </span>
             </div>
           </div>
@@ -125,7 +125,7 @@ export function PaymentModal() {
           <ul className="mt-4 space-y-1 text-[11px] text-[#666]">
             {selectedInvoices.map((invoice) => (
               <li key={invoice.id}>
-                {invoice.number} — R{formatAmountPlain(invoice.balance)}
+                {invoice.number} — {formatCurrency(invoice.balance)}
               </li>
             ))}
           </ul>

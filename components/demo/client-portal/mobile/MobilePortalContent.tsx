@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { Eye } from "lucide-react";
 import { isDedicatedPortalSection } from "@/lib/demo/client-portal/folders";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { formatDate, formatZar } from "@/lib/demo/client-portal/format";
+import { formatDate, formatCurrency } from "@/lib/demo/client-portal/format";
 import {
   formatInvoiceStatusLabel,
   sortInvoicesForDisplay,
@@ -62,11 +62,11 @@ function MobileInvoicesSection() {
               <div className="mt-2 grid grid-cols-2 gap-2 text-[11px]">
                 <div>
                   <span className="text-[#666]">Amount</span>
-                  <p className="font-medium">{formatZar(invoice.amount)}</p>
+                  <p className="font-medium">{formatCurrency(invoice.amount)}</p>
                 </div>
                 <div>
                   <span className="text-[#666]">Balance</span>
-                  <p className="font-medium">{formatZar(invoice.balance)}</p>
+                  <p className="font-medium">{formatCurrency(invoice.balance)}</p>
                 </div>
               </div>
               <div className="mt-2 flex items-center justify-between">
@@ -244,7 +244,7 @@ export function MobilePortalContentRouter() {
           items={state.quotes.map((quote) => ({
             id: quote.id,
             primary: quote.number,
-            secondary: formatZar(quote.amount),
+            secondary: formatCurrency(quote.amount),
           }))}
           onView={(id) => dispatch({ type: "VIEW_QUOTE", quoteId: id })}
         />
@@ -256,7 +256,7 @@ export function MobilePortalContentRouter() {
           items={state.creditNotes.map((note) => ({
             id: note.id,
             primary: note.number,
-            secondary: formatZar(note.amount),
+            secondary: formatCurrency(note.amount),
           }))}
           onView={(id) => dispatch({ type: "VIEW_CREDIT_NOTE", creditNoteId: id })}
         />

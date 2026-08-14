@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { formatDate, formatZar } from "@/lib/demo/client-portal/format";
+import { formatDate, formatCurrency } from "@/lib/demo/client-portal/format";
 import {
   formatInvoiceStatusLabel,
   sortInvoicesForDisplay,
@@ -87,7 +87,7 @@ export function InvoicesSection() {
   };
 
   const handleDownload = (invoice: Invoice) => {
-    const content = [`Demo Invoice ${invoice.number}`, `Amount: ${formatZar(invoice.amount)}`].join("\n");
+    const content = [`Demo Invoice ${invoice.number}`, `Amount: ${formatCurrency(invoice.amount)}`].join("\n");
     const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -228,10 +228,10 @@ export function InvoicesSection() {
                     {invoice.number}
                   </PortalTableCell>
                   <PortalTableCell compact dense align="right">
-                    {formatZar(invoice.amount)}
+                    {formatCurrency(invoice.amount)}
                   </PortalTableCell>
                   <PortalTableCell compact dense align="right">
-                    {formatZar(invoice.balance)}
+                    {formatCurrency(invoice.balance)}
                   </PortalTableCell>
                   <PortalTableCell compact dense className="whitespace-nowrap">
                     {formatDate(invoice.dueDate)}

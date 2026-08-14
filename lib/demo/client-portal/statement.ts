@@ -1,5 +1,6 @@
 import type { StatementEntry } from "@/lib/demo/client-portal/types";
 import type { DemoPortalState } from "@/lib/demo/client-portal/types";
+import { formatCurrency } from "@/lib/demo/client-portal/format";
 
 export function buildStatementEntries(state: DemoPortalState): {
   entries: StatementEntry[];
@@ -183,16 +184,9 @@ export function formatStatementPeriodDate(isoDate: string): string {
 }
 
 export function formatAmountPlain(amount: number): string {
-  return amount.toLocaleString("en-ZA", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
+  return formatCurrency(amount);
 }
 
 export function formatStatementAmount(amount: number): string {
-  if (amount === 0) {
-    return "R0.00";
-  }
-  const prefix = amount < 0 ? "-R" : "R";
-  return `${prefix}${formatAmountPlain(Math.abs(amount))}`;
+  return formatCurrency(amount);
 }

@@ -2,7 +2,7 @@
 
 import { Menu } from "lucide-react";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { formatAmountPlain } from "@/lib/demo/client-portal/statement";
+import { formatCurrency } from "@/lib/demo/client-portal/format";
 
 export function DemoTopBar() {
   const { state, dispatch, selectedPaymentTotal, outstandingBalance } = useDemoPortal();
@@ -11,10 +11,7 @@ export function DemoTopBar() {
 
   const displayAmount =
     selectedPaymentTotal > 0 ? selectedPaymentTotal : outstandingBalance;
-  const amountLabel =
-    selectedPaymentTotal > 0
-      ? `ZAR ${formatAmountPlain(displayAmount)}`
-      : formatAmountPlain(displayAmount);
+  const amountLabel = formatCurrency(displayAmount);
 
   const handlePayNow = () => {
     if (selectedPaymentTotal <= 0) {

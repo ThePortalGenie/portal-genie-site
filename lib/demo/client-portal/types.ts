@@ -203,6 +203,21 @@ export type PaymentRecord = {
   invoiceIds: string[];
 };
 
+export type PortalCustomisationSnapshot = {
+  branding: BrandingTheme;
+  companyName: string;
+  logoUrl: string | null;
+  alternateLogoUrl: string | null;
+  useAlternatePortalLogo: boolean;
+  mobileBannerUrl: string | null;
+  mobileDesign: MobileDesignTheme;
+  noticeBoards: NoticeBoard[];
+  activeNoticeBoardId: string;
+  portalFolders: PortalFolderConfig[];
+  notificationEnabled: boolean;
+  allowAdditionalContactsPortalAccess: boolean;
+};
+
 export type DemoPortalState = {
   section: PortalSection;
   invoices: Invoice[];
@@ -254,6 +269,8 @@ export type DemoPortalState = {
   portalFolders: PortalFolderConfig[];
   notificationEnabled: boolean;
   allowAdditionalContactsPortalAccess: boolean;
+  savedCustomisation: PortalCustomisationSnapshot | null;
+  publishedCustomisation: PortalCustomisationSnapshot | null;
 };
 
 export type DemoPortalAction =
@@ -316,4 +333,6 @@ export type DemoPortalAction =
     }
   | { type: "REMOVE_PORTAL_FOLDER"; folderId: string }
   | { type: "SET_NOTIFICATION_ENABLED"; enabled: boolean }
-  | { type: "SET_ALLOW_ADDITIONAL_CONTACTS"; enabled: boolean };
+  | { type: "SET_ALLOW_ADDITIONAL_CONTACTS"; enabled: boolean }
+  | { type: "SAVE_CUSTOMISATION" }
+  | { type: "PUBLISH_CUSTOMISATION" };

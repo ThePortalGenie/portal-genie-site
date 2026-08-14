@@ -4,7 +4,7 @@ import {
   calculateLineItemsTotal,
   calculateVat,
   formatDate,
-  formatZar,
+  formatCurrency,
 } from "@/lib/demo/client-portal/format";
 import { DEMO_CUSTOMER } from "@/lib/demo/client-portal/constants";
 import { getPortalLogo } from "@/lib/demo/client-portal/portal-logo";
@@ -23,7 +23,7 @@ export function InvoiceDocumentView({ invoice }: { invoice: Invoice }) {
     const content = [
       "TAX INVOICE",
       invoice.number,
-      `Total: ${formatZar(invoice.amount)}`,
+      `Total: ${formatCurrency(invoice.amount)}`,
       "Demo document",
     ].join("\n");
     const blob = new Blob([content], { type: "text/plain" });
@@ -72,10 +72,10 @@ export function InvoiceDocumentView({ invoice }: { invoice: Invoice }) {
         <table className="mb-6 w-full border-collapse text-[10px]">
           <thead>
             <tr className="border-b border-[#112136]">
-              {["Description", "Quantity", "Unit Price", "VAT", "Amount ZAR"].map((h) => (
+              {["Description", "Quantity", "Unit Price", "VAT", "Amount USD"].map((h) => (
                 <th
                   key={h}
-                  className={`px-1 py-1 font-bold ${h === "Amount ZAR" || h === "Unit Price" || h === "VAT" ? "text-right" : "text-left"}`}
+                  className={`px-1 py-1 font-bold ${h === "Amount USD" || h === "Unit Price" || h === "VAT" ? "text-right" : "text-left"}`}
                 >
                   {h}
                 </th>
@@ -87,12 +87,12 @@ export function InvoiceDocumentView({ invoice }: { invoice: Invoice }) {
               <tr key={item.description} className="border-b border-[#e8e8e8]">
                 <td className="px-1 py-2">{item.description}</td>
                 <td className="px-1 py-2 text-center">{item.quantity}</td>
-                <td className="px-1 py-2 text-right tabular-nums">{formatZar(item.unitPrice)}</td>
+                <td className="px-1 py-2 text-right tabular-nums">{formatCurrency(item.unitPrice)}</td>
                 <td className="px-1 py-2 text-right tabular-nums">
-                  {formatZar(calculateVat(item.unitPrice * item.quantity))}
+                  {formatCurrency(calculateVat(item.unitPrice * item.quantity))}
                 </td>
                 <td className="px-1 py-2 text-right tabular-nums">
-                  {formatZar(
+                  {formatCurrency(
                     item.quantity * item.unitPrice +
                       calculateVat(item.quantity * item.unitPrice),
                   )}
@@ -105,15 +105,15 @@ export function InvoiceDocumentView({ invoice }: { invoice: Invoice }) {
         <div className="ml-auto max-w-[200px] space-y-1 text-[10px]">
           <div className="flex justify-between gap-6">
             <span>Subtotal</span>
-            <span className="tabular-nums">{formatZar(subtotal)}</span>
+            <span className="tabular-nums">{formatCurrency(subtotal)}</span>
           </div>
           <div className="flex justify-between gap-6">
             <span>TOTAL VAT</span>
-            <span className="tabular-nums">{formatZar(vat)}</span>
+            <span className="tabular-nums">{formatCurrency(vat)}</span>
           </div>
           <div className="flex justify-between gap-6 font-bold">
-            <span>TOTAL ZAR</span>
-            <span className="tabular-nums">{formatZar(invoice.amount)}</span>
+            <span>TOTAL USD</span>
+            <span className="tabular-nums">{formatCurrency(invoice.amount)}</span>
           </div>
         </div>
 
@@ -157,16 +157,16 @@ export function QuoteDocumentView({ quoteId }: { quoteId: string }) {
               <tr key={item.description}>
                 <td className="border border-[#ddd] px-2 py-1">{item.description}</td>
                 <td className="border border-[#ddd] px-2 py-1">{item.quantity}</td>
-                <td className="border border-[#ddd] px-2 py-1">{formatZar(item.unitPrice)}</td>
-                <td className="border border-[#ddd] px-2 py-1">{formatZar(item.quantity * item.unitPrice)}</td>
+                <td className="border border-[#ddd] px-2 py-1">{formatCurrency(item.unitPrice)}</td>
+                <td className="border border-[#ddd] px-2 py-1">{formatCurrency(item.quantity * item.unitPrice)}</td>
               </tr>
             ))}
           </tbody>
         </table>
         <div className="mt-4 ml-auto max-w-[220px] space-y-1 text-[11px]">
-          <div className="flex justify-between"><span>Subtotal</span><span>{formatZar(subtotal)}</span></div>
-          <div className="flex justify-between"><span>VAT</span><span>{formatZar(vat)}</span></div>
-          <div className="flex justify-between font-bold"><span>Total</span><span>{formatZar(quote.amount)}</span></div>
+          <div className="flex justify-between"><span>Subtotal</span><span>{formatCurrency(subtotal)}</span></div>
+          <div className="flex justify-between"><span>VAT</span><span>{formatCurrency(vat)}</span></div>
+          <div className="flex justify-between font-bold"><span>Total</span><span>{formatCurrency(quote.amount)}</span></div>
         </div>
       </div>
     </div>
@@ -191,7 +191,7 @@ export function CreditNoteDocumentView({ creditNoteId }: { creditNoteId: string 
         <p className="mt-2">{note.number}</p>
         <p>Date: {formatDate(note.date)}</p>
         <p>Reference: {note.reference}</p>
-        <p className="mt-4 font-bold">Amount: {formatZar(note.amount)}</p>
+        <p className="mt-4 font-bold">Amount: {formatCurrency(note.amount)}</p>
       </div>
     </div>
   );

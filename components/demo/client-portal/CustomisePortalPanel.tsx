@@ -7,6 +7,7 @@ import { CustomiseDesignTab } from "@/components/demo/client-portal/CustomiseDes
 import { CustomiseFolderManagementTab } from "@/components/demo/client-portal/CustomiseFolderManagementTab";
 import { CustomiseSettingsTab } from "@/components/demo/client-portal/CustomiseSettingsTab";
 import { PreviewModeSelector } from "@/components/demo/client-portal/PreviewModeSelector";
+import { CustomiseHeaderActions } from "@/components/demo/client-portal/CustomiseHeaderActions";
 
 const CUSTOMISE_TABS: { id: CustomiseTab; label: string }[] = [
   { id: "design", label: "Design" },
@@ -41,15 +42,12 @@ export function CustomisePortalPanel() {
         }}
       />
       <aside
-        className="fixed inset-y-0 right-0 z-[115] flex w-full max-w-md flex-col border-l border-muted/20 bg-surface shadow-2xl"
+        className="fixed inset-y-0 right-0 z-[115] flex w-full max-w-lg flex-col border-l border-muted/20 bg-surface shadow-2xl"
         aria-label="Customise portal"
       >
         <div className="z-20 shrink-0 border-b border-muted/20 bg-surface">
-          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 px-4 py-3">
+          <div className="flex items-center justify-between px-4 pb-2 pt-3">
             <h2 className="text-lg font-semibold text-portal-navy">Customise</h2>
-            <div className="flex justify-center">
-              <PreviewModeSelector />
-            </div>
             <button
               type="button"
               onClick={() => dispatch({ type: "SET_CUSTOMISE_OPEN", open: false })}
@@ -58,6 +56,11 @@ export function CustomisePortalPanel() {
             >
               <X className="h-5 w-5" />
             </button>
+          </div>
+
+          <div className="flex items-center justify-between gap-3 px-4 pb-3">
+            <PreviewModeSelector />
+            <CustomiseHeaderActions />
           </div>
 
           <div className="px-4 pb-3">

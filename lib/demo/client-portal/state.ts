@@ -21,6 +21,7 @@ import {
 } from "@/lib/demo/client-portal/notice-boards";
 import { revokeBlobUrl } from "@/lib/demo/client-portal/portal-logo";
 import { DEFAULT_MOBILE_DESIGN } from "@/lib/demo/client-portal/mobile-design";
+import { captureCustomisationSnapshot, cloneCustomisationSnapshot } from "@/lib/demo/client-portal/customisation-snapshot";
 import { createInitialState } from "@/lib/demo/client-portal/mock-data";
 import type {
   DemoPortalAction,
@@ -95,6 +96,8 @@ export function createDemoPortalState(): DemoPortalState {
     portalFolders: normalizePortalFolders(createInitialPortalFolders()),
     notificationEnabled: true,
     allowAdditionalContactsPortalAccess: true,
+    savedCustomisation: null,
+    publishedCustomisation: null,
   };
 }
 
@@ -563,6 +566,21 @@ export function demoPortalReducer(
 
     case "SET_ALLOW_ADDITIONAL_CONTACTS":
       return { ...state, allowAdditionalContactsPortalAccess: action.enabled };
+
+    case "SAVE_CUSTOMISATION":
+      return {
+        ...state,
+        savedCustomisation: captureCustomisationSnapshot(state),
+      };
+
+    case "PUBLISH_CUSTOMISATION":
+      if (!state.savedCustomisation) {
+        return state;
+      }
+      return {
+        ...state,
+        publishedCustomisation: cloneCustomisationSnapshot(state.savedCustomisation),
+      };
 
     default:
       return state;

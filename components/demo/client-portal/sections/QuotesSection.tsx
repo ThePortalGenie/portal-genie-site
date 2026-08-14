@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { formatDate, formatZar } from "@/lib/demo/client-portal/format";
+import { formatDate, formatCurrency } from "@/lib/demo/client-portal/format";
 import {
   PortalIconActions,
   PortalPageHeading,
@@ -48,7 +48,7 @@ export function QuotesSection() {
           {filtered.map((quote) => (
             <PortalTableRow key={quote.id}>
               <PortalTableCell>{quote.number}</PortalTableCell>
-              <PortalTableCell>{formatZar(quote.amount)}</PortalTableCell>
+              <PortalTableCell>{formatCurrency(quote.amount)}</PortalTableCell>
               <PortalTableCell>{formatDate(quote.expiryDate)}</PortalTableCell>
               <PortalTableCell>
                 <PortalStatusPill
@@ -102,7 +102,7 @@ export function CreditNotesSection() {
           {filtered.map((note) => (
             <PortalTableRow key={note.id}>
               <PortalTableCell>{note.number}</PortalTableCell>
-              <PortalTableCell>{formatZar(note.amount)}</PortalTableCell>
+              <PortalTableCell>{formatCurrency(note.amount)}</PortalTableCell>
               <PortalTableCell>
                 <PortalIconActions
                   onView={() =>

@@ -4,11 +4,11 @@ import { Calendar, Download } from "lucide-react";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
 import {
   buildStatementEntries,
-  formatAmountPlain,
   formatStatementAmount,
   formatStatementDate,
   formatStatementPeriodDate,
 } from "@/lib/demo/client-portal/statement";
+import { formatCurrency } from "@/lib/demo/client-portal/format";
 import { DEMO_ACCOUNTANT, DEMO_CUSTOMER } from "@/lib/demo/client-portal/constants";
 import { getPortalLogo } from "@/lib/demo/client-portal/portal-logo";
 import { PORTAL_CONTROL_RADIUS } from "@/components/demo/client-portal/PortalPrimitives";
@@ -129,7 +129,7 @@ export function StatementSection() {
               {formatStatementPeriodDate(statementDateTo)}
             </p>
             <p className="pt-1.5 text-[10px] font-bold underline underline-offset-2">
-              Total Account Balance: R{formatAmountPlain(closingBalance)}
+              Total Account Balance: {formatCurrency(closingBalance)}
             </p>
           </div>
           <div className="flex h-[60px] w-[60px] shrink-0 items-center justify-center">
@@ -202,7 +202,7 @@ export function StatementSection() {
                 —
               </StatementDocCell>
               <StatementDocCell align="right" className="py-[8px]">
-                R0.00
+                {formatCurrency(0)}
               </StatementDocCell>
             </tr>
             {entries.map((entry) => (
@@ -236,14 +236,14 @@ export function StatementSection() {
             {formatStatementPeriodDate(statementDateTo)}
           </span>
           <span className="shrink-0 font-bold tabular-nums">
-            R{formatAmountPlain(periodTotal)}
+            {formatCurrency(periodTotal)}
           </span>
         </div>
 
         {/* Account balance bar */}
         <div className="mb-[34px] flex h-6 items-center justify-between bg-[#f0f0f0] px-1.5 text-[9px] font-bold">
           <span>Total owed for all outstanding invoices (Account Balance)</span>
-          <span className="tabular-nums">R{formatAmountPlain(closingBalance)}</span>
+          <span className="tabular-nums">{formatCurrency(closingBalance)}</span>
         </div>
 
         {/* Account Summary */}
