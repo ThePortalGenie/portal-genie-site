@@ -9,8 +9,22 @@ import {
 } from "@/components/demo/client-portal/DemoPortalAdvertisingPanel";
 
 const PREVIEW_WIDTH = 250;
+const PREVIEW_INNER_SIZE = PREVIEW_WIDTH - 16;
 const FLYOUT_GAP = 14;
 const VIEWPORT_PADDING = 12;
+const FALLBACK_REFERENCE_SIZE = 420;
+
+function getBillboardReferenceSize(): number {
+  const panel = document.querySelector('[aria-label="Promotional banner"]');
+  const square = panel?.querySelector(".aspect-square");
+  if (square instanceof HTMLElement) {
+    const size = square.getBoundingClientRect().width;
+    if (size > 0) {
+      return size;
+    }
+  }
+  return FALLBACK_REFERENCE_SIZE;
+}
 
 type NoticeBoardHoverPreviewProps = {
   board: NoticeBoard | null;
@@ -42,6 +56,8 @@ export function NoticeBoardHoverPreview({
   visible,
 }: NoticeBoardHoverPreviewProps) {
   const [position, setPosition] = useState({ top: 0, left: 0 });
+  const [referenceSize, setReferenceSize] = useState(FALLBACK_REFERENCE_SIZE);
+  const scale = PREVIEW_INNER_SIZE / referenceSize;
 
   useLayoutEffect(() => {
     if (!visible || !anchor || !board) {
@@ -64,6 +80,23 @@ export function NoticeBoardHoverPreview({
     };
   }, [anchor, board, visible]);
 
+  useLayoutEffect(() => {
+    if (!visible || !board) {
+      return;
+    }
+
+    const updateReferenceSize = () => {
+      setReferenceSize(getBillboardReferenceSize());
+    };
+
+    updateReferenceSize();
+    window.addEventListener("resize", updateReferenceSize, { passive: true });
+
+    return () => {
+      window.removeEventListener("resize", updateReferenceSize);
+    };
+  }, [board, visible]);
+
   if (typeof document === "undefined" || !visible || !board || !anchor) {
     return null;
   }
@@ -79,9 +112,20 @@ export function NoticeBoardHoverPreview({
       }}
       aria-hidden="true"
     >
-      <NoticeBoardCanvas>
-        <NoticeBoardCreative board={board} />
-      </NoticeBoardCanvas>
+      <div className="relative h-full w-full overflow-hidden">
+        <div
+          style={{
+            width: referenceSize,
+            height: referenceSize,
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+          }}
+        >
+          <NoticeBoardCanvas>
+            <NoticeBoardCreative board={board} />
+          </NoticeBoardCanvas>
+        </div>
+      </div>
     </div>,
     document.body,
   );
