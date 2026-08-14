@@ -79,7 +79,7 @@ export const footerContent = {
   },
   bottom: {
     copyright: "© 2026 The Portal Genie. All rights reserved.",
-    
+    tagline: " ",
     links: [
       { label: "Privacy Policy", href: links.privacyPolicy },
       { label: "Terms & Conditions", href: links.termsAndConditions },
