@@ -15,14 +15,6 @@ export function CustomiseSettingsTab() {
 
       <div className="mt-4 space-y-4">
         <PortalSettingToggle
-          title="Notify Customers of New Documents"
-          description="When documents are uploaded and assigned to customers, automatically send them a notification. Disable this setting if you do not want customers to receive alerts for newly added documents."
-          enabled={state.notificationEnabled}
-          onChange={(enabled) => dispatch({ type: "SET_NOTIFICATION_ENABLED", enabled })}
-          ariaLabel="Notify customers of new documents"
-        />
-
-        <PortalSettingToggle
           title="Allow Additional Contacts To Access The Portal"
           description="When enabled, additional contacts linked to the primary customer can be granted access to that customer's Client Portal."
           enabled={state.allowAdditionalContactsPortalAccess}

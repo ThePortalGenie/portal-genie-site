@@ -19,6 +19,9 @@ function useActionFeedback() {
   return { feedback, showFeedback: setFeedback };
 }
 
+const ACTION_BUTTON_SIZE_CLASS =
+  "inline-flex h-[30px] w-[90px] shrink-0 items-center justify-center rounded-md px-2.5 text-[11px] font-semibold";
+
 export function CustomiseHeaderActions() {
   const { state, dispatch } = useDemoPortal();
   const saveFeedback = useActionFeedback();
@@ -43,7 +46,7 @@ export function CustomiseHeaderActions() {
       <button
         type="button"
         onClick={handleSave}
-        className="inline-flex h-[30px] shrink-0 items-center rounded-md border border-muted/30 px-2.5 text-[11px] font-semibold text-portal-navy/80 transition-colors hover:border-portal-blue/30 hover:bg-portal-blue/5"
+        className={`${ACTION_BUTTON_SIZE_CLASS} border border-muted/30 text-portal-navy/80 transition-colors hover:border-portal-blue/30 hover:bg-portal-blue/5`}
       >
         {saveFeedback.feedback === "saved" ? "✓ Saved" : "Save"}
       </button>
@@ -51,7 +54,7 @@ export function CustomiseHeaderActions() {
         type="button"
         onClick={handlePublish}
         disabled={!canPublish}
-        className="inline-flex h-[30px] shrink-0 items-center rounded-md bg-portal-blue px-2.5 text-[11px] font-semibold text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-45"
+        className={`${ACTION_BUTTON_SIZE_CLASS} bg-portal-blue text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-45`}
         title={canPublish ? undefined : "Save your changes before publishing"}
       >
         {publishFeedback.feedback === "published" ? "✓ Published" : "Publish"}
