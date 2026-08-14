@@ -136,7 +136,13 @@ export function demoPortalReducer(
       return { ...state, sidebarOpen: action.open ?? !state.sidebarOpen };
 
     case "SET_CUSTOMISE_OPEN":
-      return { ...state, customiseOpen: action.open };
+      return {
+        ...state,
+        customiseOpen: action.open,
+        ...(action.open && state.previewMode === "mobile"
+          ? { mobilePortalView: "home" as const }
+          : {}),
+      };
 
     case "SET_CUSTOMISE_TAB":
       return { ...state, customiseTab: action.tab };

@@ -16,6 +16,7 @@ const CUSTOMISE_TABS: { id: CustomiseTab; label: string }[] = [
 
 export function CustomisePortalPanel() {
   const { state, dispatch } = useDemoPortal();
+  const isMobileCustomise = state.previewMode === "mobile";
 
   if (!state.customiseOpen) {
     return null;
@@ -25,9 +26,19 @@ export function CustomisePortalPanel() {
     <>
       <button
         type="button"
-        className="fixed inset-0 z-[110] bg-portal-navy/40"
+        className={
+          isMobileCustomise
+            ? "fixed inset-0 z-[110] pointer-events-none bg-transparent"
+            : "fixed inset-0 z-[110] bg-portal-navy/40"
+        }
         aria-label="Close customise panel"
-        onClick={() => dispatch({ type: "SET_CUSTOMISE_OPEN", open: false })}
+        aria-hidden={isMobileCustomise}
+        tabIndex={isMobileCustomise ? -1 : undefined}
+        onClick={() => {
+          if (!isMobileCustomise) {
+            dispatch({ type: "SET_CUSTOMISE_OPEN", open: false });
+          }
+        }}
       />
       <aside
         className="fixed inset-y-0 right-0 z-[115] flex w-full max-w-md flex-col border-l border-muted/20 bg-surface shadow-2xl"

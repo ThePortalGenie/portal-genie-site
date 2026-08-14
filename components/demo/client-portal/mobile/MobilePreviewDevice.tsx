@@ -40,7 +40,7 @@ function useDeviceFitScale(
   return scale;
 }
 
-export function MobilePreviewArea() {
+export function MobilePreviewArea({ interactiveCustomise = false }: { interactiveCustomise?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const scale = useDeviceFitScale(containerRef, MOBILE_DEVICE_WIDTH, MOBILE_DEVICE_HEIGHT);
   const scaledWidth = MOBILE_DEVICE_WIDTH * scale;
@@ -49,7 +49,9 @@ export function MobilePreviewArea() {
   return (
     <div
       ref={containerRef}
-      className="flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-[#f5f7fa] p-4"
+      className={`flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-[#f5f7fa] p-4 ${
+        interactiveCustomise ? "relative z-[112]" : ""
+      }`}
       aria-label="Mobile portal preview"
     >
       <div

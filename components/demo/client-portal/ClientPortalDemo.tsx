@@ -130,7 +130,7 @@ function ClientPortalDemoInner() {
       </div>
 
       {mobilePreview ? (
-        <MobilePreviewArea />
+        <MobilePreviewArea interactiveCustomise={state.customiseOpen} />
       ) : (
         <PortalShell />
       )}

@@ -1,11 +1,13 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { Smartphone } from "lucide-react";
 import {
   BRAND_PRESETS,
   DEFAULT_LOGO_PATH,
 } from "@/lib/demo/client-portal/constants";
 import { MOBILE_COLOUR_FIELDS } from "@/lib/demo/client-portal/mobile-design";
+import { getVisiblePortalFolders } from "@/lib/demo/client-portal/folders";
 import { getPortalLogo, revokeBlobUrl } from "@/lib/demo/client-portal/portal-logo";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
 import type { BrandPresetId, BrandingTheme, DemoPortalState, NoticeBoard } from "@/lib/demo/client-portal/types";
@@ -339,8 +341,27 @@ function MobileDesignControls({
   onMobileBannerUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
   removeMobileBanner: () => void;
 }) {
+  const selectedFolder = getVisiblePortalFolders(state.portalFolders).find(
+    (folder) => folder.id === state.section,
+  );
+
   return (
     <>
+      <p className="mb-4 flex items-start gap-2 rounded-lg border border-portal-blue/15 bg-portal-blue/5 px-3 py-2.5 text-xs leading-relaxed text-portal-navy/75">
+        <Smartphone className="mt-0.5 h-3.5 w-3.5 shrink-0 text-portal-blue/70" aria-hidden="true" />
+        <span>
+          Open a folder on the phone preview to customise its design.
+          {selectedFolder ? (
+            <>
+              {" "}
+              <span className="font-medium text-portal-navy">
+                Currently open: {selectedFolder.name}
+              </span>
+            </>
+          ) : null}
+        </span>
+      </p>
+
       <DesignSection title="Mobile Banner">
         <div className="mt-3 flex flex-wrap items-center gap-3">
           {state.mobileBannerUrl ? (
