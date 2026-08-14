@@ -168,7 +168,10 @@ export function isDedicatedPortalSection(sectionId: string): boolean {
   ].includes(sectionId);
 }
 
-export function createCustomPortalFolder(name: string): PortalFolderConfig {
+export function createCustomPortalFolder(
+  name: string,
+  options?: Partial<Pick<PortalFolderConfig, "visible" | "allowUpload" | "isLandingFolder">>,
+): PortalFolderConfig {
   const trimmed = name.trim();
   const slug = trimmed
     .toLowerCase()
@@ -183,9 +186,9 @@ export function createCustomPortalFolder(name: string): PortalFolderConfig {
     id: `custom-${slug || "folder"}-${uniqueSuffix}`,
     name: trimmed,
     type: "custom",
-    visible: true,
-    allowUpload: false,
-    isLandingFolder: false,
+    visible: options?.visible ?? true,
+    allowUpload: options?.allowUpload ?? false,
+    isLandingFolder: options?.isLandingFolder ?? false,
     removable: true,
   };
 }

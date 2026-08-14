@@ -45,9 +45,24 @@ function getScrollParent(element: HTMLElement | null): HTMLElement | null {
   return null;
 }
 
+type AddFolderFormState = {
+  name: string;
+  visible: boolean;
+  allowUpload: boolean;
+  isLandingFolder: boolean;
+};
+
+const EMPTY_ADD_FOLDER_FORM: AddFolderFormState = {
+  name: "",
+  visible: true,
+  allowUpload: false,
+  isLandingFolder: false,
+};
+
 export function CustomiseFolderManagementTab() {
   const { state, dispatch } = useDemoPortal();
-  const [newFolderName, setNewFolderName] = useState("");
+  const [addFolderOpen, setAddFolderOpen] = useState(false);
+  const [addFolderForm, setAddFolderForm] = useState<AddFolderFormState>(EMPTY_ADD_FOLDER_FORM);
   const [addFolderError, setAddFolderError] = useState<string | null>(null);
   const [renameError, setRenameError] = useState<string | null>(null);
   const [draggedId, setDraggedId] = useState<string | null>(null);
@@ -57,16 +72,31 @@ export function CustomiseFolderManagementTab() {
   const listRef = useRef<HTMLUListElement>(null);
   const autoScrollFrameRef = useRef<number | null>(null);
 
+  const trimmedAddFolderName = addFolderForm.name.trim();
+  const canAddFolder = trimmedAddFolderName.length > 0;
+
+  const closeAddFolderForm = () => {
+    setAddFolderOpen(false);
+    setAddFolderForm(EMPTY_ADD_FOLDER_FORM);
+    setAddFolderError(null);
+  };
+
   const handleAddFolder = () => {
-    const validationError = getFolderNameValidationError(state.portalFolders, newFolderName);
+    const validationError = getFolderNameValidationError(state.portalFolders, addFolderForm.name);
     if (validationError) {
       setAddFolderError(validationError);
       return;
     }
 
-    dispatch({ type: "ADD_CUSTOM_PORTAL_FOLDER", name: newFolderName.trim() });
-    setNewFolderName("");
-    setAddFolderError(null);
+    dispatch({
+      type: "ADD_CUSTOM_PORTAL_FOLDER",
+      name: trimmedAddFolderName,
+      visible: addFolderForm.visible,
+      allowUpload: addFolderForm.allowUpload,
+      isLandingFolder: addFolderForm.isLandingFolder,
+    });
+
+    closeAddFolderForm();
   };
 
   const startRename = (folder: PortalFolderConfig) => {
@@ -189,36 +219,115 @@ export function CustomiseFolderManagementTab() {
           Drag folders to change the order they appear in the Client Portal.
         </p>
 
-        <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-          <input
-            value={newFolderName}
-            onChange={(event) => {
-              setNewFolderName(event.target.value);
-              if (addFolderError) {
-                setAddFolderError(null);
-              }
-            }}
-            placeholder="Custom folder name"
-            className="min-w-0 flex-1 rounded-lg border border-muted/30 px-3 py-2 text-sm"
-            onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                handleAddFolder();
-              }
-            }}
-          />
+        <div className="mt-4">
           <button
             type="button"
-            onClick={handleAddFolder}
-            className="shrink-0 rounded-lg border border-muted/30 px-3 py-2 text-sm font-medium text-portal-navy/80 hover:border-portal-blue/30 hover:bg-portal-blue/5"
+            onClick={() => {
+              if (addFolderOpen) {
+                closeAddFolderForm();
+              } else {
+                setAddFolderOpen(true);
+              }
+            }}
+            aria-expanded={addFolderOpen}
+            className="rounded-lg border border-muted/30 px-3 py-2 text-sm font-medium text-portal-navy/80 hover:border-portal-blue/30 hover:bg-portal-blue/5"
           >
-            + Add Custom Folder
+            + Add Folder
           </button>
+
+          {addFolderOpen ? (
+            <div className="mt-3 rounded-lg border border-muted/20 bg-background/40 p-4">
+              <label className="block">
+                <span className="text-xs font-medium text-portal-navy">Folder name</span>
+                <input
+                  type="text"
+                  value={addFolderForm.name}
+                  onChange={(event) => {
+                    setAddFolderForm((current) => ({ ...current, name: event.target.value }));
+                    if (addFolderError) {
+                      setAddFolderError(null);
+                    }
+                  }}
+                  placeholder="Enter folder name"
+                  className="mt-1.5 w-full rounded-lg border border-muted/30 px-3 py-2 text-sm text-portal-navy placeholder:text-portal-navy/45"
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" && canAddFolder) {
+                      handleAddFolder();
+                    }
+                    if (event.key === "Escape") {
+                      closeAddFolderForm();
+                    }
+                  }}
+                />
+              </label>
+
+              <div className="mt-4 space-y-2.5 text-[11px] text-portal-navy/80">
+                <label className="flex items-center gap-1.5">
+                  <input
+                    type="checkbox"
+                    checked={addFolderForm.visible}
+                    onChange={(event) =>
+                      setAddFolderForm((current) => ({
+                        ...current,
+                        visible: event.target.checked,
+                      }))
+                    }
+                  />
+                  Visible to client
+                </label>
+
+                <label className="flex items-center gap-1.5">
+                  <span>Enable client upload</span>
+                  <DemoToggle
+                    enabled={addFolderForm.allowUpload}
+                    onChange={(allowUpload) =>
+                      setAddFolderForm((current) => ({ ...current, allowUpload }))
+                    }
+                    ariaLabel="Enable client upload for new folder"
+                  />
+                </label>
+
+                <label className="flex items-center gap-1.5">
+                  <input
+                    type="checkbox"
+                    checked={addFolderForm.isLandingFolder}
+                    onChange={(event) =>
+                      setAddFolderForm((current) => ({
+                        ...current,
+                        isLandingFolder: event.target.checked,
+                      }))
+                    }
+                  />
+                  Set as landing folder
+                </label>
+              </div>
+
+              {addFolderError ? (
+                <p className="mt-2 text-xs text-red-600/80" role="alert">
+                  {addFolderError}
+                </p>
+              ) : null}
+
+              <div className="mt-4 flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={closeAddFolderForm}
+                  className="rounded-lg border border-muted/30 px-2.5 py-1.5 text-xs font-medium text-portal-navy/70 hover:bg-muted/10"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleAddFolder}
+                  disabled={!canAddFolder}
+                  className="rounded-lg bg-portal-blue px-2.5 py-1.5 text-xs font-semibold text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  Add Folder
+                </button>
+              </div>
+            </div>
+          ) : null}
         </div>
-        {addFolderError ? (
-          <p className="mt-1.5 text-xs text-red-600/80" role="alert">
-            {addFolderError}
-          </p>
-        ) : null}
 
         <ul ref={listRef} className="mt-5 space-y-2 sm:mt-6">
           {state.portalFolders.map((folder) => {

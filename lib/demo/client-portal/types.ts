@@ -307,7 +307,13 @@ export type DemoPortalAction =
   | { type: "UPDATE_PORTAL_FOLDER"; folderId: string; patch: Partial<Pick<PortalFolderConfig, "name" | "visible" | "allowUpload">> }
   | { type: "SET_LANDING_FOLDER"; folderId: string }
   | { type: "REORDER_PORTAL_FOLDERS"; activeId: string; overId: string; insertAfter: boolean }
-  | { type: "ADD_CUSTOM_PORTAL_FOLDER"; name: string }
+  | {
+      type: "ADD_CUSTOM_PORTAL_FOLDER";
+      name: string;
+      visible?: boolean;
+      allowUpload?: boolean;
+      isLandingFolder?: boolean;
+    }
   | { type: "REMOVE_PORTAL_FOLDER"; folderId: string }
   | { type: "SET_NOTIFICATION_ENABLED"; enabled: boolean }
   | { type: "SET_ALLOW_ADDITIONAL_CONTACTS"; enabled: boolean };

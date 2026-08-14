@@ -499,12 +499,32 @@ export function demoPortalReducer(
         return state;
       }
 
+      const newFolder = normalizePortalFolder(
+        createCustomPortalFolder(action.name, {
+          visible: action.visible,
+          allowUpload: action.allowUpload,
+          isLandingFolder: action.isLandingFolder,
+        }),
+      );
+
+      let portalFolders = [...state.portalFolders, newFolder];
+
+      if (action.isLandingFolder) {
+        portalFolders = portalFolders.map((folder) => ({
+          ...folder,
+          isLandingFolder: folder.id === newFolder.id,
+        }));
+      }
+
+      const uploadable = getUploadablePortalFolders(portalFolders);
+      const uploadFolder = uploadable.some((folder) => folder.id === state.uploadFolder)
+        ? state.uploadFolder
+        : (uploadable[0]?.id ?? state.uploadFolder);
+
       return {
         ...state,
-        portalFolders: normalizePortalFolders([
-          ...state.portalFolders,
-          normalizePortalFolder(createCustomPortalFolder(action.name)),
-        ]),
+        portalFolders: normalizePortalFolders(portalFolders),
+        uploadFolder,
       };
     }
 
