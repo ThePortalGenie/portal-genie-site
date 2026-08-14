@@ -63,15 +63,26 @@ export async function getVerifiedDemoSession(): Promise<DemoSessionRecord | null
   return getDemoSessionRecord(sessionId);
 }
 
-export async function setDemoSessionCookie(sessionId: string): Promise<void> {
-  const cookieStore = await cookies();
-  cookieStore.set(DEMO_SESSION_COOKIE_NAME, sessionId, {
+export function getDemoSessionCookieOptions(): {
+  httpOnly: boolean;
+  secure: boolean;
+  sameSite: "lax";
+  path: string;
+  maxAge: number;
+} {
+  return {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
     maxAge: DEMO_SESSION_TTL_SECONDS,
-  });
+  };
+}
+
+/** Prefer setting cookies on NextResponse in Route Handlers. */
+export async function setDemoSessionCookie(sessionId: string): Promise<void> {
+  const cookieStore = await cookies();
+  cookieStore.set(DEMO_SESSION_COOKIE_NAME, sessionId, getDemoSessionCookieOptions());
 }
 
 export async function clearDemoSessionCookie(): Promise<void> {

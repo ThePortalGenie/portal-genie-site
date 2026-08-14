@@ -1,23 +1,31 @@
 import "server-only";
 
+import { DEMO_SESSION_COOKIE_NAME } from "@/config/demo-access";
+import {
+  createDemoSessionFromVerification,
+  getDemoSessionRecord,
+} from "@/lib/demo-auth/session";
+import { syncDemoLeadVerifiedToZohoInBackground } from "@/lib/demo-auth/sync-zoho";
 import {
   consumeDemoVerification,
   getDemoVerificationByToken,
 } from "@/lib/demo-auth/verification";
-import {
-  createDemoSessionFromVerification,
-  getDemoSessionRecord,
-  setDemoSessionCookie,
-} from "@/lib/demo-auth/session";
-import { syncDemoLeadVerifiedToZohoInBackground } from "@/lib/demo-auth/sync-zoho";
-import { DEMO_SESSION_COOKIE_NAME } from "@/config/demo-access";
 import { cookies } from "next/headers";
 
-export type DemoVerifyResult =
-  | { ok: true }
-  | { ok: false; reason: "missing" | "invalid" | "expired" | "already_verified" };
+export type DemoVerifyFailureReason = "missing" | "invalid" | "expired";
 
-export async function verifyDemoAccessToken(rawToken: string | undefined): Promise<DemoVerifyResult> {
+export type DemoVerifyResult =
+  | { ok: true; sessionId: string }
+  | { ok: true; alreadyVerified: true }
+  | { ok: false; reason: DemoVerifyFailureReason };
+
+/**
+ * Validates and consumes a verification token, creates a Redis demo session.
+ * Does not set cookies — use the /api/demo/verify Route Handler for that.
+ */
+export async function processDemoVerificationToken(
+  rawToken: string | undefined,
+): Promise<DemoVerifyResult> {
   if (!rawToken?.trim()) {
     return { ok: false, reason: "missing" };
   }
@@ -31,7 +39,7 @@ export async function verifyDemoAccessToken(rawToken: string | undefined): Promi
     if (sessionId) {
       const session = await getDemoSessionRecord(sessionId);
       if (session?.verified) {
-        return { ok: false, reason: "already_verified" };
+        return { ok: true, alreadyVerified: true };
       }
     }
     return { ok: false, reason: "expired" };
@@ -43,9 +51,8 @@ export async function verifyDemoAccessToken(rawToken: string | undefined): Promi
   }
 
   const sessionId = await createDemoSessionFromVerification(consumed);
-  await setDemoSessionCookie(sessionId);
 
   syncDemoLeadVerifiedToZohoInBackground(consumed);
 
-  return { ok: true };
+  return { ok: true, sessionId };
 }
