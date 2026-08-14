@@ -13,6 +13,7 @@ import { useDemoPortal } from "@/lib/demo/client-portal/context";
 import type { BrandPresetId, BrandingTheme, DemoPortalState, NoticeBoard } from "@/lib/demo/client-portal/types";
 import { PortalColourSelector } from "@/components/demo/client-portal/PortalColourSelector";
 import { NoticeBoardEditorModal } from "@/components/demo/client-portal/NoticeBoardEditorModal";
+import { NoticeBoardHoverPreview } from "@/components/demo/client-portal/NoticeBoardHoverPreview";
 
 const ACCEPTED_LOGO_TYPES = ["image/png", "image/jpeg", "image/webp", "image/svg+xml"];
 
@@ -91,6 +92,10 @@ function DesktopDesignControls({
 }) {
   const portalLogoSrc = getPortalLogo(state);
   const mainLogoSrc = state.logoUrl ?? DEFAULT_LOGO_PATH;
+  const [noticeBoardHoverPreview, setNoticeBoardHoverPreview] = useState<{
+    board: NoticeBoard;
+    anchor: HTMLElement;
+  } | null>(null);
 
   return (
     <>
@@ -278,7 +283,19 @@ function DesktopDesignControls({
                       dispatch({ type: "SET_ACTIVE_NOTICE_BOARD", noticeBoardId: board.id })
                     }
                   />
-                  <span className="truncate text-portal-navy/85">{board.name}</span>
+                  <span
+                    className="truncate text-portal-navy/85"
+                    onMouseEnter={(event) => {
+                      setNoticeBoardHoverPreview({ board, anchor: event.currentTarget });
+                    }}
+                    onMouseLeave={() => {
+                      setNoticeBoardHoverPreview((current) =>
+                        current?.board.id === board.id ? null : current,
+                      );
+                    }}
+                  >
+                    {board.name}
+                  </span>
                   {isActive ? (
                     <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-portal-blue">
                       Active
@@ -313,6 +330,12 @@ function DesktopDesignControls({
           })}
         </ul>
       </DesignSection>
+
+      <NoticeBoardHoverPreview
+        board={noticeBoardHoverPreview?.board ?? null}
+        anchor={noticeBoardHoverPreview?.anchor ?? null}
+        visible={noticeBoardHoverPreview !== null}
+      />
 
       <NoticeBoardEditorModal
         key={editingNoticeBoard?.id ?? "create"}
