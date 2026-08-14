@@ -25,6 +25,7 @@ export function buildGenieUserInput(
 /**
  * Central OpenAI Responses API parameters for Genie generation.
  * No tools, no web search, no temperature override — KB context only.
+ * Do not pass reasoning.* — not supported by gpt-4.1-mini and similar chat models.
  */
 export function buildGenieOpenAiCreateParams(
   message: string,
@@ -36,9 +37,6 @@ export function buildGenieOpenAiCreateParams(
     input: buildGenieUserInput(message, knowledgeContext),
     max_output_tokens: GENIE_MAX_OUTPUT_TOKENS,
     store: false,
-    reasoning: {
-      effort: "none",
-    },
   };
 }
 

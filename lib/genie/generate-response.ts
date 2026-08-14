@@ -1,7 +1,7 @@
 import "server-only";
 
 import OpenAI, { APIError } from "openai";
-import { getOpenAiApiKey } from "@/config/genie";
+import { getGenieModel, getOpenAiApiKey } from "@/config/genie";
 import { GenieConfigurationError, GenieGenerationError } from "@/lib/genie/errors";
 import {
   buildGenieOpenAiCreateParams,
@@ -20,6 +20,18 @@ function getOpenAiClient(): OpenAI {
   return openAiClient;
 }
 
+function logOpenAiApiError(error: APIError, model: string): void {
+  console.error(
+    "[genie] OpenAI API error:",
+    `status: ${error.status}`,
+    `type: ${error.type ?? "unknown"}`,
+    `code: ${error.code ?? "unknown"}`,
+    `param: ${error.param ?? "n/a"}`,
+    `model: ${model}`,
+    `message: ${error.message}`,
+  );
+}
+
 export type GenerateGenieAnswerResult = {
   answer: string;
 };
@@ -28,6 +40,8 @@ export async function generateGenieAnswer(
   message: string,
   knowledgeContext: string,
 ): Promise<GenerateGenieAnswerResult> {
+  const model = getGenieModel();
+
   try {
     const client = getOpenAiClient();
     const response = await client.responses.create(
@@ -54,7 +68,7 @@ export async function generateGenieAnswer(
         );
       }
 
-      console.error("[genie] OpenAI API error:", error.status, error.message);
+      logOpenAiApiError(error, model);
       throw new GenieGenerationError();
     }
 
@@ -73,6 +87,7 @@ export async function streamGenieAnswer(
   knowledgeContext: string,
   handlers: GenieStreamHandlers,
 ): Promise<{ answer: string }> {
+  const model = getGenieModel();
   let firstTokenSeen = false;
   let answer = "";
 
@@ -120,7 +135,7 @@ export async function streamGenieAnswer(
         );
       }
 
-      console.error("[genie] OpenAI API error:", error.status, error.message);
+      logOpenAiApiError(error, model);
       throw new GenieGenerationError();
     }
 
