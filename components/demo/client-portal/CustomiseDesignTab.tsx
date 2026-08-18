@@ -14,6 +14,7 @@ import type { BrandPresetId, BrandingTheme, DemoPortalState, NoticeBoard } from 
 import { PortalColourSelector } from "@/components/demo/client-portal/PortalColourSelector";
 import { NoticeBoardEditorModal } from "@/components/demo/client-portal/NoticeBoardEditorModal";
 import { NoticeBoardHoverPreview } from "@/components/demo/client-portal/NoticeBoardHoverPreview";
+import { ClientPortalLinkCard } from "@/components/demo/client-portal/ClientPortalLinkCard";
 
 const ACCEPTED_LOGO_TYPES = ["image/png", "image/jpeg", "image/webp", "image/svg+xml"];
 
@@ -126,7 +127,7 @@ function DesktopDesignControls({
           </label>
           <label className="block">
             <span className="mb-1 block text-xs font-medium text-portal-navy/70">
-              Greeting / customer name
+              Welcome Message
             </span>
             <input
               value={state.customerName}
@@ -138,6 +139,10 @@ function DesktopDesignControls({
           </label>
         </div>
       </DesignSection>
+
+      <div className="border-b border-muted/15 pb-6">
+        <ClientPortalLinkCard />
+      </div>
 
       <DesignSection title="Logos">
         <div className="mt-3 space-y-5">
@@ -384,6 +389,10 @@ function MobileDesignControls({
           ) : null}
         </span>
       </p>
+
+      <div className="mb-6 border-b border-muted/15 pb-6">
+        <ClientPortalLinkCard />
+      </div>
 
       <DesignSection title="Mobile Banner">
         <div className="mt-3 flex flex-wrap items-center gap-3">

@@ -138,3 +138,7 @@ export const DEMO_CUSTOMER = {
 };
 
 export const DEFAULT_LOGO_PATH = "/demo/client-portal/aurora-logo.svg";
+
+/** Demo Aurora Global client portal link — read-only in Customise → Design. */
+export const DEMO_CLIENT_PORTAL_LINK =
+  "https://clients.theportalgenie.com/api/5f08a5e2c4b91d7a3f6e8901";
