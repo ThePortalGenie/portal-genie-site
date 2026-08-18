@@ -1,9 +1,13 @@
 import {
-  BRAND_PRESETS,
   DEFAULT_BRANDING,
   DEMO_CUSTOMER,
   DEMO_CUSTOM_DOMAIN_CNAME_TARGET,
 } from "@/lib/demo/client-portal/constants";
+import {
+  applyCoreBrandColours,
+  PRESET_THEMES,
+  readCoreBrandColours,
+} from "@/lib/demo/client-portal/brand-colours";
 import {
   createCustomPortalFolder,
   createInitialPortalFolders,
@@ -104,6 +108,7 @@ export function createDemoPortalState(): DemoPortalState {
     customDomainDnsGenerated: false,
     customDomainDnsRecord: null,
     customDomainVerificationStatus: "idle",
+    activeBrandPresetId: "portal-genie",
     savedCustomisation: null,
     publishedCustomisation: null,
   };
@@ -173,13 +178,30 @@ export function demoPortalReducer(
       return {
         ...state,
         branding: { ...state.branding, ...action.branding },
+        activeBrandPresetId: null,
       };
 
-    case "APPLY_PRESET":
+    case "APPLY_PRESET": {
+      const theme = PRESET_THEMES[action.presetId];
       return {
         ...state,
-        branding: { ...BRAND_PRESETS[action.presetId].branding },
+        branding: { ...theme.branding },
+        mobileDesign: { ...theme.mobileDesign },
+        activeBrandPresetId: action.presetId,
       };
+    }
+
+    case "APPLY_CORE_BRAND_COLOUR": {
+      const cores = readCoreBrandColours(state);
+      const updated = { ...cores, [action.key]: action.color };
+      const { branding, mobileDesign } = applyCoreBrandColours(updated);
+      return {
+        ...state,
+        branding,
+        mobileDesign,
+        activeBrandPresetId: null,
+      };
+    }
 
     case "SET_COMPANY_NAME":
       return { ...state, companyName: action.name };
@@ -242,6 +264,7 @@ export function demoPortalReducer(
       return {
         ...state,
         mobileDesign: { ...state.mobileDesign, ...action.mobileDesign },
+        activeBrandPresetId: null,
       };
 
     case "SET_LOGO_ERROR":

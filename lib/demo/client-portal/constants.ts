@@ -22,7 +22,7 @@ export const BRAND_PRESETS: Record<
   { label: string; branding: BrandingTheme }
 > = {
   "portal-genie": {
-    label: "Portal Genie (Aurora)",
+    label: "Portal Genie (Default)",
     branding: { ...DEFAULT_BRANDING },
   },
   "professional-blue": {

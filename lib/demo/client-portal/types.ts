@@ -195,6 +195,8 @@ export type BrandPresetId =
   | "modern-green"
   | "executive-dark";
 
+export type CoreBrandColourKey = "primary" | "secondary" | "accent";
+
 export type CustomDomainSubdomain = "portal" | "clients" | "my";
 
 export type DomainVerificationStatus = "idle" | "checking" | "verified";
@@ -290,6 +292,7 @@ export type DemoPortalState = {
   customDomainDnsGenerated: boolean;
   customDomainDnsRecord: DemoDnsRecord | null;
   customDomainVerificationStatus: DomainVerificationStatus;
+  activeBrandPresetId: BrandPresetId | null;
   savedCustomisation: PortalCustomisationSnapshot | null;
   publishedCustomisation: PortalCustomisationSnapshot | null;
 };
@@ -306,6 +309,7 @@ export type DemoPortalAction =
   | { type: "RESET_DEMO" }
   | { type: "SET_BRANDING"; branding: Partial<BrandingTheme> }
   | { type: "APPLY_PRESET"; presetId: BrandPresetId }
+  | { type: "APPLY_CORE_BRAND_COLOUR"; key: CoreBrandColourKey; color: string }
   | { type: "SET_COMPANY_NAME"; name: string }
   | { type: "SET_CUSTOMER_NAME"; name: string }
   | { type: "SET_LOGO"; logoUrl: string | null }

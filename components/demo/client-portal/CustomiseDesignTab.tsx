@@ -3,39 +3,18 @@
 import { useRef, useState } from "react";
 import { Smartphone } from "lucide-react";
 import {
-  BRAND_PRESETS,
   DEFAULT_LOGO_PATH,
 } from "@/lib/demo/client-portal/constants";
-import { MOBILE_COLOUR_FIELDS } from "@/lib/demo/client-portal/mobile-design";
 import { getVisiblePortalFolders } from "@/lib/demo/client-portal/folders";
 import { getPortalLogo, revokeBlobUrl } from "@/lib/demo/client-portal/portal-logo";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import type { BrandPresetId, BrandingTheme, DemoPortalState, NoticeBoard } from "@/lib/demo/client-portal/types";
-import { PortalColourSelector } from "@/components/demo/client-portal/PortalColourSelector";
+import type { DemoPortalState, NoticeBoard } from "@/lib/demo/client-portal/types";
 import { NoticeBoardEditorModal } from "@/components/demo/client-portal/NoticeBoardEditorModal";
 import { NoticeBoardHoverPreview } from "@/components/demo/client-portal/NoticeBoardHoverPreview";
 import { ClientPortalLinkCard } from "@/components/demo/client-portal/ClientPortalLinkCard";
+import { PortalColourControls } from "@/components/demo/client-portal/PortalColourControls";
 
 const ACCEPTED_LOGO_TYPES = ["image/png", "image/jpeg", "image/webp", "image/svg+xml"];
-
-const BRANDING_FIELDS: {
-  key: keyof BrandingTheme;
-  label: string;
-}[] = [
-  { key: "brandColor", label: "Main brand colour" },
-  { key: "sidebarBg", label: "Sidebar background" },
-  { key: "menuText", label: "Unselected menu text" },
-  { key: "menuSelectedText", label: "Selected menu text" },
-  { key: "menuSelectedBg", label: "Selected menu background" },
-  { key: "portalText", label: "General portal text" },
-  { key: "tableBodyText", label: "Table body text" },
-  { key: "tableHeadingBg", label: "Table heading background" },
-  { key: "tableHeadingText", label: "Table heading text" },
-  { key: "payNowBg", label: "Pay Now button background" },
-  { key: "payNowText", label: "Pay Now button text" },
-  { key: "amountColor", label: "Amount / balance text" },
-  { key: "accentColor", label: "Accent colour" },
-];
 
 function DesignSection({
   title,
@@ -105,20 +84,7 @@ function DesktopDesignControls({
       </div>
 
       <DesignSection title="Branding">
-        <p className="mt-1 text-xs text-portal-navy/60">Brand presets</p>
-        <div className="mt-2 grid grid-cols-2 gap-2">
-          {(Object.keys(BRAND_PRESETS) as BrandPresetId[]).map((presetId) => (
-            <button
-              key={presetId}
-              type="button"
-              onClick={() => dispatch({ type: "APPLY_PRESET", presetId })}
-              className="rounded-lg border border-muted/25 px-3 py-2 text-left text-sm font-medium text-portal-navy/80 transition-colors hover:border-portal-blue/30 hover:text-portal-blue"
-            >
-              {BRAND_PRESETS[presetId].label}
-            </button>
-          ))}
-        </div>
-        <div className="mt-4 space-y-3">
+        <div className="mt-3 space-y-3">
           <label className="block">
             <span className="mb-1 block text-xs font-medium text-portal-navy/70">Company name</span>
             <input
@@ -238,24 +204,7 @@ function DesktopDesignControls({
         ) : null}
       </DesignSection>
 
-      <DesignSection title="Colour Controls">
-        <p className="mt-1 text-xs text-portal-navy/60">Desktop / shared portal colours</p>
-        <div className="mt-3 space-y-2.5">
-          {BRANDING_FIELDS.map((field) => (
-            <PortalColourSelector
-              key={field.key}
-              label={field.label}
-              value={state.branding[field.key]}
-              onChange={(color) =>
-                dispatch({
-                  type: "SET_BRANDING",
-                  branding: { [field.key]: color },
-                })
-              }
-            />
-          ))}
-        </div>
-      </DesignSection>
+      <PortalColourControls className="border-b border-muted/15 pb-6" />
 
       <DesignSection title="Notice Board" className="border-b-0 pb-0">
         <p className="mt-1 text-xs text-portal-navy/60">
@@ -358,13 +307,11 @@ function DesktopDesignControls({
 
 function MobileDesignControls({
   state,
-  dispatch,
   mobileBannerInputRef,
   onMobileBannerUpload,
   removeMobileBanner,
 }: {
   state: DemoPortalState;
-  dispatch: ReturnType<typeof useDemoPortal>["dispatch"];
   mobileBannerInputRef: React.RefObject<HTMLInputElement | null>;
   onMobileBannerUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
   removeMobileBanner: () => void;
@@ -442,23 +389,7 @@ function MobileDesignControls({
         ) : null}
       </DesignSection>
 
-      <DesignSection title="Mobile Colours" className="border-b-0 pb-0">
-        <div className="mt-3 space-y-2.5">
-          {MOBILE_COLOUR_FIELDS.map((field) => (
-            <PortalColourSelector
-              key={field.key}
-              label={field.label}
-              value={state.mobileDesign[field.key]}
-              onChange={(color) =>
-                dispatch({
-                  type: "SET_MOBILE_DESIGN",
-                  mobileDesign: { [field.key]: color },
-                })
-              }
-            />
-          ))}
-        </div>
-      </DesignSection>
+      <PortalColourControls className="mb-6 border-b border-muted/15 pb-6" />
     </>
   );
 }
@@ -567,7 +498,6 @@ export function CustomiseDesignTab() {
     return (
       <MobileDesignControls
         state={state}
-        dispatch={dispatch}
         mobileBannerInputRef={mobileBannerInputRef}
         onMobileBannerUpload={handleMobileBannerUpload}
         removeMobileBanner={removeMobileBanner}
