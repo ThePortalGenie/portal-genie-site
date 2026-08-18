@@ -51,17 +51,8 @@ export function ClientPortalLinkCard() {
   };
 
   return (
-    <section
-      aria-labelledby="client-portal-link-heading"
-      className="rounded-lg border border-portal-blue/20 bg-portal-blue/5 px-3.5 py-3"
-    >
-      <h4
-        id="client-portal-link-heading"
-        className="text-sm font-semibold text-portal-navy"
-      >
-        Client Portal Link
-      </h4>
-      <p className="mt-1.5 text-xs leading-relaxed text-portal-navy/70">
+    <div>
+      <p className="text-xs leading-relaxed text-portal-navy/70">
         Share this link with clients or add it to a Client Login button on your website.
         Clients use the link to securely access their portal using a one-time password (OTP).
       </p>
@@ -72,7 +63,7 @@ export function ClientPortalLinkCard() {
           readOnly
           value={DEMO_CLIENT_PORTAL_LINK}
           aria-label="Client Portal Link URL"
-          className="min-w-0 flex-1 truncate rounded-lg border border-muted/30 bg-white/80 px-3 py-2 text-xs text-portal-navy/85"
+          className="min-w-0 flex-1 truncate rounded-lg border border-muted/30 bg-white px-3 py-2 text-xs text-portal-navy/85"
           onFocus={(event) => event.target.select()}
         />
         <button
@@ -99,12 +90,14 @@ export function ClientPortalLinkCard() {
         Secure OTP login · No password required
       </p>
 
-      <div className="mt-3 border-t border-portal-blue/15 pt-2.5">
+      <div className="mt-3 rounded-lg border border-muted/25 bg-white">
         <button
           type="button"
           aria-expanded={helpExpanded}
           onClick={() => setHelpExpanded((open) => !open)}
-          className="flex w-full items-center justify-between gap-2 text-left text-xs font-medium text-portal-navy/75 transition-colors hover:text-portal-blue"
+          className={`flex w-full cursor-pointer items-center justify-between gap-2 bg-white px-3.5 py-3 text-left text-xs font-medium text-portal-navy/75 transition-colors hover:bg-[#fafafa] ${
+            helpExpanded ? "rounded-t-lg border-b border-muted/20" : "rounded-lg"
+          }`}
         >
           <span className="flex min-w-0 items-center gap-1.5">
             <BookOpen className="h-3.5 w-3.5 shrink-0 text-portal-blue/70" aria-hidden="true" />
@@ -119,7 +112,7 @@ export function ClientPortalLinkCard() {
         </button>
 
         {helpExpanded ? (
-          <ul className="mt-2.5 space-y-2.5">
+          <ul className="space-y-2.5 rounded-b-lg bg-white px-3.5 pb-3.5 pt-3">
             {HELP_SECTIONS.map((section) => (
               <li key={section.title}>
                 <p className="text-[11px] font-semibold uppercase tracking-wide text-portal-navy/65">
@@ -131,6 +124,6 @@ export function ClientPortalLinkCard() {
           </ul>
         ) : null}
       </div>
-    </section>
+    </div>
   );
 }

@@ -13,25 +13,9 @@ import { NoticeBoardEditorModal } from "@/components/demo/client-portal/NoticeBo
 import { NoticeBoardHoverPreview } from "@/components/demo/client-portal/NoticeBoardHoverPreview";
 import { ClientPortalLinkCard } from "@/components/demo/client-portal/ClientPortalLinkCard";
 import { PortalColourControls } from "@/components/demo/client-portal/PortalColourControls";
+import { CustomiseSection } from "@/components/demo/client-portal/CustomiseSection";
 
 const ACCEPTED_LOGO_TYPES = ["image/png", "image/jpeg", "image/webp", "image/svg+xml"];
-
-function DesignSection({
-  title,
-  children,
-  className = "",
-}: {
-  title: string;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <section className={`border-b border-muted/15 pb-6 ${className}`}>
-      <h3 className="text-sm font-semibold text-portal-navy">{title}</h3>
-      {children}
-    </section>
-  );
-}
 
 function LogoPreview({ src, alt }: { src: string; alt: string }) {
   return (
@@ -78,13 +62,13 @@ function DesktopDesignControls({
   } | null>(null);
 
   return (
-    <>
-      <div className="border-b border-muted/15 pb-6">
+    <div className="space-y-2">
+      <CustomiseSection title="Client Portal Link">
         <ClientPortalLinkCard />
-      </div>
+      </CustomiseSection>
 
-      <DesignSection title="Branding">
-        <div className="mt-3 space-y-3">
+      <CustomiseSection title="Branding">
+        <div className="space-y-3">
           <label className="block">
             <span className="mb-1 block text-xs font-medium text-portal-navy/70">Company name</span>
             <input
@@ -108,10 +92,10 @@ function DesktopDesignControls({
             />
           </label>
         </div>
-      </DesignSection>
+      </CustomiseSection>
 
-      <DesignSection title="Logos">
-        <div className="mt-3 space-y-5">
+      <CustomiseSection title="Logos">
+        <div className="space-y-5">
           <div>
             <p className="text-xs font-medium text-portal-navy/70">Main Logo</p>
             <div className="mt-2 flex items-center gap-3">
@@ -202,12 +186,14 @@ function DesktopDesignControls({
             {state.logoError}
           </p>
         ) : null}
-      </DesignSection>
+      </CustomiseSection>
 
-      <PortalColourControls className="border-b border-muted/15 pb-6" />
+      <CustomiseSection title="Colour Controls">
+        <PortalColourControls />
+      </CustomiseSection>
 
-      <DesignSection title="Notice Board" className="border-b-0 pb-0">
-        <p className="mt-1 text-xs text-portal-navy/60">
+      <CustomiseSection title="Notice Board">
+        <p className="text-xs text-portal-navy/60">
           Choose which notice board is displayed in your Client Portal.
         </p>
         <button
@@ -283,7 +269,7 @@ function DesktopDesignControls({
             );
           })}
         </ul>
-      </DesignSection>
+      </CustomiseSection>
 
       <NoticeBoardHoverPreview
         board={noticeBoardHoverPreview?.board ?? null}
@@ -301,7 +287,7 @@ function DesktopDesignControls({
         initialBoard={editingNoticeBoard}
         onSave={onNoticeBoardSave}
       />
-    </>
+    </div>
   );
 }
 
@@ -321,12 +307,13 @@ function MobileDesignControls({
   );
 
   return (
-    <>
-      <div className="mb-6 border-b border-muted/15 pb-6">
+    <div className="space-y-2">
+      <CustomiseSection title="Client Portal Link">
         <ClientPortalLinkCard />
-      </div>
+      </CustomiseSection>
 
-      <p className="mb-4 flex items-start gap-2 rounded-lg border border-portal-blue/15 bg-portal-blue/5 px-3 py-2.5 text-xs leading-relaxed text-portal-navy/75">
+      <CustomiseSection title="Mobile Banner">
+        <p className="mb-4 flex items-start gap-2 rounded-lg border border-portal-blue/15 bg-portal-blue/5 px-3 py-2.5 text-xs leading-relaxed text-portal-navy/75">
         <Smartphone className="mt-0.5 h-3.5 w-3.5 shrink-0 text-portal-blue/70" aria-hidden="true" />
         <span>
           Open a folder on the phone preview to customise its design.
@@ -341,8 +328,7 @@ function MobileDesignControls({
         </span>
       </p>
 
-      <DesignSection title="Mobile Banner">
-        <div className="mt-3 flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           {state.mobileBannerUrl ? (
             <div className="aspect-[5/2] h-14 overflow-hidden rounded-lg border border-muted/20">
               <img
@@ -387,10 +373,12 @@ function MobileDesignControls({
             {state.logoError}
           </p>
         ) : null}
-      </DesignSection>
+      </CustomiseSection>
 
-      <PortalColourControls className="mb-6 border-b border-muted/15 pb-6" />
-    </>
+      <CustomiseSection title="Colour Controls">
+        <PortalColourControls />
+      </CustomiseSection>
+    </div>
   );
 }
 

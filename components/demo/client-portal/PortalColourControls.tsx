@@ -13,20 +13,13 @@ import { useDemoPortal } from "@/lib/demo/client-portal/context";
 import type { BrandPresetId, CoreBrandColourKey } from "@/lib/demo/client-portal/types";
 import { PortalColourSelector } from "@/components/demo/client-portal/PortalColourSelector";
 
-type PortalColourControlsProps = {
-  className?: string;
-};
-
-export function PortalColourControls({ className = "" }: PortalColourControlsProps) {
+export function PortalColourControls() {
   const { state, dispatch } = useDemoPortal();
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const coreColours = readCoreBrandColours(state);
 
   return (
-    <section className={className}>
-      <h3 className="text-sm font-semibold text-portal-navy">Colour Controls</h3>
-
-      <div className="mt-4 space-y-5">
+    <div className="space-y-5">
         <div>
           <p className="text-xs font-medium text-portal-navy/70">Brand Presets</p>
           <div className="mt-2 grid grid-cols-2 gap-2">
@@ -79,10 +72,10 @@ export function PortalColourControls({ className = "" }: PortalColourControlsPro
             type="button"
             aria-expanded={advancedOpen}
             onClick={() => setAdvancedOpen((open) => !open)}
-            className={`w-full cursor-pointer rounded-lg border px-3.5 py-3 text-left transition-colors ${
+            className={`w-full cursor-pointer border bg-white px-3.5 py-3 text-left transition-colors hover:bg-[#fafafa] ${
               advancedOpen
-                ? "border-portal-blue/30 bg-portal-blue/5"
-                : "border-muted/25 bg-muted/[0.35] hover:border-portal-blue/25 hover:bg-portal-blue/[0.04]"
+                ? "rounded-b-none rounded-t-lg border-muted/30 border-b border-muted/20"
+                : "rounded-lg border-muted/25 hover:border-muted/35"
             }`}
           >
             <div className="flex items-start justify-between gap-3">
@@ -105,7 +98,7 @@ export function PortalColourControls({ className = "" }: PortalColourControlsPro
           </button>
 
           {advancedOpen ? (
-            <div className="mt-3 space-y-4 rounded-lg border border-muted/15 bg-background/40 p-3.5">
+            <div className="mt-3 space-y-4 rounded-lg border border-muted/20 bg-white p-3.5">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-wide text-portal-navy/55">
                   Desktop
@@ -150,7 +143,6 @@ export function PortalColourControls({ className = "" }: PortalColourControlsPro
             </div>
           ) : null}
         </div>
-      </div>
-    </section>
+    </div>
   );
 }

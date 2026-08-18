@@ -67,9 +67,8 @@ export function PortalDomainSetting() {
   };
 
   return (
-    <article className="rounded-lg border border-muted/20 bg-background/40 p-4">
-      <h4 className="text-sm font-semibold text-portal-navy">Client Portal Domain</h4>
-      <p className="mt-1.5 text-xs leading-relaxed text-portal-navy/65">
+    <div>
+      <p className="text-xs leading-relaxed text-portal-navy/65">
         Use your own domain for the Client Portal, for example portal.yourcompany.com.
       </p>
 
@@ -187,6 +186,6 @@ export function PortalDomainSetting() {
           your portal will see your custom domain instead.
         </p>
       </div>
-    </article>
+    </div>
   );
 }

@@ -10,9 +10,8 @@ export function PortalPasswordSetting() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <article className="rounded-lg border border-muted/20 bg-background/40 p-4">
-      <h4 className="text-sm font-semibold text-portal-navy">Password on Client Portal</h4>
-      <p className="mt-1.5 text-xs leading-relaxed text-portal-navy/65">
+    <div>
+      <p className="text-xs leading-relaxed text-portal-navy/65">
         Add an extra password requirement for customers accessing your Client Portal.
       </p>
       <div className="mt-4 flex items-center gap-3 text-sm font-medium">
@@ -64,6 +63,6 @@ export function PortalPasswordSetting() {
           </p>
         </div>
       ) : null}
-    </article>
+    </div>
   );
 }

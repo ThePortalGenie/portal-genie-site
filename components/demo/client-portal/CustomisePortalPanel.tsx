@@ -84,9 +84,13 @@ export function CustomisePortalPanel() {
         </div>
 
         <div className="portal-customise-scroll min-h-0 flex-1 overflow-y-auto overflow-x-hidden px-4 py-4 pb-6">
-          {state.customiseTab === "design" ? <CustomiseDesignTab /> : null}
+          <div className={state.customiseTab !== "design" ? "hidden" : undefined}>
+            <CustomiseDesignTab />
+          </div>
           {state.customiseTab === "folder-management" ? <CustomiseFolderManagementTab /> : null}
-          {state.customiseTab === "settings" ? <CustomiseSettingsTab /> : null}
+          <div className={state.customiseTab !== "settings" ? "hidden" : undefined}>
+            <CustomiseSettingsTab />
+          </div>
         </div>
       </aside>
     </>

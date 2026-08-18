@@ -29,6 +29,8 @@ type PortalSettingToggleProps = {
   enabled: boolean;
   onChange: (enabled: boolean) => void;
   ariaLabel: string;
+  /** When true, omit outer card and heading — for use inside CustomiseSection. */
+  embedded?: boolean;
 };
 
 export function PortalSettingToggle({
@@ -37,16 +39,29 @@ export function PortalSettingToggle({
   enabled,
   onChange,
   ariaLabel,
+  embedded = false,
 }: PortalSettingToggleProps) {
-  return (
-    <article className="rounded-lg border border-muted/20 bg-background/40 p-4">
-      <h4 className="text-sm font-semibold text-portal-navy">{title}</h4>
-      <p className="mt-1.5 text-xs leading-relaxed text-portal-navy/65">{description}</p>
-      <div className="mt-4 flex items-center gap-3 text-sm font-medium">
+  const controls = (
+    <>
+      <p className={`text-xs leading-relaxed text-portal-navy/65 ${embedded ? "" : "mt-1.5"}`}>
+        {description}
+      </p>
+      <div className={`flex items-center gap-3 text-sm font-medium ${embedded ? "mt-4" : "mt-4"}`}>
         <span className={!enabled ? "text-portal-navy" : "text-portal-navy/45"}>Disable</span>
         <DemoToggle enabled={enabled} onChange={onChange} ariaLabel={ariaLabel} />
         <span className={enabled ? "text-portal-navy" : "text-portal-navy/45"}>Enable</span>
       </div>
+    </>
+  );
+
+  if (embedded) {
+    return controls;
+  }
+
+  return (
+    <article className="rounded-lg border border-muted/20 bg-background/40 p-4">
+      <h4 className="text-sm font-semibold text-portal-navy">{title}</h4>
+      {controls}
     </article>
   );
 }
