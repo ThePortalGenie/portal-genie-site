@@ -30,7 +30,7 @@ export default async function ClientPortalDemoPage({
   ]);
 
   if (verifiedSession?.verified || adminSession) {
-    return <ClientPortalDemo />;
+    return <ClientPortalDemo mode="public" />;
   }
 
   return <DemoAccessGate />;

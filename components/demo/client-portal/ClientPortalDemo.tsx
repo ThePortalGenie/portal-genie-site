@@ -1,6 +1,7 @@
 "use client";
 
 import { DemoPortalProvider, useDemoPortal } from "@/lib/demo/client-portal/context";
+import type { PortalDemoMode } from "@/lib/demo/client-portal/mode";
 import { DemoSidebar } from "@/components/demo/client-portal/DemoSidebar";
 import { DemoTopBar } from "@/components/demo/client-portal/DemoTopBar";
 import {
@@ -144,9 +145,13 @@ function ClientPortalDemoInner() {
   );
 }
 
-export function ClientPortalDemo() {
+type ClientPortalDemoProps = {
+  mode?: PortalDemoMode;
+};
+
+export function ClientPortalDemo({ mode = "public" }: ClientPortalDemoProps) {
   return (
-    <DemoPortalProvider>
+    <DemoPortalProvider mode={mode}>
       <ClientPortalDemoInner />
     </DemoPortalProvider>
   );

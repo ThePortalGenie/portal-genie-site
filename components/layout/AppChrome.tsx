@@ -7,7 +7,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ScrollToTopOnNavigate } from "@/components/layout/ScrollToTopOnNavigate";
 
 /** Routes that use their own campaign chrome instead of the main site header/footer */
-const CAMPAIGN_ROUTES = ["/xerocon", "/demo"];
+const CAMPAIGN_ROUTES = ["/xerocon", "/demo", "/internal/client-portal"];
 
 export function AppChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();

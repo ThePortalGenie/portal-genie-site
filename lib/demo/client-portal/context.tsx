@@ -14,9 +14,11 @@ import {
   getPayableInvoices,
   getSelectedPaymentTotal,
 } from "@/lib/demo/client-portal/state";
+import type { PortalDemoMode } from "@/lib/demo/client-portal/mode";
 import type { DemoPortalAction, DemoPortalState } from "@/lib/demo/client-portal/types";
 
 type DemoPortalContextValue = {
+  mode: PortalDemoMode;
   state: DemoPortalState;
   dispatch: (action: DemoPortalAction) => void;
   outstandingBalance: number;
@@ -26,12 +28,18 @@ type DemoPortalContextValue = {
 
 const DemoPortalContext = createContext<DemoPortalContextValue | null>(null);
 
-export function DemoPortalProvider({ children }: { children: ReactNode }) {
+type DemoPortalProviderProps = {
+  children: ReactNode;
+  mode?: PortalDemoMode;
+};
+
+export function DemoPortalProvider({ children, mode = "public" }: DemoPortalProviderProps) {
   const [state, dispatch] = useReducer(demoPortalReducer, undefined, createDemoPortalState);
 
   const value = useMemo(() => {
     const payableInvoices = getPayableInvoices(state.invoices);
     return {
+      mode,
       state,
       dispatch,
       outstandingBalance: getOutstandingBalance(state.invoices),
@@ -41,7 +49,7 @@ export function DemoPortalProvider({ children }: { children: ReactNode }) {
       ),
       payableInvoices,
     };
-  }, [state]);
+  }, [mode, state]);
 
   return (
     <DemoPortalContext.Provider value={value}>{children}</DemoPortalContext.Provider>
@@ -54,4 +62,8 @@ export function useDemoPortal() {
     throw new Error("useDemoPortal must be used within DemoPortalProvider");
   }
   return context;
+}
+
+export function usePortalDemoMode(): PortalDemoMode {
+  return useDemoPortal().mode;
 }
