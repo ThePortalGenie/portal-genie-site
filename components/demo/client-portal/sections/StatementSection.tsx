@@ -147,7 +147,7 @@ export function StatementSection() {
             <p className="font-bold">From:</p>
             <p>{companyName}</p>
             <p>{DEMO_ACCOUNTANT.email}</p>
-            <p>{DEMO_CUSTOMER.company}</p>
+            <p>{DEMO_CUSTOMER.companyName}</p>
             <p>0721038084</p>
           </div>
           <div className="space-y-0.5">

@@ -5,6 +5,10 @@ import { getVisiblePortalFolders } from "@/lib/demo/client-portal/folders";
 import { getPortalLogo } from "@/lib/demo/client-portal/portal-logo";
 import { formatCurrency } from "@/lib/demo/client-portal/format";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
+import {
+  getDemoWelcomeCustomer,
+  resolveWelcomeMessage,
+} from "@/lib/demo/client-portal/welcome-message";
 import { getMobileFolderIcon } from "@/components/demo/client-portal/mobile/folder-icons";
 import { MobileNoticeBoardView } from "@/components/demo/client-portal/mobile/MobileNoticeBoardView";
 import { MobilePortalContentRouter } from "@/components/demo/client-portal/mobile/MobilePortalContent";
@@ -12,6 +16,10 @@ import { MobilePortalContentRouter } from "@/components/demo/client-portal/mobil
 function MobilePortalHeader() {
   const { state } = useDemoPortal();
   const logoSrc = getPortalLogo(state);
+  const resolvedWelcomeMessage = resolveWelcomeMessage(
+    state.welcomeMessage,
+    getDemoWelcomeCustomer(),
+  );
 
   return (
     <header
@@ -22,7 +30,7 @@ function MobilePortalHeader() {
         <img src={logoSrc} alt="" className="h-7 w-7 object-contain" />
       </div>
       <p className="min-w-0 flex-1 truncate text-[13px] font-semibold text-[#112136]">
-        {state.customerName}
+        {resolvedWelcomeMessage}
       </p>
       <p className="max-w-[40%] truncate text-right text-[12px] font-medium text-[#112136]/80">
         {state.companyName}
@@ -34,7 +42,11 @@ function MobilePortalHeader() {
 function MobilePortalHome() {
   const { state, dispatch } = useDemoPortal();
   const folders = getVisiblePortalFolders(state.portalFolders);
-  const { mobileDesign, mobileBannerUrl, branding, customerName } = state;
+  const { mobileDesign, mobileBannerUrl, branding } = state;
+  const resolvedWelcomeMessage = resolveWelcomeMessage(
+    state.welcomeMessage,
+    getDemoWelcomeCustomer(),
+  );
 
   const openFolder = (folderId: string) => {
     dispatch({ type: "SET_SECTION", section: folderId });
@@ -44,7 +56,7 @@ function MobilePortalHome() {
   return (
     <>
       <div className="bg-white px-4 py-3">
-        <h1 className="text-[18px] font-bold text-[#112136]">Hi {customerName}</h1>
+        <h1 className="text-[18px] font-bold text-[#112136]">{resolvedWelcomeMessage}</h1>
       </div>
 
       <div className="px-3 pb-2">

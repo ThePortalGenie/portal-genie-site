@@ -20,6 +20,7 @@ export function captureCustomisationSnapshot(
   return {
     branding: { ...state.branding },
     companyName: state.companyName,
+    welcomeMessage: state.welcomeMessage,
     logoUrl: state.logoUrl,
     alternateLogoUrl: state.alternateLogoUrl,
     useAlternatePortalLogo: state.useAlternatePortalLogo,

@@ -14,6 +14,7 @@ import { NoticeBoardHoverPreview } from "@/components/demo/client-portal/NoticeB
 import { ClientPortalLinkCard } from "@/components/demo/client-portal/ClientPortalLinkCard";
 import { PortalColourControls } from "@/components/demo/client-portal/PortalColourControls";
 import { CustomiseSection } from "@/components/demo/client-portal/CustomiseSection";
+import { WelcomeMessageField } from "@/components/demo/client-portal/WelcomeMessageField";
 
 const ACCEPTED_LOGO_TYPES = ["image/png", "image/jpeg", "image/webp", "image/svg+xml"];
 
@@ -79,18 +80,10 @@ function DesktopDesignControls({
               className="w-full rounded-lg border border-muted/30 px-3 py-2 text-sm"
             />
           </label>
-          <label className="block">
-            <span className="mb-1 block text-xs font-medium text-portal-navy/70">
-              Welcome Message
-            </span>
-            <input
-              value={state.customerName}
-              onChange={(event) =>
-                dispatch({ type: "SET_CUSTOMER_NAME", name: event.target.value })
-              }
-              className="w-full rounded-lg border border-muted/30 px-3 py-2 text-sm"
-            />
-          </label>
+          <WelcomeMessageField
+            value={state.welcomeMessage}
+            onChange={(message) => dispatch({ type: "SET_WELCOME_MESSAGE", message })}
+          />
         </div>
       </CustomiseSection>
 

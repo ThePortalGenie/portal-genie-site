@@ -130,8 +130,9 @@ export const DEMO_ACCOUNTANT = {
 };
 
 export const DEMO_CUSTOMER = {
-  company: "Aurora Global",
+  firstName: "Geoff",
   contact: "Geoff Ferrier",
+  companyName: "Aurora Global",
   address: "18 Innovation Drive, Cape Town, 8001",
   email: "geoff.ferrier@auroraglobal.demo",
   accountNumber: "AG-10482",

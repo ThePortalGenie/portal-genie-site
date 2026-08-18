@@ -1,8 +1,10 @@
 import {
   DEFAULT_BRANDING,
+  DEMO_ACCOUNTANT,
   DEMO_CUSTOMER,
   DEMO_CUSTOM_DOMAIN_CNAME_TARGET,
 } from "@/lib/demo/client-portal/constants";
+import { DEFAULT_WELCOME_MESSAGE } from "@/lib/demo/client-portal/welcome-message";
 import {
   applyCoreBrandColours,
   PRESET_THEMES,
@@ -62,8 +64,9 @@ export function createDemoPortalState(): DemoPortalState {
     documents: initial.documents,
     payments: initial.payments,
     branding: { ...DEFAULT_BRANDING },
-    companyName: DEMO_CUSTOMER.company,
+    companyName: DEMO_ACCOUNTANT.name,
     customerName: DEMO_CUSTOMER.contact,
+    welcomeMessage: DEFAULT_WELCOME_MESSAGE,
     logoUrl: null,
     alternateLogoUrl: null,
     useAlternatePortalLogo: false,
@@ -206,8 +209,8 @@ export function demoPortalReducer(
     case "SET_COMPANY_NAME":
       return { ...state, companyName: action.name };
 
-    case "SET_CUSTOMER_NAME":
-      return { ...state, customerName: action.name };
+    case "SET_WELCOME_MESSAGE":
+      return { ...state, welcomeMessage: action.message };
 
     case "SET_LOGO": {
       if (state.logoUrl?.startsWith("blob:") && state.logoUrl !== action.logoUrl) {

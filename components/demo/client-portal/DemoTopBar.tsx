@@ -3,11 +3,19 @@
 import { Menu } from "lucide-react";
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
 import { formatCurrency } from "@/lib/demo/client-portal/format";
+import {
+  getDemoWelcomeCustomer,
+  resolveWelcomeMessage,
+} from "@/lib/demo/client-portal/welcome-message";
 
 export function DemoTopBar() {
   const { state, dispatch, selectedPaymentTotal } = useDemoPortal();
-  const { branding, customerName, previewMode, selectedInvoiceIds } = state;
+  const { branding, welcomeMessage, previewMode, selectedInvoiceIds } = state;
   const mobilePreview = previewMode === "mobile";
+  const resolvedWelcomeMessage = resolveWelcomeMessage(
+    welcomeMessage,
+    getDemoWelcomeCustomer(),
+  );
 
   const paymentLabel =
     selectedInvoiceIds.length > 0
@@ -35,7 +43,7 @@ export function DemoTopBar() {
         >
           <Menu className="h-5 w-5" />
         </button>
-        <p className="text-[14px] font-bold text-white">Hi {customerName}</p>
+        <p className="text-[14px] font-bold text-white">{resolvedWelcomeMessage}</p>
       </div>
 
       <div className="flex items-center gap-3">

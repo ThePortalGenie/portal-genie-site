@@ -218,6 +218,7 @@ export type PaymentRecord = {
 export type PortalCustomisationSnapshot = {
   branding: BrandingTheme;
   companyName: string;
+  welcomeMessage: string;
   logoUrl: string | null;
   alternateLogoUrl: string | null;
   useAlternatePortalLogo: boolean;
@@ -248,6 +249,7 @@ export type DemoPortalState = {
   branding: BrandingTheme;
   companyName: string;
   customerName: string;
+  welcomeMessage: string;
   logoUrl: string | null;
   alternateLogoUrl: string | null;
   useAlternatePortalLogo: boolean;
@@ -311,7 +313,7 @@ export type DemoPortalAction =
   | { type: "APPLY_PRESET"; presetId: BrandPresetId }
   | { type: "APPLY_CORE_BRAND_COLOUR"; key: CoreBrandColourKey; color: string }
   | { type: "SET_COMPANY_NAME"; name: string }
-  | { type: "SET_CUSTOMER_NAME"; name: string }
+  | { type: "SET_WELCOME_MESSAGE"; message: string }
   | { type: "SET_LOGO"; logoUrl: string | null }
   | { type: "SET_ALTERNATE_LOGO"; alternateLogoUrl: string | null }
   | { type: "SET_USE_ALTERNATE_PORTAL_LOGO"; enabled: boolean }

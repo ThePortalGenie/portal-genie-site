@@ -9,6 +9,7 @@ import {
   DemoPortalAdvertisingPanel,
 } from "@/components/demo/client-portal/DemoPortalAdvertisingPanel";
 import { DemoFloatingControls } from "@/components/demo/client-portal/DemoFloatingControls";
+import { ClientPortalSetupToolbar } from "@/components/demo/client-portal/ClientPortalSetupToolbar";
 import { CustomisePortalPanel } from "@/components/demo/client-portal/CustomisePortalPanel";
 import { PaymentModal } from "@/components/demo/client-portal/PaymentModal";
 import { UploadDocumentsModal } from "@/components/demo/client-portal/UploadDocumentsModal";
@@ -119,28 +120,53 @@ function PortalShell() {
 }
 
 function ClientPortalDemoInner() {
-  const { state } = useDemoPortal();
+  const { state, mode } = useDemoPortal();
   const mobilePreview = state.previewMode === "mobile";
+  const isInternal = mode === "internal";
 
-  return (
-    <div className="flex h-[100dvh] flex-col overflow-hidden bg-white">
-      <div className="shrink-0 border-b border-[#ececec] bg-[#fafafa] px-3 py-1">
-        <p className="text-center text-[10px] text-[#666]">
-          Demo Portal · Interactive demonstration — no real transactions
-        </p>
-      </div>
+  const demoNotice = (
+    <div className="shrink-0 border-b border-[#ececec] bg-[#fafafa] px-3 py-1">
+      <p className="text-center text-[10px] text-[#666]">
+        Demo Portal · Interactive demonstration — no real transactions
+      </p>
+    </div>
+  );
 
-      {mobilePreview ? (
-        <MobilePreviewArea interactiveCustomise={state.customiseOpen} />
-      ) : (
-        <PortalShell />
-      )}
+  const previewContent = mobilePreview ? (
+    <MobilePreviewArea interactiveCustomise={state.customiseOpen} />
+  ) : (
+    <PortalShell />
+  );
 
-      <DemoFloatingControls />
-      <CustomisePortalPanel />
+  const modals = (
+    <>
       <PaymentModal />
       <UploadDocumentsModal />
       <ResetConfirmModal />
+    </>
+  );
+
+  if (isInternal) {
+    return (
+      <div className="flex h-[100dvh] flex-col overflow-hidden bg-white">
+        <ClientPortalSetupToolbar />
+        {demoNotice}
+        <div className="relative min-h-0 flex-1 overflow-hidden">
+          {previewContent}
+          <CustomisePortalPanel contained />
+        </div>
+        {modals}
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex h-[100dvh] flex-col overflow-hidden bg-white">
+      {demoNotice}
+      {previewContent}
+      <DemoFloatingControls />
+      <CustomisePortalPanel />
+      {modals}
     </div>
   );
 }
