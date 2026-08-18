@@ -1,4 +1,4 @@
-import type { BrandingTheme, BrandPresetId } from "@/lib/demo/client-portal/types";
+import type { BrandingTheme, BrandPresetId, CustomDomainSubdomain } from "@/lib/demo/client-portal/types";
 
 /** Aurora Global reference portal — bright cyan shell. */
 export const DEFAULT_BRANDING: BrandingTheme = {
@@ -142,3 +142,17 @@ export const DEFAULT_LOGO_PATH = "/demo/client-portal/aurora-logo.svg";
 /** Demo Aurora Global client portal link — read-only in Customise → Design. */
 export const DEMO_CLIENT_PORTAL_LINK =
   "https://clients.theportalgenie.com/api/5f08a5e2c4b91d7a3f6e8901";
+
+/** Demo-only CNAME target for custom domain DNS configuration. */
+export const DEMO_CUSTOM_DOMAIN_CNAME_TARGET =
+  "5f08a5e2c4b91d7a3f6e8901.clients.theportalgenie.com";
+
+/** Subdomain options documented for Portal Genie custom portal domains. */
+export const CUSTOM_DOMAIN_SUBDOMAIN_OPTIONS: ReadonlyArray<{
+  value: CustomDomainSubdomain;
+  label: string;
+}> = [
+  { value: "portal", label: "portal" },
+  { value: "clients", label: "clients" },
+  { value: "my", label: "my" },
+];

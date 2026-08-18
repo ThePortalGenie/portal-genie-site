@@ -30,6 +30,10 @@ export function captureCustomisationSnapshot(
     portalFolders: clonePortalFolders(state.portalFolders),
     notificationEnabled: state.notificationEnabled,
     allowAdditionalContactsPortalAccess: state.allowAdditionalContactsPortalAccess,
+    portalPasswordEnabled: state.portalPasswordEnabled,
+    portalPassword: state.portalPassword,
+    customDomainSubdomain: state.customDomainSubdomain,
+    customDomainName: state.customDomainName,
   };
 }
 

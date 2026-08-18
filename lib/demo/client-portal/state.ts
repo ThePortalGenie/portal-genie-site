@@ -2,6 +2,7 @@ import {
   BRAND_PRESETS,
   DEFAULT_BRANDING,
   DEMO_CUSTOMER,
+  DEMO_CUSTOM_DOMAIN_CNAME_TARGET,
 } from "@/lib/demo/client-portal/constants";
 import {
   createCustomPortalFolder,
@@ -96,6 +97,13 @@ export function createDemoPortalState(): DemoPortalState {
     portalFolders: normalizePortalFolders(createInitialPortalFolders()),
     notificationEnabled: true,
     allowAdditionalContactsPortalAccess: true,
+    portalPasswordEnabled: false,
+    portalPassword: "",
+    customDomainSubdomain: "portal",
+    customDomainName: "",
+    customDomainDnsGenerated: false,
+    customDomainDnsRecord: null,
+    customDomainVerificationStatus: "idle",
     savedCustomisation: null,
     publishedCustomisation: null,
   };
@@ -566,6 +574,50 @@ export function demoPortalReducer(
 
     case "SET_ALLOW_ADDITIONAL_CONTACTS":
       return { ...state, allowAdditionalContactsPortalAccess: action.enabled };
+
+    case "SET_PORTAL_PASSWORD_ENABLED":
+      return { ...state, portalPasswordEnabled: action.enabled };
+
+    case "SET_PORTAL_PASSWORD":
+      return { ...state, portalPassword: action.password };
+
+    case "SET_CUSTOM_DOMAIN_SUBDOMAIN":
+      return {
+        ...state,
+        customDomainSubdomain: action.subdomain,
+        customDomainDnsGenerated: false,
+        customDomainDnsRecord: null,
+        customDomainVerificationStatus: "idle",
+      };
+
+    case "SET_CUSTOM_DOMAIN_NAME":
+      return {
+        ...state,
+        customDomainName: action.name,
+        customDomainDnsGenerated: false,
+        customDomainDnsRecord: null,
+        customDomainVerificationStatus: "idle",
+      };
+
+    case "GENERATE_CUSTOM_DOMAIN_DNS": {
+      const domainName = state.customDomainName.trim();
+      if (!domainName) {
+        return state;
+      }
+      return {
+        ...state,
+        customDomainDnsGenerated: true,
+        customDomainDnsRecord: {
+          type: "CNAME",
+          host: state.customDomainSubdomain,
+          value: DEMO_CUSTOM_DOMAIN_CNAME_TARGET,
+        },
+        customDomainVerificationStatus: "idle",
+      };
+    }
+
+    case "SET_CUSTOM_DOMAIN_VERIFICATION_STATUS":
+      return { ...state, customDomainVerificationStatus: action.status };
 
     case "SAVE_CUSTOMISATION":
       return {

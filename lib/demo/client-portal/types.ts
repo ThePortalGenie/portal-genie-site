@@ -195,6 +195,16 @@ export type BrandPresetId =
   | "modern-green"
   | "executive-dark";
 
+export type CustomDomainSubdomain = "portal" | "clients" | "my";
+
+export type DomainVerificationStatus = "idle" | "checking" | "verified";
+
+export type DemoDnsRecord = {
+  type: "CNAME";
+  host: string;
+  value: string;
+};
+
 export type PaymentRecord = {
   id: string;
   date: string;
@@ -216,6 +226,10 @@ export type PortalCustomisationSnapshot = {
   portalFolders: PortalFolderConfig[];
   notificationEnabled: boolean;
   allowAdditionalContactsPortalAccess: boolean;
+  portalPasswordEnabled: boolean;
+  portalPassword: string;
+  customDomainSubdomain: CustomDomainSubdomain;
+  customDomainName: string;
 };
 
 export type DemoPortalState = {
@@ -269,6 +283,13 @@ export type DemoPortalState = {
   portalFolders: PortalFolderConfig[];
   notificationEnabled: boolean;
   allowAdditionalContactsPortalAccess: boolean;
+  portalPasswordEnabled: boolean;
+  portalPassword: string;
+  customDomainSubdomain: CustomDomainSubdomain;
+  customDomainName: string;
+  customDomainDnsGenerated: boolean;
+  customDomainDnsRecord: DemoDnsRecord | null;
+  customDomainVerificationStatus: DomainVerificationStatus;
   savedCustomisation: PortalCustomisationSnapshot | null;
   publishedCustomisation: PortalCustomisationSnapshot | null;
 };
@@ -334,5 +355,11 @@ export type DemoPortalAction =
   | { type: "REMOVE_PORTAL_FOLDER"; folderId: string }
   | { type: "SET_NOTIFICATION_ENABLED"; enabled: boolean }
   | { type: "SET_ALLOW_ADDITIONAL_CONTACTS"; enabled: boolean }
+  | { type: "SET_PORTAL_PASSWORD_ENABLED"; enabled: boolean }
+  | { type: "SET_PORTAL_PASSWORD"; password: string }
+  | { type: "SET_CUSTOM_DOMAIN_SUBDOMAIN"; subdomain: CustomDomainSubdomain }
+  | { type: "SET_CUSTOM_DOMAIN_NAME"; name: string }
+  | { type: "GENERATE_CUSTOM_DOMAIN_DNS" }
+  | { type: "SET_CUSTOM_DOMAIN_VERIFICATION_STATUS"; status: DomainVerificationStatus }
   | { type: "SAVE_CUSTOMISATION" }
   | { type: "PUBLISH_CUSTOMISATION" };

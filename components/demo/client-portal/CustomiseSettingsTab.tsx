@@ -2,6 +2,8 @@
 
 import { useDemoPortal } from "@/lib/demo/client-portal/context";
 import { PortalSettingToggle } from "@/components/demo/client-portal/PortalSettingToggle";
+import { PortalPasswordSetting } from "@/components/demo/client-portal/PortalPasswordSetting";
+import { PortalDomainSetting } from "@/components/demo/client-portal/PortalDomainSetting";
 
 export function CustomiseSettingsTab() {
   const { state, dispatch } = useDemoPortal();
@@ -14,6 +16,8 @@ export function CustomiseSettingsTab() {
       </p>
 
       <div className="mt-4 space-y-4">
+        <PortalPasswordSetting />
+        <PortalDomainSetting />
         <PortalSettingToggle
           title="Allow Additional Contacts To Access The Portal"
           description="When enabled, additional contacts linked to the primary customer can be granted access to that customer's Client Portal."
