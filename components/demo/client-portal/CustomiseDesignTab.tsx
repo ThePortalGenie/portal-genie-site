@@ -100,6 +100,10 @@ function DesktopDesignControls({
 
   return (
     <>
+      <div className="border-b border-muted/15 pb-6">
+        <ClientPortalLinkCard />
+      </div>
+
       <DesignSection title="Branding">
         <p className="mt-1 text-xs text-portal-navy/60">Brand presets</p>
         <div className="mt-2 grid grid-cols-2 gap-2">
@@ -139,10 +143,6 @@ function DesktopDesignControls({
           </label>
         </div>
       </DesignSection>
-
-      <div className="border-b border-muted/15 pb-6">
-        <ClientPortalLinkCard />
-      </div>
 
       <DesignSection title="Logos">
         <div className="mt-3 space-y-5">
@@ -375,6 +375,10 @@ function MobileDesignControls({
 
   return (
     <>
+      <div className="mb-6 border-b border-muted/15 pb-6">
+        <ClientPortalLinkCard />
+      </div>
+
       <p className="mb-4 flex items-start gap-2 rounded-lg border border-portal-blue/15 bg-portal-blue/5 px-3 py-2.5 text-xs leading-relaxed text-portal-navy/75">
         <Smartphone className="mt-0.5 h-3.5 w-3.5 shrink-0 text-portal-blue/70" aria-hidden="true" />
         <span>
@@ -389,10 +393,6 @@ function MobileDesignControls({
           ) : null}
         </span>
       </p>
-
-      <div className="mb-6 border-b border-muted/15 pb-6">
-        <ClientPortalLinkCard />
-      </div>
 
       <DesignSection title="Mobile Banner">
         <div className="mt-3 flex flex-wrap items-center gap-3">
