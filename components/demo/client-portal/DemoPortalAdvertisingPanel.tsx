@@ -102,6 +102,13 @@ export function NoticeBoardCreative({ board }: { board: NoticeBoard }) {
   );
 }
 
+/** Desktop notice-board slot — top-aligned, independent of main content height. */
+function DesktopNoticeBoardSlot({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="aspect-square w-full max-w-full shrink-0">{children}</div>
+  );
+}
+
 export function DemoPortalAdvertisingPanel() {
   const { state } = useDemoPortal();
   const board = getActiveNoticeBoard(state.noticeBoards, state.activeNoticeBoardId);
@@ -112,12 +119,12 @@ export function DemoPortalAdvertisingPanel() {
 
   return (
     <aside
-      className="flex h-full min-h-0 items-center justify-center overflow-hidden border-l border-[#ececec] bg-white p-3"
+      className="flex h-full min-h-0 flex-col overflow-hidden border-l border-[#ececec] bg-white p-3"
       aria-label="Promotional banner"
     >
-      <NoticeBoardCanvas>
+      <DesktopNoticeBoardSlot>
         <NoticeBoardCreative board={board} />
-      </NoticeBoardCanvas>
+      </DesktopNoticeBoardSlot>
     </aside>
   );
 }

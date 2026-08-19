@@ -15,7 +15,7 @@ export default function InternalClientPortalLayout({
 }) {
   return (
     <div
-      className={montserrat.className}
+      className={`${montserrat.className} flex min-h-0 flex-1 flex-col`}
       style={{ fontFamily: "'Montserrat', sans-serif" }}
     >
       {children}

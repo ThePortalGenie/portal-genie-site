@@ -96,7 +96,7 @@ function PortalContentArea() {
 
 function PortalShell() {
   return (
-    <div className="grid min-h-0 flex-1 overflow-hidden lg:grid-cols-[minmax(200px,220px)_minmax(0,1fr)] lg:grid-rows-[auto_minmax(0,1fr)]">
+    <div className="grid h-full min-h-0 overflow-hidden lg:grid-cols-[minmax(200px,220px)_minmax(0,1fr)] lg:grid-rows-[auto_minmax(0,1fr)]">
       <DemoSidebar />
       <DemoSidebar mobile />
 
@@ -104,14 +104,14 @@ function PortalShell() {
         <DemoTopBar />
       </div>
 
-      <div className="grid min-h-0 min-w-0 overflow-hidden lg:col-start-2 lg:row-start-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <div className="flex min-h-0 min-w-0 flex-col overflow-hidden">
+      <div className="grid h-full min-h-0 min-w-0 grid-rows-[minmax(0,1fr)] overflow-hidden lg:col-start-2 lg:row-start-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <div className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden">
           <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
             <PortalContentArea />
           </div>
           <DemoPortalAdvertisingMobile />
         </div>
-        <div className="hidden min-h-0 min-w-0 overflow-hidden lg:block">
+        <div className="hidden h-full min-h-0 min-w-0 overflow-hidden lg:block">
           <DemoPortalAdvertisingPanel />
         </div>
       </div>
@@ -146,13 +146,16 @@ function ClientPortalDemoInner() {
     </>
   );
 
+  const previewPane = (
+    <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden">{previewContent}</div>
+  );
+
   if (isInternal) {
     return (
-      <div className="flex h-[100dvh] flex-col overflow-hidden bg-white">
+      <div className="flex h-dvh min-h-0 flex-col overflow-hidden bg-white">
         <ClientPortalSetupToolbar />
-        {demoNotice}
-        <div className="relative min-h-0 flex-1 overflow-hidden">
-          {previewContent}
+        <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden">
+          {previewPane}
           <CustomisePortalPanel contained />
         </div>
         {modals}
@@ -161,9 +164,9 @@ function ClientPortalDemoInner() {
   }
 
   return (
-    <div className="flex h-[100dvh] flex-col overflow-hidden bg-white">
+    <div className="flex h-dvh min-h-0 flex-col overflow-hidden bg-white">
       {demoNotice}
-      {previewContent}
+      {previewPane}
       <DemoFloatingControls />
       <CustomisePortalPanel />
       {modals}
