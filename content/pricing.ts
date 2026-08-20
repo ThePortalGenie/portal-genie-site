@@ -52,10 +52,10 @@ export const pricingCurrencies: {
   label: string;
   symbol: string;
 }[] = [
-  { code: "ZAR", label: "ZAR", symbol: "R" },
   { code: "USD", label: "USD", symbol: "$" },
   { code: "GBP", label: "GBP", symbol: "£" },
   { code: "EUR", label: "EUR", symbol: "€" },
+  { code: "ZAR", label: "ZAR", symbol: "R" },
   { code: "AED", label: "AED", symbol: "AED " },
 ];
 
