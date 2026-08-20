@@ -461,7 +461,7 @@ export const pricingPage = {
     },
   },
   currency: {
-    default: "ZAR" as CurrencyCode,
+    default: "USD" as CurrencyCode,
     billingPeriod: "per month",
     pricesIncludeVat: true,
     vatNote: "Prices include VAT",
