@@ -1,6 +1,6 @@
-import type { StatementEntry } from "@/lib/demo/client-portal/types";
-import type { DemoPortalState } from "@/lib/demo/client-portal/types";
-import { formatCurrency } from "@/lib/demo/client-portal/format";
+import type { StatementEntry } from "@/modules/client-portal-simulator/types";
+import type { DemoPortalState } from "@/modules/client-portal-simulator/types";
+import { formatCurrency } from "@/modules/client-portal-simulator/utils/format";
 
 export function buildStatementEntries(state: DemoPortalState): {
   entries: StatementEntry[];

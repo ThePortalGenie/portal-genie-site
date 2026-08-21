@@ -4,17 +4,17 @@ import { useRef, useState } from "react";
 import { Smartphone } from "lucide-react";
 import {
   DEFAULT_LOGO_PATH,
-} from "@/lib/demo/client-portal/constants";
-import { getVisiblePortalFolders } from "@/lib/demo/client-portal/folders";
-import { getPortalLogo, revokeBlobUrl } from "@/lib/demo/client-portal/portal-logo";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import type { DemoPortalState, NoticeBoard } from "@/lib/demo/client-portal/types";
-import { NoticeBoardEditorModal } from "@/components/demo/client-portal/NoticeBoardEditorModal";
-import { NoticeBoardHoverPreview } from "@/components/demo/client-portal/NoticeBoardHoverPreview";
-import { ClientPortalLinkCard } from "@/components/demo/client-portal/ClientPortalLinkCard";
-import { PortalColourControls } from "@/components/demo/client-portal/PortalColourControls";
-import { CustomiseSection } from "@/components/demo/client-portal/CustomiseSection";
-import { WelcomeMessageField } from "@/components/demo/client-portal/WelcomeMessageField";
+} from "@/modules/client-portal-simulator/data/constants";
+import { getVisiblePortalFolders } from "@/modules/client-portal-simulator/utils/folders";
+import { getPortalLogo, revokeBlobUrl } from "@/modules/client-portal-simulator/utils/portal-logo";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import type { DemoPortalState, NoticeBoard } from "@/modules/client-portal-simulator/types";
+import { NoticeBoardEditorModal } from "@/modules/client-portal-simulator/components/NoticeBoardEditorModal";
+import { NoticeBoardHoverPreview } from "@/modules/client-portal-simulator/components/NoticeBoardHoverPreview";
+import { ClientPortalLinkCard } from "@/modules/client-portal-simulator/components/ClientPortalLinkCard";
+import { PortalColourControls } from "@/modules/client-portal-simulator/components/PortalColourControls";
+import { CustomiseSection } from "@/modules/client-portal-simulator/components/CustomiseSection";
+import { WelcomeMessageField } from "@/modules/client-portal-simulator/components/WelcomeMessageField";
 
 const ACCEPTED_LOGO_TYPES = ["image/png", "image/jpeg", "image/webp", "image/svg+xml"];
 

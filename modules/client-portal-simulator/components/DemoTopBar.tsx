@@ -1,12 +1,12 @@
 "use client";
 
 import { Menu } from "lucide-react";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { formatCurrency } from "@/lib/demo/client-portal/format";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import { formatCurrency } from "@/modules/client-portal-simulator/utils/format";
 import {
   getDemoWelcomeCustomer,
   resolveWelcomeMessage,
-} from "@/lib/demo/client-portal/welcome-message";
+} from "@/modules/client-portal-simulator/utils/welcome-message";
 
 export function DemoTopBar() {
   const { state, dispatch, selectedPaymentTotal } = useDemoPortal();

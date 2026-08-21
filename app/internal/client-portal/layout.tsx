@@ -1,12 +1,5 @@
-import { Montserrat } from "next/font/google";
 import type { ReactNode } from "react";
-import "@/app/demo/client-portal/portal-statement-scroll.css";
-import "@/app/demo/client-portal/portal-customise-scroll.css";
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  display: "swap",
-});
+import { ClientPortalSimulatorLayout } from "@/modules/client-portal-simulator";
 
 export default function InternalClientPortalLayout({
   children,
@@ -14,11 +7,6 @@ export default function InternalClientPortalLayout({
   children: ReactNode;
 }) {
   return (
-    <div
-      className={`${montserrat.className} flex min-h-0 flex-1 flex-col`}
-      style={{ fontFamily: "'Montserrat', sans-serif" }}
-    >
-      {children}
-    </div>
+    <ClientPortalSimulatorLayout contained>{children}</ClientPortalSimulatorLayout>
   );
 }

@@ -1,8 +1,8 @@
 "use client";
 
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { DemoModal } from "@/components/demo/client-portal/DemoModal";
-import { PortalActionButton } from "@/components/demo/client-portal/PortalPrimitives";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import { DemoModal } from "@/modules/client-portal-simulator/components/DemoModal";
+import { PortalActionButton } from "@/modules/client-portal-simulator/components/PortalPrimitives";
 
 export function ResetConfirmModal() {
   const { state, dispatch } = useDemoPortal();

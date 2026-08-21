@@ -1,6 +1,6 @@
 "use client";
 
-import { isLightColor, normalizeHexColor } from "@/lib/demo/client-portal/color-contrast";
+import { isLightColor, normalizeHexColor } from "@/modules/client-portal-simulator/utils/color-contrast";
 
 type PortalColourSelectorProps = {
   label: string;

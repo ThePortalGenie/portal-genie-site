@@ -1,5 +1,5 @@
-import { DEFAULT_BRANDING } from "@/lib/demo/client-portal/constants";
-import type { MobileDesignTheme } from "@/lib/demo/client-portal/types";
+import { DEFAULT_BRANDING } from "@/modules/client-portal-simulator/data/constants";
+import type { MobileDesignTheme } from "@/modules/client-portal-simulator/types";
 
 export const DEFAULT_MOBILE_DESIGN: MobileDesignTheme = {
   tileIconColour: "#20385d",

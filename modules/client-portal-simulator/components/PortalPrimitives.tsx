@@ -9,7 +9,7 @@ import {
   Forward,
   SquarePen,
 } from "lucide-react";
-import type { BrandingTheme } from "@/lib/demo/client-portal/types";
+import type { BrandingTheme } from "@/modules/client-portal-simulator/types";
 
 /** Subtle portal control radius — matches original Portal Genie UI. */
 export const PORTAL_CONTROL_RADIUS = "rounded-[3px]";

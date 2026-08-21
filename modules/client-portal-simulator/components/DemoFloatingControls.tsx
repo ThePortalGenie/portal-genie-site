@@ -1,7 +1,7 @@
 "use client";
 
 import { Palette, RotateCcw } from "lucide-react";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
 
 export function DemoFloatingControls() {
   const { dispatch } = useDemoPortal();

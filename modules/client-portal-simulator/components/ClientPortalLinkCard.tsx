@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { BookOpen, Check, ChevronDown, Copy, ShieldCheck } from "lucide-react";
-import { DEMO_CLIENT_PORTAL_LINK } from "@/lib/demo/client-portal/constants";
+import { DEMO_CLIENT_PORTAL_LINK } from "@/modules/client-portal-simulator/data/constants";
 
 const COPY_FEEDBACK_MS = 2000;
 

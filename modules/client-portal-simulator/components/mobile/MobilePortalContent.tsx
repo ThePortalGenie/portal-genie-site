@@ -2,21 +2,21 @@
 
 import { useMemo } from "react";
 import { Eye } from "lucide-react";
-import { isDedicatedPortalSection } from "@/lib/demo/client-portal/folders";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { formatDate, formatCurrency } from "@/lib/demo/client-portal/format";
+import { isDedicatedPortalSection } from "@/modules/client-portal-simulator/utils/folders";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import { formatDate, formatCurrency } from "@/modules/client-portal-simulator/utils/format";
 import {
   formatInvoiceStatusLabel,
   sortInvoicesForDisplay,
-} from "@/lib/demo/client-portal/invoices";
-import { buildStatementEntries, formatAmountPlain } from "@/lib/demo/client-portal/statement";
+} from "@/modules/client-portal-simulator/utils/invoices";
+import { buildStatementEntries, formatAmountPlain } from "@/modules/client-portal-simulator/utils/statement";
 import {
   AgreementDocumentView,
   CreditNoteDocumentView,
   FinancialDocumentView,
   InvoiceDocumentView,
   QuoteDocumentView,
-} from "@/components/demo/client-portal/documents/DocumentViews";
+} from "@/modules/client-portal-simulator/components/documents/DocumentViews";
 
 function MobilePageHeading({ title }: { title: string }) {
   return <h2 className="px-3 pb-2 pt-3 text-[15px] font-bold text-[#112136]">{title}</h2>;

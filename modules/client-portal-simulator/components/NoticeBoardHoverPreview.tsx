@@ -2,11 +2,11 @@
 
 import { useLayoutEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import type { NoticeBoard } from "@/lib/demo/client-portal/types";
+import type { NoticeBoard } from "@/modules/client-portal-simulator/types";
 import {
   NoticeBoardCanvas,
   NoticeBoardCreative,
-} from "@/components/demo/client-portal/DemoPortalAdvertisingPanel";
+} from "@/modules/client-portal-simulator/components/DemoPortalAdvertisingPanel";
 
 const PREVIEW_WIDTH = 250;
 const PREVIEW_INNER_SIZE = PREVIEW_WIDTH - 16;

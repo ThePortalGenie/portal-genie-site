@@ -1,8 +1,8 @@
 "use client";
 
 import { Monitor, Smartphone } from "lucide-react";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import type { PreviewMode } from "@/lib/demo/client-portal/types";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import type { PreviewMode } from "@/modules/client-portal-simulator/types";
 
 function PreviewModeButton({
   mode,

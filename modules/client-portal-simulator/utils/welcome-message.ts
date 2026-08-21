@@ -1,4 +1,4 @@
-import { DEMO_CUSTOMER } from "@/lib/demo/client-portal/constants";
+import { DEMO_CUSTOMER } from "@/modules/client-portal-simulator/data/constants";
 
 export const WELCOME_PLACEHOLDER_FIRST_NAME = "{{ customer_first_name }}";
 export const WELCOME_PLACEHOLDER_COMPANY_NAME = "{{ customer_company_name }}";

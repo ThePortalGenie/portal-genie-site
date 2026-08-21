@@ -1,7 +1,7 @@
 "use client";
 
 import { RotateCcw, Settings } from "lucide-react";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
 
 export function ClientPortalSetupToolbar() {
   const { state, dispatch } = useDemoPortal();

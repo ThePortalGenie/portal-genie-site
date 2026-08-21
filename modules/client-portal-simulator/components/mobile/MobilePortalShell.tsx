@@ -1,17 +1,17 @@
 "use client";
 
 import { Home, LayoutPanelTop, Upload } from "lucide-react";
-import { getVisiblePortalFolders } from "@/lib/demo/client-portal/folders";
-import { getPortalLogo } from "@/lib/demo/client-portal/portal-logo";
-import { formatCurrency } from "@/lib/demo/client-portal/format";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
+import { getVisiblePortalFolders } from "@/modules/client-portal-simulator/utils/folders";
+import { getPortalLogo } from "@/modules/client-portal-simulator/utils/portal-logo";
+import { formatCurrency } from "@/modules/client-portal-simulator/utils/format";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
 import {
   getDemoWelcomeCustomer,
   resolveWelcomeMessage,
-} from "@/lib/demo/client-portal/welcome-message";
-import { getMobileFolderIcon } from "@/components/demo/client-portal/mobile/folder-icons";
-import { MobileNoticeBoardView } from "@/components/demo/client-portal/mobile/MobileNoticeBoardView";
-import { MobilePortalContentRouter } from "@/components/demo/client-portal/mobile/MobilePortalContent";
+} from "@/modules/client-portal-simulator/utils/welcome-message";
+import { getMobileFolderIcon } from "@/modules/client-portal-simulator/components/mobile/folder-icons";
+import { MobileNoticeBoardView } from "@/modules/client-portal-simulator/components/mobile/MobileNoticeBoardView";
+import { MobilePortalContentRouter } from "@/modules/client-portal-simulator/components/mobile/MobilePortalContent";
 
 function MobilePortalHeader() {
   const { state } = useDemoPortal();

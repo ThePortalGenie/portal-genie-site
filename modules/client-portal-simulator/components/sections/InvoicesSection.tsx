@@ -1,12 +1,12 @@
 "use client";
 
 import { useMemo } from "react";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { formatDate, formatCurrency } from "@/lib/demo/client-portal/format";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import { formatDate, formatCurrency } from "@/modules/client-portal-simulator/utils/format";
 import {
   formatInvoiceStatusLabel,
   sortInvoicesForDisplay,
-} from "@/lib/demo/client-portal/invoices";
+} from "@/modules/client-portal-simulator/utils/invoices";
 import {
   PortalIconActions,
   PortalPageHeading,
@@ -20,8 +20,8 @@ import {
   PortalTableHead,
   PortalTableHeadCell,
   PortalTableRow,
-} from "@/components/demo/client-portal/PortalPrimitives";
-import type { Invoice } from "@/lib/demo/client-portal/types";
+} from "@/modules/client-portal-simulator/components/PortalPrimitives";
+import type { Invoice } from "@/modules/client-portal-simulator/types";
 
 const SORT_COLUMNS: Array<{
   field: "number" | "amount" | "balance" | "dueDate";

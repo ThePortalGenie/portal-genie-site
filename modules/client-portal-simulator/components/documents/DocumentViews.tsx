@@ -5,14 +5,14 @@ import {
   calculateVat,
   formatDate,
   formatCurrency,
-} from "@/lib/demo/client-portal/format";
-import { DEMO_CUSTOMER } from "@/lib/demo/client-portal/constants";
-import { getPortalLogo } from "@/lib/demo/client-portal/portal-logo";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
+} from "@/modules/client-portal-simulator/utils/format";
+import { DEMO_CUSTOMER } from "@/modules/client-portal-simulator/data/constants";
+import { getPortalLogo } from "@/modules/client-portal-simulator/utils/portal-logo";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
 import {
   DocumentToolbar,
-} from "@/components/demo/client-portal/PortalPrimitives";
-import type { Invoice } from "@/lib/demo/client-portal/types";
+} from "@/modules/client-portal-simulator/components/PortalPrimitives";
+import type { Invoice } from "@/modules/client-portal-simulator/types";
 
 export function InvoiceDocumentView({ invoice }: { invoice: Invoice }) {
   const { state, dispatch } = useDemoPortal();

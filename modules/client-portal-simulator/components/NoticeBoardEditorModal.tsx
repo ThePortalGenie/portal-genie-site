@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { DemoModal } from "@/components/demo/client-portal/DemoModal";
-import { createCustomNoticeBoard } from "@/lib/demo/client-portal/notice-boards";
-import type { NoticeBoard } from "@/lib/demo/client-portal/types";
+import { DemoModal } from "@/modules/client-portal-simulator/components/DemoModal";
+import { createCustomNoticeBoard } from "@/modules/client-portal-simulator/utils/notice-boards";
+import type { NoticeBoard } from "@/modules/client-portal-simulator/types";
 
 const ACCEPTED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/webp", "image/svg+xml"];
 

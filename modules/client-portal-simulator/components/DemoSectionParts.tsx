@@ -1,4 +1,4 @@
-import type { InvoiceStatus, QuoteStatus, CreditNoteStatus, AgreementStatus } from "@/lib/demo/client-portal/types";
+import type { InvoiceStatus, QuoteStatus, CreditNoteStatus, AgreementStatus } from "@/modules/client-portal-simulator/types";
 
 const invoiceStyles: Record<InvoiceStatus, string> = {
   paid: "bg-emerald-50 text-emerald-700",

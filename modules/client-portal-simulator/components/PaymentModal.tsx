@@ -2,10 +2,10 @@
 
 import { useEffect } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { formatCurrency } from "@/lib/demo/client-portal/format";
-import { DemoModal } from "@/components/demo/client-portal/DemoModal";
-import { PortalActionButton } from "@/components/demo/client-portal/PortalPrimitives";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import { formatCurrency } from "@/modules/client-portal-simulator/utils/format";
+import { DemoModal } from "@/modules/client-portal-simulator/components/DemoModal";
+import { PortalActionButton } from "@/modules/client-portal-simulator/components/PortalPrimitives";
 
 export function PaymentModal() {
   const { state, dispatch, selectedPaymentTotal } = useDemoPortal();

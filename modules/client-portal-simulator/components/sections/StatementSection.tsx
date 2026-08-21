@@ -1,17 +1,17 @@
 "use client";
 
 import { Calendar, Download } from "lucide-react";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
 import {
   buildStatementEntries,
   formatStatementAmount,
   formatStatementDate,
   formatStatementPeriodDate,
-} from "@/lib/demo/client-portal/statement";
-import { formatCurrency } from "@/lib/demo/client-portal/format";
-import { DEMO_ACCOUNTANT, DEMO_CUSTOMER } from "@/lib/demo/client-portal/constants";
-import { getPortalLogo } from "@/lib/demo/client-portal/portal-logo";
-import { PORTAL_CONTROL_RADIUS } from "@/components/demo/client-portal/PortalPrimitives";
+} from "@/modules/client-portal-simulator/utils/statement";
+import { formatCurrency } from "@/modules/client-portal-simulator/utils/format";
+import { DEMO_ACCOUNTANT, DEMO_CUSTOMER } from "@/modules/client-portal-simulator/data/constants";
+import { getPortalLogo } from "@/modules/client-portal-simulator/utils/portal-logo";
+import { PORTAL_CONTROL_RADIUS } from "@/modules/client-portal-simulator/components/PortalPrimitives";
 
 const TX_COLUMN_WIDTHS = ["14%", "17%", "17%", "13%", "11%", "11%", "17%"] as const;
 

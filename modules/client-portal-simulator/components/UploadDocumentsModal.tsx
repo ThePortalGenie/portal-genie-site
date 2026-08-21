@@ -1,10 +1,10 @@
 "use client";
 
 import { useMemo, useRef } from "react";
-import { getUploadablePortalFolders } from "@/lib/demo/client-portal/folders";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { DemoModal } from "@/components/demo/client-portal/DemoModal";
-import { PortalActionButton } from "@/components/demo/client-portal/PortalPrimitives";
+import { getUploadablePortalFolders } from "@/modules/client-portal-simulator/utils/folders";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import { DemoModal } from "@/modules/client-portal-simulator/components/DemoModal";
+import { PortalActionButton } from "@/modules/client-portal-simulator/components/PortalPrimitives";
 
 export function UploadDocumentsModal() {
   const { state, dispatch } = useDemoPortal();

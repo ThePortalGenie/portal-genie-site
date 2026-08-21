@@ -1,8 +1,8 @@
 "use client";
 
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { getActiveNoticeBoard } from "@/lib/demo/client-portal/notice-boards";
-import type { NoticeBoard } from "@/lib/demo/client-portal/types";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import { getActiveNoticeBoard } from "@/modules/client-portal-simulator/utils/notice-boards";
+import type { NoticeBoard } from "@/modules/client-portal-simulator/types";
 
 /** Shared notice-board canvas — matches Portal Genie Promotion footprint (square, object-contain). */
 export function NoticeBoardCanvas({ children }: { children: React.ReactNode }) {

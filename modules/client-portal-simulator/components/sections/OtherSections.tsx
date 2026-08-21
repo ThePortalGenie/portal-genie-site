@@ -2,8 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { Upload } from "lucide-react";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { formatDate } from "@/lib/demo/client-portal/format";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import { formatDate } from "@/modules/client-portal-simulator/utils/format";
 import {
   PortalActionButton,
   PortalIconActions,
@@ -16,7 +16,7 @@ import {
   PortalTableHead,
   PortalTableHeadCell,
   PortalTableRow,
-} from "@/components/demo/client-portal/PortalPrimitives";
+} from "@/modules/client-portal-simulator/components/PortalPrimitives";
 
 export function CustomPortalFolderSection({ folderId }: { folderId: string }) {
   const { state, dispatch } = useDemoPortal();

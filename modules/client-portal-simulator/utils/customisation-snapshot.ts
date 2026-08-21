@@ -1,10 +1,10 @@
-import { normalizePortalFolders } from "@/lib/demo/client-portal/folders";
+import { normalizePortalFolders } from "@/modules/client-portal-simulator/utils/folders";
 import type {
   DemoPortalState,
   NoticeBoard,
   PortalCustomisationSnapshot,
   PortalFolderConfig,
-} from "@/lib/demo/client-portal/types";
+} from "@/modules/client-portal-simulator/types";
 
 function cloneNoticeBoards(boards: NoticeBoard[]): NoticeBoard[] {
   return boards.map((board) => ({ ...board }));

@@ -4,7 +4,7 @@ import { useRef } from "react";
 import {
   WELCOME_MESSAGE_PLACEHOLDERS,
   insertWelcomePlaceholder,
-} from "@/lib/demo/client-portal/welcome-message";
+} from "@/modules/client-portal-simulator/utils/welcome-message";
 
 type WelcomeMessageFieldProps = {
   value: string;

@@ -13,9 +13,9 @@ import {
   getOutstandingBalance,
   getPayableInvoices,
   getSelectedPaymentTotal,
-} from "@/lib/demo/client-portal/state";
-import type { PortalDemoMode } from "@/lib/demo/client-portal/mode";
-import type { DemoPortalAction, DemoPortalState } from "@/lib/demo/client-portal/types";
+} from "@/modules/client-portal-simulator/state/reducer";
+import type { PortalDemoMode } from "@/modules/client-portal-simulator/state/mode";
+import type { DemoPortalAction, DemoPortalState } from "@/modules/client-portal-simulator/types";
 
 type DemoPortalContextValue = {
   mode: PortalDemoMode;

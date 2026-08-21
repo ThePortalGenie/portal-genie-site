@@ -1,13 +1,13 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useDemoPortal, usePortalDemoMode } from "@/lib/demo/client-portal/context";
-import type { CustomiseTab } from "@/lib/demo/client-portal/types";
-import { CustomiseDesignTab } from "@/components/demo/client-portal/CustomiseDesignTab";
-import { CustomiseFolderManagementTab } from "@/components/demo/client-portal/CustomiseFolderManagementTab";
-import { CustomiseSettingsTab } from "@/components/demo/client-portal/CustomiseSettingsTab";
-import { PreviewModeSelector } from "@/components/demo/client-portal/PreviewModeSelector";
-import { CustomiseHeaderActions } from "@/components/demo/client-portal/CustomiseHeaderActions";
+import { useDemoPortal, usePortalDemoMode } from "@/modules/client-portal-simulator/state/context";
+import type { CustomiseTab } from "@/modules/client-portal-simulator/types";
+import { CustomiseDesignTab } from "@/modules/client-portal-simulator/components/CustomiseDesignTab";
+import { CustomiseFolderManagementTab } from "@/modules/client-portal-simulator/components/CustomiseFolderManagementTab";
+import { CustomiseSettingsTab } from "@/modules/client-portal-simulator/components/CustomiseSettingsTab";
+import { PreviewModeSelector } from "@/modules/client-portal-simulator/components/PreviewModeSelector";
+import { CustomiseHeaderActions } from "@/modules/client-portal-simulator/components/CustomiseHeaderActions";
 
 const CUSTOMISE_TABS: { id: CustomiseTab; label: string }[] = [
   { id: "design", label: "Design" },

@@ -1,10 +1,10 @@
 "use client";
 
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { PortalSettingToggle } from "@/components/demo/client-portal/PortalSettingToggle";
-import { PortalPasswordSetting } from "@/components/demo/client-portal/PortalPasswordSetting";
-import { PortalDomainSetting } from "@/components/demo/client-portal/PortalDomainSetting";
-import { CustomiseSection } from "@/components/demo/client-portal/CustomiseSection";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import { PortalSettingToggle } from "@/modules/client-portal-simulator/components/PortalSettingToggle";
+import { PortalPasswordSetting } from "@/modules/client-portal-simulator/components/PortalPasswordSetting";
+import { PortalDomainSetting } from "@/modules/client-portal-simulator/components/PortalDomainSetting";
+import { CustomiseSection } from "@/modules/client-portal-simulator/components/CustomiseSection";
 
 export function CustomiseSettingsTab() {
   const { state, dispatch } = useDemoPortal();

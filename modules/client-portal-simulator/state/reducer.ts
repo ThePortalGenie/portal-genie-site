@@ -3,13 +3,13 @@ import {
   DEMO_ACCOUNTANT,
   DEMO_CUSTOMER,
   DEMO_CUSTOM_DOMAIN_CNAME_TARGET,
-} from "@/lib/demo/client-portal/constants";
-import { DEFAULT_WELCOME_MESSAGE } from "@/lib/demo/client-portal/welcome-message";
+} from "@/modules/client-portal-simulator/data/constants";
+import { DEFAULT_WELCOME_MESSAGE } from "@/modules/client-portal-simulator/utils/welcome-message";
 import {
   applyCoreBrandColours,
   PRESET_THEMES,
   readCoreBrandColours,
-} from "@/lib/demo/client-portal/brand-colours";
+} from "@/modules/client-portal-simulator/utils/brand-colours";
 import {
   createCustomPortalFolder,
   createInitialPortalFolders,
@@ -20,21 +20,21 @@ import {
   normalizePortalFolder,
   normalizePortalFolders,
   reorderPortalFolders,
-} from "@/lib/demo/client-portal/folders";
+} from "@/modules/client-portal-simulator/utils/folders";
 import {
   createInitialNoticeBoards,
   DEFAULT_NOTICE_BOARD_ID,
   revokeNoticeBoardImages,
-} from "@/lib/demo/client-portal/notice-boards";
-import { revokeBlobUrl } from "@/lib/demo/client-portal/portal-logo";
-import { DEFAULT_MOBILE_DESIGN } from "@/lib/demo/client-portal/mobile-design";
-import { captureCustomisationSnapshot, cloneCustomisationSnapshot } from "@/lib/demo/client-portal/customisation-snapshot";
-import { createInitialState } from "@/lib/demo/client-portal/mock-data";
+} from "@/modules/client-portal-simulator/utils/notice-boards";
+import { revokeBlobUrl } from "@/modules/client-portal-simulator/utils/portal-logo";
+import { DEFAULT_MOBILE_DESIGN } from "@/modules/client-portal-simulator/utils/mobile-design";
+import { captureCustomisationSnapshot, cloneCustomisationSnapshot } from "@/modules/client-portal-simulator/utils/customisation-snapshot";
+import { createInitialState } from "@/modules/client-portal-simulator/data/mock-data";
 import type {
   DemoPortalAction,
   DemoPortalState,
   Invoice,
-} from "@/lib/demo/client-portal/types";
+} from "@/modules/client-portal-simulator/types";
 
 function deriveInvoiceStatus(invoice: Invoice): Invoice["status"] {
   if (invoice.balance <= 0) {

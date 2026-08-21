@@ -1,21 +1,21 @@
 import {
   BRAND_PRESETS,
   DEFAULT_BRANDING,
-} from "@/lib/demo/client-portal/constants";
+} from "@/modules/client-portal-simulator/data/constants";
 import {
   contrastForeground,
   contrastMobileForeground,
   mixHexColors,
   normalizeHexColor,
   PORTAL_DARK_TEXT,
-} from "@/lib/demo/client-portal/color-contrast";
-import { DEFAULT_MOBILE_DESIGN } from "@/lib/demo/client-portal/mobile-design";
+} from "@/modules/client-portal-simulator/utils/color-contrast";
+import { DEFAULT_MOBILE_DESIGN } from "@/modules/client-portal-simulator/utils/mobile-design";
 import type {
   BrandingTheme,
   BrandPresetId,
   CoreBrandColourKey,
   MobileDesignTheme,
-} from "@/lib/demo/client-portal/types";
+} from "@/modules/client-portal-simulator/types";
 
 export type { CoreBrandColourKey };
 

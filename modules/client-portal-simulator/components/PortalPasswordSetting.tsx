@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { DemoToggle } from "@/components/demo/client-portal/PortalSettingToggle";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import { DemoToggle } from "@/modules/client-portal-simulator/components/PortalSettingToggle";
 
 export function PortalPasswordSetting() {
   const { state, dispatch } = useDemoPortal();

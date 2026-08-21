@@ -6,10 +6,10 @@ import {
   canAllowUpload,
   canRenameFolder,
   getFolderNameValidationError,
-} from "@/lib/demo/client-portal/folders";
-import type { PortalFolderConfig } from "@/lib/demo/client-portal/types";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { DemoToggle } from "@/components/demo/client-portal/PortalSettingToggle";
+} from "@/modules/client-portal-simulator/utils/folders";
+import type { PortalFolderConfig } from "@/modules/client-portal-simulator/types";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import { DemoToggle } from "@/modules/client-portal-simulator/components/PortalSettingToggle";
 
 function FolderTypeBadge({ type }: { type: PortalFolderConfig["type"] }) {
   const className =

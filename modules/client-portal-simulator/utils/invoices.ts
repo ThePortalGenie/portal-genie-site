@@ -1,5 +1,5 @@
-import type { Invoice } from "@/lib/demo/client-portal/types";
-import type { DemoPortalState } from "@/lib/demo/client-portal/types";
+import type { Invoice } from "@/modules/client-portal-simulator/types";
+import type { DemoPortalState } from "@/modules/client-portal-simulator/types";
 
 export function sortInvoicesForDisplay(
   invoices: Invoice[],

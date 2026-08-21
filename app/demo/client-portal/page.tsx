@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { noIndexPageMetadata } from "@/config/seo";
-import { ClientPortalDemo } from "@/components/demo/client-portal/ClientPortalDemo";
+import { ClientPortalSimulator } from "@/modules/client-portal-simulator";
 import { DemoAccessGate } from "@/components/demo-access/DemoAccessGate";
 import { hasValidAdminDemoSession } from "@/lib/demo-auth/admin-session";
 import { getVerifiedDemoSession } from "@/lib/demo-auth/session";
@@ -30,7 +30,7 @@ export default async function ClientPortalDemoPage({
   ]);
 
   if (verifiedSession?.verified || adminSession) {
-    return <ClientPortalDemo mode="public" />;
+    return <ClientPortalSimulator mode="public" />;
   }
 
   return <DemoAccessGate />;

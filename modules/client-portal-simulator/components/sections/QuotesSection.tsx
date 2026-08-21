@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import { formatDate, formatCurrency } from "@/lib/demo/client-portal/format";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import { formatDate, formatCurrency } from "@/modules/client-portal-simulator/utils/format";
 import {
   PortalIconActions,
   PortalPageHeading,
@@ -15,7 +15,7 @@ import {
   PortalTableHead,
   PortalTableHeadCell,
   PortalTableRow,
-} from "@/components/demo/client-portal/PortalPrimitives";
+} from "@/modules/client-portal-simulator/components/PortalPrimitives";
 
 export function QuotesSection() {
   const { state, dispatch } = useDemoPortal();

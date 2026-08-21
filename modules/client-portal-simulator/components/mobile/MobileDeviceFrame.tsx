@@ -1,7 +1,7 @@
 "use client";
 
 import { BatteryFull, Signal, Wifi } from "lucide-react";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
 
 /** Outer chassis dimensions (portrait ~9:19.5) */
 export const MOBILE_DEVICE_WIDTH = 376;

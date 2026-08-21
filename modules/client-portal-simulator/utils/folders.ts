@@ -1,4 +1,4 @@
-import type { PortalFolderConfig } from "@/lib/demo/client-portal/types";
+import type { PortalFolderConfig } from "@/modules/client-portal-simulator/types";
 
 export function createInitialPortalFolders(): PortalFolderConfig[] {
   return [

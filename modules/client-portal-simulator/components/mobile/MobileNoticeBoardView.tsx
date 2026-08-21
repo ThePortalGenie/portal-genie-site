@@ -1,11 +1,11 @@
 "use client";
 
-import { getActiveNoticeBoard } from "@/lib/demo/client-portal/notice-boards";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
+import { getActiveNoticeBoard } from "@/modules/client-portal-simulator/utils/notice-boards";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
 import {
   NoticeBoardCanvas,
   NoticeBoardCreative,
-} from "@/components/demo/client-portal/DemoPortalAdvertisingPanel";
+} from "@/modules/client-portal-simulator/components/DemoPortalAdvertisingPanel";
 
 export function MobileNoticeBoardView() {
   const { state } = useDemoPortal();

@@ -1,5 +1,5 @@
-import { BANNER_ASSETS } from "@/lib/demo/client-portal/constants";
-import type { NoticeBoard } from "@/lib/demo/client-portal/types";
+import { BANNER_ASSETS } from "@/modules/client-portal-simulator/data/constants";
+import type { NoticeBoard } from "@/modules/client-portal-simulator/types";
 
 export const DEFAULT_NOTICE_BOARD_ID = "portal-genie";
 

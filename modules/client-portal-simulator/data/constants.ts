@@ -1,4 +1,4 @@
-import type { BrandingTheme, BrandPresetId, CustomDomainSubdomain } from "@/lib/demo/client-portal/types";
+import type { BrandingTheme, BrandPresetId, CustomDomainSubdomain } from "@/modules/client-portal-simulator/types";
 
 /** Aurora Global reference portal — bright cyan shell. */
 export const DEFAULT_BRANDING: BrandingTheme = {
@@ -93,7 +93,7 @@ export const BANNER_ASSETS: Record<
   { image?: string; alt: string }
 > = {
   "portal-genie": {
-    image: "/demo/client-portal/banners/demo-banner (21 x 21 cm).png",
+    image: "/client-portal-simulator/banners/demo-banner (21 x 21 cm).png",
     alt: "Portal Genie — Win This TV contest entry (Xerocon Denver)",
   },
   "tax-season": { alt: "Tax season reminder" },
@@ -138,7 +138,7 @@ export const DEMO_CUSTOMER = {
   accountNumber: "AG-10482",
 };
 
-export const DEFAULT_LOGO_PATH = "/demo/client-portal/aurora-logo.svg";
+export const DEFAULT_LOGO_PATH = "/client-portal-simulator/logos/aurora-logo.svg";
 
 /** Demo Aurora Global client portal link — read-only in Customise → Design. */
 export const DEMO_CLIENT_PORTAL_LINK =

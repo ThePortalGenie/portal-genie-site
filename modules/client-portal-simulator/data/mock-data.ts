@@ -6,7 +6,7 @@ import type {
   Invoice,
   PortalNote,
   Quote,
-} from "@/lib/demo/client-portal/types";
+} from "@/modules/client-portal-simulator/types";
 
 const standardLineItems = (description: string, subtotal: number) => [
   { description, quantity: 1, unitPrice: subtotal },

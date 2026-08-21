@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { noIndexPageMetadata } from "@/config/seo";
-import { ClientPortalDemo } from "@/components/demo/client-portal/ClientPortalDemo";
+import { ClientPortalSimulator } from "@/modules/client-portal-simulator";
 
 export const metadata: Metadata = noIndexPageMetadata({
   title: "Client Portal Demo (Internal) | The Portal Genie",
@@ -9,5 +9,5 @@ export const metadata: Metadata = noIndexPageMetadata({
 });
 
 export default function InternalClientPortalPage() {
-  return <ClientPortalDemo mode="internal" />;
+  return <ClientPortalSimulator mode="internal" />;
 }

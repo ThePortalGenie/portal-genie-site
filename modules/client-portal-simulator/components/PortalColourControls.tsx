@@ -2,16 +2,16 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { BRAND_PRESETS } from "@/lib/demo/client-portal/constants";
+import { BRAND_PRESETS } from "@/modules/client-portal-simulator/data/constants";
 import {
   CORE_BRAND_COLOUR_FIELDS,
   DESKTOP_ADVANCED_COLOUR_FIELDS,
   readCoreBrandColours,
-} from "@/lib/demo/client-portal/brand-colours";
-import { MOBILE_COLOUR_FIELDS } from "@/lib/demo/client-portal/mobile-design";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import type { BrandPresetId, CoreBrandColourKey } from "@/lib/demo/client-portal/types";
-import { PortalColourSelector } from "@/components/demo/client-portal/PortalColourSelector";
+} from "@/modules/client-portal-simulator/utils/brand-colours";
+import { MOBILE_COLOUR_FIELDS } from "@/modules/client-portal-simulator/utils/mobile-design";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import type { BrandPresetId, CoreBrandColourKey } from "@/modules/client-portal-simulator/types";
+import { PortalColourSelector } from "@/modules/client-portal-simulator/components/PortalColourSelector";
 
 export function PortalColourControls() {
   const { state, dispatch } = useDemoPortal();

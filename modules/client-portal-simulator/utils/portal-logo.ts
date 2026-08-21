@@ -1,5 +1,5 @@
-import { DEFAULT_LOGO_PATH } from "@/lib/demo/client-portal/constants";
-import type { DemoPortalState } from "@/lib/demo/client-portal/types";
+import { DEFAULT_LOGO_PATH } from "@/modules/client-portal-simulator/data/constants";
+import type { DemoPortalState } from "@/modules/client-portal-simulator/types";
 
 type PortalLogoState = Pick<
   DemoPortalState,

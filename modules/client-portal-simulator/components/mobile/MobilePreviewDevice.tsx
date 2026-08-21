@@ -5,8 +5,8 @@ import {
   MOBILE_DEVICE_HEIGHT,
   MOBILE_DEVICE_WIDTH,
   MobileDeviceFrame,
-} from "@/components/demo/client-portal/mobile/MobileDeviceFrame";
-import { MobilePortalShell } from "@/components/demo/client-portal/mobile/MobilePortalShell";
+} from "@/modules/client-portal-simulator/components/mobile/MobileDeviceFrame";
+import { MobilePortalShell } from "@/modules/client-portal-simulator/components/mobile/MobilePortalShell";
 
 const PREVIEW_PADDING = 32;
 
@@ -81,4 +81,4 @@ export {
   MOBILE_DEVICE_WIDTH,
   MOBILE_SCREEN_HEIGHT,
   MOBILE_SCREEN_WIDTH,
-} from "@/components/demo/client-portal/mobile/MobileDeviceFrame";
+} from "@/modules/client-portal-simulator/components/mobile/MobileDeviceFrame";

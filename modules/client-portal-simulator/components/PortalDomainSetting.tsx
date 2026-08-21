@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Check, Copy, Info } from "lucide-react";
-import { CUSTOM_DOMAIN_SUBDOMAIN_OPTIONS } from "@/lib/demo/client-portal/constants";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
-import type { CustomDomainSubdomain } from "@/lib/demo/client-portal/types";
+import { CUSTOM_DOMAIN_SUBDOMAIN_OPTIONS } from "@/modules/client-portal-simulator/data/constants";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import type { CustomDomainSubdomain } from "@/modules/client-portal-simulator/types";
 
 const COPY_FEEDBACK_MS = 2000;
 const VERIFY_DELAY_MS = 1500;

@@ -1,40 +1,40 @@
 "use client";
 
-import { DemoPortalProvider, useDemoPortal } from "@/lib/demo/client-portal/context";
-import type { PortalDemoMode } from "@/lib/demo/client-portal/mode";
-import { DemoSidebar } from "@/components/demo/client-portal/DemoSidebar";
-import { DemoTopBar } from "@/components/demo/client-portal/DemoTopBar";
+import { DemoPortalProvider, useDemoPortal } from "@/modules/client-portal-simulator/state/context";
+import type { PortalDemoMode } from "@/modules/client-portal-simulator/state/mode";
+import { DemoSidebar } from "@/modules/client-portal-simulator/components/DemoSidebar";
+import { DemoTopBar } from "@/modules/client-portal-simulator/components/DemoTopBar";
 import {
   DemoPortalAdvertisingMobile,
   DemoPortalAdvertisingPanel,
-} from "@/components/demo/client-portal/DemoPortalAdvertisingPanel";
-import { DemoFloatingControls } from "@/components/demo/client-portal/DemoFloatingControls";
-import { ClientPortalSetupToolbar } from "@/components/demo/client-portal/ClientPortalSetupToolbar";
-import { CustomisePortalPanel } from "@/components/demo/client-portal/CustomisePortalPanel";
-import { PaymentModal } from "@/components/demo/client-portal/PaymentModal";
-import { UploadDocumentsModal } from "@/components/demo/client-portal/UploadDocumentsModal";
-import { ResetConfirmModal } from "@/components/demo/client-portal/ResetConfirmModal";
-import { isDedicatedPortalSection } from "@/lib/demo/client-portal/folders";
-import { MobilePreviewArea } from "@/components/demo/client-portal/mobile/MobilePreviewDevice";
-import { InvoicesSection } from "@/components/demo/client-portal/sections/InvoicesSection";
-import { StatementSection } from "@/components/demo/client-portal/sections/StatementSection";
+} from "@/modules/client-portal-simulator/components/DemoPortalAdvertisingPanel";
+import { DemoFloatingControls } from "@/modules/client-portal-simulator/components/DemoFloatingControls";
+import { ClientPortalSetupToolbar } from "@/modules/client-portal-simulator/components/ClientPortalSetupToolbar";
+import { CustomisePortalPanel } from "@/modules/client-portal-simulator/components/CustomisePortalPanel";
+import { PaymentModal } from "@/modules/client-portal-simulator/components/PaymentModal";
+import { UploadDocumentsModal } from "@/modules/client-portal-simulator/components/UploadDocumentsModal";
+import { ResetConfirmModal } from "@/modules/client-portal-simulator/components/ResetConfirmModal";
+import { isDedicatedPortalSection } from "@/modules/client-portal-simulator/utils/folders";
+import { MobilePreviewArea } from "@/modules/client-portal-simulator/components/mobile/MobilePreviewDevice";
+import { InvoicesSection } from "@/modules/client-portal-simulator/components/sections/InvoicesSection";
+import { StatementSection } from "@/modules/client-portal-simulator/components/sections/StatementSection";
 import {
   CreditNotesSection,
   QuotesSection,
-} from "@/components/demo/client-portal/sections/QuotesSection";
+} from "@/modules/client-portal-simulator/components/sections/QuotesSection";
 import {
   AgreementsSection,
   CustomPortalFolderSection,
   FinancialStatementsSection,
   NotesSection,
-} from "@/components/demo/client-portal/sections/OtherSections";
+} from "@/modules/client-portal-simulator/components/sections/OtherSections";
 import {
   AgreementDocumentView,
   CreditNoteDocumentView,
   FinancialDocumentView,
   InvoiceDocumentView,
   QuoteDocumentView,
-} from "@/components/demo/client-portal/documents/DocumentViews";
+} from "@/modules/client-portal-simulator/components/documents/DocumentViews";
 
 function PortalContentArea() {
   const { state } = useDemoPortal();
@@ -119,7 +119,7 @@ function PortalShell() {
   );
 }
 
-function ClientPortalDemoInner() {
+function ClientPortalSimulatorInner() {
   const { state, mode } = useDemoPortal();
   const mobilePreview = state.previewMode === "mobile";
   const isInternal = mode === "internal";
@@ -174,14 +174,14 @@ function ClientPortalDemoInner() {
   );
 }
 
-type ClientPortalDemoProps = {
+type ClientPortalSimulatorProps = {
   mode?: PortalDemoMode;
 };
 
-export function ClientPortalDemo({ mode = "public" }: ClientPortalDemoProps) {
+export function ClientPortalSimulator({ mode = "public" }: ClientPortalSimulatorProps) {
   return (
     <DemoPortalProvider mode={mode}>
-      <ClientPortalDemoInner />
+      <ClientPortalSimulatorInner />
     </DemoPortalProvider>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useDemoPortal } from "@/lib/demo/client-portal/context";
+import { useDemoPortal } from "@/modules/client-portal-simulator/state/context";
 
 const FEEDBACK_MS = 2000;
 
